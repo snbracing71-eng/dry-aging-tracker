@@ -1,8 +1,8 @@
 {
-  "id": "agerlog-guild-v20",
-  "name": "Butcher Guild AgerLog",
-  "short_name": "Guild Ager",
-  "start_url": "/dry-aging-tracker/?app=v20",
+  "id": "agerlog-cabinet-v21",
+  "name": "AgerLog Chamber",
+  "short_name": "AgerLog",
+  "start_url": "/dry-aging-tracker/?v=21",
   "display": "standalone",
   "background_color": "#0c0a09",
   "theme_color": "#0c0a09"
