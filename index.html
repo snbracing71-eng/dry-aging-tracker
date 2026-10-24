@@ -8,10 +8,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href="manifest.json?v=9">
-  <!-- Option #3 Neon Cyan & Amber Pro-Gauge App Icon -->
+  <link rel="manifest" href="manifest.json?v=10">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='44' fill='%2305070a'/%3E%3Cpath d='M100 14 A86 86 0 0 0 100 186' fill='none' stroke='%2306b6d4' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M100 14 A86 86 0 0 1 100 186' fill='none' stroke='%23f59e0b' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M100 28 A72 72 0 0 0 100 172' fill='none' stroke='%2322d3ee' stroke-width='4.5' stroke-opacity='0.8'/%3E%3Cpath d='M100 28 A72 72 0 0 1 100 172' fill='none' stroke='%23fbbf24' stroke-width='4.5' stroke-opacity='0.8'/%3E%3Cpath d='M60 88 C52 70 66 52 84 54 C96 56 100 72 92 86 C84 98 66 102 60 88 Z' fill='none' stroke='%23fbbf24' stroke-width='5'/%3E%3Ccircle cx='78' cy='70' r='5' fill='none' stroke='%23fbbf24' stroke-width='4'/%3E%3Cpath d='M114 58 C128 56 144 74 134 96 L144 106 L128 104 L120 114 L120 98 C108 86 106 66 114 58 Z' fill='none' stroke='%2322d3ee' stroke-width='5' stroke-linejoin='round'/%3E%3Cpath d='M72 128 L108 112 L128 128 L128 148 L72 148 Z' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='92' cy='136' r='3.5' fill='%23fbbf24'/%3E%3Ccircle cx='112' cy='134' r='4' fill='%23fbbf24'/%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='44' fill='%2305070a'/%3E%3Cpath d='M100 14 A86 86 0 0 0 100 186' fill='none' stroke='%2306b6d4' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M100 14 A86 86 0 0 1 100 186' fill='none' stroke='%23f59e0b' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M100 28 A72 72 0 0 0 100 172' fill='none' stroke='%2322d3ee' stroke-width='4.5' stroke-opacity='0.8'/%3E%3Cpath d='M100 28 A72 72 0 0 1 100 172' fill='none' stroke='%23fbbf24' stroke-width='4.5' stroke-opacity='0.8'/%3E%3Cpath d='M60 88 C52 70 66 52 84 54 C96 56 100 72 92 86 C84 98 66 102 60 88 Z' fill='none' stroke='%23fbbf24' stroke-width='5'/%3E%3Ccircle cx='78' cy='70' r='5' fill='none' stroke='%23fbbf24' stroke-width='4'/%3E%3Cpath d='M114 58 C128 56 144 74 134 96 L144 106 L128 104 L120 114 L120 98 C108 86 106 66 114 58 Z' fill='none' stroke='%2322d3ee' stroke-width='5' stroke-linejoin='round'/%3E%3Cpath d='M72 128 L108 112 L128 128 L128 148 L72 148 Z' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='92' cy='136' r='3.5' fill='%23fbbf24'/%3E%3Ccircle cx='112' cy='134' r='4' fill='%23fbbf24'/%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #05070a;
@@ -34,15 +32,13 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 16px; line-height: 1.45;
     }
-
-    /* Tactical Header */
     header {
-      background: rgba(12, 16, 23, 0.96);
+      background: #0c1017;
       border-bottom: 2px solid var(--cyan);
       box-shadow: 0 2px 18px rgba(6, 182, 212, 0.2);
       padding: 12px 16px;
       display: flex; justify-content: space-between; align-items: center;
-      position: sticky; top: 0; z-index: 40; backdrop-filter: blur(8px);
+      position: sticky; top: 0; z-index: 40;
     }
     .brand { display: flex; align-items: center; gap: 10px; }
     .brand-logo-svg {
@@ -54,7 +50,6 @@
       font-size: 1.35rem; font-weight: 900; letter-spacing: -0.5px; margin: 0; color: #fff;
     }
     .brand-title span { color: var(--cyan-glow); }
-
     .header-right { display: flex; align-items: center; gap: 8px; }
     .unit-toggle {
       background: #111827; border: 1.5px solid var(--amber); color: var(--amber-glow);
@@ -64,14 +59,11 @@
       background: #111827; color: var(--cyan-glow); border: 1.5px solid var(--cyan);
       padding: 8px 12px; border-radius: 9px; font-size: 0.82rem; font-weight: 800; cursor: pointer;
     }
-
     main { padding: 16px; max-width: 600px; margin: 0 auto; }
     .sec-title {
       font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
       color: var(--cyan-glow); margin: 6px 0 10px 2px; font-weight: 800;
     }
-
-    /* Multi-Fridge Selector Bar */
     .fridge-bar {
       background: var(--card); border: 1.5px solid var(--border);
       border-radius: 14px; padding: 12px 14px; margin-bottom: 16px;
@@ -86,8 +78,6 @@
       background: #05070a; border: 1.5px solid #1e293b; border-radius: 9px;
       padding: 10px 12px; color: #fff; font-size: 1rem; font-weight: 700; width: 100%;
     }
-
-    /* 4-Tile Category Grid */
     .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
     .mode-tile {
       background: var(--card); border: 1.5px solid var(--border); border-radius: 14px;
@@ -102,8 +92,6 @@
     .m-icon { font-size: 2rem; line-height: 1; pointer-events: none; }
     .m-name { font-size: 1rem; font-weight: 800; color: #fff; display: block; pointer-events: none; }
     .m-sub { font-size: 0.76rem; color: var(--muted); display: block; pointer-events: none; }
-
-    /* Chamber Settings & Compatibility Panel */
     .chamber-panel {
       background: var(--card); border: 1.5px solid var(--border);
       border-radius: 14px; padding: 14px; margin-bottom: 18px;
@@ -122,8 +110,6 @@
       margin-top: 10px; font-size: 0.86rem; line-height: 1.45; color: #e2e8f0;
       background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px;
     }
-
-    /* Tactical Batch Card with Dual Circular Gauges */
     .tactical-card {
       background: var(--card); border: 1.5px solid var(--border);
       border-radius: 16px; padding: 16px; margin-bottom: 16px;
@@ -152,8 +138,6 @@
       width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
       font-size: 1.1rem; font-weight: 900; display: flex; align-items: center; justify-content: center;
     }
-
-    /* Dual Circular Ring Gauges */
     .gauges-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;
     }
@@ -165,12 +149,10 @@
     .ring-bg { fill: none; stroke: #1e293b; stroke-width: 9; }
     .ring-cyan {
       fill: none; stroke: var(--cyan-glow); stroke-width: 9; stroke-linecap: round;
-      filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.6));
       transition: stroke-dashoffset 0.4s ease;
     }
     .ring-amber {
       fill: none; stroke: var(--amber-glow); stroke-width: 9; stroke-linecap: round;
-      filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.6));
       transition: stroke-dashoffset 0.4s ease;
     }
     .ring-center {
@@ -179,8 +161,6 @@
     .ring-big { font-size: 1.35rem; font-weight: 900; color: #fff; line-height: 1; display: block; font-family: monospace; }
     .ring-sub { font-size: 0.68rem; color: var(--muted); font-weight: 700; text-transform: uppercase; margin-top: 3px; display: block; }
     .gauge-foot { font-size: 0.78rem; font-weight: 800; color: #cbd5e1; margin-top: 6px; }
-
-    /* Live Weight Strip */
     .weight-strip {
       display: flex; justify-content: space-between; align-items: center;
       background: #090d14; border: 1px solid #1e293b; border-radius: 10px;
@@ -189,7 +169,6 @@
     .w-item { text-align: center; }
     .w-lbl { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; font-weight: 700; }
     .w-val { font-size: 1.05rem; font-weight: 900; color: #fff; font-family: monospace; }
-
     .status-line {
       font-size: 0.85rem; font-weight: 700; padding: 8px 10px;
       border-radius: 8px; background: rgba(255,255,255,0.03); margin-bottom: 10px;
@@ -198,8 +177,6 @@
       background: rgba(245, 158, 11, 0.12); border-left: 3px solid var(--amber-glow);
       padding: 8px 10px; border-radius: 4px; font-size: 0.86rem; margin-bottom: 10px; color: #f3f4f6;
     }
-
-    /* Weigh-In Journey Log inside Card */
     .history-dropdown {
       margin-top: 10px; background: var(--card-inner); border: 1px solid var(--border);
       border-radius: 10px; padding: 10px 12px; font-size: 0.84rem; color: var(--muted);
@@ -209,8 +186,6 @@
       border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace;
     }
     .history-row:last-child { border-bottom: none; }
-
-    /* Historical Summary Card */
     .history-card {
       background: var(--card); border: 1.5px solid var(--border);
       border-radius: 16px; padding: 16px 18px; margin-top: 8px; margin-bottom: 20px;
@@ -223,8 +198,6 @@
     .hist-entry:last-child { padding-bottom: 0; }
     .hist-title { font-size: 0.92rem; font-weight: 700; color: #fff; }
     .hist-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-
-    /* Buttons */
     .btn {
       display: block; text-align: center; background: var(--cyan); color: #000;
       border: none; padding: 14px; border-radius: 12px;
@@ -235,8 +208,6 @@
     .btn-sec { background: #1e293b; color: #fff; }
     .btn-red { background: var(--red); color: #fff; }
     .btn-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-
-    /* Quick-Step Keypad Buttons */
     .quick-step-row {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px;
     }
@@ -244,12 +215,359 @@
       background: #111827; border: 1px solid var(--cyan); color: var(--cyan-glow);
       padding: 10px 4px; border-radius: 8px; font-weight: 800; font-size: 0.85rem; cursor: pointer;
     }
-
-    /* Bottom Floating Action Bar */
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0;
       background: linear-gradient(180deg, rgba(5,7,10,0) 0%, rgba(5,7,10,0.98) 30%);
       padding: 12px 16px 16px; max-width: 600px; margin: 0 auto; z-index: 30;
     }
     .btn-new-batch {
-      background: linear-gradient(90deg, #06b6d4
+      background: linear-gradient(90deg, #06b6d4 0%, #f59e0b 100%);
+      color: #05070a; border: none; border-radius: 12px;
+      padding: 16px; width: 100%; font-size: 1.05rem; font-weight: 900;
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35); cursor: pointer;
+    }
+    .modal {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.88); display: none;
+      align-items: center; justify-content: center; padding: 16px; z-index: 100;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--card); border: 1.5px solid var(--cyan);
+      border-radius: 16px; padding: 20px; width: 100%; max-width: 500px;
+      max-height: 90vh; overflow-y: auto;
+    }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.88rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
+    input, select, textarea {
+      width: 100%; background: #05070a; border: 1.5px solid #1e293b;
+      border-radius: 10px; padding: 13px; color: #fff; font-size: 1rem; font-weight: 700;
+    }
+    .imp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    textarea { resize: vertical; min-height: 80px; }
+    .callout {
+      background: rgba(6, 182, 212, 0.12); border: 1px solid var(--cyan);
+      border-radius: 10px; padding: 11px; font-size: 0.88rem; color: #e0f2fe; margin-top: 8px;
+    }
+    .step-box {
+      background: #070a0f; border: 1px solid #1e293b; border-radius: 10px;
+      padding: 13px; margin-bottom: 10px; font-size: 0.9rem;
+    }
+    .step-box strong { color: var(--amber-glow); font-size: 0.98rem; display: block; margin-bottom: 4px; }
+    .del-custom {
+      background: var(--red); color: #fff; border: none; padding: 6px 12px;
+      border-radius: 6px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: inline-block; margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <svg class="brand-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="200" height="200" rx="44" fill="#05070a"/>
+        <path d="M100 14 A86 86 0 0 0 100 186" fill="none" stroke="#06b6d4" stroke-width="8" stroke-linecap="round"/>
+        <path d="M100 14 A86 86 0 0 1 100 186" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+        <path d="M100 28 A72 72 0 0 0 100 172" fill="none" stroke="#22d3ee" stroke-width="4.5" stroke-opacity="0.8"/>
+        <path d="M100 28 A72 72 0 0 1 100 172" fill="none" stroke="#fbbf24" stroke-width="4.5" stroke-opacity="0.8"/>
+        <path d="M60 88 C52 70 66 52 84 54 C96 56 100 72 92 86 C84 98 66 102 60 88 Z" fill="none" stroke="#fbbf24" stroke-width="5"/>
+        <circle cx="78" cy="70" r="5" fill="none" stroke="#fbbf24" stroke-width="4"/>
+        <path d="M114 58 C128 56 144 74 134 96 L144 106 L128 104 L120 114 L120 98 C108 86 106 66 114 58 Z" fill="none" stroke="#22d3ee" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M72 128 L108 112 L128 128 L128 148 L72 148 Z" fill="none" stroke="#fbbf24" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="92" cy="136" r="3.5" fill="#fbbf24"/>
+        <circle cx="112" cy="134" r="4" fill="#fbbf24"/>
+      </svg>
+      <h1 class="brand-title">Ager<span>Log</span></h1>
+    </div>
+    <div class="header-right">
+      <button class="unit-toggle" id="unitToggleBtn" onclick="toggleUnitSystem()">⚖️ g / kg</button>
+      <button class="guide-btn" onclick="openModal('guideModal')">📋 Guide</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="fridge-bar">
+      <div class="fridge-header-row">
+        <span class="fridge-label">⚡ Active Aging Chamber:</span>
+        <button type="button" class="guide-btn" style="padding: 4px 9px; font-size: 0.74rem;" onclick="openManageFridges()">⚙️ Manage Fridges</button>
+      </div>
+      <select id="fridgeSelect" class="fridge-select" onchange="switchFridge(this.value)"></select>
+    </div>
+
+    <div class="sec-title">1. Select Category (Strictly 1 Active Category per Fridge):</div>
+
+    <div class="mode-grid">
+      <div class="mode-tile active" id="tile-meat" onclick="selectCategory('meat')">
+        <span class="m-icon">🥩</span>
+        <div><span class="m-name">Red Meat</span><span class="m-sub">Beef, Pork, Lamb</span></div>
+      </div>
+      <div class="mode-tile" id="tile-fish" onclick="selectCategory('fish')">
+        <span class="m-icon">🐟</span>
+        <div><span class="m-name">Seafood</span><span class="m-sub">Whole Fish</span></div>
+      </div>
+      <div class="mode-tile" id="tile-salami" onclick="selectCategory('salami')">
+        <span class="m-icon">🥓</span>
+        <div><span class="m-name">Salami</span><span class="m-sub">Cured Meats</span></div>
+      </div>
+      <div class="mode-tile" id="tile-cheese" onclick="selectCategory('cheese')">
+        <span class="m-icon">🧀</span>
+        <div><span class="m-name">Cheese</span><span class="m-sub">Hard Wheels</span></div>
+      </div>
+    </div>
+
+    <div id="chamberBanner"></div>
+    <div class="sec-title">2. Active Pro-Gauge Batches & Traceability:</div>
+    <div id="batchList"></div>
+    <div id="historicalSection"></div>
+  </main>
+
+  <div class="bottom-bar" id="bottomBarContainer"></div>
+
+  <!-- GUIDE MODAL -->
+  <div class="modal" id="guideModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:var(--cyan-glow);">📖 Tactical Dry Aging Checklist</h2>
+      <div class="step-box">
+        <strong>1. Active Dry Aging (MA400)</strong>
+        • Temp: 1.5°C–2°C | RH: 75%–80% | UVC ON.<br>
+        • Never wash meat with water. Blot bone-dry. Place Fat Side UP, Bones DOWN with 8cm air gaps.
+      </div>
+      <div class="step-box">
+        <strong>2. Harvesting & Trimming (Pellicle Excision)</strong>
+        • Weigh final cut, slice off 1–2mm leathery pellicle crust with a stiff boning knife.<br>
+        • Portion into thick steaks (38–50mm) so they sear cleanly without overcooking.
+      </div>
+      <div class="step-box">
+        <strong>3. Storage & Freezer Traceability</strong>
+        • Vacuum-seal steaks in barrier bags. Keeps chilled up to 30–45 days or frozen at -18°C for 12+ months with zero purge loss.
+      </div>
+      <button class="btn btn-cyan" onclick="closeModal('guideModal')">Close Guide</button>
+    </div>
+  </div>
+
+  <!-- MANAGE FRIDGES MODAL -->
+  <div class="modal" id="fridgesModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:var(--cyan-glow);">Manage Cabinets / Fridges</h2>
+      <div class="form-group">
+        <label>New Fridge Name</label>
+        <input type="text" id="newFridgeName" placeholder="e.g. Thermaster MA400 #2">
+      </div>
+      <button class="btn btn-cyan" onclick="addNewFridge()" style="margin-bottom:18px;">+ Add New Fridge</button>
+      <div id="fridgeListUI"></div>
+      <button class="btn btn-sec" onclick="closeModal('fridgesModal')" style="margin-top:18px;">Done</button>
+    </div>
+  </div>
+
+  <!-- ADD ITEM MODAL -->
+  <div class="modal" id="addModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:var(--cyan-glow);" id="addModalTitle">Add Item to Fridge</h2>
+      <div class="form-group">
+        <label>Tracking Batch Code / ID</label>
+        <input type="text" id="batchCode" placeholder="e.g. OP-RIB-001">
+      </div>
+      <div class="form-group">
+        <label>Choose Cut or Product</label>
+        <select id="cutSelect" onchange="checkCustomSelection()"></select>
+      </div>
+      <div class="form-group" id="customInputGroup" style="display:none;">
+        <label>Type Custom Item Name</label>
+        <input type="text" id="customCutName" placeholder="e.g. Wagyu Brisket">
+      </div>
+      <div id="customDeleteContainer" style="margin-bottom:12px; display:none;">
+        <button type="button" class="del-custom" onclick="deleteSelectedCustom()">🗑️ Delete Selected Custom Item</button>
+      </div>
+      <div id="cutTipBox" class="callout"></div>
+
+      <div class="form-group" id="addMetricGroup" style="margin-top:12px;">
+        <label>Starting Green Weight in Grams (e.g. 6500)</label>
+        <input type="number" id="inWeightGrams" placeholder="e.g. 6500">
+      </div>
+
+      <div class="form-group" id="addImperialGroup" style="margin-top:12px; display:none;">
+        <label>Starting Green Weight (Pounds & Ounces)</label>
+        <div class="imp-grid">
+          <input type="number" id="inWeightLbs" placeholder="Pounds (lb)">
+          <input type="number" step="0.1" id="inWeightOz" placeholder="Ounces (oz)">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Date Put in Fridge</label>
+        <input type="date" id="inDate">
+      </div>
+      <div class="form-group">
+        <label>Target Days</label>
+        <input type="number" id="inDays" value="35">
+      </div>
+      <div class="btn-pair">
+        <button class="btn btn-red" onclick="closeModal('addModal')">Cancel</button>
+        <button class="btn btn-amber" onclick="saveNewBatch()">Start Aging</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEIGH IN MODAL -->
+  <div class="modal" id="weighModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:var(--cyan-glow);">⚖️ Quick-Weigh Log</h2>
+      <input type="hidden" id="weighId">
+
+      <div class="form-group" id="weighMetricGroup">
+        <label>Current Scale Reading (grams)</label>
+        <input type="number" id="inNewWeightGrams" placeholder="e.g. 5850">
+        <div class="quick-step-row">
+          <button type="button" class="step-btn" onclick="stepWeight(-50)">-50g</button>
+          <button type="button" class="step-btn" onclick="stepWeight(-10)">-10g</button>
+          <button type="button" class="step-btn" onclick="stepWeight(10)">+10g</button>
+          <button type="button" class="step-btn" onclick="stepWeight(50)">+50g</button>
+        </div>
+      </div>
+
+      <div class="form-group" id="weighImperialGroup" style="display:none;">
+        <label>Current Scale Reading (lb / oz)</label>
+        <div class="imp-grid">
+          <input type="number" id="inNewWeightLbs" placeholder="Pounds (lb)">
+          <input type="number" step="0.1" id="inNewWeightOz" placeholder="Ounces (oz)">
+        </div>
+        <div class="quick-step-row">
+          <button type="button" class="step-btn" onclick="stepImperial(-4)">-4 oz</button>
+          <button type="button" class="step-btn" onclick="stepImperial(-1)">-1 oz</button>
+          <button type="button" class="step-btn" onclick="stepImperial(1)">+1 oz</button>
+          <button type="button" class="step-btn" onclick="stepImperial(4)">+4 oz</button>
+        </div>
+      </div>
+
+      <div class="btn-pair">
+        <button class="btn btn-red" onclick="closeModal('weighModal')">Cancel</button>
+        <button class="btn btn-cyan" onclick="saveNewWeight()">Save Weight</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HARVEST MODAL -->
+  <div class="modal" id="harvestModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:var(--amber-glow);">🔪 Harvest, Portion & Storage</h2>
+      <input type="hidden" id="harvestId">
+      <div class="form-group">
+        <label>Post-Aging Status / Step</label>
+        <select id="postStatus" onchange="updateHarvestDateLabel()">
+          <option value="Active in Agers">🥩 Active in Dry Ager</option>
+          <option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (30–45 Days Max)</option>
+          <option value="Deep Frozen (-18C)">🧊 Deep Frozen in Vacuum Seal (-18°C)</option>
+          <option value="Consumed / Enjoyed">🍽️ Consumed / Cooked & Eaten</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label id="dateLabel">Date Actioned</label>
+        <input type="date" id="actionDate">
+      </div>
+      <div class="form-group">
+        <label>Tasting & Sensory Notes (Aroma, Texture, Flavor Profile)</label>
+        <textarea id="tastingNotes" placeholder="e.g. Rich nutty hazelnut aroma, buttery finish, phenomenal tenderness at 38 days."></textarea>
+      </div>
+      <div class="btn-pair">
+        <button class="btn btn-red" onclick="closeModal('harvestModal')">Cancel</button>
+        <button class="btn btn-amber" onclick="saveHarvestDetails()">Save Lifecycle Record</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var DEFAULT_MODES = {
+      meat: {
+        name: "Red Meat, Pork & Lamb", shortBtn: "+ New Meat Batch", icon: "🥩", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON", uvcColor: "#10b981", targetLoss: 22,
+        rule: "✅ <b>Can Share:</b> Beef, Pork Loin, Lamb Racks, Venison.<br>🚫 <b>Keep Out:</b> Fish, Salami, Cheese.",
+        items: [
+          { name: "OP Rib / Standing Rib Roast", days: 35, tip: "🥩 Bone-in Export Rib. Place Fat UP, Bones DOWN." },
+          { name: "Beef Short Loin (T-Bone / Porterhouse)", days: 30, tip: "🥩 Whole bone-in saddle." },
+          { name: "Whole Striploin (Fat Cap On)", days: 35, tip: "🥩 Leave thick top fat cap 100% untrimmed." },
+          { name: "Pork Rack / Bone-In Loin", days: 18, tip: "🐖 Can share fridge with beef!" },
+          { name: "Lamb Saddle / Crown Rack", days: 16, tip: "🐑 Ready in 14–21 days." }
+        ]
+      },
+      fish: {
+        name: "Whole Fish & Seafood", shortBtn: "+ New Seafood Batch", icon: "🐟", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON", uvcColor: "#10b981", targetLoss: 15,
+        rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon.<br>🚫 <b>Run Alone:</b> Fish smells soak into beef/cheese.",
+        items: [
+          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 Scales ON, gills out, wipe cavity dry (no water)." },
+          { name: "Tuna Loin / Bonito", days: 12, tip: "🐟 Dab surface dry with paper towels for first 2 days." },
+          { name: "Whole Salmon / Ocean Trout", days: 7, tip: "🐟 Hang from tail hook or rack." }
+        ]
+      },
+      salami: {
+        name: "Salami & Charcuterie", shortBtn: "+ New Salami Batch", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444", targetLoss: 38,
+        rule: "✅ <b>Can Share:</b> Salami, Coppa, Pancetta.<br>🚫 <b>UVC MUST BE OFF:</b> UV light kills curing mould!",
+        items: [
+          { name: "Salami / Soppressata", days: 42, tip: "🥓 Ready at 35–40% weight loss. Keep UVC OFF." },
+          { name: "Whole Coppa / Capocollo", days: 60, tip: "🥓 Ready at 30–35% weight loss." },
+          { name: "Pancetta / Guanciale", days: 35, tip: "🥓 Target 30% weight loss." }
+        ]
+      },
+      cheese: {
+        name: "Cheese Aging", shortBtn: "+ New Cheese Batch", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444", targetLoss: 12,
+        rule: "✅ <b>Can Share:</b> Hard Cheeses (Cheddar, Gouda, Gruyere).<br>🚫 <b>Keep away from meat.</b>",
+        items: [
+          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 Flip every 3 days. Keep UVC OFF." },
+          { name: "Gouda / Edam Wheel", days: 45, tip: "🧀 High 85% humidity prevents cracking." },
+          { name: "Alpine / Gruyère Wheel", days: 75, tip: "🧀 Flip twice a week." }
+        ]
+      }
+    };
+
+    function safeJSON(key, fallback) {
+      try {
+        var val = localStorage.getItem(key);
+        return val ? JSON.parse(val) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    var fridges = safeJSON('dryAgeFridges', ["Thermaster MA400 #1"]);
+    if (!Array.isArray(fridges) || !fridges.length) fridges = ["Thermaster MA400 #1"];
+    var currentFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
+    if (fridges.indexOf(currentFridge) === -1) currentFridge = fridges[0];
+    var unitSystem = localStorage.getItem('dryAgeUnitSystem') || 'metric';
+
+    var items = safeJSON('dryAgeItemsV5', null);
+    if (!Array.isArray(items)) {
+      items = safeJSON('dryAgeItemsV4', safeJSON('dryAgeItemsV3', []));
+    }
+    if (!Array.isArray(items)) items = [];
+
+    var customItems = safeJSON('dryAgeCustomItemsV5', safeJSON('dryAgeCustomItemsV4', {meat:[],fish:[],salami:[],cheese:[]}));
+    var currentSelectedMode = 'meat';
+
+    function saveStorage() {
+      localStorage.setItem('dryAgeFridges', JSON.stringify(fridges));
+      localStorage.setItem('dryAgeCurrentFridge', currentFridge);
+      localStorage.setItem('dryAgeUnitSystem', unitSystem);
+      localStorage.setItem('dryAgeItemsV5', JSON.stringify(items));
+      localStorage.setItem('dryAgeCustomItemsV5', JSON.stringify(customItems));
+    }
+
+    function toggleUnitSystem() {
+      unitSystem = (unitSystem === 'metric') ? 'imperial' : 'metric';
+      saveStorage();
+      refreshUI();
+    }
+
+    function formatWeight(grams) {
+      var g = parseFloat(grams) || 0;
+      if (unitSystem === 'imperial') {
+        var totalOz = g / 28.3495231;
+        var lbs = Math.floor(totalOz / 16);
+        var oz = (totalOz % 16).toFixed(1);
+        return lbs + 'lb ' + oz + 'oz';
+      }
+      if (g >= 1000) {
+        return (g / 1000).toFixed(2) + 'kg (' + Math.round(g) + 'g)';
+      }
+      return Math.round(g) + 'g';
+    }
+
+    function formatShortWeight(grams) {
+      var g =
