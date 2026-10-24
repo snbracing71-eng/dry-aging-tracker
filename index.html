@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AgerLog - MA400 Hub</title>
+  <title>AgerLog - Multi-Fridge Master Hub</title>
   <meta name="theme-color" content="#0e1116">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23eab308' stroke-width='8'/%3E%3Ccircle cx='60' cy='60' r='38' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='69' font-family='sans-serif' font-size='26' font-weight='900' fill='%23eab308' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
@@ -35,6 +35,17 @@
     .sec-title {
       font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin: 6px 0 10px 2px; font-weight: 800;
     }
+
+    /* Fridge Selector Bar */
+    .fridge-bar {
+      background: #141922; border: 2px solid var(--gold); border-radius: 14px; padding: 14px; margin-bottom: 18px;
+    }
+    .fridge-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .fridge-label { font-size: 0.8rem; text-transform: uppercase; color: var(--gold); font-weight: 800; letter-spacing: 0.5px; }
+    .fridge-select {
+      background: #0b0e13; border: 2px solid #2e3846; border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 1rem; font-weight: 700; width: 100%;
+    }
+
     .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
     .mode-tile {
       background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 14px 12px;
@@ -43,9 +54,11 @@
     .mode-tile.active {
       border-color: var(--gold); background: rgba(234, 179, 8, 0.18); box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
     }
+    .mode-tile.locked { opacity: 0.4; filter: grayscale(50%); cursor: not-allowed; }
     .m-icon { font-size: 2.2rem; line-height: 1; pointer-events: none; }
     .m-name { font-size: 1.05rem; font-weight: 800; color: #fff; display: block; pointer-events: none; }
     .m-sub { font-size: 0.82rem; color: var(--muted); display: block; pointer-events: none; }
+
     .chamber-panel {
       background: #141922; border: 2px solid #2e3846; border-radius: 14px; padding: 16px; margin-bottom: 20px;
     }
@@ -109,36 +122,44 @@
   </header>
 
   <main>
-    <div class="sec-title">1. Tap What Is In Your Fridge:</div>
+    <!-- Fridge Selector Header Bar -->
+    <div class="fridge-bar">
+      <div class="fridge-header-row">
+        <span class="fridge-label">Active Aging Chamber:</span>
+        <button type="button" class="guide-btn" style="padding: 4px 8px; font-size: 0.75rem;" onclick="openManageFridges()">Manage Fridges</button>
+      </div>
+      <select id="fridgeSelect" class="fridge-select" onchange="switchFridge(this.value)"></select>
+    </div>
+
+    <div class="sec-title">1. Select Category (Strictly 1 Active Category per Fridge):</div>
 
     <div class="mode-grid">
-      <div class="mode-tile active" id="tile-meat" onclick="switchMode('meat')">
+      <div class="mode-tile active" id="tile-meat" onclick="selectCategory('meat')">
         <span class="m-icon">🥩</span>
         <div><span class="m-name">Red Meat</span><span class="m-sub">Beef, Pork, Lamb</span></div>
       </div>
-      <div class="mode-tile" id="tile-fish" onclick="switchMode('fish')">
+      <div class="mode-tile" id="tile-fish" onclick="selectCategory('fish')">
         <span class="m-icon">🐟</span>
         <div><span class="m-name">Seafood</span><span class="m-sub">Whole Fish</span></div>
       </div>
-      <div class="mode-tile" id="tile-salami" onclick="switchMode('salami')">
+      <div class="mode-tile" id="tile-salami" onclick="selectCategory('salami')">
         <span class="m-icon">🥓</span>
         <div><span class="m-name">Salami</span><span class="m-sub">Cured Meats</span></div>
       </div>
-      <div class="mode-tile" id="tile-cheese" onclick="switchMode('cheese')">
+      <div class="mode-tile" id="tile-cheese" onclick="selectCategory('cheese')">
         <span class="m-icon">🧀</span>
         <div><span class="m-name">Cheese</span><span class="m-sub">Hard Wheels</span></div>
       </div>
     </div>
 
     <div id="chamberBanner"></div>
-    <div class="sec-title">2. Your Active Batches:</div>
+    <div class="sec-title">2. Active Batch in This Fridge:</div>
     <div id="batchList"></div>
   </main>
 
-  <div class="bottom-bar">
-    <button class="btn" onclick="openAddModal()">+ Add New Item to Fridge</button>
-  </div>
+  <div class="bottom-bar" id="bottomBarContainer"></div>
 
+  <!-- FULL GUIDE MODAL -->
   <div class="modal" id="guideModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">📖 Step-by-Step Checklist</h2>
@@ -148,7 +169,7 @@
         • Ask the butcher to leave the <b>bones ON</b> and the <b>full fat cap UNTRIMMED</b>.
       </div>
       <div class="step-box">
-        <strong>Step 2: Cleaning the MA400 Fridge</strong>
+        <strong>Step 2: Cleaning the Cabinet</strong>
         • Take the pink Himalayan salt block out before cleaning.<br>
         • Wipe inside walls and wire racks with warm water, then spray with <b>70% Food-Grade Ethanol</b>.
       </div>
@@ -161,6 +182,22 @@
     </div>
   </div>
 
+  <!-- MANAGE FRIDGES MODAL -->
+  <div class="modal" id="fridgesModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:#fff;">Manage Cabinets / Fridges</h2>
+      <p style="font-size:0.9rem; color:var(--muted); margin-bottom:14px;">Add or rename your aging refrigerators (e.g. "Thermaster MA400 #1", "Garage Curing Fridge").</p>
+      <div class="form-group">
+        <label>New Fridge Name</label>
+        <input type="text" id="newFridgeName" placeholder="e.g. Thermaster MA400 #2">
+      </div>
+      <button class="btn" onclick="addNewFridge()" style="margin-bottom:20px;">+ Add New Fridge</button>
+      <div id="fridgeListUI"></div>
+      <button class="btn btn-sec" onclick="closeModal('fridgesModal')" style="margin-top:20px;">Done</button>
+    </div>
+  </div>
+
+  <!-- ADD ITEM MODAL -->
   <div class="modal" id="addModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;" id="addModalTitle">Add Item to Fridge</h2>
@@ -195,6 +232,7 @@
     </div>
   </div>
 
+  <!-- WEIGH IN MODAL -->
   <div class="modal" id="weighModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">⚖️ Enter New Weight</h2>
@@ -243,23 +281,96 @@
       }
     };
 
-    var currentMode = 'meat';
-    var items = JSON.parse(localStorage.getItem('dryAgeItems') || '[]');
-    var customItems = JSON.parse(localStorage.getItem('dryAgeCustomItems') || '{"meat":[],"fish":[],"salami":[],"cheese":[]}');
+    // Fridges & Batches storage initialization
+    var fridges = JSON.parse(localStorage.getItem('dryAgeFridges') || '["Thermaster MA400 #1"]');
+    var currentFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
+    var items = JSON.parse(localStorage.getItem('dryAgeItemsV3') || '[]');
+    var customItems = JSON.parse(localStorage.getItem('dryAgeCustomItemsV3') || '{"meat":[],"fish":[],"salami":[],"cheese":[]}');
 
-    function switchMode(m) {
-      currentMode = m;
-      document.querySelectorAll('.mode-tile').forEach(el => el.classList.remove('active'));
-      document.getElementById('tile-' + m).classList.add('active');
-      renderChamber();
-      renderList();
+    function saveStorage() {
+      localStorage.setItem('dryAgeFridges', JSON.stringify(fridges));
+      localStorage.setItem('dryAgeCurrentFridge', currentFridge);
+      localStorage.setItem('dryAgeItemsV3', JSON.stringify(items));
+      localStorage.setItem('dryAgeCustomItemsV3', JSON.stringify(customItems));
     }
 
-    function renderChamber() {
-      var m = DEFAULT_MODES[currentMode];
+    function renderFridgesDropdown() {
+      var sel = document.getElementById('fridgeSelect');
+      sel.innerHTML = fridges.map(f => '<option value="' + f + '" ' + (f === currentFridge ? 'selected' : '') + '>' + f + '</option>').join('');
+    }
+
+    function switchFridge(fName) {
+      currentFridge = fName;
+      saveStorage();
+      refreshUI();
+    }
+
+    function openManageFridges() {
+      var listUI = document.getElementById('fridgeListUI');
+      listUI.innerHTML = fridges.map((f, idx) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#0b0e13; border:1px solid #2e3846; padding:10px; border-radius:8px; margin-bottom:8px;">
+          <span style="font-weight:700; color:#fff;">${f}</span>
+          ${fridges.length > 1 ? '<button class="btn-sec" onclick="deleteFridge(\'' + f + '\')" style="background:#ef4444; color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:0.8rem;">Delete</button>' : '<span style="font-size:0.75rem; color:var(--muted);">Default</span>'}
+        </div>
+      `).join('');
+      openModal('fridgesModal');
+    }
+
+    function addNewFridge() {
+      var name = document.getElementById('newFridgeName').value.trim();
+      if (!name) { alert('Enter fridge name.'); return; }
+      if (fridges.includes(name)) { alert('Fridge already exists.'); return; }
+      fridges.push(name);
+      currentFridge = name;
+      document.getElementById('newFridgeName').value = '';
+      saveStorage();
+      renderFridgesDropdown();
+      openManageFridges();
+      refreshUI();
+    }
+
+    function deleteFridge(fName) {
+      if (confirm('Delete fridge "' + fName + '"? All active batches inside it will be removed.')) {
+        fridges = fridges.filter(f => f !== fName);
+        items = items.filter(i => (i.fridge || fridges[0]) !== fName);
+        currentFridge = fridges[0];
+        saveStorage();
+        renderFridgesDropdown();
+        openManageFridges();
+        refreshUI();
+      }
+    }
+
+    function getActiveCategoryInCurrentFridge() {
+      var fridgeItems = items.filter(i => (i.fridge || fridges[0]) === currentFridge);
+      if (fridgeItems.length > 0) {
+        return fridgeItems[0].mode; // Only 1 category allowed per fridge
+      }
+      return null;
+    }
+
+    function selectCategory(m) {
+      var activeCat = getActiveCategoryInCurrentFridge();
+      if (activeCat && activeCat !== m) {
+        alert('⚠️ Cabinet "' + currentFridge + '" currently has an active batch in "' + DEFAULT_MODES[activeCat].name + '". You cannot mix categories in the same fridge. Please harvest/clear the active batch or switch to another fridge to start a new category.');
+        return;
+      }
+      // If allowed, highlight tile
+      setActiveTile(m);
+    }
+
+    function setActiveTile(m) {
+      document.querySelectorAll('.mode-tile').forEach(el => el.classList.remove('active'));
+      document.getElementById('tile-' + m).classList.add('active');
+      renderChamber(m);
+      renderList(m);
+    }
+
+    function renderChamber(mKey) {
+      var m = DEFAULT_MODES[mKey];
       document.getElementById('chamberBanner').innerHTML = `
         <div class="chamber-panel">
-          <div class="chamber-head">⚙️ SET MA400 TO (${m.name.toUpperCase()})</div>
+          <div class="chamber-head">⚙️ (${currentFridge.toUpperCase()}) SET TO (${m.name.toUpperCase()})</div>
           <div class="metrics">
             <div class="m-box"><div class="m-lbl">Temp</div><div class="m-val">${m.temp}</div></div>
             <div class="m-box"><div class="m-lbl">Humidity</div><div class="m-val">${m.rh}</div></div>
@@ -273,29 +384,31 @@
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-    function getCombinedItems() {
-      var defs = DEFAULT_MODES[currentMode].items;
-      var cust = (customItems[currentMode] || []).map(c => ({ name: c, days: 35, tip: "Custom User Item", isCustom: true }));
+    function getCombinedItems(mKey) {
+      var defs = DEFAULT_MODES[mKey].items;
+      var cust = (customItems[mKey] || []).map(c => ({ name: c, days: 35, tip: "Custom User Item", isCustom: true }));
       return defs.concat(cust).concat([{ name: "➕ Other (Type custom item)...", days: 35, tip: "Type your own custom item below.", isOther: true }]);
     }
 
     function openAddModal() {
-      var m = DEFAULT_MODES[currentMode];
-      document.getElementById('addModalTitle').innerText = "Add " + m.name;
-      updateDropdown();
+      var activeCat = getActiveCategoryInCurrentFridge();
+      var targetCat = activeCat || 'meat'; // default to meat if empty
+
+      var m = DEFAULT_MODES[targetCat];
+      document.getElementById('addModalTitle').innerText = "Add " + m.name + " to " + currentFridge;
+      
+      var allItems = getCombinedItems(targetCat);
+      var sel = document.getElementById('cutSelect');
+      sel.innerHTML = allItems.map((it, idx) => '<option value="' + idx + '">' + it.name + '</option>').join('');
+      
       document.getElementById('inDate').value = new Date().toISOString().split('T')[0];
+      checkCustomSelection();
       openModal('addModal');
     }
 
-    function updateDropdown() {
-      var allItems = getCombinedItems();
-      var sel = document.getElementById('cutSelect');
-      sel.innerHTML = allItems.map((it, idx) => '<option value="' + idx + '">' + it.name + '</option>').join('');
-      checkCustomSelection();
-    }
-
     function checkCustomSelection() {
-      var allItems = getCombinedItems();
+      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
+      var allItems = getCombinedItems(activeCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       var customGrp = document.getElementById('customInputGroup');
@@ -321,20 +434,22 @@
     }
 
     function deleteSelectedCustom() {
-      var allItems = getCombinedItems();
+      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
+      var allItems = getCombinedItems(activeCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       if (item.isCustom) {
         if (confirm('Permanently delete custom item "' + item.name + '"?')) {
-          customItems[currentMode] = customItems[currentMode].filter(c => c !== item.name);
-          localStorage.setItem('dryAgeCustomItems', JSON.stringify(customItems));
-          updateDropdown();
+          customItems[activeCat] = customItems[activeCat].filter(c => c !== item.name);
+          saveStorage();
+          openAddModal();
         }
       }
     }
 
     function saveNewBatch() {
-      var allItems = getCombinedItems();
+      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
+      var allItems = getCombinedItems(activeCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       var itemName = item.name;
@@ -344,10 +459,10 @@
         var customVal = document.getElementById('customCutName').value.trim();
         if (!customVal) { alert('Please type a custom item name.'); return; }
         itemName = customVal;
-        if (!customItems[currentMode]) customItems[currentMode] = [];
-        if (!customItems[currentMode].includes(customVal)) {
-          customItems[currentMode].push(customVal);
-          localStorage.setItem('dryAgeCustomItems', JSON.stringify(customItems));
+        if (!customItems[activeCat]) customItems[activeCat] = [];
+        if (!customItems[activeCat].includes(customVal)) {
+          customItems[activeCat].push(customVal);
+          saveStorage();
         }
       }
 
@@ -357,16 +472,17 @@
 
       items.unshift({
         id: Date.now(),
-        mode: currentMode,
+        fridge: currentFridge,
+        mode: activeCat,
         name: itemName,
         startW: w,
         startD: d,
         days: t,
         history: [{ date: d, weight: w }]
       });
-      localStorage.setItem('dryAgeItems', JSON.stringify(items));
+      saveStorage();
       closeModal('addModal');
-      renderList();
+      refreshUI();
     }
 
     function promptWeigh(id) { document.getElementById('weighId').value = id; openModal('weighModal'); }
@@ -379,24 +495,28 @@
           x.history.push({ date: new Date().toISOString().split('T')[0], weight: w });
         }
       });
-      localStorage.setItem('dryAgeItems', JSON.stringify(items));
+      saveStorage();
       closeModal('weighModal');
-      renderList();
+      refreshUI();
     }
+
     function removeBatch(id) {
-      if (confirm('Delete this batch?')) {
+      if (confirm('Delete this batch? This will free up the cabinet category.')) {
         items = items.filter(x => x.id !== id);
-        localStorage.setItem('dryAgeItems', JSON.stringify(items));
-        renderList();
+        saveStorage();
+        refreshUI();
       }
     }
 
-    function renderList() {
-      var box = document.getElementById('batchList'), filtered = items.filter(x => (x.mode || 'meat') === currentMode);
+    function renderList(mKey) {
+      var box = document.getElementById('batchList');
+      var filtered = items.filter(x => (x.fridge || fridges[0]) === currentFridge && (x.mode || 'meat') === mKey);
+      
       if (!filtered.length) {
-        box.innerHTML = '<div class="card" style="text-align:center; color:var(--muted);">Nothing logged here yet. Tap below to add!</div>';
+        box.innerHTML = '<div class="card" style="text-align:center; color:var(--muted);">No active items in this category for <b>' + currentFridge + '</b>. Tap below to start a batch!</div>';
         return;
       }
+
       box.innerHTML = filtered.map(b => {
         var latestWeight = (b.history && b.history.length > 0) ? b.history[b.history.length - 1].weight : b.startW;
         var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
@@ -425,7 +545,18 @@
       }).join('');
     }
 
-    switchMode('meat');
+    function refreshUI() {
+      renderFridgesDropdown();
+      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
+      setActiveTile(activeCat);
+
+      // Manage bottom bar: if fridge already has an active category, restrict adding a *different* category
+      var bar = document.getElementById('bottomBarContainer');
+      bar.innerHTML = '<button class="btn" onclick="openAddModal()">+ Add New Item to ' + currentFridge + '</button>';
+    }
+
+    // Initial load
+    refreshUI();
   </script>
 </body>
 </html>
