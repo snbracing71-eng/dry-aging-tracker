@@ -230,7 +230,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div id="iWGrp" style="display:none"><label>Starting Weight (lb & oz)</label><div class="grid2"><input type="number" id="inLb" placeholder="lb"><input type="number" step="0.1" id="inOz" placeholder="oz"></div></div>
   <label>Date Placed in Chamber</label><input type="date" id="inDate">
   <label>Target Aging Days</label><input type="number" id="inDays" value="35">
-  <div class="grid2"><button class="btn b-red" onclick="closeM('addM')">Cancel</button><button class="btn b-gold" onclick="saveBatch()">Start Aging</button></div>
+  <div class="grid2"><button class="btn b-red" onclick="closeM('addM')">Cancel</button><button class="btn b-grn" onclick="saveBatch()">Start Aging</button></div>
 </div></div>
 
 <div class="modal" id="weighM"><div class="m-con">
@@ -248,7 +248,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <select id="hStat"><option value="Active in Agers">🥩 Active in Dry Ager</option><option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled</option><option value="Deep Frozen (-18C)">🧊 Deep Frozen (-18°C)</option><option value="Consumed / Enjoyed">🍽️ Consumed / Eaten</option></select>
   <label>Action Date</label><input type="date" id="hDate">
   <label>Tasting & Butcher Notes</label><textarea id="hNotes" rows="3" placeholder="e.g. Nutty aroma, 38 days, great yield."></textarea>
-  <div class="grid2"><button class="btn b-cop" onclick="closeM('harvM')">Cancel</button><button class="btn b-red" onclick="saveHarv()">Save Record</button></div>
+  <div class="grid2"><button class="btn b-red" onclick="closeM('harvM')">Cancel</button><button class="btn b-grn" onclick="saveHarv()">Save Record</button></div>
 </div></div>
 
 <script>
@@ -297,7 +297,6 @@ function refresh(){
     var lw=b.history&&b.history.length?b.history[b.history.length-1].weight:b.startW,el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/864e5)),ls=Math.max(0,((b.startW-lw)/b.startW)*100),dp=Math.min(100,Math.max(4,Math.round((el/b.days)*100))),lp=Math.min(100,Math.max(4,Math.round((ls/mo.loss)*100)));
     var hRows=(b.history||[{date:b.startD,weight:b.startW}]).map(h=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>📅 ${h.date}</span><b>${fmtW(h.weight)} (-${(((b.startW-h.weight)/b.startW)*100).toFixed(1)}%)</b></div>`).join('');
     
-    // Check Harvest Day / Day Before Notifications (Only when Active in Agers)
     var alertHTML = '';
     var ca = b.clearedAlerts || {};
     if((b.status||'Active in Agers')==='Active in Agers'){
