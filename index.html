@@ -7,7 +7,6 @@
 <meta name="theme-color" content="#0c0a09">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="AgeVault">
 <script>
 // Render 512x512 3D-Shaded Icon Option 1 (Hanging Marbled Rib Roast in Copper/Iron Cabinet)
 (function(){
@@ -87,7 +86,6 @@
   x.fillStyle = '#991b1b';
   x.beginPath(); x.moveTo(238,150); x.lineTo(272,155); x.lineTo(295,248); x.lineTo(225,245); x.closePath(); x.fill();
 
-  // Rich Creamy Wagyu-Style Marbling Veins
   x.strokeStyle = '#fef3c7'; x.lineCap = 'round'; x.lineJoin = 'round';
   var veins = [
     [8, [180,315, 228,282, 275,272, 338,295]],
@@ -102,7 +100,7 @@
   veins.forEach(function(v){
     x.lineWidth = v[0]; x.beginPath();
     x.moveTo(v[1][0], v[1][1]);
-    for(var j=2; j<v[1].length; j+=2) x.lineTo(v[1][j], v[1][j+1]);
+    for(var j=2; j<v.length; j+=2) x.lineTo(v[1][j], v[1][j+1]);
     x.stroke();
   });
   x.restore();
@@ -119,8 +117,8 @@
   });
 
   var mf = {
-    id: "agevault-v22",
-    name: "AgeVault",
+    id: "agevault-chamber-v22",
+    name: "AgeVault Chamber",
     short_name: "AgeVault",
     start_url: location.pathname + "?v=22",
     display: "standalone",
@@ -159,8 +157,12 @@ main{padding:16px;max-width:600px;margin:0 auto}
 .wstrip{display:flex;justify-content:space-between;background:var(--in);border:1.5px solid var(--bd);border-radius:12px;padding:12px 14px;margin:14px 0;text-align:center}
 .btn{border:none;padding:18px 14px;border-radius:14px;font-size:1.1rem;font-weight:900;cursor:pointer;width:100%;text-transform:uppercase;letter-spacing:.5px}
 .b-gold{background:linear-gradient(135deg,#facc15,#b45309);color:#140d06;border:2px solid #fef08a}
+.b-grn{background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;border:2px solid #86efac;box-shadow:0 4px 14px rgba(34,197,94,.3)}
+.b-red{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;border:2px solid #fca5a5;box-shadow:0 4px 14px rgba(220,38,38,.35)}
 .b-cop{background:linear-gradient(135deg,#ea580c,#9a3412);color:#fff;border:2px solid #fdba74}
-.b-red{background:#7f1d1d;color:#fff;border:2px solid #ef4444}
+.alert-banner{background:linear-gradient(135deg,#dc2626,#991b1b);color:#ffffff;border:2px solid #ffffff;border-radius:14px;padding:14px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 0 22px rgba(220,38,38,.75);animation:pulseAlert 1.8s infinite}
+@keyframes pulseAlert{0%,100%{transform:scale(1);box-shadow:0 0 18px rgba(220,38,38,.7)}50%{transform:scale(1.015);box-shadow:0 0 28px rgba(239,68,68,1)}}
+.clear-btn{background:#ffffff;color:#b91c1c;border:none;padding:10px 14px;border-radius:10px;font-weight:900;font-size:.9rem;cursor:pointer;white-space:nowrap;text-transform:uppercase;box-shadow:0 2px 8px rgba(0,0,0,.4)}
 .b-bar{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,transparent,#0c0a09 25%);padding:14px 16px 20px;max-width:600px;margin:0 auto;z-index:30}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:16px;z-index:100}
 .modal.active{display:flex}
@@ -183,12 +185,12 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 <main>
   <div class="bar">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <span style="font-size:.85rem;color:var(--glow);font-weight:900">🔥 ACTIVE AGING VAULT:</span>
+      <span style="font-size:.85rem;color:var(--glow);font-weight:900">🔥 ACTIVE AGING CHAMBER:</span>
       <button class="top-btn" style="padding:6px 12px;font-size:.82rem" onclick="openFridges()">⚙️ Fridges</button>
     </div>
     <select id="fridgeSel" onchange="switchFridge(this.value)" style="margin:0"></select>
   </div>
-  <div class="sec">1. Select Category (1 Per Vault):</div>
+  <div class="sec">1. Select Category (1 Per Fridge):</div>
   <div class="grid2">
     <div class="tile active" id="t-meat" onclick="selCat('meat')"><span style="font-size:2.3rem">🥩</span><div><b style="font-size:1.1rem;display:block">Red Meat</b><small style="color:var(--mu)">Beef, Pork, Lamb</small></div></div>
     <div class="tile" id="t-fish" onclick="selCat('fish')"><span style="font-size:2.3rem">🐟</span><div><b style="font-size:1.1rem;display:block">Seafood</b><small style="color:var(--mu)">Whole Fish</small></div></div>
@@ -203,7 +205,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 
 <div class="modal" id="guideM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">📖 AgeVault Master Checklist</h2>
-  <p><b>1. Vault Prep:</b> 1.5°C–2°C | 75–80% RH | UVC ON for Meat/Fish (UVC OFF for Salami/Cheese). Blot meat bone-dry; Fat UP, Bones DOWN.</p>
+  <p><b>1. Chamber Prep:</b> 1.5°C–2°C | 75–80% RH | UVC ON for Meat/Fish (UVC OFF for Salami/Cheese). Blot meat bone-dry; Fat UP, Bones DOWN.</p>
   <p><b>2. Harvest & Trim:</b> Shave 1–2mm dark pellicle crust with a stiff boning knife. Cut thick 38–50mm steaks.</p>
   <p><b>3. Freezer Traceability:</b> Vacuum seal in barrier bags. Chilled 30–45 days or frozen at -18°C for 12+ months.</p>
   <a id="dlIcon" download="agevault-icon.png" class="btn b-cop" style="display:block;text-align:center;text-decoration:none;margin-bottom:12px">📥 Download AgeVault Icon PNG</a>
@@ -211,7 +213,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 </div></div>
 
 <div class="modal" id="fridgeM"><div class="m-con">
-  <h2 style="margin-top:0;color:var(--glow)">⚙️ Manage Fridges / Vaults</h2>
+  <h2 style="margin-top:0;color:var(--glow)">⚙️ Manage Fridges</h2>
   <input id="newFName" placeholder="e.g. Thermaster MA400 #2">
   <button class="btn b-gold" onclick="addFridge()" style="margin-bottom:16px">+ Add Fridge</button>
   <div id="fList"></div>
@@ -226,7 +228,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div id="tipBox" style="background:rgba(212,175,55,.15);border:1px solid var(--gold);padding:12px;border-radius:10px;margin-bottom:12px;font-size:.95rem"></div>
   <div id="mWGrp"><label>Starting Weight (Grams)</label><input type="number" id="inW" placeholder="e.g. 6500"></div>
   <div id="iWGrp" style="display:none"><label>Starting Weight (lb & oz)</label><div class="grid2"><input type="number" id="inLb" placeholder="lb"><input type="number" step="0.1" id="inOz" placeholder="oz"></div></div>
-  <label>Date Placed in Vault</label><input type="date" id="inDate">
+  <label>Date Placed in Chamber</label><input type="date" id="inDate">
   <label>Target Aging Days</label><input type="number" id="inDays" value="35">
   <div class="grid2"><button class="btn b-red" onclick="closeM('addM')">Cancel</button><button class="btn b-gold" onclick="saveBatch()">Start Aging</button></div>
 </div></div>
@@ -236,17 +238,17 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <input type="hidden" id="wId">
   <div id="wMGrp"><label>Current Weight (Grams)</label><input type="number" id="nwG"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px"><button class="qbtn" onclick="stepG(-50)">-50g</button><button class="qbtn" onclick="stepG(-10)">-10g</button><button class="qbtn" onclick="stepG(10)">+10g</button><button class="qbtn" onclick="stepG(50)">+50g</button></div></div>
   <div id="wIGrp" style="display:none"><label>Current Weight (lb / oz)</label><div class="grid2"><input type="number" id="nwLb"><input type="number" step="0.1" id="nwOz"></div></div>
-  <div class="grid2"><button class="btn b-red" onclick="closeM('weighM')">Cancel</button><button class="btn b-gold" onclick="saveWeight()">Save Weight</button></div>
+  <div class="grid2"><button class="btn b-red" onclick="closeM('weighM')">Cancel</button><button class="btn b-grn" onclick="saveWeight()">Save Weight</button></div>
 </div></div>
 
 <div class="modal" id="harvM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">🔪 Harvest & Storage Notes</h2>
   <input type="hidden" id="hId">
   <label>Lifecycle Stage</label>
-  <select id="hStat"><option value="Active in Agers">🥩 Active in AgeVault</option><option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled</option><option value="Deep Frozen (-18C)">🧊 Deep Frozen (-18°C)</option><option value="Consumed / Enjoyed">🍽️ Consumed / Eaten</option></select>
+  <select id="hStat"><option value="Active in Agers">🥩 Active in Dry Ager</option><option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled</option><option value="Deep Frozen (-18C)">🧊 Deep Frozen (-18°C)</option><option value="Consumed / Enjoyed">🍽️ Consumed / Eaten</option></select>
   <label>Action Date</label><input type="date" id="hDate">
   <label>Tasting & Butcher Notes</label><textarea id="hNotes" rows="3" placeholder="e.g. Nutty aroma, 38 days, great yield."></textarea>
-  <div class="grid2"><button class="btn b-red" onclick="closeM('harvM')">Cancel</button><button class="btn b-gold" onclick="saveHarv()">Save Record</button></div>
+  <div class="grid2"><button class="btn b-cop" onclick="closeM('harvM')">Cancel</button><button class="btn b-red" onclick="saveHarv()">Save Record</button></div>
 </div></div>
 
 <script>
@@ -273,12 +275,13 @@ function delF(n){if(confirm('Delete '+n+'?')){fridges=fridges.filter(f=>f!==n);i
 function getList(m){return MODES[m].items.concat((cust[m]||[]).map(c=>({n:c,d:35,t:"Custom User Cut",c:1})),[{n:"➕ Other (Type Custom)...",d:35,t:"Enter custom name below.",o:1}]);}
 function openAdd(){var m=getActCat()||curM,ls=getList(m);document.getElementById('addTitle').innerText="Add to "+curF;document.getElementById('bCode').value='VAULT-'+Math.floor(1000+Math.random()*9000);document.getElementById('cutSel').innerHTML=ls.map((x,i)=>`<option value="${i}">${x.n}</option>`).join('');document.getElementById('mWGrp').style.display=unit==='metric'?'block':'none';document.getElementById('iWGrp').style.display=unit==='imperial'?'block':'none';document.getElementById('inDate').value=new Date().toISOString().split('T')[0];chkCut();openM('addM');}
 function chkCut(){var m=getActCat()||curM,it=getList(m)[document.getElementById('cutSel').value||0];document.getElementById('custBox').style.display=it.o?'block':'none';document.getElementById('inDays').value=it.d;document.getElementById('tipBox').innerHTML=it.t;}
-function saveBatch(){var m=getActCat()||curM,it=getList(m)[document.getElementById('cutSel').value||0],nm=it.n;if(it.o){nm=document.getElementById('custName').value.trim();if(!nm)return alert('Enter custom name');if(!cust[m].includes(nm))cust[m].push(nm);}var w=unit==='imperial'?Math.round(((parseFloat(document.getElementById('inLb').value)||0)*16+(parseFloat(document.getElementById('inOz').value)||0))*28.3495):parseFloat(document.getElementById('inW').value)||0;if(w<=0)return alert('Enter starting weight');var d=document.getElementById('inDate').value||new Date().toISOString().split('T')[0];items.unshift({id:Date.now(),code:document.getElementById('bCode').value,fridge:curF,mode:m,name:nm,startW:w,startD:d,days:parseInt(document.getElementById('inDays').value)||35,status:'Active in Agers',statusDate:d,notes:'',history:[{date:d,weight:w}]});save();closeM('addM');refresh();}
+function saveBatch(){var m=getActCat()||curM,it=getList(m)[document.getElementById('cutSel').value||0],nm=it.n;if(it.o){nm=document.getElementById('custName').value.trim();if(!nm)return alert('Enter custom name');if(!cust[m].includes(nm))cust[m].push(nm);}var w=unit==='imperial'?Math.round(((parseFloat(document.getElementById('inLb').value)||0)*16+(parseFloat(document.getElementById('inOz').value)||0))*28.3495):parseFloat(document.getElementById('inW').value)||0;if(w<=0)return alert('Enter starting weight');var d=document.getElementById('inDate').value||new Date().toISOString().split('T')[0];items.unshift({id:Date.now(),code:document.getElementById('bCode').value,fridge:curF,mode:m,name:nm,startW:w,startD:d,days:parseInt(document.getElementById('inDays').value)||35,status:'Active in Agers',statusDate:d,notes:'',clearedAlerts:{},history:[{date:d,weight:w}]});save();closeM('addM');refresh();}
 function openWeigh(id){document.getElementById('wId').value=id;var b=items.find(x=>x.id===id),w=b.history.length?b.history[b.history.length-1].weight:b.startW;document.getElementById('wMGrp').style.display=unit==='metric'?'block':'none';document.getElementById('wIGrp').style.display=unit==='imperial'?'block':'none';if(unit==='imperial'){var oz=w/28.3495;document.getElementById('nwLb').value=Math.floor(oz/16);document.getElementById('nwOz').value=(oz%16).toFixed(1);}else document.getElementById('nwG').value=Math.round(w);openM('weighM');}
 function stepG(d){document.getElementById('nwG').value=Math.max(0,(parseFloat(document.getElementById('nwG').value)||0)+d);}
 function saveWeight(){var id=parseInt(document.getElementById('wId').value),w=unit==='imperial'?Math.round(((parseFloat(document.getElementById('nwLb').value)||0)*16+(parseFloat(document.getElementById('nwOz').value)||0))*28.3495):parseFloat(document.getElementById('nwG').value)||0;if(w<=0)return;items.forEach(x=>{if(x.id===id)x.history.push({date:new Date().toISOString().split('T')[0],weight:w});});save();closeM('weighM');refresh();}
 function openHarv(id){document.getElementById('hId').value=id;var b=items.find(x=>x.id===id);document.getElementById('hStat').value=b.status||'Active in Agers';document.getElementById('hDate').value=b.statusDate||new Date().toISOString().split('T')[0];document.getElementById('hNotes').value=b.notes||'';openM('harvM');}
 function saveHarv(){var id=parseInt(document.getElementById('hId').value);items.forEach(x=>{if(x.id===id){x.status=document.getElementById('hStat').value;x.statusDate=document.getElementById('hDate').value;x.notes=document.getElementById('hNotes').value;}});save();closeM('harvM');refresh();}
+function clearAlert(id,type){items.forEach(x=>{if(x.id===id){if(!x.clearedAlerts)x.clearedAlerts={};x.clearedAlerts[type]=true;}});save();refresh();}
 function delB(id){if(confirm('Delete batch permanently?')){items=items.filter(x=>x.id!==id);save();refresh();}}
 function refresh(){
   document.getElementById('fridgeSel').innerHTML=fridges.map(f=>`<option value="${f}" ${f===curF?'selected':''}>${f}</option>`).join('');
@@ -293,7 +296,19 @@ function refresh(){
   document.getElementById('batchBox').innerHTML=fl.map(b=>{
     var lw=b.history&&b.history.length?b.history[b.history.length-1].weight:b.startW,el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/864e5)),ls=Math.max(0,((b.startW-lw)/b.startW)*100),dp=Math.min(100,Math.max(4,Math.round((el/b.days)*100))),lp=Math.min(100,Math.max(4,Math.round((ls/mo.loss)*100)));
     var hRows=(b.history||[{date:b.startD,weight:b.startW}]).map(h=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>📅 ${h.date}</span><b>${fmtW(h.weight)} (-${(((b.startW-h.weight)/b.startW)*100).toFixed(1)}%)</b></div>`).join('');
-    return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bd);padding-bottom:12px;margin-bottom:14px"><div><span class="tag">🏷️ ${b.code||'VAULT'}</span><h3 style="margin:4px 0;font-size:1.35rem;color:#fff">${mo.icon} ${b.name}</h3><small style="color:var(--mu);font-size:.9rem">In: ${b.startD} • Target: ${b.days} Days</small></div><button onclick="delB(${b.id})" style="background:#2a1815;color:#ef4444;border:2px solid #7f1d1d;width:44px;height:44px;border-radius:10px;font-size:1.2rem;font-weight:900">✕</button></div><div class="grid2"><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#facc15" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(dp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.45rem;color:#fff;display:block">${el}</b><small style="color:var(--mu);font-size:.75rem;font-weight:800">OF ${b.days} DAYS</small></div><div style="margin-top:6px;font-weight:800;font-size:.88rem;color:var(--glow)">⏱️ ${dp}% Aged</div></div><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(lp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.45rem;color:#fff;display:block">-${ls.toFixed(1)}%</b><small style="color:var(--mu);font-size:.75rem;font-weight:800">GOAL ~${mo.loss}%</small></div><div style="margin-top:6px;font-weight:800;font-size:.88rem;color:#fdba74">💧 Water Loss</div></div></div><div class="wstrip"><div><small style="color:var(--mu);display:block">START</small><b style="font-size:1.15rem">${fmtW(b.startW)}</b></div><div><small style="color:var(--mu);display:block">NOW</small><b style="font-size:1.15rem;color:var(--glow)">${fmtW(lw)}</b></div><div><small style="color:var(--mu);display:block">SHED</small><b style="font-size:1.15rem;color:var(--cop)">-${fmtW(Math.max(0,b.startW-lw))}</b></div></div><div style="padding:10px;background:rgba(255,255,255,.04);border-radius:10px;font-weight:800;color:var(--glow);margin-bottom:10px">📍 Status: ${b.status||'Active'} (${b.statusDate||b.startD})</div>${b.notes?`<div style="background:rgba(212,175,55,.12);border-left:4px solid var(--gold);padding:10px;margin-bottom:10px;font-size:.95rem"><b>📝 Notes:</b> ${b.notes}</div>`:''}<div style="background:var(--in);border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:.92rem;margin-bottom:14px"><b style="color:var(--gold);display:block;margin-bottom:4px">📊 Weigh-In Log:</b>${hRows}</div><div class="grid2" style="margin:0"><button class="btn b-gold" onclick="openWeigh(${b.id})">⚖️ Weigh</button><button class="btn b-cop" onclick="openHarv(${b.id})">🔪 Harvest</button></div></div>`;
+    
+    // Check Harvest Day / Day Before Notifications (Only when Active in Agers)
+    var alertHTML = '';
+    var ca = b.clearedAlerts || {};
+    if((b.status||'Active in Agers')==='Active in Agers'){
+      if(el >= b.days && !ca.dayOf){
+        alertHTML = `<div class="alert-banner"><div><b style="font-size:1.15rem;display:block;letter-spacing:.5px">🔪 IT'S HARVEST DAY!</b><span style="font-size:.9rem;color:#fff">Target of ${b.days} days reached — ready to trim & harvest!</span></div><button class="clear-btn" onclick="clearAlert(${b.id},'dayOf')">✓ CLEAR</button></div>`;
+      } else if(el === (b.days - 1) && !ca.dayBefore){
+        alertHTML = `<div class="alert-banner"><div><b style="font-size:1.1rem;display:block;letter-spacing:.5px">🚨 GET READY TO HARVEST TOMORROW!</b><span style="font-size:.9rem;color:#fff">1 day left (${el} of ${b.days} days completed).</span></div><button class="clear-btn" onclick="clearAlert(${b.id},'dayBefore')">✓ CLEAR</button></div>`;
+      }
+    }
+
+    return `<div class="card">${alertHTML}<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bd);padding-bottom:12px;margin-bottom:14px"><div><span class="tag">🏷️ ${b.code||'VAULT'}</span><h3 style="margin:4px 0;font-size:1.35rem;color:#fff">${mo.icon} ${b.name}</h3><small style="color:var(--mu);font-size:.9rem">In: ${b.startD} • Target: ${b.days} Days</small></div><button onclick="delB(${b.id})" style="background:#2a1815;color:#ef4444;border:2px solid #7f1d1d;width:44px;height:44px;border-radius:10px;font-size:1.2rem;font-weight:900">✕</button></div><div class="grid2"><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#facc15" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(dp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.45rem;color:#fff;display:block">${el}</b><small style="color:var(--mu);font-size:.75rem;font-weight:800">OF ${b.days} DAYS</small></div><div style="margin-top:6px;font-weight:800;font-size:.88rem;color:var(--glow)">⏱️ ${dp}% Aged</div></div><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(lp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.45rem;color:#fff;display:block">-${ls.toFixed(1)}%</b><small style="color:var(--mu);font-size:.75rem;font-weight:800">GOAL ~${mo.loss}%</small></div><div style="margin-top:6px;font-weight:800;font-size:.88rem;color:#fdba74">💧 Water Loss</div></div></div><div class="wstrip"><div><small style="color:var(--mu);display:block">START</small><b style="font-size:1.15rem">${fmtW(b.startW)}</b></div><div><small style="color:var(--mu);display:block">NOW</small><b style="font-size:1.15rem;color:var(--glow)">${fmtW(lw)}</b></div><div><small style="color:var(--mu);display:block">SHED</small><b style="font-size:1.15rem;color:var(--cop)">-${fmtW(Math.max(0,b.startW-lw))}</b></div></div><div style="padding:10px;background:rgba(255,255,255,.04);border-radius:10px;font-weight:800;color:var(--glow);margin-bottom:10px">📍 Status: ${b.status||'Active'} (${b.statusDate||b.startD})</div>${b.notes?`<div style="background:rgba(212,175,55,.12);border-left:4px solid var(--gold);padding:10px;margin-bottom:10px;font-size:.95rem"><b>📝 Notes:</b> ${b.notes}</div>`:''}<div style="background:var(--in);border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:.92rem;margin-bottom:14px"><b style="color:var(--gold);display:block;margin-bottom:4px">📊 Weigh-In Log:</b>${hRows}</div><div class="grid2" style="margin:0"><button class="btn b-grn" onclick="openWeigh(${b.id})">⚖️ Weigh</button><button class="btn b-red" onclick="openHarv(${b.id})">🔪 Harvest</button></div></div>`;
   }).join('');
 }
 refresh();
