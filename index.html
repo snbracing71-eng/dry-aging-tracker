@@ -1,573 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AgerLog - Tactical Pro-Gauge Hub</title>
-  <meta name="theme-color" content="#05070a">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href="manifest.json?v=10">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='44' fill='%2305070a'/%3E%3Cpath d='M100 14 A86 86 0 0 0 100 186' fill='none' stroke='%2306b6d4' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M100 14 A86 86 0 0 1 100 186' fill='none' stroke='%23f59e0b' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M100 28 A72 72 0 0 0 100 172' fill='none' stroke='%2322d3ee' stroke-width='4.5' stroke-opacity='0.8'/%3E%3Cpath d='M100 28 A72 72 0 0 1 100 172' fill='none' stroke='%23fbbf24' stroke-width='4.5' stroke-opacity='0.8'/%3E%3Cpath d='M60 88 C52 70 66 52 84 54 C96 56 100 72 92 86 C84 98 66 102 60 88 Z' fill='none' stroke='%23fbbf24' stroke-width='5'/%3E%3Ccircle cx='78' cy='70' r='5' fill='none' stroke='%23fbbf24' stroke-width='4'/%3E%3Cpath d='M114 58 C128 56 144 74 134 96 L144 106 L128 104 L120 114 L120 98 C108 86 106 66 114 58 Z' fill='none' stroke='%2322d3ee' stroke-width='5' stroke-linejoin='round'/%3E%3Cpath d='M72 128 L108 112 L128 128 L128 148 L72 148 Z' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='92' cy='136' r='3.5' fill='%23fbbf24'/%3E%3Ccircle cx='112' cy='134' r='4' fill='%23fbbf24'/%3E%3C/svg%3E">
-  <style>
-    :root {
-      --bg: #05070a;
-      --card: #0c1017;
-      --card-inner: #070a0f;
-      --border: #1e293b;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --cyan: #06b6d4;
-      --cyan-glow: #22d3ee;
-      --amber: #f59e0b;
-      --amber-glow: #fbbf24;
-      --emerald: #10b981;
-      --red: #ef4444;
-    }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body {
-      margin: 0; padding: 0 0 115px 0;
-      background: var(--bg); color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 16px; line-height: 1.45;
-    }
-    header {
-      background: #0c1017;
-      border-bottom: 2px solid var(--cyan);
-      box-shadow: 0 2px 18px rgba(6, 182, 212, 0.2);
-      padding: 12px 16px;
-      display: flex; justify-content: space-between; align-items: center;
-      position: sticky; top: 0; z-index: 40;
-    }
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .brand-logo-svg {
-      width: 44px; height: 44px; border-radius: 11px;
-      box-shadow: 0 0 14px rgba(6, 182, 212, 0.4);
-      flex-shrink: 0;
-    }
-    .brand-title {
-      font-size: 1.35rem; font-weight: 900; letter-spacing: -0.5px; margin: 0; color: #fff;
-    }
-    .brand-title span { color: var(--cyan-glow); }
-    .header-right { display: flex; align-items: center; gap: 8px; }
-    .unit-toggle {
-      background: #111827; border: 1.5px solid var(--amber); color: var(--amber-glow);
-      padding: 8px 11px; border-radius: 9px; font-size: 0.8rem; font-weight: 900; cursor: pointer;
-    }
-    .guide-btn {
-      background: #111827; color: var(--cyan-glow); border: 1.5px solid var(--cyan);
-      padding: 8px 12px; border-radius: 9px; font-size: 0.82rem; font-weight: 800; cursor: pointer;
-    }
-    main { padding: 16px; max-width: 600px; margin: 0 auto; }
-    .sec-title {
-      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
-      color: var(--cyan-glow); margin: 6px 0 10px 2px; font-weight: 800;
-    }
-    .fridge-bar {
-      background: var(--card); border: 1.5px solid var(--border);
-      border-radius: 14px; padding: 12px 14px; margin-bottom: 16px;
-    }
-    .fridge-header-row {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
-    }
-    .fridge-label {
-      font-size: 0.78rem; text-transform: uppercase; color: var(--amber-glow); font-weight: 800; letter-spacing: 0.6px;
-    }
-    .fridge-select {
-      background: #05070a; border: 1.5px solid #1e293b; border-radius: 9px;
-      padding: 10px 12px; color: #fff; font-size: 1rem; font-weight: 700; width: 100%;
-    }
-    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    .mode-tile {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 14px;
-      padding: 12px; display: flex; align-items: center; gap: 10px;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .mode-tile.active {
-      border-color: var(--cyan-glow);
-      background: rgba(6, 182, 212, 0.14);
-      box-shadow: 0 0 16px rgba(6, 182, 212, 0.28);
-    }
-    .m-icon { font-size: 2rem; line-height: 1; pointer-events: none; }
-    .m-name { font-size: 1rem; font-weight: 800; color: #fff; display: block; pointer-events: none; }
-    .m-sub { font-size: 0.76rem; color: var(--muted); display: block; pointer-events: none; }
-    .chamber-panel {
-      background: var(--card); border: 1.5px solid var(--border);
-      border-radius: 14px; padding: 14px; margin-bottom: 18px;
-    }
-    .chamber-head {
-      font-size: 0.82rem; font-weight: 800; color: var(--amber-glow);
-      margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
-    }
-    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
-    .m-box {
-      background: var(--card-inner); border: 1px solid #1e293b; border-radius: 10px; padding: 10px 4px;
-    }
-    .m-lbl { font-size: 0.7rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
-    .m-val { font-size: 1.05rem; font-weight: 900; color: var(--cyan-glow); margin-top: 3px; font-family: monospace; }
-    .rule-box {
-      margin-top: 10px; font-size: 0.86rem; line-height: 1.45; color: #e2e8f0;
-      background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px;
-    }
-    .tactical-card {
-      background: var(--card); border: 1.5px solid var(--border);
-      border-radius: 16px; padding: 16px; margin-bottom: 16px;
-      box-shadow: 0 8px 26px rgba(0,0,0,0.65);
-    }
-    .card-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 14px;
-    }
-    .tag-badge {
-      display: inline-block; background: rgba(6, 182, 212, 0.15); color: var(--cyan-glow);
-      border: 1px solid rgba(6, 182, 212, 0.4);
-      padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; margin-bottom: 5px;
-    }
-    .action-badge {
-      display: inline-block; background: rgba(245, 158, 11, 0.18); color: var(--amber-glow);
-      border: 1px solid var(--amber); padding: 2px 8px; border-radius: 6px;
-      font-size: 0.74rem; font-weight: 800; margin-left: 6px; margin-bottom: 5px;
-    }
-    .cut-heading {
-      margin: 0; font-size: 1.2rem; font-weight: 800; color: #fff; line-height: 1.25;
-    }
-    .cut-meta { font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
-    .del-batch-btn {
-      background: #111827; color: var(--red); border: 1px solid #334155;
-      width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
-      font-size: 1.1rem; font-weight: 900; display: flex; align-items: center; justify-content: center;
-    }
-    .gauges-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;
-    }
-    .gauge-box {
-      background: var(--card-inner); border: 1px solid #1e293b;
-      border-radius: 14px; padding: 12px 8px; text-align: center; position: relative;
-    }
-    .ring-svg { width: 110px; height: 110px; transform: rotate(-90deg); display: block; margin: 0 auto; }
-    .ring-bg { fill: none; stroke: #1e293b; stroke-width: 9; }
-    .ring-cyan {
-      fill: none; stroke: var(--cyan-glow); stroke-width: 9; stroke-linecap: round;
-      transition: stroke-dashoffset 0.4s ease;
-    }
-    .ring-amber {
-      fill: none; stroke: var(--amber-glow); stroke-width: 9; stroke-linecap: round;
-      transition: stroke-dashoffset 0.4s ease;
-    }
-    .ring-center {
-      position: absolute; top: 45px; left: 0; right: 0; text-align: center; pointer-events: none;
-    }
-    .ring-big { font-size: 1.35rem; font-weight: 900; color: #fff; line-height: 1; display: block; font-family: monospace; }
-    .ring-sub { font-size: 0.68rem; color: var(--muted); font-weight: 700; text-transform: uppercase; margin-top: 3px; display: block; }
-    .gauge-foot { font-size: 0.78rem; font-weight: 800; color: #cbd5e1; margin-top: 6px; }
-    .weight-strip {
-      display: flex; justify-content: space-between; align-items: center;
-      background: #090d14; border: 1px solid #1e293b; border-radius: 10px;
-      padding: 10px 14px; margin-bottom: 12px;
-    }
-    .w-item { text-align: center; }
-    .w-lbl { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; font-weight: 700; }
-    .w-val { font-size: 1.05rem; font-weight: 900; color: #fff; font-family: monospace; }
-    .status-line {
-      font-size: 0.85rem; font-weight: 700; padding: 8px 10px;
-      border-radius: 8px; background: rgba(255,255,255,0.03); margin-bottom: 10px;
-    }
-    .notes-box {
-      background: rgba(245, 158, 11, 0.12); border-left: 3px solid var(--amber-glow);
-      padding: 8px 10px; border-radius: 4px; font-size: 0.86rem; margin-bottom: 10px; color: #f3f4f6;
-    }
-    .history-dropdown {
-      margin-top: 10px; background: var(--card-inner); border: 1px solid var(--border);
-      border-radius: 10px; padding: 10px 12px; font-size: 0.84rem; color: var(--muted);
-    }
-    .history-row {
-      display: flex; justify-content: space-between; padding: 5px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace;
-    }
-    .history-row:last-child { border-bottom: none; }
-    .history-card {
-      background: var(--card); border: 1.5px solid var(--border);
-      border-radius: 16px; padding: 16px 18px; margin-top: 8px; margin-bottom: 20px;
-    }
-    .history-card-head {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
-    }
-    .history-card-head h3 { margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--cyan-glow); }
-    .hist-entry { border-top: 1px solid var(--border); padding: 10px 0; }
-    .hist-entry:last-child { padding-bottom: 0; }
-    .hist-title { font-size: 0.92rem; font-weight: 700; color: #fff; }
-    .hist-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-    .btn {
-      display: block; text-align: center; background: var(--cyan); color: #000;
-      border: none; padding: 14px; border-radius: 12px;
-      font-size: 1rem; font-weight: 900; cursor: pointer; width: 100%;
-    }
-    .btn-cyan { background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #041014; }
-    .btn-amber { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1002; }
-    .btn-sec { background: #1e293b; color: #fff; }
-    .btn-red { background: var(--red); color: #fff; }
-    .btn-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-    .quick-step-row {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px;
-    }
-    .step-btn {
-      background: #111827; border: 1px solid var(--cyan); color: var(--cyan-glow);
-      padding: 10px 4px; border-radius: 8px; font-weight: 800; font-size: 0.85rem; cursor: pointer;
-    }
-    .bottom-bar {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(180deg, rgba(5,7,10,0) 0%, rgba(5,7,10,0.98) 30%);
-      padding: 12px 16px 16px; max-width: 600px; margin: 0 auto; z-index: 30;
-    }
-    .btn-new-batch {
-      background: linear-gradient(90deg, #06b6d4 0%, #f59e0b 100%);
-      color: #05070a; border: none; border-radius: 12px;
-      padding: 16px; width: 100%; font-size: 1.05rem; font-weight: 900;
-      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35); cursor: pointer;
-    }
-    .modal {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.88); display: none;
-      align-items: center; justify-content: center; padding: 16px; z-index: 100;
-    }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: var(--card); border: 1.5px solid var(--cyan);
-      border-radius: 16px; padding: 20px; width: 100%; max-width: 500px;
-      max-height: 90vh; overflow-y: auto;
-    }
-    .form-group { margin-bottom: 14px; }
-    .form-group label { display: block; font-size: 0.88rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
-    input, select, textarea {
-      width: 100%; background: #05070a; border: 1.5px solid #1e293b;
-      border-radius: 10px; padding: 13px; color: #fff; font-size: 1rem; font-weight: 700;
-    }
-    .imp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    textarea { resize: vertical; min-height: 80px; }
-    .callout {
-      background: rgba(6, 182, 212, 0.12); border: 1px solid var(--cyan);
-      border-radius: 10px; padding: 11px; font-size: 0.88rem; color: #e0f2fe; margin-top: 8px;
-    }
-    .step-box {
-      background: #070a0f; border: 1px solid #1e293b; border-radius: 10px;
-      padding: 13px; margin-bottom: 10px; font-size: 0.9rem;
-    }
-    .step-box strong { color: var(--amber-glow); font-size: 0.98rem; display: block; margin-bottom: 4px; }
-    .del-custom {
-      background: var(--red); color: #fff; border: none; padding: 6px 12px;
-      border-radius: 6px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: inline-block; margin-top: 6px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AgerLog - Tactical Pro-Gauge</title>
+<meta name="theme-color" content="#05070a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json?v=11">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='44' fill='%2305070a'/%3E%3Cpath d='M100 14 A86 86 0 0 0 100 186' fill='none' stroke='%2306b6d4' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M100 14 A86 86 0 0 1 100 186' fill='none' stroke='%23f59e0b' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M100 28 A72 72 0 0 0 100 172' fill='none' stroke='%2322d3ee' stroke-width='4.5'/%3E%3Cpath d='M100 28 A72 72 0 0 1 100 172' fill='none' stroke='%23fbbf24' stroke-width='4.5'/%3E%3Cpath d='M60 88 C52 70 66 52 84 54 C96 56 100 72 92 86 C84 98 66 102 60 88 Z' fill='none' stroke='%23fbbf24' stroke-width='5'/%3E%3Ccircle cx='78' cy='70' r='5' fill='none' stroke='%23fbbf24' stroke-width='4'/%3E%3Cpath d='M114 58 C128 56 144 74 134 96 L144 106 L128 104 L120 114 L120 98 C108 86 106 66 114 58 Z' fill='none' stroke='%2322d3ee' stroke-width='5' stroke-linejoin='round'/%3E%3Cpath d='M72 128 L108 112 L128 128 L128 148 L72 148 Z' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#05070a;--card:#0c1017;--in:#070a0f;--bdr:#1e293b;--txt:#f8fafc;--mut:#94a3b8;--cy:#06b6d4;--cyg:#22d3ee;--am:#f59e0b;--amg:#fbbf24;--em:#10b981;--red:#ef4444}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;padding:0 0 110px;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.45}
+header{background:#0c1017;border-bottom:2px solid var(--cy);box-shadow:0 2px 16px rgba(6,182,212,.2);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40}
+.brand{display:flex;align-items:center;gap:10px}
+.logo-svg{width:42px;height:42px;border-radius:10px;box-shadow:0 0 12px rgba(6,182,212,.4)}
+.b-title{font-size:1.3rem;font-weight:900;margin:0;color:#fff}.b-title span{color:var(--cyg)}
+.h-right{display:flex;gap:8px}
+.u-btn{background:#111827;border:1.5px solid var(--am);color:var(--amg);padding:7px 10px;border-radius:9px;font-size:.78rem;font-weight:900;cursor:pointer}
+.g-btn{background:#111827;color:var(--cyg);border:1.5px solid var(--cy);padding:7px 11px;border-radius:9px;font-size:.8rem;font-weight:800;cursor:pointer}
+main{padding:14px;max-width:600px;margin:0 auto}
+.sec-t{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--cyg);margin:6px 0 10px 2px;font-weight:800}
+.f-bar,.c-panel,.t-card,.h-card{background:var(--card);border:1.5px solid var(--bdr);border-radius:14px;padding:14px;margin-bottom:14px}
+.f-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.f-lbl{font-size:.76rem;text-transform:uppercase;color:var(--amg);font-weight:800}
+select,input,textarea{width:100%;background:#05070a;border:1.5px solid var(--bdr);border-radius:10px;padding:12px;color:#fff;font-size:1rem;font-weight:700}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.m-tile{background:var(--card);border:1.5px solid var(--bdr);border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.m-tile.active{border-color:var(--cyg);background:rgba(6,182,212,.14);box-shadow:0 0 14px rgba(6,182,212,.25)}
+.m-ic{font-size:1.9rem}.m-nm{font-size:.98rem;font-weight:800;color:#fff;display:block}.m-sb{font-size:.75rem;color:var(--mut);display:block}
+.c-head{font-size:.82rem;font-weight:800;color:var(--amg);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bdr)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.m-box{background:var(--in);border:1px solid var(--bdr);border-radius:10px;padding:9px 4px}
+.m-lbl{font-size:.68rem;color:var(--mut);font-weight:700;text-transform:uppercase}
+.m-val{font-size:1rem;font-weight:900;color:var(--cyg);margin-top:3px;font-family:monospace}
+.r-box{margin-top:10px;font-size:.84rem;color:#e2e8f0;background:rgba(255,255,255,.03);padding:9px;border-radius:8px}
+.c-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bdr);padding-bottom:10px;margin-bottom:12px}
+.tag-b{display:inline-block;background:rgba(6,182,212,.15);color:var(--cyg);border:1px solid rgba(6,182,212,.4);padding:2px 8px;border-radius:6px;font-size:.73rem;font-weight:800;margin-bottom:4px}
+.act-b{display:inline-block;background:rgba(245,158,11,.18);color:var(--amg);border:1px solid var(--am);padding:2px 8px;border-radius:6px;font-size:.73rem;font-weight:800;margin-left:6px}
+.del-b{background:#111827;color:var(--red);border:1px solid #334155;width:34px;height:34px;border-radius:8px;cursor:pointer;font-weight:900}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.g-box{background:var(--in);border:1px solid var(--bdr);border-radius:12px;padding:10px 6px;text-align:center;position:relative}
+.r-svg{width:104px;height:104px;transform:rotate(-90deg);display:block;margin:0 auto}
+.r-bg{fill:none;stroke:#1e293b;stroke-width:9}
+.r-cy{fill:none;stroke:var(--cyg);stroke-width:9;stroke-linecap:round}
+.r-am{fill:none;stroke:var(--amg);stroke-width:9;stroke-linecap:round}
+.r-ctr{position:absolute;top:41px;left:0;right:0;text-align:center}
+.r-big{font-size:1.25rem;font-weight:900;color:#fff;line-height:1;display:block;font-family:monospace}
+.r-sub{font-size:.66rem;color:var(--mut);font-weight:700;text-transform:uppercase;margin-top:2px;display:block}
+.g-ft{font-size:.75rem;font-weight:800;color:#cbd5e1;margin-top:5px}
+.w-strip{display:flex;justify-content:space-between;background:#090d14;border:1px solid var(--bdr);border-radius:10px;padding:9px 12px;margin-bottom:10px;text-align:center}
+.w-val{font-size:1rem;font-weight:900;color:#fff;font-family:monospace}
+.st-line{font-size:.83rem;font-weight:700;padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.03);margin-bottom:8px}
+.n-box{background:rgba(245,158,11,.12);border-left:3px solid var(--amg);padding:8px;border-radius:4px;font-size:.84rem;margin-bottom:8px}
+.h-drop{background:var(--in);border:1px solid var(--bdr);border-radius:9px;padding:8px 10px;font-size:.82rem;color:var(--mut)}
+.h-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);font-family:monospace}
+.btn{display:block;text-align:center;border:none;padding:13px;border-radius:11px;font-size:.96rem;font-weight:900;cursor:pointer;width:100%}
+.b-cy{background:linear-gradient(135deg,#22d3ee,#06b6d4);color:#041014}
+.b-am{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1002}
+.b-red{background:var(--red);color:#fff}.b-sec{background:#1e293b;color:#fff}
+.b-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.q-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.s-btn{background:#111827;border:1px solid var(--cy);color:var(--cyg);padding:9px 2px;border-radius:8px;font-weight:800;font-size:.82rem;cursor:pointer}
+.bot-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(5,7,10,.96);padding:10px 14px 14px;max-width:600px;margin:0 auto;z-index:30;border-top:1px solid var(--bdr)}
+.btn-new{background:linear-gradient(90deg,#06b6d4,#f59e0b);color:#05070a;border:none;border-radius:12px;padding:15px;width:100%;font-size:1.02rem;font-weight:900;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:14px;z-index:100}
+.modal.active{display:flex}
+.m-cnt{background:var(--card);border:1.5px solid var(--cy);border-radius:16px;padding:18px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.fg{margin-bottom:12px}.fg label{display:block;font-size:.85rem;color:#cbd5e1;margin-bottom:5px;font-weight:700}
+.callout{background:rgba(6,182,212,.12);border:1px solid var(--cy);border-radius:9px;padding:10px;font-size:.85rem;color:#e0f2fe;margin:8px 0}
+.s-box{background:var(--in);border:1px solid var(--bdr);border-radius:9px;padding:11px;margin-bottom:8px;font-size:.86rem}
+.s-box strong{color:var(--amg);display:block;margin-bottom:3px}
+</style>
 </head>
 <body>
-
-  <header>
-    <div class="brand">
-      <svg class="brand-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <rect width="200" height="200" rx="44" fill="#05070a"/>
-        <path d="M100 14 A86 86 0 0 0 100 186" fill="none" stroke="#06b6d4" stroke-width="8" stroke-linecap="round"/>
-        <path d="M100 14 A86 86 0 0 1 100 186" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
-        <path d="M100 28 A72 72 0 0 0 100 172" fill="none" stroke="#22d3ee" stroke-width="4.5" stroke-opacity="0.8"/>
-        <path d="M100 28 A72 72 0 0 1 100 172" fill="none" stroke="#fbbf24" stroke-width="4.5" stroke-opacity="0.8"/>
-        <path d="M60 88 C52 70 66 52 84 54 C96 56 100 72 92 86 C84 98 66 102 60 88 Z" fill="none" stroke="#fbbf24" stroke-width="5"/>
-        <circle cx="78" cy="70" r="5" fill="none" stroke="#fbbf24" stroke-width="4"/>
-        <path d="M114 58 C128 56 144 74 134 96 L144 106 L128 104 L120 114 L120 98 C108 86 106 66 114 58 Z" fill="none" stroke="#22d3ee" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M72 128 L108 112 L128 128 L128 148 L72 148 Z" fill="none" stroke="#fbbf24" stroke-width="5" stroke-linejoin="round"/>
-        <circle cx="92" cy="136" r="3.5" fill="#fbbf24"/>
-        <circle cx="112" cy="134" r="4" fill="#fbbf24"/>
-      </svg>
-      <h1 class="brand-title">Ager<span>Log</span></h1>
-    </div>
-    <div class="header-right">
-      <button class="unit-toggle" id="unitToggleBtn" onclick="toggleUnitSystem()">⚖️ g / kg</button>
-      <button class="guide-btn" onclick="openModal('guideModal')">📋 Guide</button>
-    </div>
-  </header>
-
-  <main>
-    <div class="fridge-bar">
-      <div class="fridge-header-row">
-        <span class="fridge-label">⚡ Active Aging Chamber:</span>
-        <button type="button" class="guide-btn" style="padding: 4px 9px; font-size: 0.74rem;" onclick="openManageFridges()">⚙️ Manage Fridges</button>
-      </div>
-      <select id="fridgeSelect" class="fridge-select" onchange="switchFridge(this.value)"></select>
-    </div>
-
-    <div class="sec-title">1. Select Category (Strictly 1 Active Category per Fridge):</div>
-
-    <div class="mode-grid">
-      <div class="mode-tile active" id="tile-meat" onclick="selectCategory('meat')">
-        <span class="m-icon">🥩</span>
-        <div><span class="m-name">Red Meat</span><span class="m-sub">Beef, Pork, Lamb</span></div>
-      </div>
-      <div class="mode-tile" id="tile-fish" onclick="selectCategory('fish')">
-        <span class="m-icon">🐟</span>
-        <div><span class="m-name">Seafood</span><span class="m-sub">Whole Fish</span></div>
-      </div>
-      <div class="mode-tile" id="tile-salami" onclick="selectCategory('salami')">
-        <span class="m-icon">🥓</span>
-        <div><span class="m-name">Salami</span><span class="m-sub">Cured Meats</span></div>
-      </div>
-      <div class="mode-tile" id="tile-cheese" onclick="selectCategory('cheese')">
-        <span class="m-icon">🧀</span>
-        <div><span class="m-name">Cheese</span><span class="m-sub">Hard Wheels</span></div>
-      </div>
-    </div>
-
-    <div id="chamberBanner"></div>
-    <div class="sec-title">2. Active Pro-Gauge Batches & Traceability:</div>
-    <div id="batchList"></div>
-    <div id="historicalSection"></div>
-  </main>
-
-  <div class="bottom-bar" id="bottomBarContainer"></div>
-
-  <!-- GUIDE MODAL -->
-  <div class="modal" id="guideModal">
-    <div class="modal-content">
-      <h2 style="margin-top:0; color:var(--cyan-glow);">📖 Tactical Dry Aging Checklist</h2>
-      <div class="step-box">
-        <strong>1. Active Dry Aging (MA400)</strong>
-        • Temp: 1.5°C–2°C | RH: 75%–80% | UVC ON.<br>
-        • Never wash meat with water. Blot bone-dry. Place Fat Side UP, Bones DOWN with 8cm air gaps.
-      </div>
-      <div class="step-box">
-        <strong>2. Harvesting & Trimming (Pellicle Excision)</strong>
-        • Weigh final cut, slice off 1–2mm leathery pellicle crust with a stiff boning knife.<br>
-        • Portion into thick steaks (38–50mm) so they sear cleanly without overcooking.
-      </div>
-      <div class="step-box">
-        <strong>3. Storage & Freezer Traceability</strong>
-        • Vacuum-seal steaks in barrier bags. Keeps chilled up to 30–45 days or frozen at -18°C for 12+ months with zero purge loss.
-      </div>
-      <button class="btn btn-cyan" onclick="closeModal('guideModal')">Close Guide</button>
-    </div>
-  </div>
-
-  <!-- MANAGE FRIDGES MODAL -->
-  <div class="modal" id="fridgesModal">
-    <div class="modal-content">
-      <h2 style="margin-top:0; color:var(--cyan-glow);">Manage Cabinets / Fridges</h2>
-      <div class="form-group">
-        <label>New Fridge Name</label>
-        <input type="text" id="newFridgeName" placeholder="e.g. Thermaster MA400 #2">
-      </div>
-      <button class="btn btn-cyan" onclick="addNewFridge()" style="margin-bottom:18px;">+ Add New Fridge</button>
-      <div id="fridgeListUI"></div>
-      <button class="btn btn-sec" onclick="closeModal('fridgesModal')" style="margin-top:18px;">Done</button>
-    </div>
-  </div>
-
-  <!-- ADD ITEM MODAL -->
-  <div class="modal" id="addModal">
-    <div class="modal-content">
-      <h2 style="margin-top:0; color:var(--cyan-glow);" id="addModalTitle">Add Item to Fridge</h2>
-      <div class="form-group">
-        <label>Tracking Batch Code / ID</label>
-        <input type="text" id="batchCode" placeholder="e.g. OP-RIB-001">
-      </div>
-      <div class="form-group">
-        <label>Choose Cut or Product</label>
-        <select id="cutSelect" onchange="checkCustomSelection()"></select>
-      </div>
-      <div class="form-group" id="customInputGroup" style="display:none;">
-        <label>Type Custom Item Name</label>
-        <input type="text" id="customCutName" placeholder="e.g. Wagyu Brisket">
-      </div>
-      <div id="customDeleteContainer" style="margin-bottom:12px; display:none;">
-        <button type="button" class="del-custom" onclick="deleteSelectedCustom()">🗑️ Delete Selected Custom Item</button>
-      </div>
-      <div id="cutTipBox" class="callout"></div>
-
-      <div class="form-group" id="addMetricGroup" style="margin-top:12px;">
-        <label>Starting Green Weight in Grams (e.g. 6500)</label>
-        <input type="number" id="inWeightGrams" placeholder="e.g. 6500">
-      </div>
-
-      <div class="form-group" id="addImperialGroup" style="margin-top:12px; display:none;">
-        <label>Starting Green Weight (Pounds & Ounces)</label>
-        <div class="imp-grid">
-          <input type="number" id="inWeightLbs" placeholder="Pounds (lb)">
-          <input type="number" step="0.1" id="inWeightOz" placeholder="Ounces (oz)">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Date Put in Fridge</label>
-        <input type="date" id="inDate">
-      </div>
-      <div class="form-group">
-        <label>Target Days</label>
-        <input type="number" id="inDays" value="35">
-      </div>
-      <div class="btn-pair">
-        <button class="btn btn-red" onclick="closeModal('addModal')">Cancel</button>
-        <button class="btn btn-amber" onclick="saveNewBatch()">Start Aging</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- WEIGH IN MODAL -->
-  <div class="modal" id="weighModal">
-    <div class="modal-content">
-      <h2 style="margin-top:0; color:var(--cyan-glow);">⚖️ Quick-Weigh Log</h2>
-      <input type="hidden" id="weighId">
-
-      <div class="form-group" id="weighMetricGroup">
-        <label>Current Scale Reading (grams)</label>
-        <input type="number" id="inNewWeightGrams" placeholder="e.g. 5850">
-        <div class="quick-step-row">
-          <button type="button" class="step-btn" onclick="stepWeight(-50)">-50g</button>
-          <button type="button" class="step-btn" onclick="stepWeight(-10)">-10g</button>
-          <button type="button" class="step-btn" onclick="stepWeight(10)">+10g</button>
-          <button type="button" class="step-btn" onclick="stepWeight(50)">+50g</button>
-        </div>
-      </div>
-
-      <div class="form-group" id="weighImperialGroup" style="display:none;">
-        <label>Current Scale Reading (lb / oz)</label>
-        <div class="imp-grid">
-          <input type="number" id="inNewWeightLbs" placeholder="Pounds (lb)">
-          <input type="number" step="0.1" id="inNewWeightOz" placeholder="Ounces (oz)">
-        </div>
-        <div class="quick-step-row">
-          <button type="button" class="step-btn" onclick="stepImperial(-4)">-4 oz</button>
-          <button type="button" class="step-btn" onclick="stepImperial(-1)">-1 oz</button>
-          <button type="button" class="step-btn" onclick="stepImperial(1)">+1 oz</button>
-          <button type="button" class="step-btn" onclick="stepImperial(4)">+4 oz</button>
-        </div>
-      </div>
-
-      <div class="btn-pair">
-        <button class="btn btn-red" onclick="closeModal('weighModal')">Cancel</button>
-        <button class="btn btn-cyan" onclick="saveNewWeight()">Save Weight</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- HARVEST MODAL -->
-  <div class="modal" id="harvestModal">
-    <div class="modal-content">
-      <h2 style="margin-top:0; color:var(--amber-glow);">🔪 Harvest, Portion & Storage</h2>
-      <input type="hidden" id="harvestId">
-      <div class="form-group">
-        <label>Post-Aging Status / Step</label>
-        <select id="postStatus" onchange="updateHarvestDateLabel()">
-          <option value="Active in Agers">🥩 Active in Dry Ager</option>
-          <option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (30–45 Days Max)</option>
-          <option value="Deep Frozen (-18C)">🧊 Deep Frozen in Vacuum Seal (-18°C)</option>
-          <option value="Consumed / Enjoyed">🍽️ Consumed / Cooked & Eaten</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label id="dateLabel">Date Actioned</label>
-        <input type="date" id="actionDate">
-      </div>
-      <div class="form-group">
-        <label>Tasting & Sensory Notes (Aroma, Texture, Flavor Profile)</label>
-        <textarea id="tastingNotes" placeholder="e.g. Rich nutty hazelnut aroma, buttery finish, phenomenal tenderness at 38 days."></textarea>
-      </div>
-      <div class="btn-pair">
-        <button class="btn btn-red" onclick="closeModal('harvestModal')">Cancel</button>
-        <button class="btn btn-amber" onclick="saveHarvestDetails()">Save Lifecycle Record</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    var DEFAULT_MODES = {
-      meat: {
-        name: "Red Meat, Pork & Lamb", shortBtn: "+ New Meat Batch", icon: "🥩", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON", uvcColor: "#10b981", targetLoss: 22,
-        rule: "✅ <b>Can Share:</b> Beef, Pork Loin, Lamb Racks, Venison.<br>🚫 <b>Keep Out:</b> Fish, Salami, Cheese.",
-        items: [
-          { name: "OP Rib / Standing Rib Roast", days: 35, tip: "🥩 Bone-in Export Rib. Place Fat UP, Bones DOWN." },
-          { name: "Beef Short Loin (T-Bone / Porterhouse)", days: 30, tip: "🥩 Whole bone-in saddle." },
-          { name: "Whole Striploin (Fat Cap On)", days: 35, tip: "🥩 Leave thick top fat cap 100% untrimmed." },
-          { name: "Pork Rack / Bone-In Loin", days: 18, tip: "🐖 Can share fridge with beef!" },
-          { name: "Lamb Saddle / Crown Rack", days: 16, tip: "🐑 Ready in 14–21 days." }
-        ]
-      },
-      fish: {
-        name: "Whole Fish & Seafood", shortBtn: "+ New Seafood Batch", icon: "🐟", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON", uvcColor: "#10b981", targetLoss: 15,
-        rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon.<br>🚫 <b>Run Alone:</b> Fish smells soak into beef/cheese.",
-        items: [
-          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 Scales ON, gills out, wipe cavity dry (no water)." },
-          { name: "Tuna Loin / Bonito", days: 12, tip: "🐟 Dab surface dry with paper towels for first 2 days." },
-          { name: "Whole Salmon / Ocean Trout", days: 7, tip: "🐟 Hang from tail hook or rack." }
-        ]
-      },
-      salami: {
-        name: "Salami & Charcuterie", shortBtn: "+ New Salami Batch", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444", targetLoss: 38,
-        rule: "✅ <b>Can Share:</b> Salami, Coppa, Pancetta.<br>🚫 <b>UVC MUST BE OFF:</b> UV light kills curing mould!",
-        items: [
-          { name: "Salami / Soppressata", days: 42, tip: "🥓 Ready at 35–40% weight loss. Keep UVC OFF." },
-          { name: "Whole Coppa / Capocollo", days: 60, tip: "🥓 Ready at 30–35% weight loss." },
-          { name: "Pancetta / Guanciale", days: 35, tip: "🥓 Target 30% weight loss." }
-        ]
-      },
-      cheese: {
-        name: "Cheese Aging", shortBtn: "+ New Cheese Batch", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444", targetLoss: 12,
-        rule: "✅ <b>Can Share:</b> Hard Cheeses (Cheddar, Gouda, Gruyere).<br>🚫 <b>Keep away from meat.</b>",
-        items: [
-          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 Flip every 3 days. Keep UVC OFF." },
-          { name: "Gouda / Edam Wheel", days: 45, tip: "🧀 High 85% humidity prevents cracking." },
-          { name: "Alpine / Gruyère Wheel", days: 75, tip: "🧀 Flip twice a week." }
-        ]
-      }
-    };
-
-    function safeJSON(key, fallback) {
-      try {
-        var val = localStorage.getItem(key);
-        return val ? JSON.parse(val) : fallback;
-      } catch (e) {
-        return fallback;
-      }
-    }
-
-    var fridges = safeJSON('dryAgeFridges', ["Thermaster MA400 #1"]);
-    if (!Array.isArray(fridges) || !fridges.length) fridges = ["Thermaster MA400 #1"];
-    var currentFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
-    if (fridges.indexOf(currentFridge) === -1) currentFridge = fridges[0];
-    var unitSystem = localStorage.getItem('dryAgeUnitSystem') || 'metric';
-
-    var items = safeJSON('dryAgeItemsV5', null);
-    if (!Array.isArray(items)) {
-      items = safeJSON('dryAgeItemsV4', safeJSON('dryAgeItemsV3', []));
-    }
-    if (!Array.isArray(items)) items = [];
-
-    var customItems = safeJSON('dryAgeCustomItemsV5', safeJSON('dryAgeCustomItemsV4', {meat:[],fish:[],salami:[],cheese:[]}));
-    var currentSelectedMode = 'meat';
-
-    function saveStorage() {
-      localStorage.setItem('dryAgeFridges', JSON.stringify(fridges));
-      localStorage.setItem('dryAgeCurrentFridge', currentFridge);
-      localStorage.setItem('dryAgeUnitSystem', unitSystem);
-      localStorage.setItem('dryAgeItemsV5', JSON.stringify(items));
-      localStorage.setItem('dryAgeCustomItemsV5', JSON.stringify(customItems));
-    }
-
-    function toggleUnitSystem() {
-      unitSystem = (unitSystem === 'metric') ? 'imperial' : 'metric';
-      saveStorage();
-      refreshUI();
-    }
-
-    function formatWeight(grams) {
-      var g = parseFloat(grams) || 0;
-      if (unitSystem === 'imperial') {
-        var totalOz = g / 28.3495231;
-        var lbs = Math.floor(totalOz / 16);
-        var oz = (totalOz % 16).toFixed(1);
-        return lbs + 'lb ' + oz + 'oz';
-      }
-      if (g >= 1000) {
-        return (g / 1000).toFixed(2) + 'kg (' + Math.round(g) + 'g)';
-      }
-      return Math.round(g) + 'g';
-    }
-
-    function formatShortWeight(grams) {
-      var g =
+<header>
+  <div class="brand">
+    <svg class="logo-svg" viewBox="0 0 200 200"><rect width="200" height="200" rx="44" fill="#05070a"/><path d="M100 14 A86 86 0 0 0 100 186" fill="none" stroke="#06b6d4" stroke-width="8"/><path d="M100 14 A86 86 0 0 1 1
