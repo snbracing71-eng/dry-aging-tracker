@@ -1,7 +1,7 @@
 {
   "id": "/dry-aging-tracker/",
-  "name": "AgeVault Chamber",
-  "short_name": "AgeVault",
+  "name": "AgerPro Master Hub",
+  "short_name": "AgerPro",
   "start_url": "/dry-aging-tracker/",
   "scope": "/dry-aging-tracker/",
   "display": "standalone",
