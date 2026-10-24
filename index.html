@@ -52,7 +52,7 @@
     .callout { background: rgba(56, 189, 248, 0.14); border: 1px solid var(--blue); border-radius: 10px; padding: 12px; font-size: 0.95rem; color: #e0f2fe; margin-top: 10px; }
     .step-box { background: #10141b; border: 1px solid #283242; border-radius: 10px; padding: 14px; margin-bottom: 12px; font-size: 0.95rem; }
     .step-box strong { color: var(--gold); font-size: 1.05rem; display: block; margin-bottom: 4px; }
-    .del-custom { background: none; border: none; color: #ef4444; font-size: 0.8rem; cursor: pointer; float: right; padding: 0; }
+    .del-custom { background: #ef4444; color: #fff; border: none; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; margin-top: 6px; display: inline-block; }
   </style>
 </head>
 <body>
@@ -126,8 +126,11 @@
         <select id="cutSelect" onchange="checkCustomSelection()"></select>
       </div>
       <div class="form-group" id="customInputGroup" style="display:none;">
-        <label>Type Custom Item Name <button type="button" class="del-custom" onclick="deleteSelectedCustom()">Delete this custom item</button></label>
+        <label>Type Custom Item Name</label>
         <input type="text" id="customCutName" placeholder="e.g. Wagyu Brisket">
+      </div>
+      <div id="customDeleteContainer" style="margin-bottom:12px; display:none;">
+        <button type="button" class="del-custom" onclick="deleteSelectedCustom()">🗑️ Delete Selected Custom Item</button>
       </div>
       <div id="cutTipBox" class="callout"></div>
       <div class="form-group" style="margin-top:12px;">
@@ -167,7 +170,7 @@
   <script>
     const DEFAULT_MODES = {
       meat: {
-        name: "Red Meat, Pork & Lamb", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON", uvcColor: "#22c55e",
+        name: "Red Meat, Pork & Lamb", icon: "🥩", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON", uvcColor: "#22c55e",
         rule: "✅ <b>Can Share:</b> Beef, Pork Loin, Lamb Racks, Venison.<br>🚫 <b>Keep Out:</b> Fish, Salami, Cheese.",
         items: [
           { name: "Beef OP Rib / Standing Rib (Bone-In)", days: 35, tip: "🥩 Place Fat UP, Bones DOWN." },
@@ -175,21 +178,21 @@
         ]
       },
       fish: {
-        name: "Whole Fish & Seafood", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON", uvcColor: "#22c55e",
+        name: "Whole Fish & Seafood", icon: "🐟", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON", uvcColor: "#22c55e",
         rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon.<br>🚫 <b>Run Alone.</b>",
         items: [
           { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 Scales ON, gills out, wipe dry." }
         ]
       },
       salami: {
-        name: "Salami & Charcuterie", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
+        name: "Salami & Charcuterie", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
         rule: "✅ <b>Can Share:</b> Salami, Coppa.<br>🚫 <b>UVC MUST BE OFF.</b>",
         items: [
           { name: "Salami / Soppressata", days: 42, tip: "🥓 Target 35-40% weight loss." }
         ]
       },
       cheese: {
-        name: "Cheese Aging", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
+        name: "Cheese Aging", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
         rule: "✅ <b>Can Share:</b> Hard Cheeses.<br>🚫 <b>Keep away from meat.</b>",
         items: [
           { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 Flip every 3 days." }
@@ -253,14 +256,22 @@
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       var customGrp = document.getElementById('customInputGroup');
+      var delBtnContainer = document.getElementById('customDeleteContainer');
       
       if (item.isOther) {
         customGrp.style.display = 'block';
+        delBtnContainer.style.display = 'none';
         document.getElementById('customCutName').value = '';
         document.getElementById('inDays').value = 35;
         document.getElementById('cutTipBox').innerHTML = item.tip;
+      } else if (item.isCustom) {
+        customGrp.style.display = 'none';
+        delBtnContainer.style.display = 'block';
+        document.getElementById('inDays').value = item.days;
+        document.getElementById('cutTipBox').innerHTML = item.tip;
       } else {
         customGrp.style.display = 'none';
+        delBtnContainer.style.display = 'none';
         document.getElementById('inDays').value = item.days;
         document.getElementById('cutTipBox').innerHTML = item.tip;
       }
@@ -271,7 +282,7 @@
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       if (item.isCustom) {
-        if (confirm('Delete custom item "' + item.name + '"?')) {
+        if (confirm('Permanently delete custom item "' + item.name + '"?')) {
           customItems[currentMode] = customItems[currentMode].filter(c => c !== item.name);
           localStorage.setItem('dryAgeCustomItems', JSON.stringify(customItems));
           updateDropdown();
@@ -340,7 +351,8 @@
       }
       box.innerHTML = filtered.map(b => {
         var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000)), loss = (((b.startW - b.currW) / b.startW) * 100).toFixed(1);
-        return '<div class="card"><div style="display:flex; justify-content:space-between;"><div><h3 style="margin:0; color:#fff;">' + b.name + '</h3><div style="font-size:0.85rem; color:var(--muted);">Day ' + elapsed + ' of ' + b.days + '</div></div><button onclick="removeBatch(' + b.id + ')" style="background:#262d38; color:#fff; border:none; width:36px; height:36px; border-radius:8px; cursor:pointer;">✕</button></div><div class="stat-row"><div class="stat-item"><div class="m-lbl">Days</div><div class="stat-num">' + elapsed + '</div></div><div class="stat-item"><div class="m-lbl">Loss</div><div class="stat-num" style="color:var(--gold);">-' + loss + '%</div></div><div class="stat-item"><div class="m-lbl">Weight</div><div class="stat-num">' + b.currW + 'g</div></div></div><button class="btn btn-blue" onclick="promptWeigh(' + b.id + ')">⚖️ Enter New Weight</button></div>';
+        var modeIcon = DEFAULT_MODES[b.mode || 'meat'].icon;
+        return '<div class="card"><div style="display:flex; justify-content:space-between;"><div><h3 style="margin:0; color:#fff;">' + modeIcon + ' ' + b.name + '</h3><div style="font-size:0.85rem; color:var(--muted);">Started: ' + b.startD + ' • Day ' + elapsed + ' of ' + b.days + '</div></div><button onclick="removeBatch(' + b.id + ')" style="background:#262d38; color:#fff; border:none; width:36px; height:36px; border-radius:8px; cursor:pointer;">✕</button></div><div class="stat-row"><div class="stat-item"><div class="m-lbl">Days</div><div class="stat-num">' + elapsed + '</div></div><div class="stat-item"><div class="m-lbl">Loss</div><div class="stat-num" style="color:var(--gold);">-' + loss + '%</div></div><div class="stat-item"><div class="m-lbl">Weight</div><div class="stat-num">' + b.currW + 'g</div></div></div><button class="btn btn-blue" onclick="promptWeigh(' + b.id + ')">⚖️ Enter New Weight</button></div>';
       }).join('');
     }
 
