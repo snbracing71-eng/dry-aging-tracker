@@ -3,327 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AgerLog - MA400 Chamber</title>
-  <meta name="theme-color" content="#121316">
+  <title>AgerLog - Master Traceability Hub</title>
+  <meta name="theme-color" content="#0e1116">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='frame' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='50%25' stop-color='%237a5c12'/%3E%3Cstop offset='100%25' stop-color='%23b58922'/%3E%3C/linearGradient%3E%3CradialGradient id='uvc' cx='50%25' cy='15%25' r='65%25'%3E%3Cstop offset='0%25' stop-color='%23a855f7' stop-opacity='0.65'/%3E%3Cstop offset='45%25' stop-color='%2338bdf8' stop-opacity='0.35'/%3E%3Cstop offset='100%25' stop-color='%230d1117' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='200' height='200' rx='44' fill='url(%23frame)'/%3E%3Crect x='10' y='10' width='180' height='180' rx='36' fill='%23161920' stroke='%23332810' stroke-width='3'/%3E%3Crect x='22' y='22' width='156' height='122' rx='18' fill='%230d1117' stroke='%232e3644' stroke-width='2'/%3E%3Crect x='22' y='22' width='156' height='122' rx='18' fill='url(%23uvc)'/%3E%3Crect x='45' y='24' width='110' height='5' rx='2.5' fill='%23e0f2fe'/%3E%3Cline x1='26' y1='124' x2='174' y2='124' stroke='%2394a3b8' stroke-width='3'/%3E%3Cline x1='38' y1='116' x2='162' y2='116' stroke='%2364748b' stroke-width='2'/%3E%3Cpath d='M65 120 C58 95 72 62 110 52 L138 42 C142 52 132 76 132 95 C135 110 144 118 144 120 Z' fill='%23991b1b' stroke='%23fca5a5' stroke-width='3'/%3E%3Cpath d='M82 118 C80 96 92 76 118 68 C126 84 124 106 128 118 Z' fill='%23dc2626'/%3E%3Cpath d='M92 88 Q105 84 114 94 M88 104 Q102 98 118 108' stroke='%23fecaca' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Crect x='36' y='152' width='128' height='28' rx='8' fill='%23090b0e' stroke='%23374151' stroke-width='1.5'/%3E%3Ctext x='100' y='171' font-family='monospace' font-size='15' font-weight='bold' fill='%23fef08a' text-anchor='middle'%3E1.5%C2%B0C 78%25RH%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23eab308' stroke-width='8'/%3E%3Ccircle cx='60' cy='60' r='38' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='69' font-family='sans-serif' font-size='26' font-weight='900' fill='%23eab308' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
   <style>
     :root {
-      --bg: #121316;
-      --card: #1c1e24;
-      --card-inner: #15171c;
-      --border: #2c303a;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
-      --crimson: #c83e3b;
-      --crimson-dark: #a32e2b;
-      --gold: #d4a74a;
-      --gold-text: #1a1405;
-      --blue: #38bdf8;
-      --green: #238636;
-      --red: #d93838;
+      --bg: #0e1116; --card: #181d25; --border: #2e3644; --text: #f3f6fa;
+      --muted: #9ca3af; --gold: #eab308; --primary: #d97706; --blue: #38bdf8; --green: #238636; --red: #d93838;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
-      margin: 0; padding: 0 0 100px 0;
-      background: var(--bg); color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 16px; line-height: 1.45;
+      margin: 0; padding: 0 0 110px 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 17px; line-height: 1.5;
     }
-
-    /* Mockup Top Header */
     header {
-      background: #15171c;
-      border-bottom: 2px solid #5a2022;
-      padding: 14px 18px;
-      display: flex; justify-content: space-between; align-items: center;
-      position: sticky; top: 0; z-index: 40;
+      background: #141820; border-bottom: 2px solid var(--border); padding: 14px 16px;
+      display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 30;
     }
     .brand { display: flex; align-items: center; gap: 10px; }
-    .brand-icon {
-      width: 34px; height: 34px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
+    .logo {
+      width: 42px; height: 42px; border-radius: 10px; background: #1c222d; border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; color: var(--gold);
     }
-    .brand-title {
-      font-size: 1.45rem; font-weight: 800; letter-spacing: -0.5px; margin: 0;
-      color: #fff;
+    .title { font-weight: 800; font-size: 1.2rem; color: #fff; margin: 0; }
+    .guide-btn {
+      background: #252d3a; color: #fff; border: 2px solid var(--gold); padding: 8px 12px;
+      border-radius: 10px; font-size: 0.9rem; font-weight: 800; cursor: pointer;
     }
-    .brand-title span { color: var(--crimson); }
-
-    .header-controls { display: flex; align-items: center; gap: 8px; }
-    .chamber-badge-select {
-      background: #1e2128;
-      color: #e5e7eb;
-      border: 1px solid #3c4252;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      line-height: 1.15;
-      cursor: pointer;
-      max-width: 145px;
-      text-overflow: ellipsis;
-    }
-    .icon-btn {
-      background: #1e2128; color: var(--muted); border: 1px solid #3c4252;
-      border-radius: 8px; width: 34px; height: 34px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; cursor: pointer; font-weight: 700;
+    main { padding: 16px; max-width: 600px; margin: 0 auto; }
+    .sec-title {
+      font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin: 6px 0 10px 2px; font-weight: 800;
     }
 
-    main { padding: 16px; max-width: 580px; margin: 0 auto; }
-
-    /* Compact Category Selector Strip */
-    .cat-strip {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px;
+    /* Fridge Selector Bar */
+    .fridge-bar {
+      background: #141922; border: 2px solid var(--gold); border-radius: 14px; padding: 14px; margin-bottom: 18px;
     }
-    .cat-pill {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 8px 4px; text-align: center;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .cat-pill.active {
-      border-color: var(--crimson);
-      background: rgba(200, 62, 59, 0.16);
-      box-shadow: 0 0 10px rgba(200, 62, 59, 0.2);
-    }
-    .cat-pill .c-ico { font-size: 1.25rem; display: block; pointer-events: none; }
-    .cat-pill .c-txt { font-size: 0.75rem; font-weight: 700; color: #fff; display: block; margin-top: 2px; pointer-events: none; }
-
-    /* Telemetry Strip */
-    .telemetry-strip {
-      background: #171920; border: 1px solid var(--border); border-radius: 10px;
-      padding: 10px 14px; margin-bottom: 18px;
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.82rem; color: var(--muted);
-    }
-    .telemetry-strip b { color: #fff; }
-
-    /* Primary Active Batch Card (Exact Phone Mockup Style) */
-    .mockup-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-    }
-    .card-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 14px; margin-bottom: 16px;
-    }
-    .cut-heading {
-      margin: 0; font-size: 1.25rem; font-weight: 800; color: #fff; line-height: 1.25;
-    }
-    .cut-meta {
-      font-size: 0.8rem; color: var(--muted); margin-top: 4px;
-    }
-    .kebab-btn {
-      background: transparent; border: none; color: var(--crimson);
-      font-size: 1.35rem; font-weight: 900; cursor: pointer; padding: 0 6px; line-height: 1;
+    .fridge-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .fridge-label { font-size: 0.8rem; text-transform: uppercase; color: var(--gold); font-weight: 800; letter-spacing: 0.5px; }
+    .fridge-select {
+      background: #0b0e13; border: 2px solid #2e3846; border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 1rem; font-weight: 700; width: 100%;
     }
 
-    .aging-row {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 18px;
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+    .mode-tile {
+      background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 14px 12px;
+      display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s;
     }
-    .active-aging-lbl {
-      font-size: 0.85rem; color: #d1d5db; margin-bottom: 2px;
+    .mode-tile.active {
+      border-color: var(--gold); background: rgba(234, 179, 8, 0.18); box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
     }
-    .days-big {
-      font-size: 2.3rem; font-weight: 800; color: #fff; line-height: 1;
-    }
-    .days-big span {
-      font-size: 1.15rem; font-weight: 500; color: var(--muted); margin-left: 4px;
-    }
+    .m-icon { font-size: 2.2rem; line-height: 1; pointer-events: none; }
+    .m-name { font-size: 1.05rem; font-weight: 800; color: #fff; display: block; pointer-events: none; }
+    .m-sub { font-size: 0.82rem; color: var(--muted); display: block; pointer-events: none; }
 
-    .loss-badge {
-      background: linear-gradient(135deg, #dfbe6f, #b88b28);
-      color: var(--gold-text);
-      padding: 10px 14px;
-      border-radius: 12px;
-      text-align: center;
-      min-width: 112px;
-      box-shadow: 0 4px 12px rgba(212, 167, 74, 0.25);
+    .chamber-panel {
+      background: #141922; border: 2px solid #2e3846; border-radius: 14px; padding: 16px; margin-bottom: 20px;
     }
-    .loss-badge .l-lbl {
-      font-size: 0.72rem; font-weight: 800; text-transform: capitalize; display: block; opacity: 0.9;
+    .chamber-head { font-size: 0.95rem; font-weight: 800; color: var(--gold); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #262f3d; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+    .m-box { background: #0b0e13; border: 1px solid #252e3d; border-radius: 10px; padding: 12px 6px; }
+    .m-lbl { font-size: 0.78rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+    .m-val { font-size: 1.15rem; font-weight: 900; color: var(--blue); margin-top: 4px; }
+    .rule-box {
+      margin-top: 12px; font-size: 0.92rem; line-height: 1.45; color: #e2e8f0; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;
     }
-    .loss-badge .l-val {
-      font-size: 1.35rem; font-weight: 900; display: block; line-height: 1.15;
-    }
-
-    .desiccation-row {
-      display: flex; justify-content: space-between; align-items: baseline;
-      margin-bottom: 8px;
-    }
-    .desiccation-lbl { font-size: 0.88rem; color: #d1d5db; }
-    .weight-big { font-size: 1.55rem; font-weight: 800; color: #fff; }
-
-    .desiccation-bar-bg {
-      height: 18px; background: #262932; border-radius: 9px; overflow: hidden;
-      margin-bottom: 14px; position: relative;
-    }
-    .desiccation-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #d8c390 0%, #c49a45 65%, #9e731b 100%);
-      border-radius: 9px;
-      transition: width 0.35s ease;
-    }
-
-    .status-banner {
-      font-size: 0.82rem; font-weight: 700; color: var(--gold);
-      background: rgba(212, 167, 74, 0.1); border-left: 3px solid var(--gold);
-      padding: 8px 10px; border-radius: 6px; margin-bottom: 12px;
-    }
-
-    /* Action Buttons inside Card */
-    .card-btn-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px;
+    .card { background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; text-align: center; }
+    .stat-item { background: #0d1016; border: 1px solid #28303e; border-radius: 10px; padding: 12px 6px; }
+    .stat-num { font-size: 1.3rem; font-weight: 800; margin-top: 4px; color: #fff; }
+    .stage-box {
+      background: rgba(234, 179, 8, 0.12); border-left: 5px solid var(--gold); border-radius: 6px; padding: 14px; margin: 14px 0; font-size: 0.95rem;
     }
     .btn {
-      display: block; text-align: center; background: var(--crimson); color: #fff;
-      border: none; padding: 14px 16px; border-radius: 12px;
-      font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%;
+      display: block; text-align: center; background: var(--primary); color: #fff; border: none;
+      padding: 16px; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; width: 100%;
     }
-    .btn-blue { background: #2563eb; padding: 12px; font-size: 0.92rem; }
-    .btn-green { background: var(--green); padding: 12px; font-size: 0.92rem; }
-    .btn-sec { background: var(--red); padding: 12px; font-size: 0.92rem; }
-
-    /* Historical Log Card (Mockup Lower Section) */
-    .history-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 18px 20px; margin-bottom: 20px;
-    }
-    .history-card-head {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 12px;
-    }
-    .history-card-head h3 {
-      margin: 0; font-size: 1.15rem; font-weight: 800; color: #fff;
-    }
-    .hist-entry {
-      border-top: 1px solid var(--border);
-      padding: 12px 0;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .hist-entry:last-child { padding-bottom: 0; }
-    .hist-title { font-size: 0.95rem; font-weight: 700; color: #fff; }
-    .hist-sub { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
-
-    /* Bottom Floating Crimson Button */
+    .btn-sec { background: var(--red); }
+    .btn-blue { background: #0284c7; margin-top: 10px; padding: 14px; font-size: 1.02rem; }
+    .btn-green { background: var(--green); margin-top: 10px; padding: 14px; font-size: 1.02rem; }
     .bottom-bar {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(180deg, rgba(18,19,22,0) 0%, rgba(18,19,22,0.98) 35%);
-      padding: 14px 16px 18px; max-width: 580px; margin: 0 auto; z-index: 30;
+      position: fixed; bottom: 0; left: 0; right: 0; background: #141820; border-top: 2px solid var(--border);
+      padding: 14px 16px; max-width: 600px; margin: 0 auto; z-index: 25;
     }
-    .btn-new-batch {
-      background: linear-gradient(180deg, #d34844 0%, #b8322f 100%);
-      color: #fff; border: none; border-radius: 12px;
-      padding: 15px; width: 100%; font-size: 1.05rem; font-weight: 700;
-      box-shadow: 0 6px 18px rgba(200, 62, 59, 0.35); cursor: pointer;
-    }
-
-    /* Modals */
     .modal {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85); display: none;
-      align-items: center; justify-content: center; padding: 16px; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.88);
+      display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100;
     }
     .modal.active { display: flex; }
     .modal-content {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 22px; width: 100%; max-width: 480px;
-      max-height: 90vh; overflow-y: auto;
+      background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 22px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;
     }
-    .form-group { margin-bottom: 14px; }
-    .form-group label { display: block; font-size: 0.88rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.95rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
     input, select, textarea {
-      width: 100%; background: #111318; border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px; color: #fff; font-size: 1rem; font-weight: 600;
+      width: 100%; background: #0b0e13; border: 2px solid #2e3846; border-radius: 10px; padding: 14px; color: #fff; font-size: 1.05rem; font-weight: 600;
     }
     textarea { resize: vertical; min-height: 80px; }
-    .callout {
-      background: rgba(56, 189, 248, 0.12); border: 1px solid var(--blue);
-      border-radius: 10px; padding: 10px; font-size: 0.88rem; color: #e0f2fe; margin-top: 8px;
+    .callout { background: rgba(56, 189, 248, 0.14); border: 1px solid var(--blue); border-radius: 10px; padding: 12px; font-size: 0.95rem; color: #e0f2fe; margin-top: 10px; }
+    .step-box { background: #10141b; border: 1px solid #283242; border-radius: 10px; padding: 14px; margin-bottom: 12px; font-size: 0.95rem; }
+    .step-box strong { color: var(--gold); font-size: 1.05rem; display: block; margin-bottom: 4px; }
+    .del-custom { background: #ef4444; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; display: inline-block; margin-top: 6px; }
+    .history-dropdown {
+      margin-top: 12px; background: #11141a; border: 1px solid #262e3b; border-radius: 8px; padding: 10px; font-size: 0.88rem; color: var(--muted);
     }
-    .del-custom {
-      background: var(--red); color: #fff; border: none; padding: 6px 12px;
-      border-radius: 6px; font-size: 0.82rem; cursor: pointer; display: inline-block; margin-top: 6px;
+    .history-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .history-row:last-child { border-bottom: none; }
+    .tag-badge {
+      display: inline-block; background: #262e3b; color: var(--gold); padding: 3px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700; margin-bottom: 6px;
     }
-    .step-box {
-      background: #14161c; border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px; margin-bottom: 10px; font-size: 0.9rem;
-    }
-    .step-box strong { color: var(--gold); display: block; margin-bottom: 4px; }
   </style>
 </head>
 <body>
 
   <header>
     <div class="brand">
-      <div class="brand-icon">🥩</div>
-      <h1 class="brand-title">Ager<span>Log</span></h1>
+      <div class="logo">AGE</div>
+      <h1 class="title">Dry Age Master</h1>
     </div>
-    <div class="header-controls">
-      <select id="fridgeSelect" class="chamber-badge-select" onchange="switchFridge(this.value)"></select>
-      <button class="icon-btn" onclick="openManageFridges()" title="Manage Chambers">⚙️</button>
-      <button class="icon-btn" onclick="openModal('guideModal')" title="SOP Guide">📋</button>
-    </div>
+    <button class="guide-btn" onclick="openModal('guideModal')">📋 Full Guide</button>
   </header>
 
   <main>
-    <!-- Category Strip -->
-    <div class="cat-strip">
-      <div class="cat-pill active" id="tile-meat" onclick="selectCategory('meat')">
-        <span class="c-ico">🥩</span><span class="c-txt">Red Meat</span>
+    <!-- Fridge Selector Header Bar -->
+    <div class="fridge-bar">
+      <div class="fridge-header-row">
+        <span class="fridge-label">Active Aging Chamber:</span>
+        <button type="button" class="guide-btn" style="padding: 4px 8px; font-size: 0.75rem;" onclick="openManageFridges()">Manage Fridges</button>
       </div>
-      <div class="cat-pill" id="tile-fish" onclick="selectCategory('fish')">
-        <span class="c-ico">🐟</span><span class="c-txt">Seafood</span>
+      <select id="fridgeSelect" class="fridge-select" onchange="switchFridge(this.value)"></select>
+    </div>
+
+    <div class="sec-title">1. Select Category (Strictly 1 Active Category per Fridge):</div>
+
+    <div class="mode-grid">
+      <div class="mode-tile active" id="tile-meat" onclick="selectCategory('meat')">
+        <span class="m-icon">🥩</span>
+        <div><span class="m-name">Red Meat</span><span class="m-sub">Beef, Pork, Lamb</span></div>
       </div>
-      <div class="cat-pill" id="tile-salami" onclick="selectCategory('salami')">
-        <span class="c-ico">🥓</span><span class="c-txt">Salami</span>
+      <div class="mode-tile" id="tile-fish" onclick="selectCategory('fish')">
+        <span class="m-icon">🐟</span>
+        <div><span class="m-name">Seafood</span><span class="m-sub">Whole Fish</span></div>
       </div>
-      <div class="cat-pill" id="tile-cheese" onclick="selectCategory('cheese')">
-        <span class="c-ico">🧀</span><span class="c-txt">Cheese</span>
+      <div class="mode-tile" id="tile-salami" onclick="selectCategory('salami')">
+        <span class="m-icon">🥓</span>
+        <div><span class="m-name">Salami</span><span class="m-sub">Cured Meats</span></div>
+      </div>
+      <div class="mode-tile" id="tile-cheese" onclick="selectCategory('cheese')">
+        <span class="m-icon">🧀</span>
+        <div><span class="m-name">Cheese</span><span class="m-sub">Hard Wheels</span></div>
       </div>
     </div>
 
-    <!-- Chamber Setpoint Telemetry Bar -->
     <div id="chamberBanner"></div>
-
-    <!-- Active Batches (Mockup Card Layout) -->
+    <div class="sec-title">2. Active Batch in This Fridge:</div>
     <div id="batchList"></div>
-
-    <!-- Historical / Weigh-in Log Card (Mockup Lower Section) -->
-    <div id="historicalSection"></div>
   </main>
 
-  <div class="bottom-bar" id="bottomBarContainer">
-    <button class="btn-new-batch" onclick="openAddModal()">+ New Meat Batch</button>
-  </div>
+  <div class="bottom-bar" id="bottomBarContainer"></div>
 
-  <!-- SOP GUIDE MODAL -->
+  <!-- FULL GUIDE MODAL -->
   <div class="modal" id="guideModal">
     <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff;">📖 MA400 Master Checklist</h2>
+      <h2 style="margin-top:0; color:#fff;">📖 Step-by-Step Checklist & Lifecycle</h2>
       <div class="step-box">
         <strong>1. Active Dry Aging (MA400)</strong>
         • Temp: 1.5°C–2°C | RH: 75%–80% | UVC ON.<br>
-        • Place Fat Cap UP, Bones DOWN with 8cm air clearance. Never wash meat with water.
+        • Keep Fat Side UP, Bones DOWN with 8cm air gaps.
       </div>
       <div class="step-box">
-        <strong>2. Harvesting & Pellicle Excision</strong>
-        • Weigh final cut, trim 1–2mm dark outer pellicle crust, and slice thick steaks (38–50mm).
+        <strong>2. Harvesting & Trimming (Pellicle Excision)</strong>
+        • Weigh final piece, slice off 1–2mm leathery pellicle with a stiff boning knife.<br>
+        • Portion into thick steaks (38–50mm) so they sear without overcooking.
       </div>
       <div class="step-box">
         <strong>3. Storage & Freezer Traceability</strong>
-        • Vacuum-seal steaks: keeps chilled 30–45 days or frozen at -18°C for 12+ months with zero purge loss.
+        • Vacuum-seal steaks in barrier bags. Keeps chilled up to 30–45 days or frozen at -18°C for 12+ months with zero purge loss.<br>
+        • Assign tracking codes (e.g., OP-RIB-001) to follow each batch from start to plate across its chilled, frozen, and consumption steps.
       </div>
       <button class="btn" onclick="closeModal('guideModal')">Close Guide</button>
     </div>
@@ -332,21 +189,22 @@
   <!-- MANAGE FRIDGES MODAL -->
   <div class="modal" id="fridgesModal">
     <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff;">Manage Aging Chambers</h2>
+      <h2 style="margin-top:0; color:#fff;">Manage Cabinets / Fridges</h2>
+      <p style="font-size:0.9rem; color:var(--muted); margin-bottom:14px;">Add or rename your aging refrigerators.</p>
       <div class="form-group">
-        <label>Add New Chamber / Fridge</label>
-        <input type="text" id="newFridgeName" placeholder="e.g. MA400 Chamber #2">
+        <label>New Fridge Name</label>
+        <input type="text" id="newFridgeName" placeholder="e.g. Thermaster MA400 #2">
       </div>
-      <button class="btn" onclick="addNewFridge()" style="margin-bottom:16px;">+ Add Chamber</button>
+      <button class="btn" onclick="addNewFridge()" style="margin-bottom:20px;">+ Add New Fridge</button>
       <div id="fridgeListUI"></div>
-      <button class="btn btn-sec" onclick="closeModal('fridgesModal')" style="margin-top:16px;">Done</button>
+      <button class="btn btn-sec" onclick="closeModal('fridgesModal')" style="margin-top:20px;">Done</button>
     </div>
   </div>
 
   <!-- ADD ITEM MODAL -->
   <div class="modal" id="addModal">
     <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff;" id="addModalTitle">New Aging Batch</h2>
+      <h2 style="margin-top:0; color:#fff;" id="addModalTitle">Add Item to Fridge</h2>
       <div class="form-group">
         <label>Tracking Batch Code / ID</label>
         <input type="text" id="batchCode" placeholder="e.g. OP-RIB-001">
@@ -368,16 +226,16 @@
         <input type="number" id="inWeight" placeholder="e.g. 6500">
       </div>
       <div class="form-group">
-        <label>Date Put in Chamber</label>
+        <label>Date Put in Fridge</label>
         <input type="date" id="inDate">
       </div>
       <div class="form-group">
-        <label>Target Aging Days</label>
+        <label>Target Days</label>
         <input type="number" id="inDays" value="35">
       </div>
-      <div class="card-btn-grid">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
         <button class="btn btn-sec" onclick="closeModal('addModal')">Cancel</button>
-        <button class="btn btn-green" onclick="saveNewBatch()">Start Aging</button>
+        <button class="btn" onclick="saveNewBatch()">Start Aging</button>
       </div>
     </div>
   </div>
@@ -385,15 +243,15 @@
   <!-- WEIGH IN MODAL -->
   <div class="modal" id="weighModal">
     <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff;">⚖️ Log New Weight</h2>
+      <h2 style="margin-top:0; color:#fff;">⚖️ Enter New Weight</h2>
       <input type="hidden" id="weighId">
       <div class="form-group">
         <label>Current Scale Reading (grams)</label>
-        <input type="number" id="inNewWeight" placeholder="e.g. 4210">
+        <input type="number" id="inNewWeight" placeholder="e.g. 5650">
       </div>
-      <div class="card-btn-grid">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
         <button class="btn btn-sec" onclick="closeModal('weighModal')">Cancel</button>
-        <button class="btn btn-green" onclick="saveNewWeight()">Save Weight</button>
+        <button class="btn" onclick="saveNewWeight()">Save Weight</button>
       </div>
     </div>
   </div>
@@ -404,9 +262,8 @@
       <h2 style="margin-top:0; color:#fff;">🥩 Harvest, Portion & Storage</h2>
       <input type="hidden" id="harvestId">
       <div class="form-group">
-        <label>Post-Aging Lifecycle Stage</label>
+        <label>Post-Aging Status / Step</label>
         <select id="postStatus" onchange="updateHarvestDateLabel()">
-          <option value="Active in Agers">🥩 Active in Dry Ager</option>
           <option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (30–45 Days Max)</option>
           <option value="Deep Frozen (-18C)">🧊 Deep Frozen in Vacuum Seal (-18°C)</option>
           <option value="Consumed / Enjoyed">🍽️ Consumed / Cooked & Eaten</option>
@@ -418,10 +275,10 @@
       </div>
       <div class="form-group">
         <label>Tasting & Sensory Notes (Aroma, Texture, Flavor Profile)</label>
-        <textarea id="tastingNotes" placeholder="e.g. Rich nutty hazelnut aroma, 38mm steaks, phenomenal tenderness at 35 days."></textarea>
+        <textarea id="tastingNotes" placeholder="e.g. Rich nutty hazelnut aroma, buttery finish, phenomenal tenderness at 38 days. Replicate this exact supplier!"></textarea>
       </div>
-      <div class="card-btn-grid">
-        <button class="btn btn-sec" onclick="closeModal('harvestModal')">Cancel</button>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
+        <button class="btn btn-sec" style="padding:14px; font-size:1.02rem; margin-top:10px;" onclick="closeModal('harvestModal')">Cancel</button>
         <button class="btn btn-green" onclick="saveHarvestDetails()">Save Lifecycle Record</button>
       </div>
     </div>
@@ -430,46 +287,40 @@
   <script>
     const DEFAULT_MODES = {
       meat: {
-        name: "Red Meat", btnLabel: "+ New Meat Batch", icon: "🥩", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON",
+        name: "Red Meat, Pork & Lamb", icon: "🥩", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON", uvcColor: "#22c55e",
+        rule: "✅ <b>Can Share:</b> Beef, Pork Loin, Lamb Racks, Venison.<br>🚫 <b>Keep Out:</b> Fish, Salami, Cheese.",
         items: [
-          { name: "OP Rib / Standing Rib Roast", days: 35, tip: "🥩 Bone-in Export Rib. Place Fat UP, Bones DOWN." },
-          { name: "Short Loin (T-Bone / Porterhouse)", days: 30, tip: "🥩 Whole bone-in saddle." },
-          { name: "Whole Striploin (Fat Cap On)", days: 35, tip: "🥩 Leave full top fat cap untrimmed." },
-          { name: "Pork Rack / Bone-In Loin", days: 18, tip: "🐖 Can share chamber with beef." },
-          { name: "Lamb Saddle / Crown Rack", days: 16, tip: "🐑 Ready in 14–21 days." }
+          { name: "Beef OP Rib / Standing Rib (Bone-In)", days: 35, tip: "🥩 Place Fat UP, Bones DOWN." },
+          { name: "Beef Short Loin", days: 30, tip: "🥩 Whole bone-in saddle." }
         ]
       },
       fish: {
-        name: "Seafood", btnLabel: "+ New Seafood Batch", icon: "🐟", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON",
+        name: "Whole Fish & Seafood", icon: "🐟", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON", uvcColor: "#22c55e",
+        rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon.<br>🚫 <b>Run Alone.</b>",
         items: [
-          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 Scales ON, gills & guts out, blot cavity bone-dry." },
-          { name: "Tuna Loin / Bonito", days: 12, tip: "🐟 Blot surface dry daily for first 48h." },
-          { name: "Whole Salmon / Ocean Trout", days: 7, tip: "🐟 Hang from tail hook or rack." }
+          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 Scales ON, gills out, wipe dry." }
         ]
       },
       salami: {
-        name: "Salami", btnLabel: "+ New Salami Batch", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️",
+        name: "Salami & Charcuterie", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
+        rule: "✅ <b>Can Share:</b> Salami, Coppa.<br>🚫 <b>UVC MUST BE OFF.</b>",
         items: [
-          { name: "Salami / Soppressata Batch", days: 42, tip: "🥓 Ready at 35–40% weight loss. Keep UVC OFF." },
-          { name: "Whole Coppa / Capocollo", days: 60, tip: "🥓 Target 30–35% weight loss." },
-          { name: "Pancetta / Guanciale", days: 35, tip: "🥓 Target 30% weight loss." }
+          { name: "Salami / Soppressata", days: 42, tip: "🥓 Target 35-40% weight loss." }
         ]
       },
       cheese: {
-        name: "Cheese", btnLabel: "+ New Cheese Batch", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️",
+        name: "Cheese Aging", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
+        rule: "✅ <b>Can Share:</b> Hard Cheeses.<br>🚫 <b>Keep away from meat.</b>",
         items: [
-          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 Flip wheel every 3 days. UVC OFF." },
-          { name: "Gouda / Edam Wheel", days: 45, tip: "🧀 85% RH prevents rind cracking." },
-          { name: "Alpine / Gruyère Wheel", days: 75, tip: "🧀 Flip twice weekly." }
+          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 Flip every 3 days." }
         ]
       }
     };
 
-    var fridges = JSON.parse(localStorage.getItem('dryAgeFridges') || '["MA400 Chamber"]');
+    var fridges = JSON.parse(localStorage.getItem('dryAgeFridges') || '["Thermaster MA400 #1"]');
     var currentFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
     var items = JSON.parse(localStorage.getItem('dryAgeItemsV5') || '[]');
     var customItems = JSON.parse(localStorage.getItem('dryAgeCustomItemsV5') || '{"meat":[],"fish":[],"salami":[],"cheese":[]}');
-    var currentMode = 'meat';
 
     function saveStorage() {
       localStorage.setItem('dryAgeFridges', JSON.stringify(fridges));
@@ -492,9 +343,9 @@
     function openManageFridges() {
       var listUI = document.getElementById('fridgeListUI');
       listUI.innerHTML = fridges.map(f => `
-        <div style="display:flex; justify-content:space-between; align-items:center; background:#111318; border:1px solid var(--border); padding:10px 12px; border-radius:10px; margin-bottom:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#0b0e13; border:1px solid #2e3846; padding:10px; border-radius:8px; margin-bottom:8px;">
           <span style="font-weight:700; color:#fff;">${f}</span>
-          ${fridges.length > 1 ? '<button onclick="deleteFridge(\'' + f + '\')" style="background:var(--red); color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:700;">Delete</button>' : '<span style="font-size:0.75rem; color:var(--muted);">Default</span>'}
+          ${fridges.length > 1 ? '<button class="btn-sec" onclick="deleteFridge(\'' + f + '\')" style="background:#ef4444; color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:0.8rem;">Delete</button>' : '<span style="font-size:0.75rem; color:var(--muted);">Default</span>'}
         </div>
       `).join('');
       openModal('fridgesModal');
@@ -502,8 +353,8 @@
 
     function addNewFridge() {
       var name = document.getElementById('newFridgeName').value.trim();
-      if (!name) return alert('Enter a chamber name.');
-      if (fridges.includes(name)) return alert('Chamber already exists.');
+      if (!name) { alert('Enter fridge name.'); return; }
+      if (fridges.includes(name)) { alert('Fridge already exists.'); return; }
       fridges.push(name);
       currentFridge = name;
       document.getElementById('newFridgeName').value = '';
@@ -514,7 +365,7 @@
     }
 
     function deleteFridge(fName) {
-      if (confirm('Delete "' + fName + '" and its batches?')) {
+      if (confirm('Delete fridge "' + fName + '"? All active batches inside it will be removed.')) {
         fridges = fridges.filter(f => f !== fName);
         items = items.filter(i => (i.fridge || fridges[0]) !== fName);
         currentFridge = fridges[0];
@@ -527,37 +378,39 @@
 
     function getActiveCategoryInCurrentFridge() {
       var fridgeItems = items.filter(i => (i.fridge || fridges[0]) === currentFridge && i.status === 'Active in Agers');
-      return fridgeItems.length > 0 ? fridgeItems[0].mode : null;
+      if (fridgeItems.length > 0) {
+        return fridgeItems[0].mode;
+      }
+      return null;
     }
 
     function selectCategory(m) {
       var activeCat = getActiveCategoryInCurrentFridge();
       if (activeCat && activeCat !== m) {
-        alert('⚠️ "' + currentFridge + '" has an active batch in ' + DEFAULT_MODES[activeCat].name + '. Only 1 category can run per chamber at a time.');
+        alert('⚠️ Cabinet "' + currentFridge + '" currently has an active batch in "' + DEFAULT_MODES[activeCat].name + '". You cannot mix categories in the same fridge.');
         return;
       }
-      currentMode = m;
       setActiveTile(m);
     }
 
     function setActiveTile(m) {
-      currentMode = m;
-      document.querySelectorAll('.cat-pill').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.mode-tile').forEach(el => el.classList.remove('active'));
       document.getElementById('tile-' + m).classList.add('active');
       renderChamber(m);
       renderList(m);
-      document.getElementById('bottomBarContainer').innerHTML =
-        '<button class="btn-new-batch" onclick="openAddModal()">' + DEFAULT_MODES[m].btnLabel + '</button>';
     }
 
     function renderChamber(mKey) {
       var m = DEFAULT_MODES[mKey];
       document.getElementById('chamberBanner').innerHTML = `
-        <div class="telemetry-strip">
-          <span><b>${currentFridge}:</b> ${m.name}</span>
-          <span>🌡️ <b>${m.temp}</b></span>
-          <span>💧 <b>${m.rh}</b></span>
-          <span>💡 UVC <b>${m.uvc}</b></span>
+        <div class="chamber-panel">
+          <div class="chamber-head">⚙️ (${currentFridge.toUpperCase()}) SET TO (${m.name.toUpperCase()})</div>
+          <div class="metrics">
+            <div class="m-box"><div class="m-lbl">Temp</div><div class="m-val">${m.temp}</div></div>
+            <div class="m-box"><div class="m-lbl">Humidity</div><div class="m-val">${m.rh}</div></div>
+            <div class="m-box"><div class="m-lbl">UVC</div><div class="m-val" style="color:${m.uvcColor};">${m.uvc}</div></div>
+          </div>
+          <div class="rule-box">${m.rule}</div>
         </div>
       `;
     }
@@ -567,30 +420,35 @@
 
     function getCombinedItems(mKey) {
       var defs = DEFAULT_MODES[mKey].items;
-      var cust = (customItems[mKey] || []).map(c => ({ name: c, days: 35, tip: "Custom User Cut", isCustom: true }));
-      return defs.concat(cust).concat([{ name: "➕ Other (Type custom item)...", days: 35, tip: "Type a custom cut name below.", isOther: true }]);
+      var cust = (customItems[mKey] || []).map(c => ({ name: c, days: 35, tip: "Custom User Item", isCustom: true }));
+      return defs.concat(cust).concat([{ name: "➕ Other (Type custom item)...", days: 35, tip: "Type your own custom item below.", isOther: true }]);
     }
 
     function openAddModal() {
-      var targetCat = getActiveCategoryInCurrentFridge() || currentMode || 'meat';
+      var activeCat = getActiveCategoryInCurrentFridge();
+      var targetCat = activeCat || 'meat';
+
       var m = DEFAULT_MODES[targetCat];
-      document.getElementById('addModalTitle').innerText = "Add " + m.name + " • " + currentFridge;
+      document.getElementById('addModalTitle').innerText = "Add " + m.name + " to " + currentFridge;
       document.getElementById('batchCode').value = 'BATCH-' + Math.floor(1000 + Math.random() * 9000);
+      
       var allItems = getCombinedItems(targetCat);
-      document.getElementById('cutSelect').innerHTML = allItems.map((it, idx) => '<option value="' + idx + '">' + it.name + '</option>').join('');
+      var sel = document.getElementById('cutSelect');
+      sel.innerHTML = allItems.map((it, idx) => '<option value="' + idx + '">' + it.name + '</option>').join('');
+      
       document.getElementById('inDate').value = new Date().toISOString().split('T')[0];
       checkCustomSelection();
       openModal('addModal');
     }
 
     function checkCustomSelection() {
-      var targetCat = getActiveCategoryInCurrentFridge() || currentMode || 'meat';
-      var allItems = getCombinedItems(targetCat);
+      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
+      var allItems = getCombinedItems(activeCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       var customGrp = document.getElementById('customInputGroup');
       var delBtnContainer = document.getElementById('customDeleteContainer');
-
+      
       if (item.isOther) {
         customGrp.style.display = 'block';
         delBtnContainer.style.display = 'none';
@@ -611,20 +469,22 @@
     }
 
     function deleteSelectedCustom() {
-      var targetCat = getActiveCategoryInCurrentFridge() || currentMode || 'meat';
-      var allItems = getCombinedItems(targetCat);
+      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
+      var allItems = getCombinedItems(activeCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
-      if (item.isCustom && confirm('Delete custom item "' + item.name + '"?')) {
-        customItems[targetCat] = customItems[targetCat].filter(c => c !== item.name);
-        saveStorage();
-        openAddModal();
+      if (item.isCustom) {
+        if (confirm('Permanently delete custom item "' + item.name + '"?')) {
+          customItems[activeCat] = customItems[activeCat].filter(c => c !== item.name);
+          saveStorage();
+          openAddModal();
+        }
       }
     }
 
     function saveNewBatch() {
-      var targetCat = getActiveCategoryInCurrentFridge() || currentMode || 'meat';
-      var allItems = getCombinedItems(targetCat);
+      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
+      var allItems = getCombinedItems(activeCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       var itemName = item.name;
@@ -633,23 +493,24 @@
 
       if (item.isOther) {
         var customVal = document.getElementById('customCutName').value.trim();
-        if (!customVal) return alert('Please type a custom item name.');
+        if (!customVal) { alert('Please type a custom item name.'); return; }
         itemName = customVal;
-        if (!customItems[targetCat]) customItems[targetCat] = [];
-        if (!customItems[targetCat].includes(customVal)) {
-          customItems[targetCat].push(customVal);
+        if (!customItems[activeCat]) customItems[activeCat] = [];
+        if (!customItems[activeCat].includes(customVal)) {
+          customItems[activeCat].push(customVal);
+          saveStorage();
         }
       }
 
       var w = parseFloat(document.getElementById('inWeight').value);
       var d = document.getElementById('inDate').value || new Date().toISOString().split('T')[0];
-      if (!w) return alert('Please enter starting weight in grams.');
+      if (!w) { alert('Please enter starting weight in grams.'); return; }
 
       items.unshift({
         id: Date.now(),
         code: code,
         fridge: currentFridge,
-        mode: targetCat,
+        mode: activeCat,
         name: itemName,
         startW: w,
         startD: d,
@@ -659,21 +520,14 @@
         notes: '',
         history: [{ date: d, weight: w }]
       });
-      document.getElementById('inWeight').value = '';
       saveStorage();
       closeModal('addModal');
       refreshUI();
     }
 
-    function promptWeigh(id) {
-      document.getElementById('weighId').value = id;
-      document.getElementById('inNewWeight').value = '';
-      openModal('weighModal');
-    }
-
+    function promptWeigh(id) { document.getElementById('weighId').value = id; openModal('weighModal'); }
     function saveNewWeight() {
-      var id = parseInt(document.getElementById('weighId').value, 10);
-      var w = parseFloat(document.getElementById('inNewWeight').value);
+      var id = parseInt(document.getElementById('weighId').value, 10), w = parseFloat(document.getElementById('inNewWeight').value);
       if (!w) return;
       items.forEach(x => {
         if (x.id === id) {
@@ -691,15 +545,14 @@
       var lbl = document.getElementById('dateLabel');
       if (s.includes('Vacuum')) lbl.innerText = 'Date Vacuum Sealed & Chilled';
       else if (s.includes('Frozen')) lbl.innerText = 'Date Put in Freezer';
-      else if (s.includes('Consumed')) lbl.innerText = 'Date Consumed / Eaten';
-      else lbl.innerText = 'Date Updated';
+      else lbl.innerText = 'Date Consumed / Eaten';
     }
 
     function promptHarvest(id) {
       document.getElementById('harvestId').value = id;
       var b = items.find(x => x.id === id);
       if (b) {
-        document.getElementById('postStatus').value = b.status || 'Vacuum Sealed Chilled';
+        document.getElementById('postStatus').value = b.status !== 'Active in Agers' ? b.status : 'Vacuum Sealed Chilled';
         document.getElementById('actionDate').value = b.statusDate || new Date().toISOString().split('T')[0];
         document.getElementById('tastingNotes').value = b.notes || '';
         updateHarvestDateLabel();
@@ -734,101 +587,59 @@
 
     function renderList(mKey) {
       var box = document.getElementById('batchList');
-      var histBox = document.getElementById('historicalSection');
       var filtered = items.filter(x => (x.fridge || fridges[0]) === currentFridge && (x.mode || 'meat') === mKey);
-
+      
       if (!filtered.length) {
-        box.innerHTML = `
-          <div class="mockup-card" style="text-align:center; padding:32px 20px;">
-            <div style="font-size:2.4rem; margin-bottom:8px;">${DEFAULT_MODES[mKey].icon}</div>
-            <div style="font-weight:800; font-size:1.1rem; color:#fff;">No Active ${DEFAULT_MODES[mKey].name} Batches</div>
-            <div style="font-size:0.86rem; color:var(--muted); margin-top:4px;">Tap <b>${DEFAULT_MODES[mKey].btnLabel}</b> below to start tracking in ${currentFridge}.</div>
-          </div>`;
-        histBox.innerHTML = '';
+        box.innerHTML = '<div class="card" style="text-align:center; color:var(--muted);">No active items in this category for <b>' + currentFridge + '</b>. Tap below to start a batch!</div>';
         return;
       }
 
       box.innerHTML = filtered.map(b => {
         var latestWeight = (b.history && b.history.length > 0) ? b.history[b.history.length - 1].weight : b.startW;
-        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
+        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / (1000 * 60 * 60 * 24)));
         var loss = (((b.startW - latestWeight) / b.startW) * 100).toFixed(1);
-        var progress = Math.min(100, Math.max(8, Math.round((elapsed / b.days) * 100)));
         var modeIcon = DEFAULT_MODES[b.mode || 'meat'].icon;
-        var statusDisplay = (b.status || 'Active in Agers') + (b.statusDate ? ' • ' + b.statusDate : '');
-
-        return `
-          <div class="mockup-card">
-            <div class="card-top">
-              <div>
-                <h2 class="cut-heading">${modeIcon} ${b.name}</h2>
-                <div class="cut-meta">🏷️ ${b.code || ('BATCH-' + b.id)} • Started ${b.startD} (Target ${b.days}d)</div>
-              </div>
-              <button class="kebab-btn" onclick="removeBatch(${b.id})" title="Delete Batch">⋮</button>
-            </div>
-
-            <div class="aging-row">
-              <div>
-                <div class="active-aging-lbl">Active aging</div>
-                <div class="days-big">${elapsed}<span>Days</span></div>
-              </div>
-              <div class="loss-badge">
-                <span class="l-lbl">Moisture Loss</span>
-                <span class="l-val">-${loss}%</span>
-              </div>
-            </div>
-
-            <div class="desiccation-row">
-              <span class="desiccation-lbl">Desiccation (Start: ${b.startW}g)</span>
-              <span class="weight-big">${latestWeight}g</span>
-            </div>
-
-            <div class="desiccation-bar-bg">
-              <div class="desiccation-bar-fill" style="width:${progress}%;"></div>
-            </div>
-
-            <div class="status-banner">📍 ${statusDisplay}</div>
-            ${b.notes ? `<div style="font-size:0.84rem; color:#e5e7eb; background:#14161c; padding:10px; border-radius:8px; margin-bottom:10px;"><b>📝 Sensory Notes:</b> ${b.notes}</div>` : ''}
-
-            <div class="card-btn-grid">
-              <button class="btn btn-blue" onclick="promptWeigh(${b.id})">⚖️ Log Weight</button>
-              <button class="btn btn-green" onclick="promptHarvest(${b.id})">🔪 Harvest & Notes</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      // Render Mockup "Historical Log" Card below active cards
-      var historyEntries = [];
-      filtered.forEach(b => {
-        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
-        (b.history || [{ date: b.startD, weight: b.startW }]).slice().reverse().forEach(h => {
+        
+        var historyRows = (b.history || [{date: b.startD, weight: b.startW}]).map(h => {
           var hLoss = (((b.startW - h.weight) / b.startW) * 100).toFixed(1);
-          historyEntries.push(`
-            <div class="hist-entry">
-              <div>
-                <div class="hist-title">${b.name} <span style="font-size:0.78rem; color:var(--gold);">(${b.code || 'Batch'})</span></div>
-                <div class="hist-sub">${h.date}, ${elapsed} Days • Current w: ${h.weight}g (-${hLoss}%)</div>
-              </div>
-            </div>
-          `);
-        });
-      });
+          return '<div class="history-row"><span>📅 ' + h.date + '</span><span><b>' + h.weight + 'g</b> (-' + hLoss + '%)</span></div>';
+        }).join('');
 
-      histBox.innerHTML = `
-        <div class="history-card">
-          <div class="history-card-head">
-            <h3>Historical Log</h3>
-            <span style="color:var(--crimson); font-weight:900;">⋮</span>
-          </div>
-          ${historyEntries.join('')}
-        </div>
-      `;
+        var statusColor = b.status === 'Active in Agers' ? 'var(--gold)' : (b.status.includes('Frozen') ? 'var(--blue)' : 'var(--green)');
+        var statusDisplay = b.status + (b.statusDate ? ' (' + b.statusDate + ')' : '');
+
+        return '<div class="card">' +
+          '<div style="display:flex; justify-content:space-between; align-items:flex-start;">' +
+            '<div>' +
+              '<span class="tag-badge">🏷️ Code: ' + (b.code || 'BATCH-' + b.id) + '</span>' +
+              '<h3 style="margin:4px 0 2px 0; color:#fff;">' + modeIcon + ' ' + b.name + '</h3>' +
+              '<div style="font-size:0.85rem; color:var(--muted); margin-top:2px;">Started: ' + b.startD + ' • Day ' + elapsed + ' of ' + b.days + '</div>' +
+              '<div style="font-size:0.82rem; font-weight:700; color:' + statusColor + '; margin-top:4px;">Status: ' + statusDisplay + '</div>' +
+            '</div>' +
+            '<button onclick="removeBatch(' + b.id + ')" style="background:#262d38; color:#fff; border:none; width:36px; height:36px; border-radius:8px; cursor:pointer; font-size:1rem;">✕</button>' +
+          '</div>' +
+          '<div class="stat-row">' +
+            '<div class="stat-item"><div class="m-lbl">Days</div><div class="stat-num">' + elapsed + '</div></div>' +
+            '<div class="stat-item"><div class="m-lbl">Loss</div><div class="stat-num" style="color:var(--gold);">-' + loss + '%</div></div>' +
+            '<div class="stat-item"><div class="m-lbl">Weight Now</div><div class="stat-num">' + latestWeight + 'g</div></div>' +
+          '</div>' +
+          (b.notes ? '<div style="background:rgba(234,179,8,0.08); border-left:3px solid var(--gold); padding:8px 10px; border-radius:4px; font-size:0.88rem; margin-bottom:10px;"><b>📝 Tasting Notes / Replication Recipe:</b> ' + b.notes + '</div>' : '') +
+          '<div class="history-dropdown"><div style="font-weight:700; margin-bottom:4px; color:#cbd5e1;">📊 Weigh-In Journey Log:</div>' + historyRows + '</div>' +
+          '<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">' +
+            '<button class="btn btn-blue" onclick="promptWeigh(' + b.id + ')">⚖️ Log Weight</button>' +
+            '<button class="btn btn-green" onclick="promptHarvest(' + b.id + ')">🔪 Harvest & Notes</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
     }
 
     function refreshUI() {
       renderFridgesDropdown();
-      var activeCat = getActiveCategoryInCurrentFridge() || currentMode || 'meat';
+      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
       setActiveTile(activeCat);
+
+      var bar = document.getElementById('bottomBarContainer');
+      bar.innerHTML = '<button class="btn" onclick="openAddModal()">+ Add New Item to ' + currentFridge + '</button>';
     }
 
     refreshUI();
