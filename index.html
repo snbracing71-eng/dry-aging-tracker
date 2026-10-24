@@ -10,7 +10,7 @@
   <style>
     :root {
       --bg: #0e1116; --card: #181d25; --border: #2e3644; --text: #f3f6fa;
-      --muted: #9ca3af; --gold: #eab308; --primary: #d97706; --blue: #38bdf8; --green: #238636; --red: #ef4444;
+      --muted: #9ca3af; --gold: #eab308; --primary: #d97706; --blue: #38bdf8; --green: #238636; --red: #d93838;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
@@ -80,7 +80,7 @@
       display: block; text-align: center; background: var(--primary); color: #fff; border: none;
       padding: 16px; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; width: 100%;
     }
-    .btn-sec { background: #2d3542; }
+    .btn-sec { background: var(--red); }
     .btn-blue { background: #0284c7; margin-top: 10px; padding: 14px; font-size: 1.02rem; }
     .btn-green { background: var(--green); margin-top: 10px; padding: 14px; font-size: 1.02rem; }
     .bottom-bar {
@@ -278,7 +278,7 @@
         <textarea id="tastingNotes" placeholder="e.g. Rich nutty hazelnut aroma, buttery finish, phenomenal tenderness at 38 days. Replicate this exact supplier!"></textarea>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
-        <button class="btn btn-sec" onclick="closeModal('harvestModal')">Cancel</button>
+        <button class="btn btn-sec" style="padding:14px; font-size:1.02rem; margin-top:10px;" onclick="closeModal('harvestModal')">Cancel</button>
         <button class="btn btn-green" onclick="saveHarvestDetails()">Save Lifecycle Record</button>
       </div>
     </div>
