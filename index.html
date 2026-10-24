@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AgerMaster - Dry Aging Hub</title>
-  <meta name="theme-color" content="#121417">
+  <title>Dry Age Master</title>
+  <meta name="theme-color" content="#111418">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌡️</text></svg>">
+  
+  <!-- Custom Gold & Charcoal "Dry Aging Bible" Style App Icon (Hook + Hourglass + Cold Badge) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23d4a017' stroke-width='6'/%3E%3Cpath d='M60 12 v14 M52 26 h16 l-10 18 h12 l-16 26' stroke='%23d4a017' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='60' cy='76' r='22' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='83' font-family='sans-serif' font-size='20' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23d4a017' stroke-width='6'/%3E%3Cpath d='M60 12 v14 M52 26 h16 l-10 18 h12 l-16 26' stroke='%23d4a017' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='60' cy='76' r='22' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='83' font-family='sans-serif' font-size='20' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
+
   <style>
     :root {
-      --bg: #0f1216;
-      --card: #181c22;
-      --card-border: #2a313c;
-      --text: #e6edf3;
-      --text-muted: #8b949e;
+      --bg: #0e1116;
+      --card: #181d25;
+      --card-border: #2e3644;
+      --text: #f3f6fa;
+      --text-muted: #9ca3af;
+      --gold: #eab308;
       --primary: #d97706;
       --accent: #38bdf8;
       --success: #22c55e;
@@ -24,16 +29,17 @@
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       margin: 0;
-      padding: 0 0 95px 0;
+      padding: 0 0 110px 0;
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
-      font-size: 14.5px;
+      font-size: 17px;
+      line-height: 1.5;
     }
     header {
-      background: rgba(15, 18, 22, 0.96);
-      border-bottom: 1px solid var(--card-border);
-      padding: 12px 16px;
+      background: #141820;
+      border-bottom: 2px solid var(--card-border);
+      padding: 14px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -41,126 +47,154 @@
       top: 0;
       z-index: 30;
     }
-    .header-title { font-weight: 800; font-size: 1.15rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 8px; }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: #1c222d;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(234, 179, 8, 0.2);
+    }
+    .header-title {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #fff;
+      margin: 0;
+    }
     .guide-btn {
-      background: #21262d;
-      color: #e6edf3;
-      border: 1px solid #38414a;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      background: #252d3a;
+      color: #fff;
+      border: 2px solid var(--gold);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
       cursor: pointer;
     }
-    main { padding: 12px 14px; max-width: 600px; margin: 0 auto; }
+    main { padding: 16px; max-width: 600px; margin: 0 auto; }
 
-    /* 4 Mode Selector Grid */
-    .mode-label {
-      font-size: 0.72rem;
+    /* Section Headers */
+    .section-label {
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      color: var(--text-muted);
-      margin: 4px 0 8px 2px;
-      font-weight: 700;
+      color: var(--gold);
+      margin: 4px 0 10px 2px;
+      font-weight: 800;
     }
+
+    /* 2x2 Large Mode Selector Grid */
     .mode-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 14px;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
     }
     .mode-tile {
       background: var(--card);
       border: 2px solid var(--card-border);
-      border-radius: 12px;
-      padding: 10px 4px;
-      text-align: center;
+      border-radius: 14px;
+      padding: 14px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
     .mode-tile.active {
-      border-color: var(--primary);
-      background: rgba(217, 119, 6, 0.14);
-      box-shadow: 0 0 12px rgba(217, 119, 6, 0.25);
+      border-color: var(--gold);
+      background: rgba(234, 179, 8, 0.15);
+      box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
     }
-    .mode-icon { font-size: 1.65rem; display: block; margin-bottom: 4px; }
-    .mode-name { font-size: 0.75rem; font-weight: 700; color: #fff; display: block; }
-    .mode-sub { font-size: 0.65rem; color: var(--text-muted); }
+    .mode-icon { font-size: 2.1rem; line-height: 1; }
+    .mode-text-wrap { text-align: left; }
+    .mode-name { font-size: 1.05rem; font-weight: 800; color: #fff; display: block; }
+    .mode-sub { font-size: 0.82rem; color: var(--text-muted); display: block; margin-top: 2px; }
 
     /* Live Chamber Settings Banner */
     .chamber-panel {
-      background: #141920;
-      border: 1px solid #2d3643;
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 16px;
+      background: #141922;
+      border: 2px solid #2e3846;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
     }
     .chamber-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #222933;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #f59e0b;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #262f3d;
+      text-transform: uppercase;
     }
     .chamber-metrics {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 10px;
       text-align: center;
     }
     .metric-box {
-      background: #0d1014;
-      border: 1px solid #222933;
-      border-radius: 8px;
-      padding: 8px 4px;
+      background: #0b0e13;
+      border: 1px solid #252e3d;
+      border-radius: 10px;
+      padding: 12px 6px;
     }
-    .metric-lbl { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; }
-    .metric-val { font-size: 1.05rem; font-weight: 800; color: var(--accent); margin-top: 2px; }
+    .metric-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+    .metric-val { font-size: 1.25rem; font-weight: 900; color: var(--accent); margin-top: 4px; }
     .compat-rule {
-      margin-top: 10px;
-      font-size: 0.78rem;
-      line-height: 1.35;
-      color: #cbd5e1;
-      background: rgba(255,255,255,0.03);
-      padding: 8px 10px;
-      border-radius: 6px;
+      margin-top: 12px;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #e2e8f0;
+      background: rgba(255,255,255,0.04);
+      padding: 12px;
+      border-radius: 8px;
     }
 
     /* Batch Cards */
     .card {
       background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 14px;
+      border: 2px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 18px;
     }
     .stat-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin: 10px 0;
+      gap: 10px;
+      margin: 14px 0;
       text-align: center;
     }
     .stat-item {
-      background: #101318;
-      border: 1px solid #262c36;
-      border-radius: 8px;
-      padding: 8px 4px;
+      background: #0d1016;
+      border: 1px solid #28303e;
+      border-radius: 10px;
+      padding: 12px 6px;
     }
-    .stat-lbl { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; }
-    .stat-num { font-size: 1.1rem; font-weight: 700; margin-top: 2px; }
+    .stat-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+    .stat-num { font-size: 1.35rem; font-weight: 800; margin-top: 4px; color: #fff; }
     .stage-box {
-      background: rgba(217, 119, 6, 0.08);
-      border-left: 4px solid var(--primary);
-      border-radius: 4px;
-      padding: 10px 12px;
-      margin: 10px 0;
-      font-size: 0.82rem;
-      line-height: 1.4;
+      background: rgba(234, 179, 8, 0.1);
+      border-left: 5px solid var(--gold);
+      border-radius: 6px;
+      padding: 14px;
+      margin: 14px 0;
+      font-size: 0.98rem;
+      line-height: 1.5;
     }
     .btn {
       display: inline-flex;
@@ -169,22 +203,22 @@
       background: var(--primary);
       color: #fff;
       border: none;
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 700;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 800;
       cursor: pointer;
       width: 100%;
     }
-    .btn-secondary { background: #2d333b; color: #fff; }
-    .btn-weigh { background: #0284c7; margin-top: 8px; padding: 10px; font-size: 0.88rem; }
+    .btn-secondary { background: #2d3542; color: #fff; }
+    .btn-weigh { background: #0284c7; margin-top: 10px; padding: 14px; font-size: 1.05rem; }
 
     .bottom-bar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      background: rgba(15, 18, 22, 0.96);
-      border-top: 1px solid var(--card-border);
-      padding: 12px 16px;
+      background: rgba(14, 17, 22, 0.96);
+      border-top: 2px solid var(--card-border);
+      padding: 14px 16px;
       max-width: 600px;
       margin: 0 auto;
       z-index: 25;
@@ -194,86 +228,98 @@
     .modal {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.84);
+      background: rgba(0,0,0,0.88);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 14px;
+      padding: 16px;
       z-index: 60;
     }
     .modal.active { display: flex; }
     .modal-content {
       background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 18px;
+      border: 2px solid var(--card-border);
+      border-radius: 16px;
+      padding: 22px;
       width: 100%;
-      max-width: 480px;
-      max-height: 88vh;
+      max-width: 500px;
+      max-height: 90vh;
       overflow-y: auto;
     }
-    .form-group { margin-bottom: 12px; }
-    label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 0.95rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
     input, select {
       width: 100%;
-      background: #0d1014;
-      border: 1px solid #2d3643;
-      border-radius: 8px;
-      padding: 11px;
+      background: #0b0e13;
+      border: 2px solid #2e3846;
+      border-radius: 10px;
+      padding: 14px;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 1.08rem;
+      font-weight: 600;
     }
     .info-callout {
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      border-radius: 8px;
-      padding: 9px 11px;
-      font-size: 0.78rem;
-      color: #bae6fd;
-      margin-top: 6px;
-      line-height: 1.35;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      color: #e0f2fe;
+      margin-top: 10px;
+      line-height: 1.45;
     }
     .checklist-step {
-      background: #11151c;
-      border: 1px solid #262e3b;
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-bottom: 10px;
-      font-size: 0.82rem;
-      line-height: 1.4;
+      background: #10141b;
+      border: 1px solid #283242;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
-    .checklist-step strong { color: #f59e0b; display: block; margin-bottom: 3px; }
+    .checklist-step strong { color: var(--gold); font-size: 1.05rem; display: block; margin-bottom: 4px; }
   </style>
 </head>
 <body>
 
   <header>
-    <h1 class="header-title">🌡️ AgerMaster Hub</h1>
-    <button class="guide-btn" onclick="openModal('prepModal')">📋 Prep & Butcher Guide</button>
+    <div class="brand-box">
+      <div class="brand-logo">AGE</div>
+      <h1 class="header-title">Dry Age Master</h1>
+    </div>
+    <button class="guide-btn" onclick="openModal('prepModal')">📋 Full Guide</button>
   </header>
 
   <main>
-    <div class="mode-label">Select What Is In Your Cabinet (4 Climate Zones)</div>
+    <div class="section-label">1. Tap What Is In Your Fridge:</div>
     <div class="mode-grid">
       <div class="mode-tile active" id="tile-meat" onclick="setMode('meat')">
         <span class="mode-icon">🥩</span>
-        <span class="mode-name">Red Meat</span>
-        <span class="mode-sub">Beef/Pork/Lamb</span>
+        <div class="mode-text-wrap">
+          <span class="mode-name">Red Meat</span>
+          <span class="mode-sub">Beef, Pork, Lamb</span>
+        </div>
       </div>
       <div class="mode-tile" id="tile-fish" onclick="setMode('fish')">
         <span class="mode-icon">🐟</span>
-        <span class="mode-name">Seafood</span>
-        <span class="mode-sub">Whole Fish</span>
+        <div class="mode-text-wrap">
+          <span class="mode-name">Seafood</span>
+          <span class="mode-sub">Whole Fish</span>
+        </div>
       </div>
       <div class="mode-tile" id="tile-charcuterie" onclick="setMode('charcuterie')">
         <span class="mode-icon">🥓</span>
-        <span class="mode-name">Salami</span>
-        <span class="mode-sub">Charcuterie</span>
+        <div class="mode-text-wrap">
+          <span class="mode-name">Salami</span>
+          <span class="mode-sub">Cured Meats</span>
+        </div>
       </div>
       <div class="mode-tile" id="tile-cheese" onclick="setMode('cheese')">
         <span class="mode-icon">🧀</span>
-        <span class="mode-name">Cheese</span>
-        <span class="mode-sub">Hard Wheels</span>
+        <div class="mode-text-wrap">
+          <span class="mode-name">Cheese</span>
+          <span class="mode-sub">Hard Wheels</span>
+        </div>
       </div>
     </div>
 
@@ -281,35 +327,36 @@
     <div class="chamber-panel" id="chamberPanel"></div>
 
     <!-- Active Batches List -->
+    <div class="section-label">2. Your Active Batches:</div>
     <div id="batchContainer"></div>
   </main>
 
   <div class="bottom-bar">
-    <button class="btn" id="addBtn" onclick="openAddModal()">+ Add New Item to Cabinet</button>
+    <button class="btn" id="addBtn" onclick="openAddModal()">+ Add New Item to Fridge</button>
   </div>
 
   <!-- Add Item Modal -->
   <div class="modal" id="addModal">
     <div class="modal-content">
-      <h3 style="margin-top:0; color:#fff;" id="addModalTitle">Add Batch</h3>
+      <h2 style="margin-top:0; color:#fff; font-size:1.35rem;" id="addModalTitle">Add Batch</h2>
       <div class="form-group">
-        <label>Select Cut / Product</label>
+        <label>Choose Cut or Product</label>
         <select id="cutName" onchange="updateCutAdvice()"></select>
         <div id="cutAdvice" class="info-callout"></div>
       </div>
       <div class="form-group">
-        <label>Starting Weight (grams)</label>
-        <input type="number" id="startWeight" placeholder="e.g. 6500" required>
+        <label>Starting Weight in Grams (e.g. 6500)</label>
+        <input type="number" id="startWeight" placeholder="Type weight in grams..." required>
       </div>
       <div class="form-group">
-        <label>Date Loaded</label>
+        <label>Date Put in Fridge</label>
         <input type="date" id="startDate">
       </div>
       <div class="form-group">
-        <label>Target Aging Days</label>
+        <label>Target Days to Age</label>
         <input type="number" id="targetDays" value="35">
       </div>
-      <div style="display:flex; gap:8px; margin-top:16px;">
+      <div style="display:flex; gap:10px; margin-top:20px;">
         <button class="btn btn-secondary" onclick="closeModal('addModal')">Cancel</button>
         <button class="btn" onclick="createBatch()">Start Aging</button>
       </div>
@@ -319,13 +366,13 @@
   <!-- Weigh-In Modal -->
   <div class="modal" id="weighModal">
     <div class="modal-content">
-      <h3 style="margin-top:0; color:#fff;">⚖️ Log Current Weight</h3>
+      <h2 style="margin-top:0; color:#fff; font-size:1.35rem;">⚖️ Log New Weight</h2>
       <input type="hidden" id="weighBatchId">
       <div class="form-group">
         <label>Current Scale Reading (grams)</label>
         <input type="number" id="currentWeight" placeholder="e.g. 5650" required>
       </div>
-      <div style="display:flex; gap:8px; margin-top:16px;">
+      <div style="display:flex; gap:10px; margin-top:20px;">
         <button class="btn btn-secondary" onclick="closeModal('weighModal')">Cancel</button>
         <button class="btn" onclick="saveWeighIn()">Save Weight</button>
       </div>
@@ -335,45 +382,46 @@
   <!-- Step-by-Step Prep & Butcher Guide Modal -->
   <div class="modal" id="prepModal">
     <div class="modal-content">
-      <h3 style="margin-top:0; color:#fff;">📖 Dry Aging Bible Checklist</h3>
+      <h2 style="margin-top:0; color:#fff; font-size:1.35rem;">📖 Step-by-Step Checklist</h2>
       <div class="checklist-step">
-        <strong>1. Buying at the Butcher (What to Ask)</strong>
-        • Ask for fresh sub-primals (5–10 days post-slaughter), NOT old cryovac bags sitting in blood purge for weeks.<br>
-        • Keep bones ON and full dorsal fat cap UNTRIMMED.<br>
-        • Trim off any thin dangling meat flaps so they don't trap moisture.
+        <strong>Step 1: Buying at the Butcher</strong>
+        • Ask for fresh bone-in cuts (5–10 days from slaughter), NOT old vacuum bags sitting in blood liquid.<br>
+        • Ask the butcher to leave the <b>bones ON</b> and the <b>full fat cap UNTRIMMED</b>.<br>
+        • Pick female cattle (Heifer) or good marbling (MB 3+).
       </div>
       <div class="checklist-step">
-        <strong>2. Sanitising the MA400 Cabinet</strong>
-        • Remove Himalayan salt block before spraying.<br>
-        • Wipe walls, rubber seals & wire racks with warm water, then spray with <b>70% Food-Grade Ethanol</b> or no-rinse food sanitiser.<br>
-        • Never use bleach or scented sprays. Pre-run fridge empty for 12h.
+        <strong>Step 2: Cleaning the MA400 Fridge</strong>
+        • Take the pink Himalayan salt block out before cleaning.<br>
+        • Wipe inside walls, rubber door seals & wire racks with warm water, then spray with <b>70% Food-Grade Ethanol</b> (or no-rinse brewing sanitiser).<br>
+        • Never use bleach or scented kitchen sprays. Run fridge empty for 12 hours first.
       </div>
       <div class="checklist-step">
-        <strong>3. Prepping the Cut (Day 0)</strong>
-        • Wear clean nitrile gloves.<br>
-        • <b>NEVER rinse with tap water.</b> Dab completely bone-dry with paper towels.<br>
-        • Place on rack: <b>Fat Cap UP, Bones DOWN</b> with 8cm air gap around all sides.
+        <strong>Step 3: Prepping the Meat (Day 0)</strong>
+        • Put on clean disposable gloves.<br>
+        • <b>NEVER wash meat with tap water.</b> Pat completely bone-dry with clean paper towels.<br>
+        • Cut off any thin dangling meat flaps.<br>
+        • Place on wire shelf: <b>Fat Cap UP, Bones DOWN</b> with an 8cm gap around all sides.
       </div>
-      <button class="btn" onclick="closeModal('prepModal')">Got It</button>
+      <button class="btn" onclick="closeModal('prepModal')">Close Guide</button>
     </div>
   </div>
 
   <script>
     const MODES = {
       meat: {
-        name: "Red Meat, Pork, Lamb & Game",
+        name: "Red Meat, Pork & Lamb",
         temp: "1.5°C – 2.0°C",
         rh: "75% – 80%",
         uvc: "ON",
         uvcColor: "#22c55e",
-        canMix: "✅ <b>Can Mix Together:</b> Beef, Pork Loin, Lamb Racks, Duck & Venison.<br>🚫 <b>Never Mix With:</b> Fish, Salami, or Cheese.",
+        canMix: "✅ <b>Can Share Fridge Together:</b> Beef, Pork Loin, Lamb Racks, Duck & Venison.<br>🚫 <b>Do Not Put In With:</b> Fish, Salami, or Cheese.",
         items: [
-          { name: "Beef OP Rib / Standing Rib (Bone-In)", days: 35, tip: "🥩 <b>Butcher Spec:</b> 4-6 bones, chine cracked, feather bones on, full fat cap intact. Load Fat UP, Bones DOWN." },
-          { name: "Beef Short Loin (T-Bone / Porterhouse)", days: 30, tip: "🥩 <b>Butcher Spec:</b> Whole bone-in saddle with eye fillet in. Don't exceed 35 days so the tenderloin doesn't over-dry." },
-          { name: "Beef Whole Striploin (Fat Cap On)", days: 35, tip: "🥩 <b>Butcher Spec:</b> Keep thick dorsal fat cap 100% untrimmed to shield the striploin eye." },
-          { name: "Pork Rack / Bone-In Loin", days: 18, tip: "🐖 <b>Butcher Spec:</b> 6-8 rib rack with 1.5cm fat layer intact. Ages beautifully alongside beef." },
-          { name: "Lamb Saddle / Crown Rack", days: 16, tip: "🐑 <b>Butcher Spec:</b> Whole double loin on the bone with fat cap on. Target 14–21 days." },
-          { name: "Venison / Game Saddle", days: 14, tip: "🦌 <b>Landig Spec:</b> Keep on the bone with silverskin intact to prevent lean game meat from drying too fast." }
+          { name: "Beef OP Rib / Standing Rib (Bone-In)", days: 35, tip: "🥩 <b>What to Ask Butcher:</b> 4-6 bones, chine cracked, feather bones on, full fat cap left on. Place Fat UP, Bones DOWN." },
+          { name: "Beef Short Loin (T-Bone / Porterhouse)", days: 30, tip: "🥩 <b>What to Ask Butcher:</b> Whole bone-in saddle with eye fillet inside. Don't go past 35 days so the fillet doesn't dry out." },
+          { name: "Beef Whole Striploin (Fat Cap On)", days: 35, tip: "🥩 <b>What to Ask Butcher:</b> Leave thick top fat cap 100% untrimmed to protect the meat." },
+          { name: "Pork Rack / Bone-In Loin", days: 18, tip: "🐖 <b>What to Ask Butcher:</b> 6-8 rib rack with 1.5cm fat layer left on. Can sit in the fridge at the same time as beef!" },
+          { name: "Lamb Saddle / Crown Rack", days: 16, tip: "🐑 <b>What to Ask Butcher:</b> Whole double loin on the bone with fat cap on. Ready in 14–21 days." },
+          { name: "Venison / Game Saddle", days: 14, tip: "🦌 <b>Tip:</b> Keep on the bone with silverskin left on so lean meat stays juicy." }
         ]
       },
       fish: {
@@ -382,39 +430,39 @@
         rh: "80% – 85%",
         uvc: "ON",
         uvcColor: "#22c55e",
-        canMix: "✅ <b>Can Mix Together:</b> Kingfish, Tuna, Salmon, Coral Trout, Snapper.<br>🚫 <b>Run Alone:</b> Marine oils will taint beef or dairy.",
+        canMix: "✅ <b>Can Share Fridge Together:</b> Kingfish, Tuna, Salmon, Snapper, Coral Trout.<br>🚫 <b>Run Alone:</b> Fish smells will soak into beef fat or cheese.",
         items: [
-          { name: "Whole Kingfish / Amberjack (Gutted & Gilled)", days: 10, tip: "🐟 <b>Prep:</b> Scale left ON, gills & guts removed, bloodline scrubbed out without tap water, blotted bone-dry. Hang from tail or rack." },
-          { name: "Tuna Loin / Bonito", days: 12, tip: "🐟 <b>Prep:</b> Blot surface moisture daily for the first 48 hours. Develops rich umami sashimi texture." },
-          { name: "Whole Salmon / Ocean Trout", days: 7, tip: "🐟 <b>Prep:</b> Hang by tail hook or lay on perforated rack. Crispy skin, dense buttery flesh in 5–8 days." },
-          { name: "Whole Snapper / Coral Trout", days: 6, tip: "🐟 <b>Prep:</b> Leave scales intact to protect skin; Cavity wiped dry with paper towel & sake/vodka." }
+          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 <b>Prep:</b> Scales ON, gills & guts removed, bloodline wiped out with paper towels (no tap water!). Hang by tail or lay on rack." },
+          { name: "Tuna Loin / Bonito", days: 12, tip: "🐟 <b>Prep:</b> Dab surface dry with paper towels for the first 2 days." },
+          { name: "Whole Salmon / Ocean Trout", days: 7, tip: "🐟 <b>Prep:</b> Hang from tail hook or rack. Gives super crispy skin and buttery flesh in 5–8 days." },
+          { name: "Whole Snapper / Coral Trout", days: 6, tip: "🐟 <b>Prep:</b> Leave scales on; wipe inside belly cavity bone-dry with paper towel." }
         ]
       },
       charcuterie: {
-        name: "Salami, Prosciutto & Cured Meats",
+        name: "Salami & Cured Meats",
         temp: "12.0°C – 14.0°C",
         rh: "75% – 82%",
         uvc: "OFF ⚠️",
         uvcColor: "#ef4444",
-        canMix: "✅ <b>Can Mix Together:</b> Salami, Pancetta, Guanciale, Coppa, Bresaola.<br>🚫 <b>UVC MUST BE OFF:</b> UV light kills protective white curing mould.",
+        canMix: "✅ <b>Can Share Fridge Together:</b> Salami, Pancetta, Guanciale, Coppa, Bresaola.<br>🚫 <b>TURN UVC LIGHT OFF:</b> UV light kills the good white curing mould!",
         items: [
-          { name: "Salami / Soppressata Batch", days: 42, tip: "🥓 <b>Rule:</b> Harvest when weight loss reaches 35%–40%. Keep UVC light OFF to protect white Penicillium mould." },
-          { name: "Whole Coppa / Capocollo", days: 60, tip: "🥓 <b>Rule:</b> Cured pork neck. Target 30%–35% total weight loss at 13°C and 78% RH." },
-          { name: "Pancetta / Guanciale", days: 35, tip: "🥓 <b>Rule:</b> Hang from top rail hooks with 10cm spacing. Target ~30% weight loss." },
-          { name: "Beef Bresaola", days: 30, tip: "🥓 <b>Rule:</b> Lean cured eye of round. Target 35% weight loss." }
+          { name: "Salami / Soppressata Batch", days: 42, tip: "🥓 <b>Rule:</b> Ready when weight drops by 35%–40%. Make sure UVC light is switched OFF." },
+          { name: "Whole Coppa / Capocollo", days: 60, tip: "🥓 <b>Rule:</b> Cured pork neck. Ready when weight drops by 30%–35%." },
+          { name: "Pancetta / Guanciale", days: 35, tip: "🥓 <b>Rule:</b> Hang from top hooks with 10cm air gap. Target 30% weight loss." },
+          { name: "Beef Bresaola", days: 30, tip: "🥓 <b>Rule:</b> Cured eye of round. Target 35% weight loss." }
         ]
       },
       cheese: {
-        name: "Cheese Affinage (Maturation)",
+        name: "Cheese Aging",
         temp: "10.0°C – 12.0°C",
         rh: "85% – 90%",
         uvc: "OFF ⚠️",
         uvcColor: "#ef4444",
-        canMix: "✅ <b>Can Mix Together:</b> waxed or natural-rind hard cheeses (Cheddar, Gouda, Alpine).<br>🚫 <b>Never Mix With Meat:</b> Dairy moulds cross-contaminate raw beef.",
+        canMix: "✅ <b>Can Share Fridge Together:</b> Hard cheeses (Cheddar, Gouda, Gruyère).<br>🚫 <b>Never Mix With Meat:</b> Cheese moulds will spread onto raw meat.",
         items: [
-          { name: "Hard Cheddar / Farmhouse Wheel", days: 60, tip: "🧀 <b>Affinage:</b> Flip wheel every 3 days on wooden/stainless shelf. Keep UVC OFF." },
-          { name: "Gouda / Edam Wheel", days: 45, tip: "🧀 <b>Affinage:</b> High 85% RH prevents rind cracking. Wipe with light brine if unwanted mould spots appear." },
-          { name: "Alpine / Gruyère Style Wheel", days: 75, tip: "🧀 <b>Affinage:</b> Brush rind twice weekly and flip regularly for even moisture distribution." }
+          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 <b>Tip:</b> Flip wheel over every 3 days on shelf. Keep UVC light OFF." },
+          { name: "Gouda / Edam Wheel", days: 45, tip: "🧀 <b>Tip:</b> High 85% humidity stops the rind from cracking." },
+          { name: "Alpine / Gruyère Wheel", days: 75, tip: "🧀 <b>Tip:</b> Flip twice a week for even aging." }
         ]
       }
     };
@@ -431,172 +479,4 @@
       render();
     }
 
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-    function openAddModal() {
-      const modeObj = MODES[currentMode];
-      document.getElementById('addModalTitle').innerText = "Add " + modeObj.name;
-      const select = document.getElementById('cutName');
-      select.innerHTML = modeObj.items.map((it, idx) => `<option value="${idx}">${it.name}</option>`).join('');
-      updateCutAdvice();
-      openModal('addModal');
-    }
-
-    function updateCutAdvice() {
-      const idx = document.getElementById('cutName').value;
-      const item = MODES[currentMode].items[idx];
-      if (item) {
-        document.getElementById('cutAdvice').innerHTML = item.tip;
-        document.getElementById('targetDays').value = item.days;
-      }
-    }
-
-    function createBatch() {
-      const idx = document.getElementById('cutName').value;
-      const item = MODES[currentMode].items[idx];
-      const startWeight = parseFloat(document.getElementById('startWeight').value);
-      const startDate = document.getElementById('startDate').value;
-      const targetDays = parseInt(document.getElementById('targetDays').value) || item.days;
-      if (!startWeight || !startDate) return alert('Please enter starting weight and date.');
-
-      batches.unshift({
-        id: Date.now(),
-        mode: currentMode,
-        cut: item.name,
-        startWeight,
-        startDate,
-        targetDays,
-        history: [{ date: startDate, weight: startWeight }]
-      });
-      localStorage.setItem('agerBatchesV2', JSON.stringify(batches));
-      closeModal('addModal');
-      document.getElementById('startWeight').value = '';
-      render();
-    }
-
-    function openWeigh(id) {
-      document.getElementById('weighBatchId').value = id;
-      openModal('weighModal');
-    }
-
-    function saveWeighIn() {
-      const id = parseInt(document.getElementById('weighBatchId').value);
-      const w = parseFloat(document.getElementById('currentWeight').value);
-      if (!w) return;
-      const b = batches.find(x => x.id === id);
-      if (b) {
-        b.history.push({ date: new Date().toISOString().split('T')[0], weight: w });
-        localStorage.setItem('agerBatchesV2', JSON.stringify(batches));
-        render();
-      }
-      closeModal('weighModal');
-      document.getElementById('currentWeight').value = '';
-    }
-
-    function deleteBatch(id) {
-      if (confirm('Remove this batch from tracker?')) {
-        batches = batches.filter(x => x.id !== id);
-        localStorage.setItem('agerBatchesV2', JSON.stringify(batches));
-        render();
-      }
-    }
-
-    function getStageAdvice(mode, days) {
-      if (mode === 'meat') {
-        if (days <= 7) return ["STAGE 1: PELLICLE FORMING (Days 1–7)", "Surface drying rapidly into dark mahogany rind. Keep door closed; check salt block tray for water."];
-        if (days <= 28) return ["STAGE 2: ENZYME TENDERISATION (Days 8–28)", "Calpain enzymes breaking down muscle fibres. Buttery, nutty aroma starting to develop."];
-        if (days <= 45) return ["STAGE 3: PRIME SWEET SPOT (Days 29–45)", "Peak roasted hazelnut & umami flavour. Ideal time to harvest, trim 1–2mm pellicle & cut 40mm steaks!"];
-        return ["STAGE 4: DEEP FUNK (Days 45+)", "Strong blue-cheese & charcuterie notes. Monitor trim loss closely."];
-      }
-      if (mode === 'fish') {
-        if (days <= 2) return ["STAGE 1: SURFACE DRIP DRYING (Days 1–2)", "Dab cavity with paper towel if any moisture pools. Skin tightening into glossy parchment."];
-        if (days <= 7) return ["STAGE 2: ENZYMATIC UMAMI PEAK (Days 3–7)", "Inosine monophosphate (umami) peaking; flesh firming into buttery sashimi/roasting texture."];
-        return ["STAGE 3: EXTENDED MATURATION (Days 8+)", "Check gill/cavity aroma daily. Slice and portion immediately when ready."];
-      }
-      if (mode === 'charcuterie') {
-        return ["CURING & DESICCATION IN PROGRESS", "Ensure UVC light stays OFF. Harvest when total weight loss hits 35%–40%."];
-      }
-      return ["AFFINAGE MATURATION", "Flip wheels every 3–4 days for uniform rind development. Keep UVC OFF."];
-    }
-
-    function render() {
-      const m = MODES[currentMode];
-      document.getElementById('chamberPanel').innerHTML = `
-        <div class="chamber-header">
-          <span>SET MA400 CABINET TO: ${m.name.toUpperCase()}</span>
-        </div>
-        <div class="chamber-metrics">
-          <div class="metric-box">
-            <div class="metric-lbl">Temp</div>
-            <div class="metric-val">${m.temp}</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-lbl">Humidity</div>
-            <div class="metric-val">${m.rh}</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-lbl">UVC Light</div>
-            <div class="metric-val" style="color:${m.uvcColor};">${m.uvc}</div>
-          </div>
-        </div>
-        <div class="compat-rule">${m.canMix}</div>
-      `;
-
-      const container = document.getElementById('batchContainer');
-      const filtered = batches.filter(b => b.mode === currentMode);
-
-      if (!filtered.length) {
-        container.innerHTML = `
-          <div style="text-align:center; padding: 32px 16px; color: var(--text-muted);">
-            <div style="font-size: 2.6rem; margin-bottom: 8px;">🌡️</div>
-            <h3 style="color:#fff; margin: 0 0 6px 0;">No Active ${m.name} Batches</h3>
-            <p style="font-size: 0.82rem; margin:0;">Tap the button below to log a batch in this climate zone, or tap <b>📋 Prep & Butcher Guide</b> top-right for your step-by-step checklist.</p>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = filtered.map(b => {
-        const diffDays = Math.max(0, Math.floor((new Date() - new Date(b.startDate)) / 86400000));
-        const latestWeight = b.history[b.history.length - 1].weight;
-        const lossPercent = (((b.startWeight - latestWeight) / b.startWeight) * 100).toFixed(1);
-        const [stTitle, stBody] = getStageAdvice(b.mode, diffDays);
-
-        return `
-          <div class="card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div>
-                <h2 style="margin:0; font-size:1.05rem; color:#fff;">${b.cut}</h2>
-                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">Day ${diffDays} of ${b.targetDays} • Loaded ${b.startDate}</div>
-              </div>
-              <button onclick="deleteBatch(${b.id})" style="background:none; border:none; color:#666; font-size:1.1rem; cursor:pointer;">✕</button>
-            </div>
-            <div class="stat-row">
-              <div class="stat-item">
-                <div class="stat-lbl">Days In</div>
-                <div class="stat-num">${diffDays}</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-lbl">Weight Loss</div>
-                <div class="stat-num" style="color:#f59e0b;">-${lossPercent}%</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-lbl">Current Wt</div>
-                <div class="stat-num">${latestWeight}g</div>
-              </div>
-            </div>
-            <div class="stage-box">
-              <strong style="color:#f59e0b; display:block; margin-bottom:3px;">${stTitle}</strong>
-              ${stBody}
-            </div>
-            <button class="btn btn-weigh" onclick="openWeigh(${b.id})">⚖️ Log Weigh-In</button>
-          </div>
-        `;
-      }).join('');
-    }
-
-    setMode(currentMode);
-  </script>
-</body>
-</html>
+    function open
