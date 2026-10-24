@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Dry Age Master - MA400 Hub</title>
+  <title>AgerLog - MA400 Hub</title>
   <meta name="theme-color" content="#0e1116">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23eab308' stroke-width='8'/%3E%3Ccircle cx='60' cy='60' r='38' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='69' font-family='sans-serif' font-size='26' font-weight='900' fill='%23eab308' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
@@ -14,223 +14,88 @@
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
-      margin: 0;
-      padding: 0 0 110px 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 17px;
-      line-height: 1.5;
+      margin: 0; padding: 0 0 110px 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 17px; line-height: 1.5;
     }
     header {
-      background: #141820;
-      border-bottom: 2px solid var(--border);
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 30;
+      background: #141820; border-bottom: 2px solid var(--border); padding: 14px 16px;
+      display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 30;
     }
     .brand { display: flex; align-items: center; gap: 10px; }
     .logo {
-      width: 42px; height: 42px;
-      border-radius: 10px;
-      background: #1c222d;
-      border: 2px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 0.9rem; color: var(--gold);
+      width: 42px; height: 42px; border-radius: 10px; background: #1c222d; border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; color: var(--gold);
     }
     .title { font-weight: 800; font-size: 1.2rem; color: #fff; margin: 0; }
     .guide-btn {
-      background: #252d3a;
-      color: #fff;
-      border: 2px solid var(--gold);
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 800;
-      cursor: pointer;
+      background: #252d3a; color: #fff; border: 2px solid var(--gold); padding: 8px 12px;
+      border-radius: 10px; font-size: 0.9rem; font-weight: 800; cursor: pointer;
     }
     main { padding: 16px; max-width: 600px; margin: 0 auto; }
     .sec-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--gold);
-      margin: 6px 0 10px 2px;
-      font-weight: 800;
+      font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin: 6px 0 10px 2px; font-weight: 800;
     }
-    .mode-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
     .mode-tile {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
+      background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 14px 12px;
+      display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s;
     }
     .mode-tile.active {
-      border-color: var(--gold);
-      background: rgba(234, 179, 8, 0.18);
-      box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
+      border-color: var(--gold); background: rgba(234, 179, 8, 0.18); box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
     }
     .m-icon { font-size: 2.2rem; line-height: 1; pointer-events: none; }
     .m-name { font-size: 1.05rem; font-weight: 800; color: #fff; display: block; pointer-events: none; }
     .m-sub { font-size: 0.82rem; color: var(--muted); display: block; pointer-events: none; }
     .chamber-panel {
-      background: #141922;
-      border: 2px solid #2e3846;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 20px;
+      background: #141922; border: 2px solid #2e3846; border-radius: 14px; padding: 16px; margin-bottom: 20px;
     }
-    .chamber-head {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--gold);
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #262f3d;
-    }
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      text-align: center;
-    }
-    .m-box {
-      background: #0b0e13;
-      border: 1px solid #252e3d;
-      border-radius: 10px;
-      padding: 12px 6px;
-    }
+    .chamber-head { font-size: 0.95rem; font-weight: 800; color: var(--gold); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #262f3d; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+    .m-box { background: #0b0e13; border: 1px solid #252e3d; border-radius: 10px; padding: 12px 6px; }
     .m-lbl { font-size: 0.78rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
     .m-val { font-size: 1.15rem; font-weight: 900; color: var(--blue); margin-top: 4px; }
     .rule-box {
-      margin-top: 12px;
-      font-size: 0.92rem;
-      line-height: 1.45;
-      color: #e2e8f0;
-      background: rgba(255,255,255,0.05);
-      padding: 12px;
-      border-radius: 8px;
+      margin-top: 12px; font-size: 0.92rem; line-height: 1.45; color: #e2e8f0; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;
     }
-    .card {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 14px 0;
-      text-align: center;
-    }
-    .stat-item {
-      background: #0d1016;
-      border: 1px solid #28303e;
-      border-radius: 10px;
-      padding: 12px 6px;
-    }
+    .card { background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; text-align: center; }
+    .stat-item { background: #0d1016; border: 1px solid #28303e; border-radius: 10px; padding: 12px 6px; }
     .stat-num { font-size: 1.3rem; font-weight: 800; margin-top: 4px; color: #fff; }
     .stage-box {
-      background: rgba(234, 179, 8, 0.12);
-      border-left: 5px solid var(--gold);
-      border-radius: 6px;
-      padding: 14px;
-      margin: 14px 0;
-      font-size: 0.95rem;
+      background: rgba(234, 179, 8, 0.12); border-left: 5px solid var(--gold); border-radius: 6px; padding: 14px; margin: 14px 0; font-size: 0.95rem;
     }
     .btn {
-      display: block;
-      text-align: center;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 16px;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-weight: 800;
-      cursor: pointer;
-      width: 100%;
+      display: block; text-align: center; background: var(--primary); color: #fff; border: none;
+      padding: 16px; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; width: 100%;
     }
     .btn-sec { background: #2d3542; }
     .btn-blue { background: #0284c7; margin-top: 10px; padding: 14px; font-size: 1.02rem; }
     .bottom-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: #141820;
-      border-top: 2px solid var(--border);
-      padding: 14px 16px;
-      max-width: 600px;
-      margin: 0 auto;
-      z-index: 25;
+      position: fixed; bottom: 0; left: 0; right: 0; background: #141820; border-top: 2px solid var(--border);
+      padding: 14px 16px; max-width: 600px; margin: 0 auto; z-index: 25;
     }
     .modal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.88);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.88);
+      display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100;
     }
     .modal.active { display: flex; }
     .modal-content {
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      padding: 22px;
-      width: 100%;
-      max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
+      background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 22px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;
     }
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; font-size: 0.95rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
     input, select {
-      width: 100%;
-      background: #0b0e13;
-      border: 2px solid #2e3846;
-      border-radius: 10px;
-      padding: 14px;
-      color: #fff;
-      font-size: 1.05rem;
-      font-weight: 600;
+      width: 100%; background: #0b0e13; border: 2px solid #2e3846; border-radius: 10px; padding: 14px; color: #fff; font-size: 1.05rem; font-weight: 600;
     }
-    .callout {
-      background: rgba(56, 189, 248, 0.14);
-      border: 1px solid var(--blue);
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 0.95rem;
-      color: #e0f2fe;
-      margin-top: 10px;
-    }
-    .step-box {
-      background: #10141b;
-      border: 1px solid #283242;
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 12px;
-      font-size: 0.95rem;
-    }
+    .callout { background: rgba(56, 189, 248, 0.14); border: 1px solid var(--blue); border-radius: 10px; padding: 12px; font-size: 0.95rem; color: #e0f2fe; margin-top: 10px; }
+    .step-box { background: #10141b; border: 1px solid #283242; border-radius: 10px; padding: 14px; margin-bottom: 12px; font-size: 0.95rem; }
     .step-box strong { color: var(--gold); font-size: 1.05rem; display: block; margin-bottom: 4px; }
-    .del-custom { background: #ef4444; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; display: inline-block; }
+    .del-custom { background: #ef4444; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; display: inline-block; margin-top: 6px; }
+    .history-dropdown {
+      margin-top: 12px; background: #11141a; border: 1px solid #262e3b; border-radius: 8px; padding: 10px; font-size: 0.88rem; color: var(--muted);
+    }
+    .history-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .history-row:last-child { border-bottom: none; }
   </style>
 </head>
 <body>
@@ -318,3 +183,249 @@
       <div class="form-group">
         <label>Date Put in Fridge</label>
         <input type="date" id="inDate">
+      </div>
+      <div class="form-group">
+        <label>Target Days</label>
+        <input type="number" id="inDays" value="35">
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
+        <button class="btn btn-sec" onclick="closeModal('addModal')">Cancel</button>
+        <button class="btn" onclick="saveNewBatch()">Start Aging</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="weighModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:#fff;">⚖️ Enter New Weight</h2>
+      <input type="hidden" id="weighId">
+      <div class="form-group">
+        <label>Current Scale Reading (grams)</label>
+        <input type="number" id="inNewWeight" placeholder="e.g. 5650">
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
+        <button class="btn btn-sec" onclick="closeModal('weighModal')">Cancel</button>
+        <button class="btn" onclick="saveNewWeight()">Save Weight</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DEFAULT_MODES = {
+      meat: {
+        name: "Red Meat, Pork & Lamb", icon: "🥩", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON", uvcColor: "#22c55e",
+        rule: "✅ <b>Can Share:</b> Beef, Pork Loin, Lamb Racks, Venison.<br>🚫 <b>Keep Out:</b> Fish, Salami, Cheese.",
+        items: [
+          { name: "Beef OP Rib / Standing Rib (Bone-In)", days: 35, tip: "🥩 Place Fat UP, Bones DOWN." },
+          { name: "Beef Short Loin", days: 30, tip: "🥩 Whole bone-in saddle." }
+        ]
+      },
+      fish: {
+        name: "Whole Fish & Seafood", icon: "🐟", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON", uvcColor: "#22c55e",
+        rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon.<br>🚫 <b>Run Alone.</b>",
+        items: [
+          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 Scales ON, gills out, wipe dry." }
+        ]
+      },
+      salami: {
+        name: "Salami & Charcuterie", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
+        rule: "✅ <b>Can Share:</b> Salami, Coppa.<br>🚫 <b>UVC MUST BE OFF.</b>",
+        items: [
+          { name: "Salami / Soppressata", days: 42, tip: "🥓 Target 35-40% weight loss." }
+        ]
+      },
+      cheese: {
+        name: "Cheese Aging", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
+        rule: "✅ <b>Can Share:</b> Hard Cheeses.<br>🚫 <b>Keep away from meat.</b>",
+        items: [
+          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 Flip every 3 days." }
+        ]
+      }
+    };
+
+    var currentMode = 'meat';
+    var items = JSON.parse(localStorage.getItem('dryAgeItems') || '[]');
+    var customItems = JSON.parse(localStorage.getItem('dryAgeCustomItems') || '{"meat":[],"fish":[],"salami":[],"cheese":[]}');
+
+    function switchMode(m) {
+      currentMode = m;
+      document.querySelectorAll('.mode-tile').forEach(el => el.classList.remove('active'));
+      document.getElementById('tile-' + m).classList.add('active');
+      renderChamber();
+      renderList();
+    }
+
+    function renderChamber() {
+      var m = DEFAULT_MODES[currentMode];
+      document.getElementById('chamberBanner').innerHTML = `
+        <div class="chamber-panel">
+          <div class="chamber-head">⚙️ SET MA400 TO (${m.name.toUpperCase()})</div>
+          <div class="metrics">
+            <div class="m-box"><div class="m-lbl">Temp</div><div class="m-val">${m.temp}</div></div>
+            <div class="m-box"><div class="m-lbl">Humidity</div><div class="m-val">${m.rh}</div></div>
+            <div class="m-box"><div class="m-lbl">UVC</div><div class="m-val" style="color:${m.uvcColor};">${m.uvc}</div></div>
+          </div>
+          <div class="rule-box">${m.rule}</div>
+        </div>
+      `;
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    function getCombinedItems() {
+      var defs = DEFAULT_MODES[currentMode].items;
+      var cust = (customItems[currentMode] || []).map(c => ({ name: c, days: 35, tip: "Custom User Item", isCustom: true }));
+      return defs.concat(cust).concat([{ name: "➕ Other (Type custom item)...", days: 35, tip: "Type your own custom item below.", isOther: true }]);
+    }
+
+    function openAddModal() {
+      var m = DEFAULT_MODES[currentMode];
+      document.getElementById('addModalTitle').innerText = "Add " + m.name;
+      updateDropdown();
+      document.getElementById('inDate').value = new Date().toISOString().split('T')[0];
+      openModal('addModal');
+    }
+
+    function updateDropdown() {
+      var allItems = getCombinedItems();
+      var sel = document.getElementById('cutSelect');
+      sel.innerHTML = allItems.map((it, idx) => '<option value="' + idx + '">' + it.name + '</option>').join('');
+      checkCustomSelection();
+    }
+
+    function checkCustomSelection() {
+      var allItems = getCombinedItems();
+      var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
+      var item = allItems[idx];
+      var customGrp = document.getElementById('customInputGroup');
+      var delBtnContainer = document.getElementById('customDeleteContainer');
+      
+      if (item.isOther) {
+        customGrp.style.display = 'block';
+        delBtnContainer.style.display = 'none';
+        document.getElementById('customCutName').value = '';
+        document.getElementById('inDays').value = 35;
+        document.getElementById('cutTipBox').innerHTML = item.tip;
+      } else if (item.isCustom) {
+        customGrp.style.display = 'none';
+        delBtnContainer.style.display = 'block';
+        document.getElementById('inDays').value = item.days;
+        document.getElementById('cutTipBox').innerHTML = item.tip;
+      } else {
+        customGrp.style.display = 'none';
+        delBtnContainer.style.display = 'none';
+        document.getElementById('inDays').value = item.days;
+        document.getElementById('cutTipBox').innerHTML = item.tip;
+      }
+    }
+
+    function deleteSelectedCustom() {
+      var allItems = getCombinedItems();
+      var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
+      var item = allItems[idx];
+      if (item.isCustom) {
+        if (confirm('Permanently delete custom item "' + item.name + '"?')) {
+          customItems[currentMode] = customItems[currentMode].filter(c => c !== item.name);
+          localStorage.setItem('dryAgeCustomItems', JSON.stringify(customItems));
+          updateDropdown();
+        }
+      }
+    }
+
+    function saveNewBatch() {
+      var allItems = getCombinedItems();
+      var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
+      var item = allItems[idx];
+      var itemName = item.name;
+      var t = parseInt(document.getElementById('inDays').value, 10) || item.days;
+
+      if (item.isOther) {
+        var customVal = document.getElementById('customCutName').value.trim();
+        if (!customVal) { alert('Please type a custom item name.'); return; }
+        itemName = customVal;
+        if (!customItems[currentMode]) customItems[currentMode] = [];
+        if (!customItems[currentMode].includes(customVal)) {
+          customItems[currentMode].push(customVal);
+          localStorage.setItem('dryAgeCustomItems', JSON.stringify(customItems));
+        }
+      }
+
+      var w = parseFloat(document.getElementById('inWeight').value);
+      var d = document.getElementById('inDate').value || new Date().toISOString().split('T')[0];
+      if (!w) { alert('Please enter starting weight in grams.'); return; }
+
+      items.unshift({
+        id: Date.now(),
+        mode: currentMode,
+        name: itemName,
+        startW: w,
+        startD: d,
+        days: t,
+        history: [{ date: d, weight: w }]
+      });
+      localStorage.setItem('dryAgeItems', JSON.stringify(items));
+      closeModal('addModal');
+      renderList();
+    }
+
+    function promptWeigh(id) { document.getElementById('weighId').value = id; openModal('weighModal'); }
+    function saveNewWeight() {
+      var id = parseInt(document.getElementById('weighId').value, 10), w = parseFloat(document.getElementById('inNewWeight').value);
+      if (!w) return;
+      items.forEach(x => {
+        if (x.id === id) {
+          if (!x.history) x.history = [{ date: x.startD, weight: x.startW }];
+          x.history.push({ date: new Date().toISOString().split('T')[0], weight: w });
+        }
+      });
+      localStorage.setItem('dryAgeItems', JSON.stringify(items));
+      closeModal('weighModal');
+      renderList();
+    }
+    function removeBatch(id) {
+      if (confirm('Delete this batch?')) {
+        items = items.filter(x => x.id !== id);
+        localStorage.setItem('dryAgeItems', JSON.stringify(items));
+        renderList();
+      }
+    }
+
+    function renderList() {
+      var box = document.getElementById('batchList'), filtered = items.filter(x => (x.mode || 'meat') === currentMode);
+      if (!filtered.length) {
+        box.innerHTML = '<div class="card" style="text-align:center; color:var(--muted);">Nothing logged here yet. Tap below to add!</div>';
+        return;
+      }
+      box.innerHTML = filtered.map(b => {
+        var latestWeight = (b.history && b.history.length > 0) ? b.history[b.history.length - 1].weight : b.startW;
+        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
+        var loss = (((b.startW - latestWeight) / b.startW) * 100).toFixed(1);
+        var modeIcon = DEFAULT_MODES[b.mode || 'meat'].icon;
+        
+        var historyRows = (b.history || [{date: b.startD, weight: b.startW}]).map(h => {
+          var hLoss = (((b.startW - h.weight) / b.startW) * 100).toFixed(1);
+          return '<div class="history-row"><span>📅 ' + h.date + '</span><span><b>' + h.weight + 'g</b> (-' + hLoss + '%)</span></div>';
+        }).join('');
+
+        return '<div class="card">' +
+          '<div style="display:flex; justify-content:space-between; align-items:flex-start;">' +
+            '<div><h3 style="margin:0; color:#fff;">' + modeIcon + ' ' + b.name + '</h3>' +
+            '<div style="font-size:0.85rem; color:var(--muted); margin-top:2px;">Started: ' + b.startD + ' • Day ' + elapsed + ' of ' + b.days + '</div></div>' +
+            '<button onclick="removeBatch(' + b.id + ')" style="background:#262d38; color:#fff; border:none; width:36px; height:36px; border-radius:8px; cursor:pointer; font-size:1rem;">✕</button>' +
+          '</div>' +
+          '<div class="stat-row">' +
+            '<div class="stat-item"><div class="m-lbl">Days</div><div class="stat-num">' + elapsed + '</div></div>' +
+            '<div class="stat-item"><div class="m-lbl">Loss</div><div class="stat-num" style="color:var(--gold);">-' + loss + '%</div></div>' +
+            '<div class="stat-item"><div class="m-lbl">Weight Now</div><div class="stat-num">' + latestWeight + 'g</div></div>' +
+          '</div>' +
+          '<div class="history-dropdown"><div style="font-weight:700; margin-bottom:4px; color:#cbd5e1;">📊 Weigh-In Journey Log:</div>' + historyRows + '</div>' +
+          '<button class="btn btn-blue" onclick="promptWeigh(' + b.id + ')">⚖️ Enter New Weight</button>' +
+        '</div>';
+      }).join('');
+    }
+
+    switchMode('meat');
+  </script>
+</body>
+</html>
