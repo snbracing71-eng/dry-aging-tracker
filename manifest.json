@@ -1,16 +1,9 @@
 {
-  "name": "AgerLog - Butcher's Guild",
-  "short_name": "AgerLog",
-  "start_url": "/dry-aging-tracker/?v=15",
+  "id": "agerlog-guild-v20",
+  "name": "Butcher Guild AgerLog",
+  "short_name": "Guild Ager",
+  "start_url": "/dry-aging-tracker/?app=v20",
   "display": "standalone",
   "background_color": "#0c0a09",
-  "theme_color": "#0c0a09",
-  "icons": [
-    {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='42' fill='%230c0a09'/%3E%3Crect x='6' y='6' width='188' height='188' rx='38' fill='none' stroke='%23d4af37' stroke-width='4'/%3E%3Cpath d='M100 18 L170 44 V104 C170 150 100 186 100 186 C100 186 30 150 30 104 V44 Z' fill='%23161210' stroke='%23b45309' stroke-width='10'/%3E%3Cpath d='M72 68 C54 56 54 86 72 96 C90 106 90 134 72 128' fill='none' stroke='%23facc15' stroke-width='10' stroke-linecap='round'/%3E%3Cpath d='M118 60 L148 90 L124 114 L94 84 Z' fill='%23d4af37'/%3E%3Ccircle cx='135' cy='89' r='4' fill='%23161210'/%3E%3Cpath d='M94 84 L74 130' stroke='%23ea580c' stroke-width='10' stroke-linecap='round'/%3E%3C/svg%3E",
-      "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ]
+  "theme_color": "#0c0a09"
 }
