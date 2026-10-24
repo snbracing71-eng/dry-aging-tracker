@@ -7,11 +7,7 @@
   <meta name="theme-color" content="#111418">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
-  <!-- Custom Gold & Charcoal "Dry Aging Bible" Style App Icon (Hook + Hourglass + Cold Badge) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23d4a017' stroke-width='6'/%3E%3Cpath d='M60 12 v14 M52 26 h16 l-10 18 h12 l-16 26' stroke='%23d4a017' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='60' cy='76' r='22' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='83' font-family='sans-serif' font-size='20' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23d4a017' stroke-width='6'/%3E%3Cpath d='M60 12 v14 M52 26 h16 l-10 18 h12 l-16 26' stroke='%23d4a017' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='60' cy='76' r='22' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='83' font-family='sans-serif' font-size='20' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
-
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23eab308' stroke-width='8'/%3E%3Ccircle cx='60' cy='60' r='38' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='69' font-family='sans-serif' font-size='26' font-weight='900' fill='%23eab308' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #0e1116;
@@ -29,7 +25,7 @@
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       margin: 0;
-      padding: 0 0 110px 0;
+      padding: 0 0 115px 0;
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
@@ -47,55 +43,38 @@
       top: 0;
       z-index: 30;
     }
-    .brand-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .brand-box { display: flex; align-items: center; gap: 10px; }
     .brand-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 9px;
+      width: 40px; height: 40px;
+      border-radius: 10px;
       background: #1c222d;
       border: 2px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 0.75rem;
-      color: var(--gold);
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 8px rgba(234, 179, 8, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.85rem; color: var(--gold);
     }
-    .header-title {
-      font-weight: 800;
-      font-size: 1.25rem;
-      color: #fff;
-      margin: 0;
-    }
+    .header-title { font-weight: 800; font-size: 1.25rem; color: #fff; margin: 0; }
     .guide-btn {
       background: #252d3a;
       color: #fff;
       border: 2px solid var(--gold);
-      padding: 8px 14px;
+      padding: 10px 14px;
       border-radius: 10px;
       font-size: 0.95rem;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
     }
+    .guide-btn:active, .btn:active, .mode-tile:active { transform: scale(0.97); }
     main { padding: 16px; max-width: 600px; margin: 0 auto; }
 
-    /* Section Headers */
     .section-label {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--gold);
-      margin: 4px 0 10px 2px;
+      margin: 6px 0 10px 2px;
       font-weight: 800;
     }
 
-    /* 2x2 Large Mode Selector Grid */
     .mode-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -111,19 +90,18 @@
       align-items: center;
       gap: 12px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      user-select: none;
     }
     .mode-tile.active {
       border-color: var(--gold);
-      background: rgba(234, 179, 8, 0.15);
+      background: rgba(234, 179, 8, 0.16);
       box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
     }
-    .mode-icon { font-size: 2.1rem; line-height: 1; }
-    .mode-text-wrap { text-align: left; }
-    .mode-name { font-size: 1.05rem; font-weight: 800; color: #fff; display: block; }
+    .mode-icon { font-size: 2.1rem; line-height: 1; pointer-events: none; }
+    .mode-text-wrap { text-align: left; pointer-events: none; }
+    .mode-name { font-size: 1.08rem; font-weight: 800; color: #fff; display: block; }
     .mode-sub { font-size: 0.82rem; color: var(--text-muted); display: block; margin-top: 2px; }
 
-    /* Live Chamber Settings Banner */
     .chamber-panel {
       background: #141922;
       border: 2px solid #2e3846;
@@ -138,7 +116,6 @@
       margin-bottom: 12px;
       padding-bottom: 8px;
       border-bottom: 1px solid #262f3d;
-      text-transform: uppercase;
     }
     .chamber-metrics {
       display: grid;
@@ -153,7 +130,7 @@
       padding: 12px 6px;
     }
     .metric-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
-    .metric-val { font-size: 1.25rem; font-weight: 900; color: var(--accent); margin-top: 4px; }
+    .metric-val { font-size: 1.2rem; font-weight: 900; color: var(--accent); margin-top: 4px; }
     .compat-rule {
       margin-top: 12px;
       font-size: 0.95rem;
@@ -164,7 +141,6 @@
       border-radius: 8px;
     }
 
-    /* Batch Cards */
     .card {
       background: var(--card);
       border: 2px solid var(--card-border);
@@ -224,7 +200,6 @@
       z-index: 25;
     }
 
-    /* Modals */
     .modal {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -233,7 +208,7 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
-      z-index: 60;
+      z-index: 100;
     }
     .modal.active { display: flex; }
     .modal-content {
@@ -287,52 +262,50 @@
       <div class="brand-logo">AGE</div>
       <h1 class="header-title">Dry Age Master</h1>
     </div>
-    <button class="guide-btn" onclick="openModal('prepModal')">📋 Full Guide</button>
+    <button type="button" class="guide-btn" id="openGuideBtn">📋 Full Guide</button>
   </header>
 
   <main>
     <div class="section-label">1. Tap What Is In Your Fridge:</div>
     <div class="mode-grid">
-      <div class="mode-tile active" id="tile-meat" onclick="setMode('meat')">
+      <button type="button" class="mode-tile active" id="tile-meat" data-mode="meat">
         <span class="mode-icon">🥩</span>
         <div class="mode-text-wrap">
           <span class="mode-name">Red Meat</span>
           <span class="mode-sub">Beef, Pork, Lamb</span>
         </div>
-      </div>
-      <div class="mode-tile" id="tile-fish" onclick="setMode('fish')">
+      </button>
+      <button type="button" class="mode-tile" id="tile-fish" data-mode="fish">
         <span class="mode-icon">🐟</span>
         <div class="mode-text-wrap">
           <span class="mode-name">Seafood</span>
           <span class="mode-sub">Whole Fish</span>
         </div>
-      </div>
-      <div class="mode-tile" id="tile-charcuterie" onclick="setMode('charcuterie')">
+      </button>
+      <button type="button" class="mode-tile" id="tile-charcuterie" data-mode="charcuterie">
         <span class="mode-icon">🥓</span>
         <div class="mode-text-wrap">
           <span class="mode-name">Salami</span>
           <span class="mode-sub">Cured Meats</span>
         </div>
-      </div>
-      <div class="mode-tile" id="tile-cheese" onclick="setMode('cheese')">
+      </button>
+      <button type="button" class="mode-tile" id="tile-cheese" data-mode="cheese">
         <span class="mode-icon">🧀</span>
         <div class="mode-text-wrap">
           <span class="mode-name">Cheese</span>
           <span class="mode-sub">Hard Wheels</span>
         </div>
-      </div>
+      </button>
     </div>
 
-    <!-- Dynamic Fridge Settings Banner -->
     <div class="chamber-panel" id="chamberPanel"></div>
 
-    <!-- Active Batches List -->
     <div class="section-label">2. Your Active Batches:</div>
     <div id="batchContainer"></div>
   </main>
 
   <div class="bottom-bar">
-    <button class="btn" id="addBtn" onclick="openAddModal()">+ Add New Item to Fridge</button>
+    <button type="button" class="btn" id="openAddBtn">+ Add New Item to Fridge</button>
   </div>
 
   <!-- Add Item Modal -->
@@ -341,12 +314,12 @@
       <h2 style="margin-top:0; color:#fff; font-size:1.35rem;" id="addModalTitle">Add Batch</h2>
       <div class="form-group">
         <label>Choose Cut or Product</label>
-        <select id="cutName" onchange="updateCutAdvice()"></select>
+        <select id="cutName"></select>
         <div id="cutAdvice" class="info-callout"></div>
       </div>
       <div class="form-group">
         <label>Starting Weight in Grams (e.g. 6500)</label>
-        <input type="number" id="startWeight" placeholder="Type weight in grams..." required>
+        <input type="number" id="startWeight" placeholder="Type weight in grams...">
       </div>
       <div class="form-group">
         <label>Date Put in Fridge</label>
@@ -357,8 +330,8 @@
         <input type="number" id="targetDays" value="35">
       </div>
       <div style="display:flex; gap:10px; margin-top:20px;">
-        <button class="btn btn-secondary" onclick="closeModal('addModal')">Cancel</button>
-        <button class="btn" onclick="createBatch()">Start Aging</button>
+        <button type="button" class="btn btn-secondary" id="cancelAddBtn">Cancel</button>
+        <button type="button" class="btn" id="saveBatchBtn">Start Aging</button>
       </div>
     </div>
   </div>
@@ -370,16 +343,16 @@
       <input type="hidden" id="weighBatchId">
       <div class="form-group">
         <label>Current Scale Reading (grams)</label>
-        <input type="number" id="currentWeight" placeholder="e.g. 5650" required>
+        <input type="number" id="currentWeight" placeholder="e.g. 5650">
       </div>
       <div style="display:flex; gap:10px; margin-top:20px;">
-        <button class="btn btn-secondary" onclick="closeModal('weighModal')">Cancel</button>
-        <button class="btn" onclick="saveWeighIn()">Save Weight</button>
+        <button type="button" class="btn btn-secondary" id="cancelWeighBtn">Cancel</button>
+        <button type="button" class="btn" id="saveWeighBtn">Save Weight</button>
       </div>
     </div>
   </div>
 
-  <!-- Step-by-Step Prep & Butcher Guide Modal -->
+  <!-- Step-by-Step Guide Modal -->
   <div class="modal" id="prepModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff; font-size:1.35rem;">📖 Step-by-Step Checklist</h2>
@@ -402,7 +375,7 @@
         • Cut off any thin dangling meat flaps.<br>
         • Place on wire shelf: <b>Fat Cap UP, Bones DOWN</b> with an 8cm gap around all sides.
       </div>
-      <button class="btn" onclick="closeModal('prepModal')">Close Guide</button>
+      <button type="button" class="btn" id="closeGuideBtn">Close Guide</button>
     </div>
   </div>
 
@@ -467,16 +440,91 @@
       }
     };
 
-    let currentMode = localStorage.getItem('agerMode') || 'meat';
-    let batches = JSON.parse(localStorage.getItem('agerBatchesV2') || '[]');
-    document.getElementById('startDate').value = new Date().toISOString().split('T')[0];
+    let currentMode = 'meat';
+    let batches = [];
+
+    try {
+      const savedMode = localStorage.getItem('agerMode');
+      if (savedMode && MODES[savedMode]) currentMode = savedMode;
+      const savedBatches = JSON.parse(localStorage.getItem('agerBatchesV2') || '[]');
+      if (Array.isArray(savedBatches)) batches = savedBatches;
+    } catch (e) {
+      batches = [];
+    }
+
+    function setTodayDate() {
+      const d = new Date();
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      document.getElementById('startDate').value = `${yyyy}-${mm}-${dd}`;
+    }
 
     function setMode(mode) {
+      if (!MODES[mode]) mode = 'meat';
       currentMode = mode;
-      localStorage.setItem('agerMode', mode);
-      document.querySelectorAll('.mode-tile').forEach(el => el.classList.remove('active'));
-      document.getElementById('tile-' + mode).classList.add('active');
+      try { localStorage.setItem('agerMode', mode); } catch (e) {}
+      document.querySelectorAll('.mode-tile').forEach(el => {
+        el.classList.toggle('active', el.getAttribute('data-mode') === mode);
+      });
       render();
     }
 
-    function open
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    function updateCutAdvice() {
+      const idx = parseInt(document.getElementById('cutName').value, 10) || 0;
+      const item = MODES[currentMode].items[idx];
+      if (item) {
+        document.getElementById('cutAdvice').innerHTML = item.tip;
+        document.getElementById('targetDays').value = item.days;
+      }
+    }
+
+    function openAddModal() {
+      const modeObj = MODES[currentMode];
+      document.getElementById('addModalTitle').innerText = "Add " + modeObj.name;
+      const select = document.getElementById('cutName');
+      select.innerHTML = modeObj.items.map((it, idx) => `<option value="${idx}">${it.name}</option>`).join('');
+      setTodayDate();
+      updateCutAdvice();
+      openModal('addModal');
+    }
+
+    function createBatch() {
+      const idx = parseInt(document.getElementById('cutName').value, 10) || 0;
+      const item = MODES[currentMode].items[idx];
+      const startWeight = parseFloat(document.getElementById('startWeight').value);
+      const startDate = document.getElementById('startDate').value;
+      const targetDays = parseInt(document.getElementById('targetDays').value, 10) || item.days;
+      if (!startWeight || !startDate) {
+        alert('Please enter the starting weight in grams.');
+        return;
+      }
+
+      batches.unshift({
+        id: Date.now(),
+        mode: currentMode,
+        cut: item.name,
+        startWeight: startWeight,
+        startDate: startDate,
+        targetDays: targetDays,
+        history: [{ date: startDate, weight: startWeight }]
+      });
+      try { localStorage.setItem('agerBatchesV2', JSON.stringify(batches)); } catch (e) {}
+      closeModal('addModal');
+      document.getElementById('startWeight').value = '';
+      render();
+    }
+
+    window.openWeigh = function(id) {
+      document.getElementById('weighBatchId').value = id;
+      document.getElementById('currentWeight').value = '';
+      openModal('weighModal');
+    };
+
+    window.deleteBatch = function(id) {
+      if (confirm('Delete this item?')) {
+        batches = batches.filter(x => x.id !== id);
+        try { localStorage
