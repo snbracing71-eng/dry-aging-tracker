@@ -117,10 +117,10 @@
   });
 
   var mf = {
-    id: "agevault-chamber-v22",
+    id: "agevault-chamber-v23",
     name: "AgeVault Chamber",
     short_name: "AgeVault",
-    start_url: location.pathname + "?v=22",
+    start_url: location.pathname + "?v=23",
     display: "standalone",
     background_color: "#0c0a09",
     theme_color: "#0c0a09",
@@ -145,12 +145,17 @@ header{background:#120e0c;border-bottom:3px solid var(--gold);padding:14px 16px;
 main{padding:16px;max-width:600px;margin:0 auto}
 .sec{font-size:.88rem;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin:10px 0;font-weight:900}
 .bar{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:16px}
+.search-box{background:#1c1612;border:2.5px solid var(--glow);border-radius:16px;padding:12px 14px;margin-bottom:16px;box-shadow:0 6px 20px rgba(250,204,21,.2)}
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-in{width:100%;background:#090706;border:2px solid var(--gold);border-radius:12px;padding:14px 48px 14px 14px;color:#fff;font-size:1.05rem;font-weight:800;margin:0}
+.search-in::placeholder{color:#d6d3d1;font-weight:700}
+.search-clr{position:absolute;right:8px;background:var(--red);color:#fff;border:none;width:36px;height:36px;border-radius:8px;font-weight:900;font-size:1.05rem;cursor:pointer;display:none}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .tile{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:16px 12px;display:flex;align-items:center;gap:12px;cursor:pointer}
 .tile.active{border-color:var(--gold);background:rgba(212,175,55,.18);box-shadow:0 0 18px rgba(212,175,55,.3)}
 .m-box{background:var(--in);border:1px solid var(--bd);border-radius:12px;padding:12px 4px;text-align:center}
 .card{background:var(--card);border:2px solid var(--bd);border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 10px 28px rgba(0,0,0,.8)}
-.tag{display:inline-block;background:rgba(212,175,55,.18);color:var(--glow);border:1px solid var(--gold);padding:4px 10px;border-radius:8px;font-size:.85rem;font-weight:900;margin-bottom:6px}
+.tag{display:inline-block;background:rgba(212,175,55,.18);color:var(--glow);border:1px solid var(--gold);padding:4px 10px;border-radius:8px;font-size:.85rem;font-weight:900;margin-bottom:6px;margin-right:6px}
 .gbox{background:var(--in);border:1.5px solid var(--bd);border-radius:16px;padding:14px 8px;text-align:center;position:relative}
 .rsvg{width:118px;height:118px;transform:rotate(-90deg);display:block;margin:0 auto}
 .rcenter{position:absolute;top:46px;left:0;right:0;text-align:center}
@@ -183,6 +188,15 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   </div>
 </header>
 <main>
+  <!-- TOP QUICK SEARCH BAR -->
+  <div class="search-box">
+    <div style="font-size:.82rem;color:var(--glow);font-weight:900;margin-bottom:6px;letter-spacing:.5px">🔍 QUICK STOCK & BATCH NUMBER SEARCH:</div>
+    <div class="search-wrap">
+      <input type="text" id="batchSearch" class="search-in" placeholder="Type Batch # (e.g. 1042), Cut or Status..." oninput="onSearch(this.value)">
+      <button id="clrSearchBtn" class="search-clr" onclick="clearSearch()">✕</button>
+    </div>
+  </div>
+
   <div class="bar">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <span style="font-size:.85rem;color:var(--glow);font-weight:900">🔥 ACTIVE AGING CHAMBER:</span>
@@ -198,7 +212,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
     <div class="tile" id="t-cheese" onclick="selCat('cheese')"><span style="font-size:2.3rem">🧀</span><div><b style="font-size:1.1rem;display:block">Cheese</b><small style="color:var(--mu)">Hard Wheels</small></div></div>
   </div>
   <div id="chamberBox"></div>
-  <div class="sec">2. Active Batches & Gauges:</div>
+  <div class="sec" id="listSecTitle">2. Active Batches & Gauges:</div>
   <div id="batchBox"></div>
 </main>
 <div class="b-bar" id="botBar"></div>
@@ -260,13 +274,20 @@ const MODES={
   salami:{name:"Salami & Charcuterie",btn:"+ ADD SALAMI BATCH",icon:"🥓",temp:"12°C–14°C",rh:"75%–82%",uvc:"OFF ⚠️",uc:"#ef4444",loss:38,rule:"🚫 <b>UVC MUST BE OFF:</b> UV light kills beneficial curing mould!",items:[{n:"Salami / Soppressata",d:42,t:"🥓 Harvest at 35–40% weight loss."},{n:"Whole Coppa",d:60,t:"🥓 Target 30–35% loss."},{n:"Pancetta / Guanciale",d:35,t:"🥓 Target 30% loss."}]},
   cheese:{name:"Artisan Cheese Wheels",btn:"+ ADD CHEESE BATCH",icon:"🧀",temp:"10°C–12°C",rh:"85%–90%",uvc:"OFF ⚠️",uc:"#ef4444",loss:12,rule:"✅ <b>Share:</b> Hard cheeses. 🚫 <b>Keep UVC OFF.</b>",items:[{n:"Hard Cheddar Wheel",d:60,t:"🧀 Flip every 3 days."},{n:"Gouda Wheel",d:45,t:"🧀 85% RH prevents cracking."},{n:"Gruyère / Alpine",d:75,t:"🧀 Flip twice weekly."}]}
 };
-var fridges=JSON.parse(localStorage.getItem('dryAgeFridges')||'["Thermaster MA400 #1"]'),curF=localStorage.getItem('dryAgeCurrentFridge')||fridges[0],unit=localStorage.getItem('dryAgeUnitSystem')||'metric',items=JSON.parse(localStorage.getItem('dryAgeItemsV5')||localStorage.getItem('dryAgeItemsV4')||'[]'),cust=JSON.parse(localStorage.getItem('dryAgeCustomItemsV5')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}'),curM='meat';
+var fridges=JSON.parse(localStorage.getItem('dryAgeFridges')||'["Thermaster MA400 #1"]'),curF=localStorage.getItem('dryAgeCurrentFridge')||fridges[0],unit=localStorage.getItem('dryAgeUnitSystem')||'metric',items=JSON.parse(localStorage.getItem('dryAgeItemsV5')||localStorage.getItem('dryAgeItemsV4')||'[]'),cust=JSON.parse(localStorage.getItem('dryAgeCustomItemsV5')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}'),curM='meat',searchQ='';
 function save(){localStorage.setItem('dryAgeFridges',JSON.stringify(fridges));localStorage.setItem('dryAgeCurrentFridge',curF);localStorage.setItem('dryAgeUnitSystem',unit);localStorage.setItem('dryAgeItemsV5',JSON.stringify(items));localStorage.setItem('dryAgeCustomItemsV5',JSON.stringify(cust));}
 function fmtW(g){g=parseFloat(g)||0;if(unit==='imperial'){var oz=g/28.3495,lb=Math.floor(oz/16);return lb+'lb '+Math.round(oz%16)+'oz';}return Math.round(g)+'g';}
 function toggleUnit(){unit=unit==='metric'?'imperial':'metric';save();refresh();}
 function openM(id){document.getElementById(id).classList.add('active');}
 function closeM(id){document.getElementById(id).classList.remove('active');}
 function switchFridge(v){curF=v;save();refresh();}
+function onSearch(v){
+  searchQ=(v||'').trim();
+  document.getElementById('clrSearchBtn').style.display=searchQ?'block':'none';
+  refresh();
+  if(searchQ){ document.getElementById('listSecTitle').scrollIntoView({behavior:'smooth',block:'nearest'}); }
+}
+function clearSearch(){searchQ='';document.getElementById('batchSearch').value='';document.getElementById('clrSearchBtn').style.display='none';refresh();}
 function getActCat(){var a=items.filter(i=>(i.fridge||fridges[0])===curF&&(i.status||'Active in Agers')==='Active in Agers');return a.length?a[0].mode:null;}
 function selCat(m){var a=getActCat();if(a&&a!==m)return alert('⚠️ '+curF+' is locked to '+MODES[a].name+' while a batch is active.');curM=m;refresh();}
 function openFridges(){document.getElementById('fList').innerHTML=fridges.map(f=>`<div style="display:flex;justify-content:space-between;padding:12px;background:var(--in);border:1px solid var(--bd);border-radius:10px;margin-bottom:8px"><b>${f}</b>${fridges.length>1?`<button onclick="delF('${f}')" style="background:var(--red);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-weight:800">Delete</button>`:'<span>Default</span>'}</div>`).join('');openM('fridgeM');}
@@ -291,10 +312,33 @@ function refresh(){
   var mo=MODES[m];
   document.getElementById('chamberBox').innerHTML=`<div class="bar"><div style="color:var(--glow);font-weight:900;margin-bottom:10px;border-bottom:1px solid var(--bd);padding-bottom:6px">🔥 ${curF.toUpperCase()} — ${mo.name.toUpperCase()}</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><div class="m-box"><small style="color:var(--mu);display:block">TEMP</small><b style="color:var(--glow);font-size:1.15rem">${mo.temp}</b></div><div class="m-box"><small style="color:var(--mu);display:block">HUMIDITY</small><b style="color:var(--glow);font-size:1.15rem">${mo.rh}</b></div><div class="m-box"><small style="color:var(--mu);display:block">UVC LIGHT</small><b style="color:${mo.uc};font-size:1.15rem">${mo.uvc}</b></div></div><div style="margin-top:10px;font-size:.92rem;background:rgba(255,255,255,.04);padding:10px;border-radius:8px">${mo.rule}</div></div>`;
   document.getElementById('botBar').innerHTML=`<button class="btn b-gold" onclick="openAdd()">${mo.btn} (${curF})</button>`;
-  var fl=items.filter(x=>(x.fridge||fridges[0])===curF&&(x.mode||'meat')===m),c=2*Math.PI*42;
-  if(!fl.length){document.getElementById('batchBox').innerHTML=`<div class="card" style="text-align:center;color:var(--mu)">No active batches in <b>${curF}</b>. Tap the gold button below to start!</div>`;return;}
+  
+  var q = searchQ.toLowerCase();
+  var fl;
+  if(q){
+    fl = items.filter(x => 
+      (x.code||'').toLowerCase().includes(q) ||
+      (x.name||'').toLowerCase().includes(q) ||
+      (x.status||'').toLowerCase().includes(q) ||
+      (x.notes||'').toLowerCase().includes(q) ||
+      (x.fridge||'').toLowerCase().includes(q)
+    );
+    document.getElementById('listSecTitle').innerText = `🔍 Search Results Across All Stock (${fl.length} Found):`;
+  } else {
+    fl = items.filter(x=>(x.fridge||fridges[0])===curF&&(x.mode||'meat')===m);
+    document.getElementById('listSecTitle').innerText = `2. Active Batches & Gauges:`;
+  }
+
+  var c=2*Math.PI*42;
+  if(!fl.length){
+    document.getElementById('batchBox').innerHTML = q 
+      ? `<div class="card" style="text-align:center;color:var(--mu)">No batches matching "<b>${searchQ}</b>" found in any fridge or storage.</div>`
+      : `<div class="card" style="text-align:center;color:var(--mu)">No active batches in <b>${curF}</b>. Tap the gold button below to start!</div>`;
+    return;
+  }
   document.getElementById('batchBox').innerHTML=fl.map(b=>{
-    var lw=b.history&&b.history.length?b.history[b.history.length-1].weight:b.startW,el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/864e5)),ls=Math.max(0,((b.startW-lw)/b.startW)*100),dp=Math.min(100,Math.max(4,Math.round((el/b.days)*100))),lp=Math.min(100,Math.max(4,Math.round((ls/mo.loss)*100)));
+    var bMode = MODES[b.mode||'meat'] || mo;
+    var lw=b.history&&b.history.length?b.history[b.history.length-1].weight:b.startW,el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/864e5)),ls=Math.max(0,((b.startW-lw)/b.startW)*100),dp=Math.min(100,Math.max(4,Math.round((el/b.days)*100))),lp=Math.min(100,Math.max(4,Math.round((ls/bMode.loss)*100)));
     var hRows=(b.history||[{date:b.startD,weight:b.startW}]).map(h=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>📅 ${h.date}</span><b>${fmtW(h.weight)} (-${(((b.startW-h.weight)/b.startW)*100).toFixed(1)}%)</b></div>`).join('');
     
     var alertHTML = '';
@@ -302,15 +346,4 @@ function refresh(){
     if((b.status||'Active in Agers')==='Active in Agers'){
       if(el >= b.days && !ca.dayOf){
         alertHTML = `<div class="alert-banner"><div><b style="font-size:1.15rem;display:block;letter-spacing:.5px">🔪 IT'S HARVEST DAY!</b><span style="font-size:.9rem;color:#fff">Target of ${b.days} days reached — ready to trim & harvest!</span></div><button class="clear-btn" onclick="clearAlert(${b.id},'dayOf')">✓ CLEAR</button></div>`;
-      } else if(el === (b.days - 1) && !ca.dayBefore){
-        alertHTML = `<div class="alert-banner"><div><b style="font-size:1.1rem;display:block;letter-spacing:.5px">🚨 GET READY TO HARVEST TOMORROW!</b><span style="font-size:.9rem;color:#fff">1 day left (${el} of ${b.days} days completed).</span></div><button class="clear-btn" onclick="clearAlert(${b.id},'dayBefore')">✓ CLEAR</button></div>`;
-      }
-    }
-
-    return `<div class="card">${alertHTML}<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bd);padding-bottom:12px;margin-bottom:14px"><div><span class="tag">🏷️ ${b.code||'VAULT'}</span><h3 style="margin:4px 0;font-size:1.35rem;color:#fff">${mo.icon} ${b.name}</h3><small style="color:var(--mu);font-size:.9rem">In: ${b.startD} • Target: ${b.days} Days</small></div><button onclick="delB(${b.id})" style="background:#2a1815;color:#ef4444;border:2px solid #7f1d1d;width:44px;height:44px;border-radius:10px;font-size:1.2rem;font-weight:900">✕</button></div><div class="grid2"><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#facc15" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(dp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.45rem;color:#fff;display:block">${el}</b><small style="color:var(--mu);font-size:.75rem;font-weight:800">OF ${b.days} DAYS</small></div><div style="margin-top:6px;font-weight:800;font-size:.88rem;color:var(--glow)">⏱️ ${dp}% Aged</div></div><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(lp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.45rem;color:#fff;display:block">-${ls.toFixed(1)}%</b><small style="color:var(--mu);font-size:.75rem;font-weight:800">GOAL ~${mo.loss}%</small></div><div style="margin-top:6px;font-weight:800;font-size:.88rem;color:#fdba74">💧 Water Loss</div></div></div><div class="wstrip"><div><small style="color:var(--mu);display:block">START</small><b style="font-size:1.15rem">${fmtW(b.startW)}</b></div><div><small style="color:var(--mu);display:block">NOW</small><b style="font-size:1.15rem;color:var(--glow)">${fmtW(lw)}</b></div><div><small style="color:var(--mu);display:block">SHED</small><b style="font-size:1.15rem;color:var(--cop)">-${fmtW(Math.max(0,b.startW-lw))}</b></div></div><div style="padding:10px;background:rgba(255,255,255,.04);border-radius:10px;font-weight:800;color:var(--glow);margin-bottom:10px">📍 Status: ${b.status||'Active'} (${b.statusDate||b.startD})</div>${b.notes?`<div style="background:rgba(212,175,55,.12);border-left:4px solid var(--gold);padding:10px;margin-bottom:10px;font-size:.95rem"><b>📝 Notes:</b> ${b.notes}</div>`:''}<div style="background:var(--in);border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:.92rem;margin-bottom:14px"><b style="color:var(--gold);display:block;margin-bottom:4px">📊 Weigh-In Log:</b>${hRows}</div><div class="grid2" style="margin:0"><button class="btn b-grn" onclick="openWeigh(${b.id})">⚖️ Weigh</button><button class="btn b-red" onclick="openHarv(${b.id})">🔪 Harvest</button></div></div>`;
-  }).join('');
-}
-refresh();
-</script>
-</body>
-</html>
+      } else if(el === (b.days -
