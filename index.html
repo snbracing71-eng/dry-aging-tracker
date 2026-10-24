@@ -81,7 +81,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div class="sec">1. Select Category (1 Per Fridge):</div>
   <div class="grid2">
     <div class="tile active" id="t-meat" onclick="selCat('meat')"><span style="font-size:2rem">🥩</span><div><b>Meat & Poultry</b><br><small style="color:var(--mu)">Beef, Pork, Lamb, Duck</small></div></div>
-    <div class="tile" id="t-fish" onclick="selCat('fish')"><span style="font-size:2rem">🐟</span><div><b>Seafood</b><br><small style="color:var(--mu)">Whole Fish</small></div></div>
+    <div class="tile" id="t-fish" onclick="selCat('fish')"><span style="font-size:2rem">🐟</span><div><b>Seafood</b><br><small style="color:var(--mu)">Whole Fish & Fillets</small></div></div>
     <div class="tile" id="t-salami" onclick="selCat('salami')"><span style="font-size:2rem">🥓</span><div><b>Salami</b><br><small style="color:var(--mu)">Charcuterie</small></div></div>
     <div class="tile" id="t-cheese" onclick="selCat('cheese')"><span style="font-size:2rem">🧀</span><div><b>Cheese</b><br><small style="color:var(--mu)">Hard Wheels</small></div></div>
   </div>
@@ -110,7 +110,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <label>1. Select Cut / Product (Alphabetical A–Z)</label><select id="cutSel" onchange="chkCut()"></select>
   <div id="custBox" style="display:none"><label>Custom Name</label><input id="custName" placeholder="e.g. Wagyu Brisket"></div>
   <div id="progBox" style="display:none">
-    <label style="color:var(--glow);font-weight:900">2. Select Taste Intensity, Temp & Humidity:</label>
+    <label style="color:var(--glow);font-weight:900">2. Select Preparation, Temp & Humidity:</label>
     <div class="p-grid" id="progGrid"></div>
   </div>
   <div id="tipBox" style="background:rgba(212,175,55,.14);border:1.5px solid var(--gold);padding:12px;border-radius:10px;margin-bottom:12px;font-size:.92rem;line-height:1.45"></div>
@@ -243,11 +243,28 @@ const MODES={
       {l:"Intense+",w:"6 Weeks",d:42,tm:"2.8°C",rh:"72%–75%",desc:"Warmer 2.8°C & drier 72–75% RH for maximum 6-week sirloin aroma."}
     ],t:"🥩 <b>GOOD TO KNOW:</b> Triangular cut from the lower sirloin ('Mayor's Cut'). Makes a magnificent steak if well-marbled. Because of its uneven shape, <b>hang for dry aging, do NOT trim beforehand</b>, and check aging progress regularly."}
   ]},
-  fish:{name:"Seafood & Whole Fish",btn:"+ ADD SEAFOOD BATCH",icon:"🐟",temp:"0.5°C–1.0°C",rh:"80%–85%",uvc:"ON",uc:"#22c55e",loss:15,rule:"✅ <b>Share:</b> Finfish only. 🚫 <b>Run Alone.</b>",items:[
-    {n:"Coral Trout / Snapper (Whole)",d:6,t:"🐟 Scales ON, gills & guts out, wipe cavity bone-dry without tap water."},
-    {n:"Kingfish / Amberjack (Whole)",d:10,t:"🐟 Scales ON, gills out, blot dry. Hang from tail or rack."},
-    {n:"Salmon / Ocean Trout (Whole)",d:7,t:"🐟 Hang from tail or rack for crispy skin and dense buttery flesh."},
-    {n:"Tuna Loin",d:12,t:"🐟 Blot surface moisture daily for first 48 hrs."}
+  fish:{name:"Seafood & Whole Fish",btn:"+ ADD SEAFOOD BATCH",icon:"🐟",temp:"0.5°C–1.0°C",rh:"80%–85%",uvc:"ON",uc:"#22c55e",loss:15,rule:"✅ <b>Share:</b> Finfish only. 🚫 <b>Run Alone (Keep Out Meat/Dairy).</b>",items:[
+    {n:"Atlantic Salmon (Salmo salar — Fillets or Whole)",d:5,p:[
+      {l:"Fillets (Gravlax Cure)",w:"5 Days",d:5,tm:"1.0°C",rh:"78%–82%",desc:"2-day fridge spice cure followed by 5 days hanging or resting in the dry ager."},
+      {l:"Whole Salmon",w:"5–7 Days",d:6,tm:"0.8°C",rh:"80%–85%",desc:"Whole gutted & scaled salmon hung by the tail or spine for 5–7 days."}
+    ],t:"🐟 <b>GOOD TO KNOW:</b> Large salmon can be matured whole or as fillets (including aquaculture). Fillets do best when cured like gravlax first: Mix <b>150g (5.3 oz) salt, 100g (3.5 oz) brown sugar, 35g (1.2 fl oz) vodka, 10g (2 tsp) ground juniper berries, 5g (1 tsp) ground pepper, 10g (2 tsp) grapefruit zest, and 2.5g (1/2 tsp) lime zest</b>. Rub into fillets, marinate <b>2 days in the refrigerator</b>, rinse off spice mix, and dry age 5 days hanging or resting."},
+    {n:"Cod / Skrei (Gadus morhua)",d:3,p:[
+      {l:"Raw Dry Aged",w:"3 Days",d:3,tm:"0.8°C",rh:"80%–84%",desc:"3-day raw maturation without salt cure; fragile muscle segments acquire a fresh, slightly salty tang."},
+      {l:"Extended / Stockfish Style",w:"5–7 Days",d:6,tm:"1.0°C",rh:"75%–78%",desc:"Drier 75–78% RH firms up cod loins for pan-roasting or stockfish prep."}
+    ],t:"🐟 <b>GOOD TO KNOW:</b> North Atlantic cod (or skrei) is suitable for dry aging in its raw state <b>even without an overnight salt cure</b>. Put raw in the dry ager for 3 days—its fragile muscle segments acquire a delicious, fresh, slightly salty tang."},
+    {n:"Common Sole / Dover Sole (Solea solea)",d:3,p:[
+      {l:"Whole Flatfish",w:"3 Days",d:3,tm:"0.8°C",rh:"82%–85%",desc:"3-day maturation for larger specimens (0.8 kg / 1.8 lbs and up); unlocks a rich, nutty aroma."}
+    ],t:"🐟 <b>GOOD TO KNOW:</b> One of the most palatable flatfish—even without dry aging, it should rest on ice 2–3 days after catch to bring out its nutty aroma. Larger specimens of <b>0.8 kg (1.8 lbs) and up</b> perform very well in the dry ager for 3 days. Tastes best poached briefly in plenty of butter while the inside of the fillet remains slightly translucent."},
+    {n:"Coral Trout / Snapper (Whole)",d:6,p:[
+      {l:"Standard",w:"5–6 Days",d:6,tm:"0.8°C",rh:"80%–85%",desc:"5–6 days hanging with scales ON; crisps skin and firms flesh."}
+    ],t:"🐟 <b>GOOD TO KNOW:</b> Scales ON, gills & guts removed, wipe cavity bone-dry without tap water."},
+    {n:"Kingfish / Amberjack (Whole)",d:10,p:[
+      {l:"Basic",w:"7 Days",d:7,tm:"0.8°C",rh:"80%–85%",desc:"7-day maturation; clean, buttery sashimi & grilling texture."},
+      {l:"Intense",w:"10–12 Days",d:10,tm:"0.8°C",rh:"78%–82%",desc:"10-day maturation; deep umami concentration."}
+    ],t:"🐟 <b>GOOD TO KNOW:</b> Scales ON, gills out, blot completely dry. Hang from tail or rest on rack."},
+    {n:"Real Tuna (Thunnus — Loin / Cuts up to 10kg)",d:5,p:[
+      {l:"Sashimi / Loin Cure",w:"5 Days",d:5,tm:"0.8°C",rh:"78%–82%",desc:"5-day maturation (hanging or resting on shelf) for cuts up to 10 kg (22 lbs)."}
+    ],t:"🐟 <b>GOOD TO KNOW:</b> Whole 300 kg tunas are too large for the cabinet—buy cuts of <b>up to 10 kg (22 lbs)</b> and mature them for 5 days either hanging or resting on the shelf. No other fish is as delicious and well-rounded when dry aged and served as raw sashimi! <b>IMPORTANT:</b> Must be <b>frozen at -20°C (-4°F) for 24 hours prior to dry aging</b> to kill potential nematodes (parasites)."}
   ]},
   salami:{name:"Salami & Charcuterie",btn:"+ ADD SALAMI BATCH",icon:"🥓",temp:"12°C–14°C",rh:"75%–82%",uvc:"OFF ⚠️",uc:"#ef4444",loss:38,rule:"🚫 <b>UVC MUST BE OFF:</b> UV kills curing mould!",items:[
     {n:"Bresaola (Cured Beef Eye of Round)",d:30,t:"🥓 Target 35% weight loss with UVC OFF."},
