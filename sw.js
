@@ -1,1 +1,28 @@
-self.addEventListener('fetch', function(e) {});
+self.addEventListener('install', e => self.skipWaiting());
+self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+self.addEventListener('fetch', e => {
+  if (e.request.url.endsWith('icon.png')) {
+    e.respondWith((async () => {
+      const c = new OffscreenCanvas(512, 512), x = c.getContext('2d');
+      x.fillStyle='#1c1917'; x.beginPath(); x.roundRect(0,0,512,512,110); x.fill();
+      x.strokeStyle='#78716c'; x.lineWidth=10; x.stroke();
+      x.fillStyle='#2b140b'; x.beginPath(); x.roundRect(38,38,436,436,80); x.fill();
+      x.strokeStyle='#9a3412'; x.lineWidth=6; x.stroke();
+      x.strokeStyle='#78716c'; x.lineWidth=4; x.beginPath();
+      [380,406,432].forEach(y=>{x.moveTo(64,y);x.lineTo(448,y);});
+      for(let i=-4;i<=4;i++){x.moveTo(256+i*30,380);x.lineTo(256+i*42,448);} x.stroke();
+      x.fillStyle='#a8a29e'; x.fillRect(68,70,376,10);
+      x.strokeStyle='#eab308'; x.lineWidth=14; x.lineCap='round'; x.beginPath();
+      x.moveTo(235,90); x.bezierCurveTo(222,52,286,52,272,88); x.bezierCurveTo(256,122,212,135,248,168); x.stroke();
+      x.fillStyle='#b91c1c'; x.strokeStyle='#fef3c7'; x.lineWidth=8; x.beginPath();
+      x.moveTo(236,144); x.bezierCurveTo(280,140,356,240,356,318); x.bezierCurveTo(356,385,295,412,245,410);
+      x.bezierCurveTo(175,408,155,355,165,305); x.bezierCurveTo(175,260,220,210,236,144); x.fill(); x.stroke();
+      x.strokeStyle='#fef3c7'; x.lineWidth=6; x.beginPath();
+      x.moveTo(190,315); x.lineTo(265,280); x.lineTo(335,305);
+      x.moveTo(210,360); x.lineTo(275,340); x.lineTo(325,365);
+      x.moveTo(250,180); x.lineTo(265,275); x.stroke();
+      const blob = await c.convertToBlob({type: 'image/png'});
+      return new Response(blob, {headers: {'Content-Type': 'image/png'}});
+    })());
+  }
+});
