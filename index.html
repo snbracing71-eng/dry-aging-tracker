@@ -685,3 +685,153 @@
       closeModal('weighModal');
       refreshUI();
     }
+
+    function updateHarvestDateLabel() {
+      var s = document.getElementById('postStatus').value;
+      var lbl = document.getElementById('dateLabel');
+      if (s.includes('Vacuum')) lbl.innerText = 'Date Vacuum Sealed & Chilled';
+      else if (s.includes('Frozen')) lbl.innerText = 'Date Put in Freezer';
+      else if (s.includes('Consumed')) lbl.innerText = 'Date Consumed / Eaten';
+      else lbl.innerText = 'Date Updated';
+    }
+
+    function promptHarvest(id) {
+      document.getElementById('harvestId').value = id;
+      var b = items.find(x => x.id === id);
+      if (b) {
+        document.getElementById('postStatus').value = b.status || 'Vacuum Sealed Chilled';
+        document.getElementById('actionDate').value = b.statusDate || new Date().toISOString().split('T')[0];
+        document.getElementById('tastingNotes').value = b.notes || '';
+        updateHarvestDateLabel();
+      }
+      openModal('harvestModal');
+    }
+
+    function saveHarvestDetails() {
+      var id = parseInt(document.getElementById('harvestId').value, 10);
+      var status = document.getElementById('postStatus').value;
+      var actionDate = document.getElementById('actionDate').value || new Date().toISOString().split('T')[0];
+      var notes = document.getElementById('tastingNotes').value.trim();
+      items.forEach(x => {
+        if (x.id === id) {
+          x.status = status;
+          x.statusDate = actionDate;
+          x.notes = notes;
+        }
+      });
+      saveStorage();
+      closeModal('harvestModal');
+      refreshUI();
+    }
+
+    function removeBatch(id) {
+      if (confirm('Delete this batch record permanently?')) {
+        items = items.filter(x => x.id !== id);
+        saveStorage();
+        refreshUI();
+      }
+    }
+
+    function renderList(mKey) {
+      var box = document.getElementById('batchList');
+      var histBox = document.getElementById('historicalSection');
+      var filtered = items.filter(x => (x.fridge || fridges[0]) === currentFridge && (x.mode || 'meat') === mKey);
+
+      if (!filtered.length) {
+        box.innerHTML = `
+          <div class="mockup-card" style="text-align:center; padding:32px 20px;">
+            <div style="font-size:2.4rem; margin-bottom:8px;">${DEFAULT_MODES[mKey].icon}</div>
+            <div style="font-weight:800; font-size:1.1rem; color:#fff;">No Active ${DEFAULT_MODES[mKey].name} Batches</div>
+            <div style="font-size:0.86rem; color:var(--muted); margin-top:4px;">Tap <b>${DEFAULT_MODES[mKey].btnLabel}</b> below to start tracking in ${currentFridge}.</div>
+          </div>`;
+        histBox.innerHTML = '';
+        return;
+      }
+
+      box.innerHTML = filtered.map(b => {
+        var latestWeight = (b.history && b.history.length > 0) ? b.history[b.history.length - 1].weight : b.startW;
+        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
+        var loss = (((b.startW - latestWeight) / b.startW) * 100).toFixed(1);
+        var progress = Math.min(100, Math.max(8, Math.round((elapsed / b.days) * 100)));
+        var modeIcon = DEFAULT_MODES[b.mode || 'meat'].icon;
+        var statusDisplay = (b.status || 'Active in Agers') + (b.statusDate ? ' • ' + b.statusDate : '');
+
+        return `
+          <div class="mockup-card">
+            <div class="card-top">
+              <div>
+                <h2 class="cut-heading">${modeIcon} ${b.name}</h2>
+                <div class="cut-meta">🏷️ ${b.code || ('BATCH-' + b.id)} • Started ${b.startD} (Target ${b.days}d)</div>
+              </div>
+              <button class="kebab-btn" onclick="removeBatch(${b.id})" title="Delete Batch">⋮</button>
+            </div>
+
+            <div class="aging-row">
+              <div>
+                <div class="active-aging-lbl">Active aging</div>
+                <div class="days-big">${elapsed}<span>Days</span></div>
+              </div>
+              <div class="loss-badge">
+                <span class="l-lbl">Moisture Loss</span>
+                <span class="l-val">-${loss}%</span>
+              </div>
+            </div>
+
+            <div class="desiccation-row">
+              <span class="desiccation-lbl">Desiccation (Start: ${b.startW}g)</span>
+              <span class="weight-big">${latestWeight}g</span>
+            </div>
+
+            <div class="desiccation-bar-bg">
+              <div class="desiccation-bar-fill" style="width:${progress}%;"></div>
+            </div>
+
+            <div class="status-banner">📍 ${statusDisplay}</div>
+            ${b.notes ? `<div style="font-size:0.84rem; color:#e5e7eb; background:#14161c; padding:10px; border-radius:8px; margin-bottom:10px;"><b>📝 Sensory Notes:</b> ${b.notes}</div>` : ''}
+
+            <div class="card-btn-grid">
+              <button class="btn btn-blue" onclick="promptWeigh(${b.id})">⚖️ Log Weight</button>
+              <button class="btn btn-green" onclick="promptHarvest(${b.id})">🔪 Harvest & Notes</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Mockup "Historical Log" Card below active cards
+      var historyEntries = [];
+      filtered.forEach(b => {
+        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
+        (b.history || [{ date: b.startD, weight: b.startW }]).slice().reverse().forEach(h => {
+          var hLoss = (((b.startW - h.weight) / b.startW) * 100).toFixed(1);
+          historyEntries.push(`
+            <div class="hist-entry">
+              <div>
+                <div class="hist-title">${b.name} <span style="font-size:0.78rem; color:var(--gold);">(${b.code || 'Batch'})</span></div>
+                <div class="hist-sub">${h.date}, ${elapsed} Days • Current w: ${h.weight}g (-${hLoss}%)</div>
+              </div>
+            </div>
+          `);
+        });
+      });
+
+      histBox.innerHTML = `
+        <div class="history-card">
+          <div class="history-card-head">
+            <h3>Historical Log</h3>
+            <span style="color:var(--crimson); font-weight:900;">⋮</span>
+          </div>
+          ${historyEntries.join('')}
+        </div>
+      `;
+    }
+
+    function refreshUI() {
+      renderFridgesDropdown();
+      var activeCat = getActiveCategoryInCurrentFridge() || currentMode || 'meat';
+      setActiveTile(activeCat);
+    }
+
+    refreshUI();
+  </script>
+</body>
+</html>
