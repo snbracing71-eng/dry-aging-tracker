@@ -1,8 +1,8 @@
 {
-  "id": "agerlog-cabinet-v21",
-  "name": "AgerLog Chamber",
-  "short_name": "AgerLog",
-  "start_url": "/dry-aging-tracker/?v=21",
+  "id": "agevault-v22",
+  "name": "AgeVault",
+  "short_name": "AgeVault",
+  "start_url": "/dry-aging-tracker/?v=22",
   "display": "standalone",
   "background_color": "#0c0a09",
   "theme_color": "#0c0a09"
