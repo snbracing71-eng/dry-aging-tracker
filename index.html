@@ -4,37 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Dry Age Master</title>
-  <meta name="theme-color" content="#111418">
+  <meta name="theme-color" content="#0e1116">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23eab308' stroke-width='8'/%3E%3Ccircle cx='60' cy='60' r='38' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='69' font-family='sans-serif' font-size='26' font-weight='900' fill='%23eab308' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #0e1116;
       --card: #181d25;
-      --card-border: #2e3644;
+      --border: #2e3644;
       --text: #f3f6fa;
-      --text-muted: #9ca3af;
+      --muted: #9ca3af;
       --gold: #eab308;
       --primary: #d97706;
-      --accent: #38bdf8;
-      --success: #22c55e;
-      --danger: #ef4444;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --red: #ef4444;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       margin: 0;
-      padding: 0 0 115px 0;
+      padding: 0 0 110px 0;
       background: var(--bg);
       color: var(--text);
-      font-family: var(--font);
-      font-size: 17px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 18px;
       line-height: 1.5;
     }
     header {
       background: #141820;
-      border-bottom: 2px solid var(--card-border);
+      border-bottom: 2px solid var(--border);
       padding: 14px 16px;
       display: flex;
       justify-content: space-between;
@@ -43,17 +41,17 @@
       top: 0;
       z-index: 30;
     }
-    .brand-box { display: flex; align-items: center; gap: 10px; }
-    .brand-logo {
-      width: 40px; height: 40px;
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .logo {
+      width: 42px; height: 42px;
       border-radius: 10px;
       background: #1c222d;
       border: 2px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 0.85rem; color: var(--gold);
+      font-weight: 900; font-size: 0.9rem; color: var(--gold);
     }
-    .header-title { font-weight: 800; font-size: 1.25rem; color: #fff; margin: 0; }
-    .guide-btn {
+    .title { font-weight: 800; font-size: 1.25rem; color: #fff; margin: 0; }
+    .guide-trigger {
       background: #252d3a;
       color: #fff;
       border: 2px solid var(--gold);
@@ -63,11 +61,9 @@
       font-weight: 800;
       cursor: pointer;
     }
-    .guide-btn:active, .btn:active, .mode-tile:active { transform: scale(0.97); }
     main { padding: 16px; max-width: 600px; margin: 0 auto; }
-
-    .section-label {
-      font-size: 0.92rem;
+    .sec-title {
+      font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--gold);
@@ -75,32 +71,43 @@
       font-weight: 800;
     }
 
+    /* Pure CSS Radio Mode Tabs - Cannot Fail */
+    input.mode-radio { display: none; }
     .mode-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .mode-tile {
       background: var(--card);
-      border: 2px solid var(--card-border);
+      border: 2px solid var(--border);
       border-radius: 14px;
       padding: 14px 12px;
       display: flex;
       align-items: center;
       gap: 12px;
       cursor: pointer;
-      user-select: none;
     }
-    .mode-tile.active {
+    .mode-tile:active { transform: scale(0.97); }
+    .m-icon { font-size: 2.2rem; line-height: 1; }
+    .m-name { font-size: 1.1rem; font-weight: 800; color: #fff; display: block; }
+    .m-sub { font-size: 0.85rem; color: var(--muted); display: block; }
+
+    #rad-meat:checked ~ .mode-grid label[for="rad-meat"],
+    #rad-fish:checked ~ .mode-grid label[for="rad-fish"],
+    #rad-salami:checked ~ .mode-grid label[for="rad-salami"],
+    #rad-cheese:checked ~ .mode-grid label[for="rad-cheese"] {
       border-color: var(--gold);
-      background: rgba(234, 179, 8, 0.16);
+      background: rgba(234, 179, 8, 0.18);
       box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
     }
-    .mode-icon { font-size: 2.1rem; line-height: 1; pointer-events: none; }
-    .mode-text-wrap { text-align: left; pointer-events: none; }
-    .mode-name { font-size: 1.08rem; font-weight: 800; color: #fff; display: block; }
-    .mode-sub { font-size: 0.82rem; color: var(--text-muted); display: block; margin-top: 2px; }
+
+    .zone-box { display: none; }
+    #rad-meat:checked ~ .zones #zone-meat { display: block; }
+    #rad-fish:checked ~ .zones #zone-fish { display: block; }
+    #rad-salami:checked ~ .zones #zone-salami { display: block; }
+    #rad-cheese:checked ~ .zones #zone-cheese { display: block; }
 
     .chamber-panel {
       background: #141922;
@@ -109,44 +116,44 @@
       padding: 16px;
       margin-bottom: 20px;
     }
-    .chamber-header {
-      font-size: 0.95rem;
+    .chamber-head {
+      font-size: 1rem;
       font-weight: 800;
       color: var(--gold);
       margin-bottom: 12px;
       padding-bottom: 8px;
       border-bottom: 1px solid #262f3d;
     }
-    .chamber-metrics {
+    .metrics {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       text-align: center;
     }
-    .metric-box {
+    .m-box {
       background: #0b0e13;
       border: 1px solid #252e3d;
       border-radius: 10px;
       padding: 12px 6px;
     }
-    .metric-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
-    .metric-val { font-size: 1.2rem; font-weight: 900; color: var(--accent); margin-top: 4px; }
-    .compat-rule {
+    .m-lbl { font-size: 0.8rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+    .m-val { font-size: 1.2rem; font-weight: 900; color: var(--blue); margin-top: 4px; }
+    .rule-box {
       margin-top: 12px;
-      font-size: 0.95rem;
+      font-size: 1rem;
       line-height: 1.45;
       color: #e2e8f0;
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.05);
       padding: 12px;
       border-radius: 8px;
     }
 
     .card {
       background: var(--card);
-      border: 2px solid var(--card-border);
+      border: 2px solid var(--border);
       border-radius: 14px;
       padding: 18px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .stat-row {
       display: grid;
@@ -161,45 +168,44 @@
       border-radius: 10px;
       padding: 12px 6px;
     }
-    .stat-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
     .stat-num { font-size: 1.35rem; font-weight: 800; margin-top: 4px; color: #fff; }
     .stage-box {
-      background: rgba(234, 179, 8, 0.1);
+      background: rgba(234, 179, 8, 0.12);
       border-left: 5px solid var(--gold);
       border-radius: 6px;
       padding: 14px;
       margin: 14px 0;
-      font-size: 0.98rem;
-      line-height: 1.5;
+      font-size: 1rem;
     }
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: block;
+      text-align: center;
       background: var(--primary);
       color: #fff;
       border: none;
-      padding: 16px 20px;
+      padding: 16px;
       border-radius: 12px;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
       cursor: pointer;
       width: 100%;
     }
-    .btn-secondary { background: #2d3542; color: #fff; }
-    .btn-weigh { background: #0284c7; margin-top: 10px; padding: 14px; font-size: 1.05rem; }
+    .btn-sec { background: #2d3542; }
+    .btn-blue { background: #0284c7; margin-top: 10px; padding: 14px; font-size: 1.05rem; }
 
     .bottom-bar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      background: rgba(14, 17, 22, 0.96);
-      border-top: 2px solid var(--card-border);
+      background: #141820;
+      border-top: 2px solid var(--border);
       padding: 14px 16px;
       max-width: 600px;
       margin: 0 auto;
       z-index: 25;
     }
 
+    /* Check-box driven modals so they always open */
+    .modal-toggle { display: none; }
     .modal {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -210,10 +216,14 @@
       padding: 16px;
       z-index: 100;
     }
-    .modal.active { display: flex; }
+    #chk-guide:checked ~ #guideModal,
+    #chk-add:checked ~ #addModal,
+    #chk-weigh:checked ~ #weighModal {
+      display: flex;
+    }
     .modal-content {
       background: var(--card);
-      border: 2px solid var(--card-border);
+      border: 2px solid var(--border);
       border-radius: 16px;
       padding: 22px;
       width: 100%;
@@ -222,7 +232,7 @@
       overflow-y: auto;
     }
     .form-group { margin-bottom: 16px; }
-    label { display: block; font-size: 0.95rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
+    .form-group label { display: block; font-size: 1rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
     input, select {
       width: 100%;
       background: #0b0e13;
@@ -230,301 +240,125 @@
       border-radius: 10px;
       padding: 14px;
       color: #fff;
-      font-size: 1.08rem;
+      font-size: 1.1rem;
       font-weight: 600;
     }
-    .info-callout {
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.4);
+    .callout {
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid var(--blue);
       border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 0.95rem;
+      padding: 12px;
+      font-size: 0.98rem;
       color: #e0f2fe;
       margin-top: 10px;
-      line-height: 1.45;
     }
-    .checklist-step {
+    .step-box {
       background: #10141b;
       border: 1px solid #283242;
       border-radius: 10px;
       padding: 14px;
       margin-bottom: 12px;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      font-size: 1rem;
     }
-    .checklist-step strong { color: var(--gold); font-size: 1.05rem; display: block; margin-bottom: 4px; }
+    .step-box strong { color: var(--gold); font-size: 1.1rem; display: block; margin-bottom: 4px; }
   </style>
 </head>
 <body>
 
+  <!-- Hidden Toggles for Modals -->
+  <input type="checkbox" id="chk-guide" class="modal-toggle">
+  <input type="checkbox" id="chk-add" class="modal-toggle">
+  <input type="checkbox" id="chk-weigh" class="modal-toggle">
+
   <header>
-    <div class="brand-box">
-      <div class="brand-logo">AGE</div>
-      <h1 class="header-title">Dry Age Master</h1>
+    <div class="brand">
+      <div class="logo">AGE</div>
+      <h1 class="title">Dry Age Master</h1>
     </div>
-    <button type="button" class="guide-btn" id="openGuideBtn">📋 Full Guide</button>
+    <label for="chk-guide" class="guide-trigger">📋 Full Guide</label>
   </header>
 
   <main>
-    <div class="section-label">1. Tap What Is In Your Fridge:</div>
+    <div class="sec-title">1. Tap What Is In Your Fridge:</div>
+
+    <input type="radio" name="mode" id="rad-meat" class="mode-radio" checked onchange="switchMode('meat')">
+    <input type="radio" name="mode" id="rad-fish" class="mode-radio" onchange="switchMode('fish')">
+    <input type="radio" name="mode" id="rad-salami" class="mode-radio" onchange="switchMode('salami')">
+    <input type="radio" name="mode" id="rad-cheese" class="mode-radio" onchange="switchMode('cheese')">
+
     <div class="mode-grid">
-      <button type="button" class="mode-tile active" id="tile-meat" data-mode="meat">
-        <span class="mode-icon">🥩</span>
-        <div class="mode-text-wrap">
-          <span class="mode-name">Red Meat</span>
-          <span class="mode-sub">Beef, Pork, Lamb</span>
+      <label for="rad-meat" class="mode-tile">
+        <span class="m-icon">🥩</span>
+        <div>
+          <span class="m-name">Red Meat</span>
+          <span class="m-sub">Beef, Pork, Lamb</span>
         </div>
-      </button>
-      <button type="button" class="mode-tile" id="tile-fish" data-mode="fish">
-        <span class="mode-icon">🐟</span>
-        <div class="mode-text-wrap">
-          <span class="mode-name">Seafood</span>
-          <span class="mode-sub">Whole Fish</span>
+      </label>
+      <label for="rad-fish" class="mode-tile">
+        <span class="m-icon">🐟</span>
+        <div>
+          <span class="m-name">Seafood</span>
+          <span class="m-sub">Whole Fish</span>
         </div>
-      </button>
-      <button type="button" class="mode-tile" id="tile-charcuterie" data-mode="charcuterie">
-        <span class="mode-icon">🥓</span>
-        <div class="mode-text-wrap">
-          <span class="mode-name">Salami</span>
-          <span class="mode-sub">Cured Meats</span>
+      </label>
+      <label for="rad-salami" class="mode-tile">
+        <span class="m-icon">🥓</span>
+        <div>
+          <span class="m-name">Salami</span>
+          <span class="m-sub">Cured Meats</span>
         </div>
-      </button>
-      <button type="button" class="mode-tile" id="tile-cheese" data-mode="cheese">
-        <span class="mode-icon">🧀</span>
-        <div class="mode-text-wrap">
-          <span class="mode-name">Cheese</span>
-          <span class="mode-sub">Hard Wheels</span>
+      </label>
+      <label for="rad-cheese" class="mode-tile">
+        <span class="m-icon">🧀</span>
+        <div>
+          <span class="m-name">Cheese</span>
+          <span class="m-sub">Hard Wheels</span>
         </div>
-      </button>
+      </label>
     </div>
 
-    <div class="chamber-panel" id="chamberPanel"></div>
-
-    <div class="section-label">2. Your Active Batches:</div>
-    <div id="batchContainer"></div>
-  </main>
-
-  <div class="bottom-bar">
-    <button type="button" class="btn" id="openAddBtn">+ Add New Item to Fridge</button>
-  </div>
-
-  <!-- Add Item Modal -->
-  <div class="modal" id="addModal">
-    <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff; font-size:1.35rem;" id="addModalTitle">Add Batch</h2>
-      <div class="form-group">
-        <label>Choose Cut or Product</label>
-        <select id="cutName"></select>
-        <div id="cutAdvice" class="info-callout"></div>
+    <div class="zones">
+      <!-- RED MEAT SETTINGS -->
+      <div class="zone-box" id="zone-meat">
+        <div class="chamber-panel">
+          <div class="chamber-head">⚙️ SET MA400 FRIDGE TO (RED MEAT, PORK & LAMB):</div>
+          <div class="metrics">
+            <div class="m-box"><div class="m-lbl">Temp</div><div class="m-val">1.5°C – 2°C</div></div>
+            <div class="m-box"><div class="m-lbl">Humidity</div><div class="m-val">75% – 80%</div></div>
+            <div class="m-box"><div class="m-lbl">UVC Light</div><div class="m-val" style="color:var(--green);">ON</div></div>
+          </div>
+          <div class="rule-box">
+            ✅ <b>Can Share Fridge Together:</b> Beef, Pork Loin, Lamb Racks, Venison & Duck.<br>
+            🚫 <b>Keep Out:</b> Fish, Salami, or Cheese.
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Starting Weight in Grams (e.g. 6500)</label>
-        <input type="number" id="startWeight" placeholder="Type weight in grams...">
+
+      <!-- SEAFOOD SETTINGS -->
+      <div class="zone-box" id="zone-fish">
+        <div class="chamber-panel">
+          <div class="chamber-head">⚙️ SET MA400 FRIDGE TO (WHOLE FISH & SEAFOOD):</div>
+          <div class="metrics">
+            <div class="m-box"><div class="m-lbl">Temp</div><div class="m-val">0.5°C – 1°C</div></div>
+            <div class="m-box"><div class="m-lbl">Humidity</div><div class="m-val">80% – 85%</div></div>
+            <div class="m-box"><div class="m-lbl">UVC Light</div><div class="m-val" style="color:var(--green);">ON</div></div>
+          </div>
+          <div class="rule-box">
+            ✅ <b>Can Share Fridge Together:</b> Kingfish, Tuna, Salmon, Snapper, Coral Trout.<br>
+            🚫 <b>Run Alone:</b> Fish smells will soak into beef fat or cheese.
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Date Put in Fridge</label>
-        <input type="date" id="startDate">
-      </div>
-      <div class="form-group">
-        <label>Target Days to Age</label>
-        <input type="number" id="targetDays" value="35">
-      </div>
-      <div style="display:flex; gap:10px; margin-top:20px;">
-        <button type="button" class="btn btn-secondary" id="cancelAddBtn">Cancel</button>
-        <button type="button" class="btn" id="saveBatchBtn">Start Aging</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Weigh-In Modal -->
-  <div class="modal" id="weighModal">
-    <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff; font-size:1.35rem;">⚖️ Log New Weight</h2>
-      <input type="hidden" id="weighBatchId">
-      <div class="form-group">
-        <label>Current Scale Reading (grams)</label>
-        <input type="number" id="currentWeight" placeholder="e.g. 5650">
-      </div>
-      <div style="display:flex; gap:10px; margin-top:20px;">
-        <button type="button" class="btn btn-secondary" id="cancelWeighBtn">Cancel</button>
-        <button type="button" class="btn" id="saveWeighBtn">Save Weight</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Step-by-Step Guide Modal -->
-  <div class="modal" id="prepModal">
-    <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff; font-size:1.35rem;">📖 Step-by-Step Checklist</h2>
-      <div class="checklist-step">
-        <strong>Step 1: Buying at the Butcher</strong>
-        • Ask for fresh bone-in cuts (5–10 days from slaughter), NOT old vacuum bags sitting in blood liquid.<br>
-        • Ask the butcher to leave the <b>bones ON</b> and the <b>full fat cap UNTRIMMED</b>.<br>
-        • Pick female cattle (Heifer) or good marbling (MB 3+).
-      </div>
-      <div class="checklist-step">
-        <strong>Step 2: Cleaning the MA400 Fridge</strong>
-        • Take the pink Himalayan salt block out before cleaning.<br>
-        • Wipe inside walls, rubber door seals & wire racks with warm water, then spray with <b>70% Food-Grade Ethanol</b> (or no-rinse brewing sanitiser).<br>
-        • Never use bleach or scented kitchen sprays. Run fridge empty for 12 hours first.
-      </div>
-      <div class="checklist-step">
-        <strong>Step 3: Prepping the Meat (Day 0)</strong>
-        • Put on clean disposable gloves.<br>
-        • <b>NEVER wash meat with tap water.</b> Pat completely bone-dry with clean paper towels.<br>
-        • Cut off any thin dangling meat flaps.<br>
-        • Place on wire shelf: <b>Fat Cap UP, Bones DOWN</b> with an 8cm gap around all sides.
-      </div>
-      <button type="button" class="btn" id="closeGuideBtn">Close Guide</button>
-    </div>
-  </div>
-
-  <script>
-    const MODES = {
-      meat: {
-        name: "Red Meat, Pork & Lamb",
-        temp: "1.5°C – 2.0°C",
-        rh: "75% – 80%",
-        uvc: "ON",
-        uvcColor: "#22c55e",
-        canMix: "✅ <b>Can Share Fridge Together:</b> Beef, Pork Loin, Lamb Racks, Duck & Venison.<br>🚫 <b>Do Not Put In With:</b> Fish, Salami, or Cheese.",
-        items: [
-          { name: "Beef OP Rib / Standing Rib (Bone-In)", days: 35, tip: "🥩 <b>What to Ask Butcher:</b> 4-6 bones, chine cracked, feather bones on, full fat cap left on. Place Fat UP, Bones DOWN." },
-          { name: "Beef Short Loin (T-Bone / Porterhouse)", days: 30, tip: "🥩 <b>What to Ask Butcher:</b> Whole bone-in saddle with eye fillet inside. Don't go past 35 days so the fillet doesn't dry out." },
-          { name: "Beef Whole Striploin (Fat Cap On)", days: 35, tip: "🥩 <b>What to Ask Butcher:</b> Leave thick top fat cap 100% untrimmed to protect the meat." },
-          { name: "Pork Rack / Bone-In Loin", days: 18, tip: "🐖 <b>What to Ask Butcher:</b> 6-8 rib rack with 1.5cm fat layer left on. Can sit in the fridge at the same time as beef!" },
-          { name: "Lamb Saddle / Crown Rack", days: 16, tip: "🐑 <b>What to Ask Butcher:</b> Whole double loin on the bone with fat cap on. Ready in 14–21 days." },
-          { name: "Venison / Game Saddle", days: 14, tip: "🦌 <b>Tip:</b> Keep on the bone with silverskin left on so lean meat stays juicy." }
-        ]
-      },
-      fish: {
-        name: "Whole Fish & Seafood",
-        temp: "0.5°C – 1.0°C",
-        rh: "80% – 85%",
-        uvc: "ON",
-        uvcColor: "#22c55e",
-        canMix: "✅ <b>Can Share Fridge Together:</b> Kingfish, Tuna, Salmon, Snapper, Coral Trout.<br>🚫 <b>Run Alone:</b> Fish smells will soak into beef fat or cheese.",
-        items: [
-          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 <b>Prep:</b> Scales ON, gills & guts removed, bloodline wiped out with paper towels (no tap water!). Hang by tail or lay on rack." },
-          { name: "Tuna Loin / Bonito", days: 12, tip: "🐟 <b>Prep:</b> Dab surface dry with paper towels for the first 2 days." },
-          { name: "Whole Salmon / Ocean Trout", days: 7, tip: "🐟 <b>Prep:</b> Hang from tail hook or rack. Gives super crispy skin and buttery flesh in 5–8 days." },
-          { name: "Whole Snapper / Coral Trout", days: 6, tip: "🐟 <b>Prep:</b> Leave scales on; wipe inside belly cavity bone-dry with paper towel." }
-        ]
-      },
-      charcuterie: {
-        name: "Salami & Cured Meats",
-        temp: "12.0°C – 14.0°C",
-        rh: "75% – 82%",
-        uvc: "OFF ⚠️",
-        uvcColor: "#ef4444",
-        canMix: "✅ <b>Can Share Fridge Together:</b> Salami, Pancetta, Guanciale, Coppa, Bresaola.<br>🚫 <b>TURN UVC LIGHT OFF:</b> UV light kills the good white curing mould!",
-        items: [
-          { name: "Salami / Soppressata Batch", days: 42, tip: "🥓 <b>Rule:</b> Ready when weight drops by 35%–40%. Make sure UVC light is switched OFF." },
-          { name: "Whole Coppa / Capocollo", days: 60, tip: "🥓 <b>Rule:</b> Cured pork neck. Ready when weight drops by 30%–35%." },
-          { name: "Pancetta / Guanciale", days: 35, tip: "🥓 <b>Rule:</b> Hang from top hooks with 10cm air gap. Target 30% weight loss." },
-          { name: "Beef Bresaola", days: 30, tip: "🥓 <b>Rule:</b> Cured eye of round. Target 35% weight loss." }
-        ]
-      },
-      cheese: {
-        name: "Cheese Aging",
-        temp: "10.0°C – 12.0°C",
-        rh: "85% – 90%",
-        uvc: "OFF ⚠️",
-        uvcColor: "#ef4444",
-        canMix: "✅ <b>Can Share Fridge Together:</b> Hard cheeses (Cheddar, Gouda, Gruyère).<br>🚫 <b>Never Mix With Meat:</b> Cheese moulds will spread onto raw meat.",
-        items: [
-          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 <b>Tip:</b> Flip wheel over every 3 days on shelf. Keep UVC light OFF." },
-          { name: "Gouda / Edam Wheel", days: 45, tip: "🧀 <b>Tip:</b> High 85% humidity stops the rind from cracking." },
-          { name: "Alpine / Gruyère Wheel", days: 75, tip: "🧀 <b>Tip:</b> Flip twice a week for even aging." }
-        ]
-      }
-    };
-
-    let currentMode = 'meat';
-    let batches = [];
-
-    try {
-      const savedMode = localStorage.getItem('agerMode');
-      if (savedMode && MODES[savedMode]) currentMode = savedMode;
-      const savedBatches = JSON.parse(localStorage.getItem('agerBatchesV2') || '[]');
-      if (Array.isArray(savedBatches)) batches = savedBatches;
-    } catch (e) {
-      batches = [];
-    }
-
-    function setTodayDate() {
-      const d = new Date();
-      const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const dd = String(d.getDate()).padStart(2, '0');
-      document.getElementById('startDate').value = `${yyyy}-${mm}-${dd}`;
-    }
-
-    function setMode(mode) {
-      if (!MODES[mode]) mode = 'meat';
-      currentMode = mode;
-      try { localStorage.setItem('agerMode', mode); } catch (e) {}
-      document.querySelectorAll('.mode-tile').forEach(el => {
-        el.classList.toggle('active', el.getAttribute('data-mode') === mode);
-      });
-      render();
-    }
-
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-    function updateCutAdvice() {
-      const idx = parseInt(document.getElementById('cutName').value, 10) || 0;
-      const item = MODES[currentMode].items[idx];
-      if (item) {
-        document.getElementById('cutAdvice').innerHTML = item.tip;
-        document.getElementById('targetDays').value = item.days;
-      }
-    }
-
-    function openAddModal() {
-      const modeObj = MODES[currentMode];
-      document.getElementById('addModalTitle').innerText = "Add " + modeObj.name;
-      const select = document.getElementById('cutName');
-      select.innerHTML = modeObj.items.map((it, idx) => `<option value="${idx}">${it.name}</option>`).join('');
-      setTodayDate();
-      updateCutAdvice();
-      openModal('addModal');
-    }
-
-    function createBatch() {
-      const idx = parseInt(document.getElementById('cutName').value, 10) || 0;
-      const item = MODES[currentMode].items[idx];
-      const startWeight = parseFloat(document.getElementById('startWeight').value);
-      const startDate = document.getElementById('startDate').value;
-      const targetDays = parseInt(document.getElementById('targetDays').value, 10) || item.days;
-      if (!startWeight || !startDate) {
-        alert('Please enter the starting weight in grams.');
-        return;
-      }
-
-      batches.unshift({
-        id: Date.now(),
-        mode: currentMode,
-        cut: item.name,
-        startWeight: startWeight,
-        startDate: startDate,
-        targetDays: targetDays,
-        history: [{ date: startDate, weight: startWeight }]
-      });
-      try { localStorage.setItem('agerBatchesV2', JSON.stringify(batches)); } catch (e) {}
-      closeModal('addModal');
-      document.getElementById('startWeight').value = '';
-      render();
-    }
-
-    window.openWeigh = function(id) {
-      document.getElementById('weighBatchId').value = id;
-      document.getElementById('currentWeight').value = '';
-      openModal('weighModal');
-    };
-
-    window.deleteBatch = function(id) {
-      if (confirm('Delete this item?')) {
-        batches = batches.filter(x => x.id !== id);
-        try { localStorage
+      <!-- SALAMI SETTINGS -->
+      <div class="zone-box" id="zone-salami">
+        <div class="chamber-panel">
+          <div class="chamber-head">⚙️ SET MA400 FRIDGE TO (SALAMI & CHARCUTERIE):</div>
+          <div class="metrics">
+            <div class="m-box"><div class="m-lbl">Temp</div><div class="m-val">12°C – 14°C</div></div>
+            <div class="m-box"><div class="m-lbl">Humidity</div><div class="m-val">75% – 82%</div></div>
+            <div class="m-box"><div class="m-lbl">UVC Light</div><div class="m-val" style="color:var(--red);">OFF ⚠️</div></div>
+          </div>
+          <div class="rule-box">
+            ✅ <b>Can Share Fridge Together:</b> Salami, Pancetta, Coppa, Guanciale, Bresaola.<br>
+            🚫
