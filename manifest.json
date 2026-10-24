@@ -1,6 +1,6 @@
 {
   "id": "/dry-aging-tracker/",
-  "name": "AgerPro Master Hub",
+  "name": "AgerPro",
   "short_name": "AgerPro",
   "start_url": "/dry-aging-tracker/",
   "scope": "/dry-aging-tracker/",
@@ -9,9 +9,15 @@
   "theme_color": "#0c0a09",
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%231c1917' stroke='%2378716c' stroke-width='12'/%3E%3Crect x='38' y='38' width='436' height='436' rx='80' fill='%232b140b' stroke='%239a3412' stroke-width='8'/%3E%3Cline x1='64' y1='380' x2='448' y2='380' stroke='%2378716c' stroke-width='5'/%3E%3Cline x1='64' y1='412' x2='448' y2='412' stroke='%2378716c' stroke-width='5'/%3E%3Crect x='68' y='70' width='376' height='12' fill='%23a8a29e'/%3E%3Cpath d='M235 90 C222 52 286 52 272 88 C256 122 212 135 248 168' fill='none' stroke='%23eab308' stroke-width='16' stroke-linecap='round'/%3E%3Cpath d='M236 144 C280 140 356 240 356 318 C356 385 295 412 245 410 C175 408 155 355 165 305 C175 260 220 210 236 144 Z' fill='%23b91c1c' stroke='%23fef3c7' stroke-width='10'/%3E%3Cpath d='M190 315 L265 280 L335 305 M210 360 L275 340 L325 365 M250 180 L265 275' fill='none' stroke='%23fef3c7' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E",
-      "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
     }
   ]
