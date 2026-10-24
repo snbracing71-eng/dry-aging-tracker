@@ -4,134 +4,162 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>AgerLog - Master Traceability Hub</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0e1116">
+  <meta name="theme-color" content="#121316">
   <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%2314181f' stroke='%23eab308' stroke-width='8'/%3E%3Ccircle cx='60' cy='60' r='38' fill='%231e242d' stroke='%2338bdf8' stroke-width='4'/%3E%3Ctext x='60' y='69' font-family='sans-serif' font-size='26' font-weight='900' fill='%23eab308' text-anchor='middle'%3EAGE%3C/text%3E%3C/svg%3E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='frame' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='50%25' stop-color='%237a5c12'/%3E%3Cstop offset='100%25' stop-color='%23b58922'/%3E%3C/linearGradient%3E%3CradialGradient id='uvc' cx='50%25' cy='15%25' r='65%25'%3E%3Cstop offset='0%25' stop-color='%23a855f7' stop-opacity='0.7'/%3E%3Cstop offset='45%25' stop-color='%2338bdf8' stop-opacity='0.4'/%3E%3Cstop offset='100%25' stop-color='%230d1117' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='200' height='200' rx='42' fill='url(%23frame)'/%3E%3Crect x='10' y='10' width='180' height='180' rx='34' fill='%23161920'/%3E%3Crect x='22' y='22' width='156' height='122' rx='16' fill='%230d1117' stroke='%232e3644' stroke-width='2'/%3E%3Crect x='22' y='22' width='156' height='122' rx='16' fill='url(%23uvc)'/%3E%3Crect x='45' y='24' width='110' height='5' rx='2.5' fill='%23e0f2fe'/%3E%3Cline x1='26' y1='124' x2='174' y2='124' stroke='%2394a3b8' stroke-width='4'/%3E%3Cpath d='M65 120 C58 95 72 62 110 52 L138 42 C142 52 132 76 132 95 C135 110 144 118 144 120 Z' fill='%23991b1b' stroke='%23fca5a5' stroke-width='4'/%3E%3Cpath d='M82 118 C80 96 92 76 118 68 C126 84 124 106 128 118 Z' fill='%23dc2626'/%3E%3Crect x='30' y='150' width='140' height='30' rx='8' fill='%23090b0e'/%3E%3Ctext x='100' y='170' font-family='monospace' font-size='16' font-weight='bold' fill='%23fef08a' text-anchor='middle'%3E1.5%C2%B0C 78%25%3E%3C/text%3E%3C/svg%3E">
   <style>
     :root {
-      --bg: #0e1116; --card: #181d25; --border: #2e3644; --text: #f3f6fa;
-      --muted: #9ca3af; --gold: #eab308; --primary: #d97706; --blue: #38bdf8; --green: #238636; --red: #d93838;
+      --bg: #121316; --card: #1c1e24; --card-inner: #14161b; --border: #2c303a;
+      --text: #f3f4f6; --muted: #9ca3af; --crimson: #c83e3b; --gold: #d4a74a;
+      --gold-bright: #eab308; --gold-text: #1a1405; --blue: #0284c7; --sky: #38bdf8;
+      --green: #238636; --red: #d93838;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       margin: 0; padding: 0 0 110px 0; background: var(--bg); color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 17px; line-height: 1.5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.45;
     }
     header {
-      background: #141820; border-bottom: 2px solid var(--border); padding: 14px 16px;
-      display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 30;
+      background: #15171c; border-bottom: 2px solid #5a2022; padding: 12px 16px;
+      display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 40;
     }
     .brand { display: flex; align-items: center; gap: 10px; }
-    .logo {
-      width: 42px; height: 42px; border-radius: 10px; background: #1c222d; border: 2px solid var(--gold);
-      display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; color: var(--gold);
-    }
-    .title { font-weight: 800; font-size: 1.2rem; color: #fff; margin: 0; }
-    .guide-btn {
-      background: #252d3a; color: #fff; border: 2px solid var(--gold); padding: 8px 12px;
-      border-radius: 10px; font-size: 0.9rem; font-weight: 800; cursor: pointer;
-    }
+    .brand-logo-svg { width: 40px; height: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.5); flex-shrink: 0; }
+    .brand-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; margin: 0; color: #fff; }
+    .brand-title span { color: var(--crimson); }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .chamber-pill-badge { background: #1e2128; border: 1px solid #3c4252; border-radius: 8px; padding: 4px 10px; text-align: center; line-height: 1.15; }
+    .chamber-pill-badge small { display: block; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+    .chamber-pill-badge strong { font-size: 0.78rem; color: #fff; font-weight: 800; }
+    .guide-btn { background: #252830; color: #fff; border: 1.5px solid var(--gold); padding: 8px 11px; border-radius: 9px; font-size: 0.82rem; font-weight: 800; cursor: pointer; }
     main { padding: 16px; max-width: 600px; margin: 0 auto; }
-    .sec-title {
-      font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin: 6px 0 10px 2px; font-weight: 800;
-    }
+    .sec-title { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin: 6px 0 10px 2px; font-weight: 800; }
 
-    /* Fridge Selector Bar */
-    .fridge-bar {
-      background: #141922; border: 2px solid var(--gold); border-radius: 14px; padding: 14px; margin-bottom: 18px;
-    }
+    .fridge-bar { background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-bottom: 16px; }
     .fridge-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .fridge-label { font-size: 0.8rem; text-transform: uppercase; color: var(--gold); font-weight: 800; letter-spacing: 0.5px; }
-    .fridge-select {
-      background: #0b0e13; border: 2px solid #2e3846; border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 1rem; font-weight: 700; width: 100%;
-    }
+    .fridge-label { font-size: 0.78rem; text-transform: uppercase; color: var(--gold); font-weight: 800; letter-spacing: 0.5px; }
+    .fridge-select { background: #101216; border: 1.5px solid #2e3440; border-radius: 9px; padding: 10px 12px; color: #fff; font-size: 0.98rem; font-weight: 700; width: 100%; }
 
-    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
     .mode-tile {
-      background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 14px 12px;
-      display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s;
+      background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; padding: 12px;
+      display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s;
     }
-    .mode-tile.active {
-      border-color: var(--gold); background: rgba(234, 179, 8, 0.18); box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
-    }
-    .m-icon { font-size: 2.2rem; line-height: 1; pointer-events: none; }
-    .m-name { font-size: 1.05rem; font-weight: 800; color: #fff; display: block; pointer-events: none; }
-    .m-sub { font-size: 0.82rem; color: var(--muted); display: block; pointer-events: none; }
+    .mode-tile.active { border-color: var(--crimson); background: rgba(200, 62, 59, 0.16); box-shadow: 0 0 14px rgba(200, 62, 59, 0.22); }
+    .m-icon { font-size: 2rem; line-height: 1; pointer-events: none; }
+    .m-name { font-size: 1rem; font-weight: 800; color: #fff; display: block; pointer-events: none; }
+    .m-sub { font-size: 0.78rem; color: var(--muted); display: block; pointer-events: none; }
 
-    .chamber-panel {
-      background: #141922; border: 2px solid #2e3846; border-radius: 14px; padding: 16px; margin-bottom: 20px;
-    }
-    .chamber-head { font-size: 0.95rem; font-weight: 800; color: var(--gold); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #262f3d; }
-    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
-    .m-box { background: #0b0e13; border: 1px solid #252e3d; border-radius: 10px; padding: 12px 6px; }
-    .m-lbl { font-size: 0.78rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
-    .m-val { font-size: 1.15rem; font-weight: 900; color: var(--blue); margin-top: 4px; }
-    .rule-box {
-      margin-top: 12px; font-size: 0.92rem; line-height: 1.45; color: #e2e8f0; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;
-    }
-    .card { background: var(--card); border: 2px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
-    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; text-align: center; }
-    .stat-item { background: #0d1016; border: 1px solid #28303e; border-radius: 10px; padding: 12px 6px; }
-    .stat-num { font-size: 1.3rem; font-weight: 800; margin-top: 4px; color: #fff; }
-    .stage-box {
-      background: rgba(234, 179, 8, 0.12); border-left: 5px solid var(--gold); border-radius: 6px; padding: 14px; margin: 14px 0; font-size: 0.95rem;
-    }
-    .btn {
-      display: block; text-align: center; background: var(--primary); color: #fff; border: none;
-      padding: 16px; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; width: 100%;
-    }
-    .btn-sec { background: var(--red); }
-    .btn-blue { background: #0284c7; margin-top: 10px; padding: 14px; font-size: 1.02rem; }
-    .btn-green { background: var(--green); margin-top: 10px; padding: 14px; font-size: 1.02rem; }
-    .bottom-bar {
-      position: fixed; bottom: 0; left: 0; right: 0; background: #141820; border-top: 2px solid var(--border);
-      padding: 14px 16px; max-width: 600px; margin: 0 auto; z-index: 25;
-    }
-    .modal {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.88);
-      display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100;
-    }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 22px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;
-    }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 0.95rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
-    input, select, textarea {
-      width: 100%; background: #0b0e13; border: 2px solid #2e3846; border-radius: 10px; padding: 14px; color: #fff; font-size: 1.05rem; font-weight: 600;
-    }
-    textarea { resize: vertical; min-height: 80px; }
-    .callout { background: rgba(56, 189, 248, 0.14); border: 1px solid var(--blue); border-radius: 10px; padding: 12px; font-size: 0.95rem; color: #e0f2fe; margin-top: 10px; }
-    .step-box { background: #10141b; border: 1px solid #283242; border-radius: 10px; padding: 14px; margin-bottom: 12px; font-size: 0.95rem; }
-    .step-box strong { color: var(--gold); font-size: 1.05rem; display: block; margin-bottom: 4px; }
-    .del-custom { background: #ef4444; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; display: inline-block; margin-top: 6px; }
-    .history-dropdown {
-      margin-top: 12px; background: #11141a; border: 1px solid #262e3b; border-radius: 8px; padding: 10px; font-size: 0.88rem; color: var(--muted);
-    }
-    .history-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .chamber-panel { background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 18px; }
+    .chamber-head { font-size: 0.85rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+    .m-box { background: var(--card-inner); border: 1px solid #252830; border-radius: 10px; padding: 10px 4px; }
+    .m-lbl { font-size: 0.72rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+    .m-val { font-size: 1.05rem; font-weight: 900; color: var(--sky); margin-top: 3px; }
+    .rule-box { margin-top: 10px; font-size: 0.86rem; line-height: 1.4; color: #e2e8f0; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; }
+
+    .mockup-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 14px; }
+    .tag-badge { display: inline-block; background: #262932; color: var(--gold); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; margin-bottom: 5px; }
+    .cut-heading { margin: 0; font-size: 1.2rem; font-weight: 800; color: #fff; line-height: 1.25; }
+    .cut-meta { font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
+    .del-batch-btn { background: #262932; color: var(--crimson); border: 1px solid #3a3f4d; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+
+    .aging-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .active-aging-lbl { font-size: 0.85rem; color: #d1d5db; margin-bottom: 2px; }
+    .days-big { font-size: 2.25rem; font-weight: 800; color: #fff; line-height: 1; }
+    .days-big span { font-size: 1.1rem; font-weight: 500; color: var(--muted); margin-left: 5px; }
+
+    .loss-badge { background: linear-gradient(135deg, #dfbe6f, #b88b28); color: var(--gold-text); padding: 10px 14px; border-radius: 12px; text-align: center; min-width: 114px; box-shadow: 0 4px 12px rgba(212, 167, 74, 0.25); }
+    .loss-badge .l-lbl { font-size: 0.72rem; font-weight: 800; display: block; opacity: 0.9; }
+    .loss-badge .l-val { font-size: 1.35rem; font-weight: 900; display: block; line-height: 1.15; }
+
+    .desiccation-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .desiccation-lbl { font-size: 0.88rem; color: #d1d5db; }
+    .weight-big { font-size: 1.5rem; font-weight: 800; color: #fff; }
+    .desiccation-bar-bg { height: 16px; background: #262932; border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
+    .desiccation-bar-fill { height: 100%; background: linear-gradient(90deg, #d8c390 0%, #c49a45 65%, #9e731b 100%); border-radius: 8px; transition: width 0.35s ease; }
+
+    .status-line { font-size: 0.84rem; font-weight: 700; padding: 8px 10px; border-radius: 6px; background: rgba(255,255,255,0.03); margin-bottom: 10px; }
+    .notes-box { background: rgba(212, 167, 74, 0.1); border-left: 3px solid var(--gold); padding: 8px 10px; border-radius: 4px; font-size: 0.86rem; margin-bottom: 10px; color: #f3f4f6; }
+
+    .history-dropdown { margin-top: 10px; background: var(--card-inner); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 0.85rem; color: var(--muted); }
+    .history-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .history-row:last-child { border-bottom: none; }
-    .tag-badge {
-      display: inline-block; background: #262e3b; color: var(--gold); padding: 3px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700; margin-bottom: 6px;
-    }
+
+    .history-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 16px 18px; margin-top: 8px; margin-bottom: 20px; }
+    .history-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .history-card-head h3 { margin: 0; font-size: 1.1rem; font-weight: 800; color: #fff; }
+    .hist-entry { border-top: 1px solid var(--border); padding: 10px 0; }
+    .hist-entry:last-child { padding-bottom: 0; }
+    .hist-title { font-size: 0.92rem; font-weight: 700; color: #fff; }
+    .hist-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    .btn { display: block; text-align: center; background: var(--crimson); color: #fff; border: none; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 800; cursor: pointer; width: 100%; }
+    .btn-blue { background: var(--blue); padding: 14px; font-size: 1rem; }
+    .btn-green { background: var(--green); padding: 14px; font-size: 1rem; }
+    .btn-sec { background: var(--red); padding: 14px; font-size: 1rem; }
+    .btn-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(18,19,22,0) 0%, rgba(18,19,22,0.98) 30%); padding: 12px 16px 16px; max-width: 600px; margin: 0 auto; z-index: 30; }
+    .btn-new-batch { background: linear-gradient(180deg, #d34844 0%, #b8322f 100%); color: #fff; border: none; border-radius: 12px; padding: 15px; width: 100%; font-size: 1.05rem; font-weight: 800; box-shadow: 0 6px 18px rgba(200, 62, 59, 0.35); cursor: pointer; }
+
+    .modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.88); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
+    .modal.active { display: flex; }
+    .modal-content { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; padding: 20px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.9rem; color: #cbd5e1; margin-bottom: 6px; font-weight: 700; }
+    input, select, textarea { width: 100%; background: #0b0e13; border: 1.5px solid #2e3846; border-radius: 10px; padding: 13px; color: #fff; font-size: 1rem; font-weight: 600; }
+    textarea { resize: vertical; min-height: 80px; }
+    .callout { background: rgba(56, 189, 248, 0.14); border: 1px solid var(--sky); border-radius: 10px; padding: 11px; font-size: 0.9rem; color: #e0f2fe; margin-top: 8px; }
+    .step-box { background: #10141b; border: 1px solid #283242; border-radius: 10px; padding: 13px; margin-bottom: 10px; font-size: 0.92rem; }
+    .step-box strong { color: var(--gold); font-size: 1rem; display: block; margin-bottom: 4px; }
+    .del-custom { background: var(--red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.84rem; font-weight: 700; cursor: pointer; display: inline-block; margin-top: 6px; }
   </style>
 </head>
 <body>
 
   <header>
     <div class="brand">
-      <div class="logo">AGE</div>
-      <h1 class="title">Dry Age Master</h1>
+      <svg class="brand-logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hFrame" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#d4af37"/><stop offset="50%" stop-color="#7a5c12"/><stop offset="100%" stop-color="#b58922"/>
+          </linearGradient>
+          <radialGradient id="hUvc" cx="50%" cy="15%" r="65%">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.7"/><stop offset="45%" stop-color="#38bdf8" stop-opacity="0.4"/><stop offset="100%" stop-color="#0d1117" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="200" height="200" rx="42" fill="url(#hFrame)"/>
+        <rect x="10" y="10" width="180" height="180" rx="34" fill="#161920"/>
+        <rect x="22" y="22" width="156" height="122" rx="16" fill="#0d1117" stroke="#2e3644" stroke-width="2"/>
+        <rect x="22" y="22" width="156" height="122" rx="16" fill="url(#hUvc)"/>
+        <rect x="45" y="24" width="110" height="5" rx="2.5" fill="#e0f2fe"/>
+        <line x1="26" y1="124" x2="174" y2="124" stroke="#94a3b8" stroke-width="4"/>
+        <path d="M65 120 C58 95 72 62 110 52 L138 42 C142 52 132 76 132 95 C135 110 144 118 144 120 Z" fill="#991b1b" stroke="#fca5a5" stroke-width="4"/>
+        <path d="M82 118 C80 96 92 76 118 68 C126 84 124 106 128 118 Z" fill="#dc2626"/>
+        <rect x="30" y="150" width="140" height="30" rx="8" fill="#090b0e"/>
+        <text x="100" y="170" font-family="monospace" font-size="16" font-weight="bold" fill="#fef08a" text-anchor="middle">1.5°C 78%</text>
+      </svg>
+      <h1 class="brand-title">Ager<span>Log</span></h1>
     </div>
-    <button class="guide-btn" onclick="openModal('guideModal')">📋 Full Guide</button>
+    <div class="header-right">
+      <div class="chamber-pill-badge">
+        <small id="headerFridgeName">MA400</small>
+        <strong>Chamber</strong>
+      </div>
+      <button class="guide-btn" onclick="openModal('guideModal')">📋 Guide</button>
+    </div>
   </header>
 
   <main>
-    <!-- Fridge Selector Header Bar -->
     <div class="fridge-bar">
       <div class="fridge-header-row">
         <span class="fridge-label">Active Aging Chamber:</span>
-        <button type="button" class="guide-btn" style="padding: 4px 8px; font-size: 0.75rem;" onclick="openManageFridges()">Manage Fridges</button>
+        <button type="button" class="guide-btn" style="padding: 4px 9px; font-size: 0.75rem;" onclick="openManageFridges()">⚙️ Manage Fridges</button>
       </div>
       <select id="fridgeSelect" class="fridge-select" onchange="switchFridge(this.value)"></select>
     </div>
@@ -158,24 +186,24 @@
     </div>
 
     <div id="chamberBanner"></div>
-    <div class="sec-title">2. Active Batch in This Fridge:</div>
+    <div class="sec-title">2. Active Batches & Lifecycle Traceability:</div>
     <div id="batchList"></div>
+    <div id="historicalSection"></div>
   </main>
 
   <div class="bottom-bar" id="bottomBarContainer"></div>
 
-  <!-- FULL GUIDE MODAL -->
   <div class="modal" id="guideModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">📖 Step-by-Step Checklist & Lifecycle</h2>
       <div class="step-box">
         <strong>1. Active Dry Aging (MA400)</strong>
         • Temp: 1.5°C–2°C | RH: 75%–80% | UVC ON.<br>
-        • Keep Fat Side UP, Bones DOWN with 8cm air gaps.
+        • Never wash meat with water. Blot bone-dry. Place Fat Side UP, Bones DOWN with 8cm air gaps.
       </div>
       <div class="step-box">
         <strong>2. Harvesting & Trimming (Pellicle Excision)</strong>
-        • Weigh final piece, slice off 1–2mm leathery pellicle with a stiff boning knife.<br>
+        • Weigh final piece, slice off 1–2mm leathery pellicle crust with a stiff boning knife.<br>
         • Portion into thick steaks (38–50mm) so they sear without overcooking.
       </div>
       <div class="step-box">
@@ -187,22 +215,20 @@
     </div>
   </div>
 
-  <!-- MANAGE FRIDGES MODAL -->
   <div class="modal" id="fridgesModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">Manage Cabinets / Fridges</h2>
-      <p style="font-size:0.9rem; color:var(--muted); margin-bottom:14px;">Add or rename your aging refrigerators.</p>
+      <p style="font-size:0.88rem; color:var(--muted); margin-bottom:14px;">Add or remove your aging refrigerators.</p>
       <div class="form-group">
         <label>New Fridge Name</label>
         <input type="text" id="newFridgeName" placeholder="e.g. Thermaster MA400 #2">
       </div>
-      <button class="btn" onclick="addNewFridge()" style="margin-bottom:20px;">+ Add New Fridge</button>
+      <button class="btn" onclick="addNewFridge()" style="margin-bottom:18px;">+ Add New Fridge</button>
       <div id="fridgeListUI"></div>
-      <button class="btn btn-sec" onclick="closeModal('fridgesModal')" style="margin-top:20px;">Done</button>
+      <button class="btn btn-sec" onclick="closeModal('fridgesModal')" style="margin-top:18px;">Done</button>
     </div>
   </div>
 
-  <!-- ADD ITEM MODAL -->
   <div class="modal" id="addModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;" id="addModalTitle">Add Item to Fridge</h2>
@@ -234,30 +260,28 @@
         <label>Target Days</label>
         <input type="number" id="inDays" value="35">
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
+      <div class="btn-pair">
         <button class="btn btn-sec" onclick="closeModal('addModal')">Cancel</button>
-        <button class="btn" onclick="saveNewBatch()">Start Aging</button>
+        <button class="btn btn-green" onclick="saveNewBatch()">Start Aging</button>
       </div>
     </div>
   </div>
 
-  <!-- WEIGH IN MODAL -->
   <div class="modal" id="weighModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">⚖️ Enter New Weight</h2>
       <input type="hidden" id="weighId">
       <div class="form-group">
         <label>Current Scale Reading (grams)</label>
-        <input type="number" id="inNewWeight" placeholder="e.g. 5650">
+        <input type="number" id="inNewWeight" placeholder="e.g. 4210">
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
+      <div class="btn-pair">
         <button class="btn btn-sec" onclick="closeModal('weighModal')">Cancel</button>
-        <button class="btn" onclick="saveNewWeight()">Save Weight</button>
+        <button class="btn btn-green" onclick="saveNewWeight()">Save Weight</button>
       </div>
     </div>
   </div>
 
-  <!-- HARVEST / POST-AGING STATUS MODAL -->
   <div class="modal" id="harvestModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">🥩 Harvest, Portion & Storage</h2>
@@ -265,6 +289,7 @@
       <div class="form-group">
         <label>Post-Aging Status / Step</label>
         <select id="postStatus" onchange="updateHarvestDateLabel()">
+          <option value="Active in Agers">🥩 Active in Dry Ager</option>
           <option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (30–45 Days Max)</option>
           <option value="Deep Frozen (-18C)">🧊 Deep Frozen in Vacuum Seal (-18°C)</option>
           <option value="Consumed / Enjoyed">🍽️ Consumed / Cooked & Eaten</option>
@@ -278,8 +303,8 @@
         <label>Tasting & Sensory Notes (Aroma, Texture, Flavor Profile)</label>
         <textarea id="tastingNotes" placeholder="e.g. Rich nutty hazelnut aroma, buttery finish, phenomenal tenderness at 38 days. Replicate this exact supplier!"></textarea>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
-        <button class="btn btn-sec" style="padding:14px; font-size:1.02rem; margin-top:10px;" onclick="closeModal('harvestModal')">Cancel</button>
+      <div class="btn-pair">
+        <button class="btn btn-sec" onclick="closeModal('harvestModal')">Cancel</button>
         <button class="btn btn-green" onclick="saveHarvestDetails()">Save Lifecycle Record</button>
       </div>
     </div>
@@ -288,40 +313,53 @@
   <script>
     const DEFAULT_MODES = {
       meat: {
-        name: "Red Meat, Pork & Lamb", icon: "🥩", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON", uvcColor: "#22c55e",
+        name: "Red Meat, Pork & Lamb", shortBtn: "+ New Meat Batch", icon: "🥩", temp: "1.5°C – 2°C", rh: "75% – 80%", uvc: "ON", uvcColor: "#22c55e",
         rule: "✅ <b>Can Share:</b> Beef, Pork Loin, Lamb Racks, Venison.<br>🚫 <b>Keep Out:</b> Fish, Salami, Cheese.",
         items: [
-          { name: "Beef OP Rib / Standing Rib (Bone-In)", days: 35, tip: "🥩 Place Fat UP, Bones DOWN." },
-          { name: "Beef Short Loin", days: 30, tip: "🥩 Whole bone-in saddle." }
+          { name: "OP Rib / Standing Rib Roast", days: 35, tip: "🥩 Bone-in Export Rib. Place Fat UP, Bones DOWN." },
+          { name: "Beef Short Loin (T-Bone / Porterhouse)", days: 30, tip: "🥩 Whole bone-in saddle." },
+          { name: "Whole Striploin (Fat Cap On)", days: 35, tip: "🥩 Leave thick top fat cap 100% untrimmed." },
+          { name: "Pork Rack / Bone-In Loin", days: 18, tip: "🐖 Can share fridge with beef!" },
+          { name: "Lamb Saddle / Crown Rack", days: 16, tip: "🐑 Ready in 14–21 days." }
         ]
       },
       fish: {
-        name: "Whole Fish & Seafood", icon: "🐟", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON", uvcColor: "#22c55e",
-        rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon.<br>🚫 <b>Run Alone.</b>",
+        name: "Whole Fish & Seafood", shortBtn: "+ New Seafood Batch", icon: "🐟", temp: "0.5°C – 1°C", rh: "80% – 85%", uvc: "ON", uvcColor: "#22c55e",
+        rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon.<br>🚫 <b>Run Alone:</b> Fish smells soak into beef/cheese.",
         items: [
-          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 Scales ON, gills out, wipe dry." }
+          { name: "Whole Kingfish / Amberjack", days: 10, tip: "🐟 Scales ON, gills out, wipe cavity dry (no water)." },
+          { name: "Tuna Loin / Bonito", days: 12, tip: "🐟 Dab surface dry with paper towels for first 2 days." },
+          { name: "Whole Salmon / Ocean Trout", days: 7, tip: "🐟 Hang from tail hook or rack." }
         ]
       },
       salami: {
-        name: "Salami & Charcuterie", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
-        rule: "✅ <b>Can Share:</b> Salami, Coppa.<br>🚫 <b>UVC MUST BE OFF.</b>",
+        name: "Salami & Charcuterie", shortBtn: "+ New Salami Batch", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
+        rule: "✅ <b>Can Share:</b> Salami, Coppa, Pancetta.<br>🚫 <b>UVC MUST BE OFF:</b> UV light kills curing mould!",
         items: [
-          { name: "Salami / Soppressata", days: 42, tip: "🥓 Target 35-40% weight loss." }
+          { name: "Salami / Soppressata", days: 42, tip: "🥓 Ready at 35–40% weight loss. Keep UVC OFF." },
+          { name: "Whole Coppa / Capocollo", days: 60, tip: "🥓 Ready at 30–35% weight loss." },
+          { name: "Pancetta / Guanciale", days: 35, tip: "🥓 Target 30% weight loss." }
         ]
       },
       cheese: {
-        name: "Cheese Aging", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
-        rule: "✅ <b>Can Share:</b> Hard Cheeses.<br>🚫 <b>Keep away from meat.</b>",
+        name: "Cheese Aging", shortBtn: "+ New Cheese Batch", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
+        rule: "✅ <b>Can Share:</b> Hard Cheeses (Cheddar, Gouda, Gruyere).<br>🚫 <b>Keep away from meat.</b>",
         items: [
-          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 Flip every 3 days." }
+          { name: "Hard Cheddar Wheel", days: 60, tip: "🧀 Flip every 3 days. Keep UVC OFF." },
+          { name: "Gouda / Edam Wheel", days: 45, tip: "🧀 High 85% humidity prevents cracking." },
+          { name: "Alpine / Gruyère Wheel", days: 75, tip: "🧀 Flip twice a week." }
         ]
       }
     };
 
     var fridges = JSON.parse(localStorage.getItem('dryAgeFridges') || '["Thermaster MA400 #1"]');
     var currentFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
-    var items = JSON.parse(localStorage.getItem('dryAgeItemsV5') || '[]');
-    var customItems = JSON.parse(localStorage.getItem('dryAgeCustomItemsV5') || '{"meat":[],"fish":[],"salami":[],"cheese":[]}');
+    var items = JSON.parse(localStorage.getItem('dryAgeItemsV5') || 'null');
+    if (!items) {
+      items = JSON.parse(localStorage.getItem('dryAgeItemsV4') || localStorage.getItem('dryAgeItemsV3') || '[]');
+    }
+    var customItems = JSON.parse(localStorage.getItem('dryAgeCustomItemsV5') || localStorage.getItem('dryAgeCustomItemsV4') || '{"meat":[],"fish":[],"salami":[],"cheese":[]}');
+    var currentSelectedMode = 'meat';
 
     function saveStorage() {
       localStorage.setItem('dryAgeFridges', JSON.stringify(fridges));
@@ -333,6 +371,7 @@
     function renderFridgesDropdown() {
       var sel = document.getElementById('fridgeSelect');
       sel.innerHTML = fridges.map(f => '<option value="' + f + '" ' + (f === currentFridge ? 'selected' : '') + '>' + f + '</option>').join('');
+      document.getElementById('headerFridgeName').innerText = currentFridge.length > 14 ? currentFridge.slice(0, 14) + '…' : currentFridge;
     }
 
     function switchFridge(fName) {
@@ -344,9 +383,9 @@
     function openManageFridges() {
       var listUI = document.getElementById('fridgeListUI');
       listUI.innerHTML = fridges.map(f => `
-        <div style="display:flex; justify-content:space-between; align-items:center; background:#0b0e13; border:1px solid #2e3846; padding:10px; border-radius:8px; margin-bottom:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#0b0e13; border:1px solid #2e3846; padding:10px 12px; border-radius:8px; margin-bottom:8px;">
           <span style="font-weight:700; color:#fff;">${f}</span>
-          ${fridges.length > 1 ? '<button class="btn-sec" onclick="deleteFridge(\'' + f + '\')" style="background:#ef4444; color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:0.8rem;">Delete</button>' : '<span style="font-size:0.75rem; color:var(--muted);">Default</span>'}
+          ${fridges.length > 1 ? '<button onclick="deleteFridge(\'' + f + '\')" style="background:var(--red); color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:700;">Delete</button>' : '<span style="font-size:0.75rem; color:var(--muted);">Default</span>'}
         </div>
       `).join('');
       openModal('fridgesModal');
@@ -354,8 +393,8 @@
 
     function addNewFridge() {
       var name = document.getElementById('newFridgeName').value.trim();
-      if (!name) { alert('Enter fridge name.'); return; }
-      if (fridges.includes(name)) { alert('Fridge already exists.'); return; }
+      if (!name) return alert('Enter fridge name.');
+      if (fridges.includes(name)) return alert('Fridge already exists.');
       fridges.push(name);
       currentFridge = name;
       document.getElementById('newFridgeName').value = '';
@@ -366,7 +405,7 @@
     }
 
     function deleteFridge(fName) {
-      if (confirm('Delete fridge "' + fName + '"? All active batches inside it will be removed.')) {
+      if (confirm('Delete fridge "' + fName + '"? All batches inside it will be removed.')) {
         fridges = fridges.filter(f => f !== fName);
         items = items.filter(i => (i.fridge || fridges[0]) !== fName);
         currentFridge = fridges[0];
@@ -378,11 +417,8 @@
     }
 
     function getActiveCategoryInCurrentFridge() {
-      var fridgeItems = items.filter(i => (i.fridge || fridges[0]) === currentFridge && i.status === 'Active in Agers');
-      if (fridgeItems.length > 0) {
-        return fridgeItems[0].mode;
-      }
-      return null;
+      var fridgeItems = items.filter(i => (i.fridge || fridges[0]) === currentFridge && (i.status || 'Active in Agers') === 'Active in Agers');
+      return fridgeItems.length > 0 ? fridgeItems[0].mode : null;
     }
 
     function selectCategory(m) {
@@ -391,14 +427,18 @@
         alert('⚠️ Cabinet "' + currentFridge + '" currently has an active batch in "' + DEFAULT_MODES[activeCat].name + '". You cannot mix categories in the same fridge.');
         return;
       }
+      currentSelectedMode = m;
       setActiveTile(m);
     }
 
     function setActiveTile(m) {
+      currentSelectedMode = m;
       document.querySelectorAll('.mode-tile').forEach(el => el.classList.remove('active'));
       document.getElementById('tile-' + m).classList.add('active');
       renderChamber(m);
       renderList(m);
+      document.getElementById('bottomBarContainer').innerHTML =
+        '<button class="btn-new-batch" onclick="openAddModal()">' + DEFAULT_MODES[m].shortBtn + ' (' + currentFridge + ')</button>';
     }
 
     function renderChamber(mKey) {
@@ -426,30 +466,28 @@
     }
 
     function openAddModal() {
-      var activeCat = getActiveCategoryInCurrentFridge();
-      var targetCat = activeCat || 'meat';
-
+      var targetCat = getActiveCategoryInCurrentFridge() || currentSelectedMode || 'meat';
       var m = DEFAULT_MODES[targetCat];
       document.getElementById('addModalTitle').innerText = "Add " + m.name + " to " + currentFridge;
       document.getElementById('batchCode').value = 'BATCH-' + Math.floor(1000 + Math.random() * 9000);
-      
+
       var allItems = getCombinedItems(targetCat);
       var sel = document.getElementById('cutSelect');
       sel.innerHTML = allItems.map((it, idx) => '<option value="' + idx + '">' + it.name + '</option>').join('');
-      
+
       document.getElementById('inDate').value = new Date().toISOString().split('T')[0];
       checkCustomSelection();
       openModal('addModal');
     }
 
     function checkCustomSelection() {
-      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
-      var allItems = getCombinedItems(activeCat);
+      var targetCat = getActiveCategoryInCurrentFridge() || currentSelectedMode || 'meat';
+      var allItems = getCombinedItems(targetCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       var customGrp = document.getElementById('customInputGroup');
       var delBtnContainer = document.getElementById('customDeleteContainer');
-      
+
       if (item.isOther) {
         customGrp.style.display = 'block';
         delBtnContainer.style.display = 'none';
@@ -470,22 +508,20 @@
     }
 
     function deleteSelectedCustom() {
-      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
-      var allItems = getCombinedItems(activeCat);
+      var targetCat = getActiveCategoryInCurrentFridge() || currentSelectedMode || 'meat';
+      var allItems = getCombinedItems(targetCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
-      if (item.isCustom) {
-        if (confirm('Permanently delete custom item "' + item.name + '"?')) {
-          customItems[activeCat] = customItems[activeCat].filter(c => c !== item.name);
-          saveStorage();
-          openAddModal();
-        }
+      if (item.isCustom && confirm('Permanently delete custom item "' + item.name + '"?')) {
+        customItems[targetCat] = customItems[targetCat].filter(c => c !== item.name);
+        saveStorage();
+        openAddModal();
       }
     }
 
     function saveNewBatch() {
-      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
-      var allItems = getCombinedItems(activeCat);
+      var targetCat = getActiveCategoryInCurrentFridge() || currentSelectedMode || 'meat';
+      var allItems = getCombinedItems(targetCat);
       var idx = parseInt(document.getElementById('cutSelect').value, 10) || 0;
       var item = allItems[idx];
       var itemName = item.name;
@@ -494,24 +530,24 @@
 
       if (item.isOther) {
         var customVal = document.getElementById('customCutName').value.trim();
-        if (!customVal) { alert('Please type a custom item name.'); return; }
+        if (!customVal) return alert('Please type a custom item name.');
         itemName = customVal;
-        if (!customItems[activeCat]) customItems[activeCat] = [];
-        if (!customItems[activeCat].includes(customVal)) {
-          customItems[activeCat].push(customVal);
+        if (!customItems[targetCat]) customItems[targetCat] = [];
+        if (!customItems[targetCat].includes(customVal)) {
+          customItems[targetCat].push(customVal);
           saveStorage();
         }
       }
 
       var w = parseFloat(document.getElementById('inWeight').value);
       var d = document.getElementById('inDate').value || new Date().toISOString().split('T')[0];
-      if (!w) { alert('Please enter starting weight in grams.'); return; }
+      if (!w) return alert('Please enter starting weight in grams.');
 
       items.unshift({
         id: Date.now(),
         code: code,
         fridge: currentFridge,
-        mode: activeCat,
+        mode: targetCat,
         name: itemName,
         startW: w,
         startD: d,
@@ -526,9 +562,15 @@
       refreshUI();
     }
 
-    function promptWeigh(id) { document.getElementById('weighId').value = id; openModal('weighModal'); }
+    function promptWeigh(id) {
+      document.getElementById('weighId').value = id;
+      document.getElementById('inNewWeight').value = '';
+      openModal('weighModal');
+    }
+
     function saveNewWeight() {
-      var id = parseInt(document.getElementById('weighId').value, 10), w = parseFloat(document.getElementById('inNewWeight').value);
+      var id = parseInt(document.getElementById('weighId').value, 10);
+      var w = parseFloat(document.getElementById('inNewWeight').value);
       if (!w) return;
       items.forEach(x => {
         if (x.id === id) {
@@ -553,7 +595,7 @@
       document.getElementById('harvestId').value = id;
       var b = items.find(x => x.id === id);
       if (b) {
-        document.getElementById('postStatus').value = b.status !== 'Active in Agers' ? b.status : 'Vacuum Sealed Chilled';
+        document.getElementById('postStatus').value = (b.status && b.status !== 'Active in Agers') ? b.status : 'Vacuum Sealed Chilled';
         document.getElementById('actionDate').value = b.statusDate || new Date().toISOString().split('T')[0];
         document.getElementById('tastingNotes').value = b.notes || '';
         updateHarvestDateLabel();
@@ -588,10 +630,12 @@
 
     function renderList(mKey) {
       var box = document.getElementById('batchList');
+      var histBox = document.getElementById('historicalSection');
       var filtered = items.filter(x => (x.fridge || fridges[0]) === currentFridge && (x.mode || 'meat') === mKey);
-      
+
       if (!filtered.length) {
-        box.innerHTML = '<div class="card" style="text-align:center; color:var(--muted);">No active items in this category for <b>' + currentFridge + '</b>. Tap below to start a batch!</div>';
+        box.innerHTML = '<div class="mockup-card" style="text-align:center; color:var(--muted);">No active items in this category for <b>' + currentFridge + '</b>. Tap the red button below to start a batch!</div>';
+        histBox.innerHTML = '';
         return;
       }
 
@@ -600,47 +644,71 @@
         var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / (1000 * 60 * 60 * 24)));
         var loss = (((b.startW - latestWeight) / b.startW) * 100).toFixed(1);
         var modeIcon = DEFAULT_MODES[b.mode || 'meat'].icon;
-        
+
         var historyRows = (b.history || [{date: b.startD, weight: b.startW}]).map(h => {
           var hLoss = (((b.startW - h.weight) / b.startW) * 100).toFixed(1);
           return '<div class="history-row"><span>📅 ' + h.date + '</span><span><b>' + h.weight + 'g</b> (-' + hLoss + '%)</span></div>';
         }).join('');
 
-        var statusColor = b.status === 'Active in Agers' ? 'var(--gold)' : (b.status.includes('Frozen') ? 'var(--blue)' : 'var(--green)');
-        var statusDisplay = b.status + (b.statusDate ? ' (' + b.statusDate + ')' : '');
+        var st = b.status || 'Active in Agers';
+        var statusColor = st === 'Active in Agers' ? 'var(--gold-bright)' : (st.includes('Frozen') ? 'var(--sky)' : '#4ade80');
+        var statusDisplay = st + (b.statusDate ? ' (' + b.statusDate + ')' : '');
 
-        return '<div class="card">' +
-          '<div style="display:flex; justify-content:space-between; align-items:flex-start;">' +
-            '<div>' +
-              '<span class="tag-badge">🏷️ Code: ' + (b.code || 'BATCH-' + b.id) + '</span>' +
-              '<h3 style="margin:4px 0 2px 0; color:#fff;">' + modeIcon + ' ' + b.name + '</h3>' +
-              '<div style="font-size:0.85rem; color:var(--muted); margin-top:2px;">Started: ' + b.startD + ' • Day ' + elapsed + ' of ' + b.days + '</div>' +
-              '<div style="font-size:0.82rem; font-weight:700; color:' + statusColor + '; margin-top:4px;">Status: ' + statusDisplay + '</div>' +
-            '</div>' +
-            '<button onclick="removeBatch(' + b.id + ')" style="background:#262d38; color:#fff; border:none; width:36px; height:36px; border-radius:8px; cursor:pointer; font-size:1rem;">✕</button>' +
-          '</div>' +
-          '<div class="stat-row">' +
-            '<div class="stat-item"><div class="m-lbl">Days</div><div class="stat-num">' + elapsed + '</div></div>' +
-            '<div class="stat-item"><div class="m-lbl">Loss</div><div class="stat-num" style="color:var(--gold);">-' + loss + '%</div></div>' +
-            '<div class="stat-item"><div class="m-lbl">Weight Now</div><div class="stat-num">' + latestWeight + 'g</div></div>' +
-          '</div>' +
-          (b.notes ? '<div style="background:rgba(234,179,8,0.08); border-left:3px solid var(--gold); padding:8px 10px; border-radius:4px; font-size:0.88rem; margin-bottom:10px;"><b>📝 Tasting Notes / Replication Recipe:</b> ' + b.notes + '</div>' : '') +
-          '<div class="history-dropdown"><div style="font-weight:700; margin-bottom:4px; color:#cbd5e1;">📊 Weigh-In Journey Log:</div>' + historyRows + '</div>' +
-          '<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">' +
-            '<button class="btn btn-blue" onclick="promptWeigh(' + b.id + ')">⚖️ Log Weight</button>' +
-            '<button class="btn btn-green" onclick="promptHarvest(' + b.id + ')">🔪 Harvest & Notes</button>' +
-          '</div>' +
-        '</div>';
+        return `
+          <div class="mockup-card">
+            <div class="card-top">
+              <div>
+                <span class="tag-badge">🏷️ Code: ${b.code || ('BATCH-' + b.id)}</span>
+                <h3 class="cut-heading">${modeIcon} ${b.name}</h3>
+                <div class="cut-meta">Started: ${b.startD} • Day ${elapsed} of ${b.days}</div>
+                <div style="font-size:0.82rem; font-weight:700; color:${statusColor}; margin-top:4px;">Status: ${statusDisplay}</div>
+              </div>
+              <button class="del-batch-btn" onclick="removeBatch(${b.id})" title="Delete Batch">✕</button>
+            </div>
+            <div class="stat-row" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:12px 0; text-align:center;">
+              <div style="background:#0d1016; border:1px solid #28303e; border-radius:8px; padding:8px 4px;"><div style="font-size:0.75rem; color:var(--muted);">Days</div><div style="font-size:1.2rem; font-weight:800; color:#fff;">${elapsed}</div></div>
+              <div style="background:#0d1016; border:1px solid #28303e; border-radius:8px; padding:8px 4px;"><div style="font-size:0.75rem; color:var(--muted);">Loss</div><div style="font-size:1.2rem; font-weight:800; color:var(--gold);">-${loss}%</div></div>
+              <div style="background:#0d1016; border:1px solid #28303e; border-radius:8px; padding:8px 4px;"><div style="font-size:0.75rem; color:var(--muted);">Weight Now</div><div style="font-size:1.1rem; font-weight:800; color:#fff;">${latestWeight}g</div></div>
+            </div>
+            ${b.notes ? `<div class="notes-box"><b>📝 Tasting Notes / Replication Recipe:</b> ${b.notes}</div>` : ''}
+            <div class="history-dropdown">
+              <div style="font-weight:700; margin-bottom:4px; color:#cbd5e1;">📊 Weigh-In Journey Log:</div>
+              ${historyRows}
+            </div>
+            <div class="btn-pair">
+              <button class="btn btn-blue" onclick="promptWeigh(${b.id})">⚖️ Log Weight</button>
+              <button class="btn btn-green" onclick="promptHarvest(${b.id})">🔪 Harvest & Notes</button>
+            </div>
+          </div>
+        `;
       }).join('');
+
+      var histItems = filtered.map(b => {
+        var latestWeight = (b.history && b.history.length > 0) ? b.history[b.history.length - 1].weight : b.startW;
+        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / (1000 * 60 * 60 * 24)));
+        return `
+          <div class="hist-entry">
+            <div class="hist-title">${b.name} <span style="color:var(--gold); font-size:0.8rem;">(${b.code || 'Batch'})</span></div>
+            <div class="hist-sub">${b.startD}, ${elapsed} Days • Current w: ${latestWeight}g • ${b.status || 'Active'}</div>
+          </div>
+        `;
+      }).join('');
+
+      histBox.innerHTML = `
+        <div class="history-card">
+          <div class="history-card-head">
+            <h3>Historical Log</h3>
+            <span style="color:var(--crimson); font-weight:900;">⋮</span>
+          </div>
+          ${histItems}
+        </div>
+      `;
     }
 
     function refreshUI() {
       renderFridgesDropdown();
-      var activeCat = getActiveCategoryInCurrentFridge() || 'meat';
+      var activeCat = getActiveCategoryInCurrentFridge() || currentSelectedMode || 'meat';
       setActiveTile(activeCat);
-
-      var bar = document.getElementById('bottomBarContainer');
-      bar.innerHTML = '<button class="btn" onclick="openAddModal()">+ Add New Item to ' + currentFridge + '</button>';
     }
 
     refreshUI();
