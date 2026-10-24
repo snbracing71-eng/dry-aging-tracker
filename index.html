@@ -3,62 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Guild Ager</title>
+<title>AgerLog</title>
 <meta name="theme-color" content="#0c0a09">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <script>
-// Immediately generate & inject 512x512 static PNG icon & dynamic manifest BEFORE Chrome menu opens
+// Render 512x512 3D-Shaded Icon Option 1 (Hanging Marbled Rib Roast in Copper/Iron Cabinet)
 (function(){
   var c = document.createElement('canvas'); c.width = 512; c.height = 512;
   var x = c.getContext('2d');
-  // Dark Cast-Iron Rounded Square Background
-  x.fillStyle = '#0c0a09'; x.beginPath(); x.roundRect(0,0,512,512,110); x.fill();
-  // Outer Gold Trim
-  x.strokeStyle = '#d4af37'; x.lineWidth = 14; x.beginPath(); x.roundRect(18,18,476,476,96); x.stroke();
-  // Butcher's Guild Shield (Espresso Leather & Copper Border)
-  x.fillStyle = '#18120e'; x.strokeStyle = '#b45309'; x.lineWidth = 24;
-  x.beginPath(); x.moveTo(256, 52); x.lineTo(426, 115); x.lineTo(426, 265);
-  x.bezierCurveTo(426, 380, 256, 464, 256, 464);
-  x.bezierCurveTo(256, 464, 86, 380, 86, 265);
-  x.lineTo(86, 115); x.closePath(); x.fill(); x.stroke();
-  // Gold Butcher's S-Hook (Left)
-  x.strokeStyle = '#facc15'; x.lineWidth = 26; x.lineCap = 'round';
-  x.beginPath(); x.moveTo(195, 165); x.bezierCurveTo(140, 140, 140, 220, 190, 245);
-  x.bezierCurveTo(240, 270, 240, 350, 185, 330); x.stroke();
-  // Gold Cleaver Blade & Copper Handle (Right)
-  x.fillStyle = '#d4af37'; x.beginPath();
-  x.moveTo(300, 150); x.lineTo(380, 230); x.lineTo(318, 292); x.lineTo(238, 212); x.closePath(); x.fill();
-  x.fillStyle = '#18120e'; x.beginPath(); x.arc(348, 228, 11, 0, Math.PI*2); x.fill();
-  x.strokeStyle = '#ea580c'; x.lineWidth = 26; x.lineCap = 'round';
-  x.beginPath(); x.moveTo(244, 218); x.lineTo(192, 338); x.stroke();
+
+  // 1. Outer Dark Cast-Iron Bezel
+  var fg = x.createLinearGradient(0,0,512,512);
+  fg.addColorStop(0,'#3a3836'); fg.addColorStop(0.5,'#1c1917'); fg.addColorStop(1,'#0c0a09');
+  x.fillStyle = fg; x.beginPath(); x.roundRect(0,0,512,512,110); x.fill();
+  x.strokeStyle = '#57534e'; x.lineWidth = 6; x.beginPath(); x.roundRect(6,6,500,500,106); x.stroke();
+
+  // 2. Inner Recessed Copper/Umber Aging Chamber
+  var cg = x.createRadialGradient(256,240,30,256,256,240);
+  cg.addColorStop(0,'#432316'); cg.addColorStop(0.7,'#21110b'); cg.addColorStop(1,'#090504');
+  x.fillStyle = cg; x.beginPath(); x.roundRect(38,38,436,436,80); x.fill();
+  x.strokeStyle = '#78350f'; x.lineWidth = 5; x.stroke();
+
+  // 3. Copper Side Louvers / Vents (Left & Right)
+  x.fillStyle = '#5c2812'; x.strokeStyle = '#9a3412'; x.lineWidth = 3;
+  for(var y=110; y<=350; y+=36){
+    x.beginPath(); x.moveTo(42,y); x.lineTo(86,y+12); x.lineTo(86,y+26); x.lineTo(42,y+14); x.closePath(); x.fill(); x.stroke();
+    x.beginPath(); x.moveTo(470,y); x.lineTo(426,y+12); x.lineTo(426,y+26); x.lineTo(470,y+14); x.closePath(); x.fill(); x.stroke();
+  }
+
+  // 4. Bottom Perspective Stainless Wire Rack
+  x.strokeStyle = '#78716c'; x.lineWidth = 4;
+  x.beginPath();
+  x.moveTo(54,432); x.lineTo(458,432);
+  x.moveTo(72,404); x.lineTo(440,404);
+  x.moveTo(92,378); x.lineTo(420,378);
+  for(var i=-5; i<=5; i++){
+    x.moveTo(256 + i*26, 378); x.lineTo(256 + i*38, 452);
+  }
+  x.stroke();
+
+  // 5. Top Hanging Rail & Brass S-Hook
+  var rg = x.createLinearGradient(0,68,0,84);
+  rg.addColorStop(0,'#d6d3d1'); rg.addColorStop(0.5,'#78716c'); rg.addColorStop(1,'#292524');
+  x.fillStyle = rg; x.fillRect(68,70,376,12);
+
+  x.strokeStyle = '#eab308'; x.lineWidth = 14; x.lineCap = 'round';
+  x.shadowColor = 'rgba(0,0,0,0.8)'; x.shadowBlur = 12; x.shadowOffsetY = 6;
+  x.beginPath();
+  x.moveTo(235,92);
+  x.bezierCurveTo(222,52, 286,52, 272,88);
+  x.bezierCurveTo(256,122, 212,135, 248,168);
+  x.stroke();
+
+  // 6. Hanging Bone-In Marbled Tomahawk / Rib Roast
+  x.save();
+  x.beginPath();
+  x.moveTo(236,144); // Top bone tip
+  x.bezierCurveTo(255,140, 276,144, 284,162);
+  x.bezierCurveTo(304,210, 356,248, 356,318); // Right fat cap curve
+  x.bezierCurveTo(356,378, 304,412, 250,410); // Bottom ribeye round
+  x.bezierCurveTo(188,408, 156,368, 162,312); // Left seared edge
+  x.bezierCurveTo(166,272, 198,258, 214,218);
+  x.bezierCurveTo(224,192, 228,162, 236,144);
+  x.closePath();
+
+  // Outer Fat & Sear Gradient
+  var mg = x.createLinearGradient(160,144,360,410);
+  mg.addColorStop(0,'#fde68a'); mg.addColorStop(0.35,'#fca5a5'); mg.addColorStop(0.7,'#b91c1c'); mg.addColorStop(1,'#7f1d1d');
+  x.fillStyle = mg; x.fill();
+  x.lineWidth = 6; x.strokeStyle = '#fef3c7'; x.stroke();
+  x.clip();
+
+  // Deep Aged Crimson Muscle Sections
+  x.shadowBlur = 0; x.shadowOffsetY = 0;
+  x.fillStyle = '#881337';
+  x.beginPath(); x.ellipse(264,326,68,54,-0.2,0,Math.PI*2); x.fill();
+  x.fillStyle = '#6b0f1a';
+  x.beginPath(); x.ellipse(268,330,52,40,-0.2,0,Math.PI*2); x.fill();
+
+  // Spinalis Cap Muscle (Top Left)
+  x.fillStyle = '#7f1d1d';
+  x.beginPath(); x.moveTo(168,285); x.quadraticCurveTo(225,245,288,262); x.quadraticCurveTo(225,295,172,338); x.fill();
+
+  // Upper Bone & Connective Seam
+  x.fillStyle = '#991b1b';
+  x.beginPath(); x.moveTo(238,150); x.lineTo(272,155); x.lineTo(295,248); x.lineTo(225,245); x.closePath(); x.fill();
+
+  // Rich Creamy Wagyu-Style Marbling Veins
+  x.strokeStyle = '#fef3c7'; x.lineCap = 'round'; x.lineJoin = 'round';
+  var veins = [
+    [8, [180,315, 228,282, 275,272, 338,295]],
+    [6, [202,360, 245,335, 290,348, 335,325]],
+    [5, [235,282, 255,322, 232,378]],
+    [5, [285,275, 272,318, 308,368]],
+    [7, [248,155, 256,210, 282,258]],
+    [4, [215,248, 252,240, 295,225]],
+    [4, [195,335, 232,315, 258,342]],
+    [3.5, [252,365, 282,382, 318,358]]
+  ];
+  veins.forEach(function(v){
+    x.lineWidth = v[0]; x.beginPath();
+    x.moveTo(v[1][0], v[1][1]);
+    for(var j=2; j<v.length; j+=2) x.lineTo(v[1][j], v[1][j+1]);
+    x.stroke();
+  });
+  x.restore();
+
+  // Re-draw front hook tip overlapping top of meat
+  x.strokeStyle = '#facc15'; x.lineWidth = 10; x.lineCap = 'round';
+  x.beginPath(); x.moveTo(234,142); x.quadraticCurveTo(246,168,262,150); x.stroke();
 
   var pngUrl = c.toDataURL('image/png');
-  
-  // Inject PNG links into <head>
+  window.__cabinetPNG = pngUrl;
+
   ['icon', 'shortcut icon', 'apple-touch-icon'].forEach(function(rel){
     var l = document.createElement('link'); l.rel = rel; l.type = 'image/png'; l.sizes = '512x512'; l.href = pngUrl;
     document.head.appendChild(l);
   });
 
-  // Inject pure PNG Web Manifest Blob so Android builds fresh APK icon
   var mf = {
-    id: "guild-ager-png-v20",
-    name: "Guild Ager - Master Butcher Hub",
-    short_name: "Guild Ager",
-    start_url: location.pathname + "?v=20",
+    id: "agerlog-cabinet-v21",
+    name: "AgerLog Chamber",
+    short_name: "AgerLog",
+    start_url: location.pathname + "?v=21",
     display: "standalone",
     background_color: "#0c0a09",
     theme_color: "#0c0a09",
     icons: [
-      { src: pngUrl, sizes: "192x192", type: "image/png", purpose: "any maskable" },
-      { src: pngUrl, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+      { src: pngUrl, sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: pngUrl, sizes: "512x512", type: "image/png", purpose: "any" }
     ]
   };
   var ml = document.createElement('link'); ml.rel = 'manifest';
   ml.href = URL.createObjectURL(new Blob([JSON.stringify(mf)], {type: 'application/json'}));
   document.head.appendChild(ml);
-  window.__crestPNG = pngUrl;
 })();
 </script>
 <style>
@@ -75,7 +154,7 @@ main{padding:16px;max-width:600px;margin:0 auto}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .tile{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:16px 12px;display:flex;align-items:center;gap:12px;cursor:pointer}
 .tile.active{border-color:var(--gold);background:rgba(212,175,55,.18);box-shadow:0 0 18px rgba(212,175,55,.3)}
-.m- box{background:var(--in);border:1px solid var(--bd);border-radius:12px;padding:12px 4px;text-align:center}
+.m-box{background:var(--in);border:1px solid var(--bd);border-radius:12px;padding:12px 4px;text-align:center}
 .card{background:var(--card);border:2px solid var(--bd);border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 10px 28px rgba(0,0,0,.8)}
 .tag{display:inline-block;background:rgba(212,175,55,.18);color:var(--glow);border:1px solid var(--gold);padding:4px 10px;border-radius:8px;font-size:.85rem;font-weight:900;margin-bottom:6px}
 .gbox{background:var(--in);border:1.5px solid var(--bd);border-radius:16px;padding:14px 8px;text-align:center;position:relative}
@@ -97,7 +176,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 <body>
 <header>
   <div class="brand">
-    <img id="hdrLogo" style="width:48px;height:48px;border-radius:12px;border:2px solid var(--gold)">
+    <img id="hdrLogo" style="width:50px;height:50px;border-radius:12px;border:2px solid var(--gold);box-shadow:0 2px 10px rgba(0,0,0,.8)">
     <h1 class="b-title">AGER<span>LOG</span></h1>
   </div>
   <div style="display:flex;gap:8px">
@@ -131,6 +210,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <p><b>1. Chamber Prep:</b> 1.5°C–2°C | 75–80% RH | UVC ON for Meat/Fish (UVC OFF for Salami/Cheese). Blot meat bone-dry; Fat UP, Bones DOWN.</p>
   <p><b>2. Harvest & Trim:</b> Shave 1–2mm dark pellicle crust with a stiff boning knife. Cut thick 38–50mm steaks.</p>
   <p><b>3. Freezer Traceability:</b> Vacuum seal in barrier bags. Chilled 30–45 days or frozen at -18°C for 12+ months.</p>
+  <a id="dlIcon" download="agerlog-icon.png" class="btn b-cop" style="display:block;text-align:center;text-decoration:none;margin-bottom:12px">📥 Download Home Icon PNG</a>
   <button class="btn b-gold" onclick="closeM('guideM')">Close Guide</button>
 </div></div>
 
@@ -174,7 +254,8 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 </div></div>
 
 <script>
-document.getElementById('hdrLogo').src = window.__crestPNG;
+document.getElementById('hdrLogo').src = window.__cabinetPNG;
+document.getElementById('dlIcon').href = window.__cabinetPNG;
 const MODES={
   meat:{name:"Red Meat, Pork & Lamb",btn:"+ ADD MEAT BATCH",icon:"🥩",temp:"1.5°C–2°C",rh:"75%–80%",uvc:"ON",uc:"#22c55e",loss:22,rule:"✅ <b>Share:</b> Beef, Pork, Lamb. 🚫 <b>Keep Out:</b> Fish, Salami, Cheese.",items:[{n:"OP Rib / Standing Rib Roast",d:35,t:"🥩 Place Fat UP, Bones DOWN."},{n:"Beef Short Loin (T-Bone)",d:30,t:"🥩 Whole bone-in saddle."},{n:"Whole Striploin (Fat Cap On)",d:35,t:"🥩 Keep fat cap untrimmed."},{n:"Pork Rack / Loin",d:18,t:"🐖 Shares safely with beef."},{n:"Lamb Rack / Saddle",d:16,t:"🐑 Peak tenderness at 14–21 days."}]},
   fish:{name:"Seafood & Whole Fish",btn:"+ ADD SEAFOOD BATCH",icon:"🐟",temp:"0.5°C–1°C",rh:"80%–85%",uvc:"ON",uc:"#22c55e",loss:15,rule:"✅ <b>Share:</b> Finfish only. 🚫 <b>Run Alone:</b> Odors transfer to meat.",items:[{n:"Whole Kingfish / Amberjack",d:10,t:"🐟 Scales ON, gills out, blot dry."},{n:"Tuna Loin",d:12,t:"🐟 Blot daily for first 48 hrs."},{n:"Whole Salmon / Trout",d:7,t:"🐟 Hang from tail or rack."}]},
