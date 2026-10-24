@@ -71,7 +71,6 @@
       font-weight: 800;
     }
 
-    /* Pure CSS Radio Mode Tabs - Cannot Fail */
     input.mode-radio { display: none; }
     .mode-grid {
       display: grid;
@@ -204,7 +203,6 @@
       z-index: 25;
     }
 
-    /* Check-box driven modals so they always open */
     .modal-toggle { display: none; }
     .modal {
       position: fixed;
@@ -265,7 +263,6 @@
 </head>
 <body>
 
-  <!-- Hidden Toggles for Modals -->
   <input type="checkbox" id="chk-guide" class="modal-toggle">
   <input type="checkbox" id="chk-add" class="modal-toggle">
   <input type="checkbox" id="chk-weigh" class="modal-toggle">
@@ -318,7 +315,6 @@
     </div>
 
     <div class="zones">
-      <!-- RED MEAT SETTINGS -->
       <div class="zone-box" id="zone-meat">
         <div class="chamber-panel">
           <div class="chamber-head">⚙️ SET MA400 FRIDGE TO (RED MEAT, PORK & LAMB):</div>
@@ -334,7 +330,6 @@
         </div>
       </div>
 
-      <!-- SEAFOOD SETTINGS -->
       <div class="zone-box" id="zone-fish">
         <div class="chamber-panel">
           <div class="chamber-head">⚙️ SET MA400 FRIDGE TO (WHOLE FISH & SEAFOOD):</div>
@@ -350,7 +345,6 @@
         </div>
       </div>
 
-      <!-- SALAMI SETTINGS -->
       <div class="zone-box" id="zone-salami">
         <div class="chamber-panel">
           <div class="chamber-head">⚙️ SET MA400 FRIDGE TO (SALAMI & CHARCUTERIE):</div>
@@ -361,4 +355,216 @@
           </div>
           <div class="rule-box">
             ✅ <b>Can Share Fridge Together:</b> Salami, Pancetta, Coppa, Guanciale, Bresaola.<br>
-            🚫
+            🚫 <b>UVC LIGHT MUST BE OFF:</b> UV light kills the good white curing mould!
+          </div>
+        </div>
+      </div>
+
+      <div class="zone-box" id="zone-cheese">
+        <div class="chamber-panel">
+          <div class="chamber-head">⚙️ SET MA400 FRIDGE TO (CHEESE MATURATION):</div>
+          <div class="metrics">
+            <div class="m-box"><div class="m-lbl">Temp</div><div class="m-val">10°C – 12°C</div></div>
+            <div class="m-box"><div class="m-lbl">Humidity</div><div class="m-val">85% – 90%</div></div>
+            <div class="m-box"><div class="m-lbl">UVC Light</div><div class="m-val" style="color:var(--red);">OFF ⚠️</div></div>
+          </div>
+          <div class="rule-box">
+            ✅ <b>Can Share Fridge Together:</b> Hard cheeses (Cheddar, Gouda, Gruyere).<br>
+            🚫 <b>Never Mix With Meat:</b> Cheese moulds will spread onto raw meat.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-title">2. Your Active Batches:</div>
+    <div id="batchList"></div>
+  </main>
+
+  <div class="bottom-bar">
+    <label for="chk-add" class="btn" onclick="prepareAddModal()">+ Add New Item to Fridge</label>
+  </div>
+
+  <div class="modal" id="guideModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:#fff;">📖 Step-by-Step Checklist</h2>
+      <div class="step-box">
+        <strong>Step 1: Buying at the Butcher</strong>
+        • Ask for fresh bone-in cuts (5 to 10 days from slaughter), NOT old vacuum bags sitting in blood liquid.<br>
+        • Ask the butcher to leave the <b>bones ON</b> and the <b>full fat cap UNTRIMMED</b>.<br>
+        • Pick female cattle (Heifer) or good marbling (MB 3+).
+      </div>
+      <div class="step-box">
+        <strong>Step 2: Cleaning the MA400 Fridge</strong>
+        • Take the pink Himalayan salt block out before cleaning.<br>
+        • Wipe inside walls, rubber door seals and wire racks with warm water, then spray with <b>70% Food-Grade Ethanol</b> (or no-rinse sanitiser).<br>
+        • Never use bleach or scented sprays. Run fridge empty for 12 hours first.
+      </div>
+      <div class="step-box">
+        <strong>Step 3: Prepping the Meat (Day 0)</strong>
+        • Put on clean disposable gloves.<br>
+        • <b>NEVER wash meat with tap water.</b> Pat completely bone-dry with clean paper towels.<br>
+        • Cut off any thin dangling meat flaps.<br>
+        • Place on wire shelf: <b>Fat Cap UP, Bones DOWN</b> with an 8cm gap around all sides.
+      </div>
+      <label for="chk-guide" class="btn">Close Guide</label>
+    </div>
+  </div>
+
+  <div class="modal" id="addModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:#fff;">Add Item to Fridge</h2>
+      <div class="form-group">
+        <label>Choose Cut or Product</label>
+        <select id="cutSelect" onchange="showCutTip()">
+          <option value="Beef OP Rib (Standing Rib Bone-In)|35|Ask butcher for 4-6 bones, chine cracked, feather bones on, full fat cap left on. Place Fat UP, Bones DOWN.">🥩 Beef OP Rib / Standing Rib (Bone-In)</option>
+          <option value="Beef Short Loin (T-Bone / Porterhouse)|30|Whole bone-in saddle with eye fillet inside. Do not go past 35 days so fillet stays juicy.">🥩 Beef Short Loin (T-Bone / Porterhouse)</option>
+          <option value="Beef Whole Striploin (Fat Cap On)|35|Leave thick top fat cap 100% untrimmed to protect the meat.">🥩 Beef Whole Striploin (Fat Cap On)</option>
+          <option value="Pork Rack / Bone-In Loin|18|6-8 rib rack with 1.5cm fat layer left on. Can share fridge with beef!">🐖 Pork Rack / Bone-In Loin</option>
+          <option value="Lamb Saddle / Crown Rack|16|Whole double loin on the bone with fat cap on. Ready in 14 to 21 days.">🐑 Lamb Saddle / Crown Rack</option>
+          <option value="Whole Kingfish / Snapper / Salmon|7|Scales ON, gills and guts out, wipe belly bone-dry with paper towel (NO tap water).">🐟 Whole Fish (Gutted & Dried)</option>
+          <option value="Salami / Coppa / Pancetta|42|Turn UVC light OFF. Ready when weight drops by 35% to 40%.">🥓 Salami / Cured Charcuterie</option>
+          <option value="Hard Cheese Wheel (Cheddar / Gouda)|60|Turn UVC light OFF. Flip wheel over every 3 to 4 days.">🧀 Hard Cheese Wheel</option>
+        </select>
+        <div id="cutTipBox" class="callout">Ask butcher for 4-6 bones, chine cracked, feather bones on, full fat cap left on. Place Fat UP, Bones DOWN.</div>
+      </div>
+      <div class="form-group">
+        <label>Starting Weight in Grams (e.g. 6500)</label>
+        <input type="number" id="inWeight" placeholder="e.g. 6500">
+      </div>
+      <div class="form-group">
+        <label>Date Put in Fridge</label>
+        <input type="date" id="inDate">
+      </div>
+      <div class="form-group">
+        <label>Target Days</label>
+        <input type="number" id="inDays" value="35">
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
+        <label for="chk-add" class="btn btn-sec">Cancel</label>
+        <button type="button" class="btn" onclick="saveNewBatch()">Start Aging</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="weighModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:#fff;">⚖️ Enter New Weight</h2>
+      <input type="hidden" id="weighId">
+      <div class="form-group">
+        <label>Current Scale Reading (grams)</label>
+        <input type="number" id="inNewWeight" placeholder="e.g. 5650">
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px;">
+        <label for="chk-weigh" class="btn btn-sec">Cancel</label>
+        <button type="button" class="btn" onclick="saveNewWeight()">Save Weight</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var activeMode = 'meat';
+    var items = [];
+    try {
+      items = JSON.parse(localStorage.getItem('dryAgeItems') || '[]');
+    } catch (e) { items = []; }
+
+    function switchMode(m) {
+      activeMode = m;
+      renderList();
+    }
+
+    function showCutTip() {
+      var val = document.getElementById('cutSelect').value.split('|');
+      document.getElementById('inDays').value = val[1];
+      document.getElementById('cutTipBox').innerText = val[2];
+    }
+
+    function prepareAddModal() {
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementById('inDate').value = today;
+      showCutTip();
+    }
+
+    function saveNewBatch() {
+      var val = document.getElementById('cutSelect').value.split('|');
+      var w = parseFloat(document.getElementById('inWeight').value);
+      var d = document.getElementById('inDate').value || new Date().toISOString().split('T')[0];
+      var t = parseInt(document.getElementById('inDays').value, 10) || 35;
+      if (!w) { alert('Please type the starting weight in grams.'); return; }
+
+      items.unshift({
+        id: Date.now(),
+        mode: activeMode,
+        name: val[0],
+        startW: w,
+        currW: w,
+        startD: d,
+        days: t
+      });
+      try { localStorage.setItem('dryAgeItems', JSON.stringify(items)); } catch (e) {}
+      document.getElementById('inWeight').value = '';
+      document.getElementById('chk-add').checked = false;
+      renderList();
+    }
+
+    function promptWeigh(id) {
+      document.getElementById('weighId').value = id;
+      document.getElementById('inNewWeight').value = '';
+      document.getElementById('chk-weigh').checked = true;
+    }
+
+    function saveNewWeight() {
+      var id = parseInt(document.getElementById('weighId').value, 10);
+      var w = parseFloat(document.getElementById('inNewWeight').value);
+      if (!w) { alert('Please enter the weight in grams.'); return; }
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].id === id) { items[i].currW = w; break; }
+      }
+      try { localStorage.setItem('dryAgeItems', JSON.stringify(items)); } catch (e) {}
+      document.getElementById('chk-weigh').checked = false;
+      renderList();
+    }
+
+    function removeBatch(id) {
+      if (confirm('Delete this item?')) {
+        items = items.filter(function(x) { return x.id !== id; });
+        try { localStorage.setItem('dryAgeItems', JSON.stringify(items)); } catch (e) {}
+        renderList();
+      }
+    }
+
+    function renderList() {
+      var box = document.getElementById('batchList');
+      var filtered = items.filter(function(x) { return (x.mode || 'meat') === activeMode; });
+      if (!filtered.length) {
+        box.innerHTML = '<div class="card" style="text-align:center; color:#9ca3af;">Nothing logged in this section yet. Tap <b>+ Add New Item to Fridge</b> below!</div>';
+        return;
+      }
+      box.innerHTML = filtered.map(function(b) {
+        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
+        var loss = (((b.startW - b.currW) / b.startW) * 100).toFixed(1);
+        var stage = 'STAGE 1: FORMING OUTER CRUST (Days 1-7) — Keep door closed and check salt block tray.';
+        if (elapsed > 7 && elapsed <= 28) stage = 'STAGE 2: GETTING TENDER (Days 8-28) — Enzymes breaking down fibres; nutty smell forming.';
+        if (elapsed > 28) stage = 'STAGE 3: PRIME SWEET SPOT (Days 29+) — Peak flavour! Ready to trim crust and slice thick steaks.';
+
+        return '<div class="card">' +
+          '<div style="display:flex; justify-content:space-between; align-items:flex-start;">' +
+            '<div><h3 style="margin:0; color:#fff;">' + b.name + '</h3>' +
+            '<div style="font-size:0.9rem; color:#9ca3af;">Day ' + elapsed + ' of ' + b.days + ' • Started ' + b.startD + '</div></div>' +
+            '<button onclick="removeBatch(' + b.id + ')" style="background:#262d38; color:#fff; border:none; width:38px; height:38px; border-radius:8px; font-size:1.1rem; cursor:pointer;">✕</button>' +
+          '</div>' +
+          '<div class="stat-row">' +
+            '<div class="stat-item"><div class="m-lbl">Days In</div><div class="stat-num">' + elapsed + '</div></div>' +
+            '<div class="stat-item"><div class="m-lbl">Loss %</div><div class="stat-num" style="color:#eab308;">-' + loss + '%</div></div>' +
+            '<div class="stat-item"><div class="m-lbl">Weight Now</div><div class="stat-num">' + b.currW + 'g</div></div>' +
+          '</div>' +
+          '<div class="stage-box">' + stage + '</div>' +
+          '<button class="btn btn-blue" onclick="promptWeigh(' + b.id + ')">⚖️ Enter New Weight</button>' +
+        '</div>';
+      }).join('');
+    }
+
+    renderList();
+  </script>
+</body>
+</html>
