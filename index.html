@@ -1,1 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AgerLog - Dry Aging Tracker</title>
+  <meta name="theme-color" content="#121212">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥩</text></svg>">
+  <style>
+    :root {
+      --bg: #121417;
+      --card: #1c2026;
+      --card-border: #2d333b;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --primary: #c93b3b;
+      --primary-hover: #b03232;
+      --accent: #d29922;
+      --success: #238636;
+      --border: #30363d;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      padding: 0 0 80px 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+    }
+    header {
+      background-color: rgba(18, 20, 23, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      background: var(--card-border);
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    main { padding: 16px; max-width: 600px; margin: 0 auto; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+    .btn-secondary { background: var(--card-border); color: var(--text); }
+    .btn-small { width: auto; padding: 6px 12px; font-size: 0.8rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 10px;
+    }
+    .card-title { margin: 0; font-size: 1.1rem; color: #fff; font-weight: 700; }
+    .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .stat-box {
+      background: rgba(0,0,0,0.3);
+      padding: 8px 4px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 2px; }
+    .stat-val { font-size: 1.15rem; font-weight: 700; color: #fff; }
+    .loss-alert { color: var(--accent); }
+    .progress-bar-bg {
+      height: 8px;
+      background: #111;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #d29922, #c93b3b);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    .status-text {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.03);
+      padding: 8px 10px;
+      border-radius: 6px;
+      border-left: 3px solid var(--primary);
+    }
+    .weighin-list {
+      margin-top: 12px;
+      border-top: 1px dashed var(--card-border);
+      padding-top: 10px;
+      font-size: 0.8rem;
+    }
+    .weighin-item {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      padding: 3px 0;
+    }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-width: 440px;
+    }
+    .form-group { margin-bottom: 12px; }
+    label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+    input, select, textarea {
+      width: 100%;
+      background: #111418;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+    }
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(18, 20, 23, 0.95);
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🥩 AgerLog</h1>
+    <span class="badge">MA400 Chamber</span>
+  </header>
 
+  <main id="batchContainer">
+    <div id="emptyView" class="empty-state">
+      <div style="font-size: 3rem; margin-bottom: 10px;">🥩</div>
+      <h3 style="color: #fff; margin-bottom: 6px;">No Active Batches</h3>
+      <p style="font-size: 0.85rem; margin-bottom: 18px;">Log your first primal cut to start tracking moisture loss & target dates.</p>
+    </div>
+  </main>
+
+  <div class="bottom-bar">
+    <button class="btn" onclick="openModal('addModal')">+ New Meat Batch</button>
+  </div>
+
+  <!-- Add Modal -->
+  <div class="modal" id="addModal">
+    <div class="modal-content">
+      <h3 style="margin-top:0; color:#fff;">New Aging Batch</h3>
+      <div class="form-group">
+        <label>Sub-Primal Cut</label>
+        <select id="cutName">
+          <option value="OP Rib / Standing Rib Roast">OP Rib / Standing Rib (Bone-in)</option>
+          <option value="Short Loin (T-Bone / Porterhouse)">Short Loin (T-Bone / Porterhouse)</option>
+          <option value="Whole Striploin">Whole Striploin (Fat-cap intact)</option>
+          <option value="Rump Cap / Picanha">Rump Cap / Picanha</option>
+          <option value="Custom Cut">Custom Cut</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Green Weight (grams)</label>
+        <input type="number" id="startWeight" placeholder="e.g. 6200" required>
+      </div>
+      <div class="form-group">
+        <label>Start Date</label>
+        <input type="date" id="startDate">
+      </div>
+      <div class="form-group">
+        <label>Target Days</label>
+        <input type="number" id="targetDays" value="35">
+      </div>
+      <div class="card-actions" style="margin-top: 18px;">
+        <button class="btn btn-secondary" onclick="closeModal('addModal')">Cancel</button>
+        <button class="btn" onclick="createBatch()">Save Batch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weigh-In Modal -->
+  <div class="modal" id="weighModal">
+    <div class="modal-content">
+      <h3 style="margin-top:0; color:#fff;">Log Interim Weight</h3>
+      <input type="hidden" id="weighBatchId">
+      <div class="form-group">
+        <label>Current Weight (grams)</label>
+        <input type="number" id="currentWeight" placeholder="e.g. 5450" required>
+      </div>
+      <div class="card-actions" style="margin-top: 18px;">
+        <button class="btn btn-secondary" onclick="closeModal('weighModal')">Cancel</button>
+        <button class="btn" onclick="saveWeighIn()">Save Weight</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let batches = JSON.parse(localStorage.getItem('agerBatches') || '[]');
+    document.getElementById('startDate').value = new Date().toISOString().split('T')[0];
+
+    function save() {
+      localStorage.setItem('agerBatches', JSON.stringify(batches));
+      render();
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    function createBatch() {
+      const cut = document.getElementById('cutName').value;
+      const startWeight = parseFloat(document.getElementById('startWeight').value);
+      const startDate = document.getElementById('startDate').value;
+      const targetDays = parseInt(document.getElementById('targetDays').value) || 35;
+      if (!startWeight || !startDate) return alert('Enter starting weight and date.');
+      batches.unshift({
+        id: Date.now(),
+        cut,
+        startWeight,
+        startDate,
+        targetDays,
+        history: [{ date: startDate, weight: startWeight }]
+      });
+      save();
+      closeModal('addModal');
+      document.getElementById('startWeight').value = '';
+    }
+
+    function openWeigh(id) {
+      document.getElementById('weighBatchId').value = id;
+      openModal('weighModal');
+    }
+
+    function saveWeighIn() {
+      const id = parseInt(document.getElementById('weighBatchId').value);
+      const w = parseFloat(document.getElementById('currentWeight').value);
+      if (!w) return;
+      const batch = batches.find(b => b.id === id);
+      if (batch) {
+        batch.history.push({
+          date: new Date().toISOString().split('T')[0],
+          weight: w
+        });
+        save();
+      }
+      closeModal('weighModal');
+      document.getElementById('currentWeight').value = '';
+    }
+
+    function deleteBatch(id) {
+      if (confirm('Delete this batch?')) {
+        batches = batches.filter(b => b.id !== id);
+        save();
+      }
+    }
+
+    function render() {
+      const container = document.getElementById('batchContainer');
+      const empty = document.getElementById('emptyView');
+      container.innerHTML = '';
+      if (!batches.length) { container.appendChild(empty); return; }
+
+      batches.forEach(b => {
+        const start = new Date(b.startDate);
+        const today = new Date();
+        const diffDays = Math.max(0, Math.floor((today - start) / (1000 * 60 * 60 * 24)));
+        const latestWeight = b.history[b.history.length - 1].weight;
+        const lossGrams = b.startWeight - latestWeight;
+        const lossPercent = ((lossGrams / b.startWeight) * 100).toFixed(1);
+        const progress = Math.min(100, Math.round((diffDays / b.targetDays) * 100));
+
+        let statusDesc = "Setting pellicle crust; surface drying rapidly.";
+        if (diffDays >= 7 && diffDays < 21) statusDesc = "Enzyme tenderisation active; moisture desiccation progressing.";
+        else if (diffDays >= 21 && diffDays < 35) statusDesc = "Popcorn & nutty aroma forming; approaching prime maturity.";
+        else if (diffDays >= 35 && diffDays <= 45) statusDesc = "Peak umami & hazelnut sweet spot. Ready to trim.";
+        else if (diffDays > 45) statusDesc = "Deep funk & blue cheese profile. Monitor trim loss closely.";
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-header">
+            <div>
+              <div class="card-title">${b.cut}</div>
+              <div class="card-subtitle">Started ${b.startDate} • Target: ${b.targetDays} Days</div>
+            </div>
+            <button class="btn btn-small btn-secondary" onclick="deleteBatch(${b.id})" style="background:transparent; color:#666;">✕</button>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-label">Age</div>
+              <div class="stat-val">${diffDays} <span style="font-size:0.75rem; color:#888;">Days</span></div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Loss %</div>
+              <div class="stat-val loss-alert">-${lossPercent}%</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Weight</div>
+              <div class="stat-val">${latestWeight}g</div>
+            </div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: ${progress}%;"></div>
+          </div>
+          <div class="status-text">${statusDesc}</div>
+          <div class="card-actions">
+            <button class="btn btn-secondary btn-small" onclick="openWeigh(${b.id})" style="flex:1;">⚖ Weigh In</button>
+          </div>
+          <div class="weighin-list">
+            <div style="font-weight:600; color:#888; margin-bottom:4px;">Weigh-in History</div>
+            ${b.history.map(h => `
+              <div class="weighin-item">
+                <span>${h.date}</span>
+                <span>${h.weight}g (${(((b.startWeight - h.weight)/b.startWeight)*100).toFixed(1)}% loss)</span>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>
