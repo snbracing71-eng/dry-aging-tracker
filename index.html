@@ -31,6 +31,7 @@ main{padding:12px 14px;max-width:600px;margin:0 auto}
 .f-btn{background:#221a15;border:1.5px solid var(--gold);color:var(--glow);padding:6px 10px;border-radius:8px;font-size:.76rem;font-weight:900;cursor:pointer;white-space:nowrap;position:relative}
 .f-btn.warn{background:#2a1212;border-color:#ef4444;color:#fca5a5}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
 .p-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:8px;margin:6px 0 12px}
 .p-btn{background:var(--in);border:2px solid var(--bd);border-radius:10px;padding:10px 4px;text-align:center;color:var(--tx);cursor:pointer;transition:.15s}
 .p-btn.active{border-color:var(--glow);background:rgba(212,175,55,.22);box-shadow:0 0 12px rgba(250,204,21,.25)}
@@ -47,7 +48,7 @@ main{padding:12px 14px;max-width:600px;margin:0 auto}
 .rsvg{width:110px;height:110px;transform:rotate(-90deg);display:block;margin:0 auto}
 .rcenter{position:absolute;top:42px;left:0;right:0;text-align:center}
 .wstrip{display:flex;justify-content:space-between;background:var(--in);border:1.5px solid var(--bd);border-radius:12px;padding:10px 12px;margin:12px 0;text-align:center}
-.btn{border:none;padding:15px 12px;border-radius:12px;font-size:1rem;font-weight:900;cursor:pointer;width:100%;text-transform:uppercase}
+.btn{border:none;padding:14px 8px;border-radius:12px;font-size:.92rem;font-weight:900;cursor:pointer;width:100%;text-transform:uppercase}
 .b-gold{background:linear-gradient(135deg,#facc15,#b45309);color:#140d06;border:2px solid #fef08a}
 .b-grn{background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;border:2px solid #86efac}
 .b-red{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;border:2px solid #fca5a5}
@@ -57,15 +58,16 @@ main{padding:12px 14px;max-width:600px;margin:0 auto}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:14px;z-index:100}
 .modal.active{display:flex}
 .m-con{background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:18px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
-input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd);border-radius:10px;padding:13px;color:#fff;font-size:1rem;font-weight:800;margin:5px 0 12px}
-.qbtn{background:#221a15;border:2px solid var(--gold);color:var(--glow);padding:12px 4px;border-radius:8px;font-weight:900;font-size:.95rem;cursor:pointer}
+input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd);border-radius:10px;padding:12px;color:#fff;font-size:.98rem;font-weight:800;margin:5px 0 12px}
+.qbtn{background:#221a15;border:2px solid var(--gold);color:var(--glow);padding:11px 4px;border-radius:8px;font-weight:900;font-size:.9rem;cursor:pointer}
 .g-sec{background:var(--in);border:1px solid var(--bd);border-left:4px solid var(--gold);border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:.88rem;line-height:1.45}
 .g-sec b{color:var(--glow);display:block;font-size:.94rem;margin-bottom:3px}
 .diag-btn{width:100%;text-align:left;background:var(--in);border:1.5px solid var(--gold);color:#fff;padding:11px 12px;border-radius:10px;margin-bottom:8px;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 .ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
 .ph-item{position:relative;border:1.5px solid var(--gold);border-radius:8px;overflow:hidden;aspect-ratio:1;background:#000}
-.ph-item img{width:100%;height:100%;object-fit:cover;display:block}
+.ph-item img{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer}
 .ph-del{position:absolute;top:3px;right:3px;background:var(--red);color:#fff;border:none;width:22px;height:22px;border-radius:5px;font-weight:900;font-size:.75rem;cursor:pointer}
+.pn-box{background:#120e0c;border:1.5px solid var(--gold);border-radius:12px;padding:10px;margin:8px 0 12px}
 </style>
 </head>
 <body>
@@ -127,6 +129,10 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div id="batchBox"></div>
 </main>
 <div class="b-bar" id="botBar"></div>
+
+<!-- SHARED HIDDEN CAMERA & GALLERY INPUTS -->
+<input type="file" id="camIn" accept="image/*" capture="environment" style="display:none" onchange="addPhoto(event)">
+<input type="file" id="galIn" accept="image/*" style="display:none" onchange="addPhoto(event)">
 
 <!-- CUSTOM MESSAGE MODAL -->
 <div class="modal" id="msgM"><div class="m-con" style="max-width:380px;text-align:center"><h2 style="margin-top:0;color:var(--glow);font-size:1.3rem">🥩 AgerPro Says</h2><p id="msgTxt" style="font-size:1.05rem;font-weight:700;margin:14px 0 20px;line-height:1.45"></p><button class="btn b-grn" onclick="closeM('msgM')">OK</button></div></div>
@@ -204,7 +210,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 <!-- MANAGE FRIDGES MODAL -->
 <div class="modal" id="fridgeM"><div class="m-con"><h2 style="margin-top:0;color:var(--glow)">⚙️ Manage Fridges</h2><input id="newFName" placeholder="e.g. Thermaster MA400 #2"><button class="btn b-grn" onclick="addFridge()" style="margin-bottom:14px">+ Add Fridge</button><div id="fList"></div><button class="btn b-red" onclick="closeM('fridgeM')" style="margin-top:12px">Close</button></div></div>
 
-<!-- ADD BATCH MODAL -->
+<!-- ADD BATCH MODAL (WITH PHOTOS & NOTES AT START) -->
 <div class="modal" id="addM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)" id="addTitle">Add Batch</h2>
   <label>Batch Tracking ID</label><input id="bCode">
@@ -219,23 +225,77 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div id="wInLbGrp" style="display:none"><label>Starting Weight (lb & oz)</label><div class="grid2"><input type="number" id="inLb" placeholder="lb"><input type="number" step="0.1" id="inOz" placeholder="oz"></div></div>
   <label>Date Placed in Chamber</label><input type="date" id="inDate">
   <div id="daysGrp"><label>Target Aging Days (Auto-Filled or Custom)</label><input type="number" id="inDays" value="21"></div>
+  <div class="pn-box">
+    <label style="color:var(--glow);font-weight:900">📝 Batch Notes & 📷 Day-0 Photos:</label>
+    <textarea id="addNotes" rows="2" placeholder="e.g. Great marbling, thick fat cap, bought from local butcher..."></textarea>
+    <div class="grid2" style="margin:4px 0 8px">
+      <button type="button" class="qbtn" onclick="trigPhoto('addPhotos')">📸 Take Photo</button>
+      <button type="button" class="qbtn" onclick="trigGallery('addPhotos')">🖼️ From Gallery</button>
+    </div>
+    <div class="ph-grid" id="addPhotos"></div>
+  </div>
   <div class="grid2"><button class="btn b-red" onclick="closeM('addM')">Cancel</button><button class="btn b-grn" onclick="saveBatch()">Start Aging</button></div>
 </div></div>
 
-<!-- WEIGH MODAL -->
-<div class="modal" id="weighM"><div class="m-con"><h2 style="margin-top:0;color:var(--glow)">⚖️ Log New Weight</h2><input type="hidden" id="wId"><div id="wSingleGrp"><label id="wSingleLbl">Current Weight (g)</label><input type="number" step="0.01" id="nwG"><div id="stepBtns" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px"><button class="qbtn" onclick="stepG(-50)">-50</button><button class="qbtn" onclick="stepG(-10)">-10</button><button class="qbtn" onclick="stepG(10)">+10</button><button class="qbtn" onclick="stepG(50)">+50</button></div></div><div id="wLbGrp" style="display:none"><label>Current Weight (lb / oz)</label><div class="grid2"><input type="number" id="nwLb"><input type="number" step="0.1" id="nwOz"></div></div><div class="grid2"><button class="btn b-red" onclick="closeM('weighM')">Cancel</button><button class="btn b-grn" onclick="saveWeight()">Save Weight</button></div></div></div>
+<!-- WEIGH MODAL (WITH PHOTOS & NOTES DURING AGING) -->
+<div class="modal" id="weighM"><div class="m-con">
+  <h2 style="margin-top:0;color:var(--glow)">⚖️ Log Weight, Photo & Note</h2>
+  <input type="hidden" id="wId">
+  <div id="wSingleGrp"><label id="wSingleLbl">Current Weight (g)</label><input type="number" step="0.01" id="nwG"><div id="stepBtns" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px"><button class="qbtn" onclick="stepG(-50)">-50</button><button class="qbtn" onclick="stepG(-10)">-10</button><button class="qbtn" onclick="stepG(10)">+10</button><button class="qbtn" onclick="stepG(50)">+50</button></div></div>
+  <div id="wLbGrp" style="display:none"><label>Current Weight (lb / oz)</label><div class="grid2"><input type="number" id="nwLb"><input type="number" step="0.1" id="nwOz"></div></div>
+  <div class="pn-box">
+    <label style="color:var(--glow);font-weight:900">📝 Progress Notes & 📷 Photos:</label>
+    <textarea id="wNotes" rows="2" placeholder="Add progress notes (crust setting, nutty smell, etc.)..."></textarea>
+    <div class="grid2" style="margin:4px 0 8px">
+      <button type="button" class="qbtn" onclick="trigPhoto('wPhotos')">📸 Take Photo</button>
+      <button type="button" class="qbtn" onclick="trigGallery('wPhotos')">🖼️ From Gallery</button>
+    </div>
+    <div class="ph-grid" id="wPhotos"></div>
+  </div>
+  <div class="grid2"><button class="btn b-red" onclick="closeM('weighM')">Cancel</button><button class="btn b-grn" onclick="saveWeight()">Save Weight</button></div>
+</div></div>
+
+<!-- DEDICATED PHOTOS & NOTES MODAL (1-TAP FROM ANY BATCH CARD) -->
+<div class="modal" id="mediaM"><div class="m-con">
+  <h2 style="margin-top:0;color:var(--glow)">📷 Batch Photos & Notes</h2>
+  <input type="hidden" id="mId">
+  <label style="color:var(--glow);font-weight:900">📝 Butcher & Sensory Notes:</label>
+  <textarea id="mNotes" rows="3" placeholder="Log observations, smell, pellicle colour, or cooking notes..."></textarea>
+  <label style="color:var(--glow);font-weight:900">📷 Add or Manage Batch Photos:</label>
+  <div class="grid2" style="margin:6px 0 10px">
+    <button type="button" class="qbtn" onclick="trigPhoto('mPhotos')">📸 Take Photo</button>
+    <button type="button" class="qbtn" onclick="trigGallery('mPhotos')">🖼️ From Gallery</button>
+  </div>
+  <div class="ph-grid" id="mPhotos"></div>
+  <div class="grid2" style="margin-top:12px"><button class="btn b-red" onclick="closeM('mediaM')">Cancel</button><button class="btn b-grn" onclick="saveMedia()">Save Photos & Notes</button></div>
+</div></div>
 
 <!-- HARVEST & PHOTOS MODAL -->
-<div class="modal" id="harvM"><div class="m-con"><h2 style="margin-top:0;color:var(--glow)">🔪 Harvest, Photos & Notes</h2><input type="hidden" id="hId"><label>Lifecycle Stage</label><select id="hStat" onchange="updHarvHint()"><option value="Active in Agers">🥩 Active in Dry Ager</option><option value="In Fridge - Ready to Eat">🍽️ In Fridge — Ready to Eat (Not Cryo • Max 8–10d)</option><option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (Cryo • 30–45d Max)</option><option value="Deep Frozen (-18C)">🧊 Deep Frozen in Cryo (-18°C • 12+ Mos)</option><option value="Consumed / Enjoyed">✅ Consumed / Eaten</option></select><div id="harvHint" style="font-size:.84rem;color:#fdba74;margin:-4px 0 10px;font-weight:700"></div><label>Action Date</label><input type="date" id="hDate"><label>Tasting & Butcher Notes</label><textarea id="hNotes" rows="3" placeholder="e.g. Nutty aroma, 42 days, great yield."></textarea>
-<label>📷 Batch Photos (Camera or Gallery)</label>
-<div class="grid2" style="margin:6px 0 10px">
-  <button type="button" class="qbtn" onclick="document.getElementById('camIn').click()">📸 Take Photo</button>
-  <button type="button" class="qbtn" onclick="document.getElementById('galIn').click()">🖼️ From Gallery</button>
-</div>
-<input type="file" id="camIn" accept="image/*" capture="environment" style="display:none" onchange="addPhoto(event)">
-<input type="file" id="galIn" accept="image/*" style="display:none" onchange="addPhoto(event)">
-<div class="ph-grid" id="harvPhotos"></div>
-<div class="grid2" style="margin-top:12px"><button class="btn b-red" onclick="closeM('harvM')">Cancel</button><button class="btn b-grn" onclick="saveHarv()">Save Record</button></div></div></div>
+<div class="modal" id="harvM"><div class="m-con">
+  <h2 style="margin-top:0;color:var(--glow)">🔪 Harvest, Photos & Notes</h2>
+  <input type="hidden" id="hId">
+  <label>Lifecycle Stage</label>
+  <select id="hStat" onchange="updHarvHint()">
+    <option value="Active in Agers">🥩 Active in Dry Ager</option>
+    <option value="In Fridge - Ready to Eat">🍽️ In Fridge — Ready to Eat (Not Cryo • Max 8–10d)</option>
+    <option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (Cryo • 30–45d Max)</option>
+    <option value="Deep Frozen (-18C)">🧊 Deep Frozen in Cryo (-18°C • 12+ Mos)</option>
+    <option value="Consumed / Enjoyed">✅ Consumed / Eaten</option>
+  </select>
+  <div id="harvHint" style="font-size:.84rem;color:#fdba74;margin:-4px 0 10px;font-weight:700"></div>
+  <label>Action Date</label><input type="date" id="hDate">
+  <div class="pn-box">
+    <label style="color:var(--glow);font-weight:900">📝 Tasting & Butcher Notes:</label>
+    <textarea id="hNotes" rows="3" placeholder="e.g. Nutty aroma, 42 days, great yield."></textarea>
+    <label style="color:var(--glow);font-weight:900">📷 Batch Photos (Camera or Gallery):</label>
+    <div class="grid2" style="margin:6px 0 10px">
+      <button type="button" class="qbtn" onclick="trigPhoto('harvPhotos')">📸 Take Photo</button>
+      <button type="button" class="qbtn" onclick="trigGallery('harvPhotos')">🖼️ From Gallery</button>
+    </div>
+    <div class="ph-grid" id="harvPhotos"></div>
+  </div>
+  <div class="grid2" style="margin-top:12px"><button class="btn b-red" onclick="closeM('harvM')">Cancel</button><button class="btn b-grn" onclick="saveHarv()">Save Record</button></div>
+</div></div>
 
 <script>
 (function(){
@@ -461,7 +521,7 @@ var fridges=JSON.parse(localStorage.getItem('dryAgeFridges')||'["Thermaster MA40
     items=JSON.parse(localStorage.getItem('dryAgeItemsV6')||localStorage.getItem('dryAgeItemsV5')||localStorage.getItem('dryAgeItemsV4')||'[]'),
     cust=JSON.parse(localStorage.getItem('dryAgeCustomItemsV5')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}'),
     maint=JSON.parse(localStorage.getItem('dryAgeMaintV1')||'{}'),
-    curM='meat',searchQ='',curProgIdx=0,tempPhotos=[];
+    curM='meat',searchQ='',curProgIdx=0,tempPhotos=[],curPhotoBox='harvPhotos';
 
 function save(){
   localStorage.setItem('dryAgeFridges',JSON.stringify(fridges));
@@ -494,6 +554,32 @@ function clearSearch(){searchQ='';document.getElementById('batchSearch').value='
 function getActBatches(){return items.filter(i=>(i.fridge||fridges[0])===curF&&(i.status||'Active in Agers')==='Active in Agers');}
 function getActCat(){var a=getActBatches();return a.length?a[0].mode:null;}
 function selCat(m){var a=getActCat();if(a&&a!==m)return msg('⚠️ '+curF+' is locked to '+MODES[a].name+' while a batch is active.');curM=m;refresh();}
+
+function trigPhoto(boxId){curPhotoBox=boxId;document.getElementById('camIn').click();}
+function trigGallery(boxId){curPhotoBox=boxId;document.getElementById('galIn').click();}
+function renderTempPhotos(boxId){
+  var el=document.getElementById(boxId||curPhotoBox);
+  if(!el)return;
+  el.innerHTML=tempPhotos.map((p,i)=>`<div class="ph-item"><img src="${p}"><button type="button" class="ph-del" onclick="delPhoto(${i},'${boxId||curPhotoBox}')">✕</button></div>`).join('');
+}
+function delPhoto(i,boxId){tempPhotos.splice(i,1);renderTempPhotos(boxId);}
+function addPhoto(ev){
+  var f=ev.target.files&&ev.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(e){
+    var img=new Image();
+    img.onload=function(){
+      var c=document.createElement('canvas'),max=600,w=img.width,h=img.height;
+      if(w>h&&w>max){h=Math.round(h*max/w);w=max;}else if(h>max){w=Math.round(w*max/h);h=max;}
+      c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);
+      tempPhotos.push(c.toDataURL('image/jpeg',0.72));
+      renderTempPhotos(curPhotoBox);
+    };
+    img.src=e.target.result;
+  };
+  r.readAsDataURL(f);
+  ev.target.value='';
+}
 
 function ensureMaint(f){
   var today=new Date().toISOString().split('T')[0];
@@ -621,6 +707,8 @@ function openAdd(){
   document.getElementById('wInSingleLbl').innerText='Starting Weight ('+unit+')';
   document.getElementById('inW').value='';document.getElementById('inLb').value='';document.getElementById('inOz').value='';
   document.getElementById('inDate').value=new Date().toISOString().split('T')[0];
+  document.getElementById('addNotes').value='';
+  tempPhotos=[];renderTempPhotos('addPhotos');
   curProgIdx=0;chkCut();openM('addM');
 }
 function chkCut(){
@@ -654,7 +742,8 @@ function saveBatch(){
   if(w<=0)return msg('Please enter a valid starting weight.');
   var d=document.getElementById('inDate').value||new Date().toISOString().split('T')[0];
   var daysVal=MODES[m].openTime?0:(parseInt(document.getElementById('inDays').value)||21);
-  items.unshift({id:Date.now(),code:document.getElementById('bCode').value,fridge:curF,mode:m,name:nm+progTag,tip:it.t,tLoss:it.loss||MODES[m].loss,cTemp:bTemp,cRh:bRh,startW:w,startD:d,days:daysVal,status:'Active in Agers',statusDate:d,notes:'',photos:[],clearedAlerts:{},history:[{date:d,weight:w}]});
+  var startNotes=(document.getElementById('addNotes').value||'').trim();
+  items.unshift({id:Date.now(),code:document.getElementById('bCode').value,fridge:curF,mode:m,name:nm+progTag,tip:it.t,tLoss:it.loss||MODES[m].loss,cTemp:bTemp,cRh:bRh,startW:w,startD:d,days:daysVal,status:'Active in Agers',statusDate:d,notes:startNotes,photos:tempPhotos.slice(),clearedAlerts:{},history:[{date:d,weight:w}]});
   save();closeM('addM');refresh();
 }
 function openWeigh(id){
@@ -667,6 +756,9 @@ function openWeigh(id){
   else if(unit==='kg')document.getElementById('nwG').value=(w/1000).toFixed(2);
   else if(unit==='oz')document.getElementById('nwG').value=(w/28.3495).toFixed(1);
   else document.getElementById('nwG').value=Math.round(w);
+  document.getElementById('wNotes').value=b.notes||'';
+  tempPhotos=(b.photos||[]).slice();
+  renderTempPhotos('wPhotos');
   openM('weighM');
 }
 function stepG(d){
@@ -677,8 +769,32 @@ function stepG(d){
 function saveWeight(){
   var id=document.getElementById('wId').value,w=parseInputGrams('nwG','nwLb','nwOz');
   if(w<=0)return;
-  items.forEach(x=>{if(String(x.id)===String(id))x.history.push({date:new Date().toISOString().split('T')[0],weight:w});});
+  items.forEach(x=>{
+    if(String(x.id)===String(id)){
+      x.history.push({date:new Date().toISOString().split('T')[0],weight:w});
+      x.notes=document.getElementById('wNotes').value;
+      x.photos=tempPhotos.slice();
+    }
+  });
   save();closeM('weighM');refresh();
+}
+function openMedia(id){
+  document.getElementById('mId').value=id;
+  var b=items.find(x=>String(x.id)===String(id));
+  document.getElementById('mNotes').value=b.notes||'';
+  tempPhotos=(b.photos||[]).slice();
+  renderTempPhotos('mPhotos');
+  openM('mediaM');
+}
+function saveMedia(){
+  var id=document.getElementById('mId').value;
+  items.forEach(x=>{
+    if(String(x.id)===String(id)){
+      x.notes=document.getElementById('mNotes').value;
+      x.photos=tempPhotos.slice();
+    }
+  });
+  save();closeM('mediaM');refresh();
 }
 function updHarvHint(){
   var v=document.getElementById('hStat').value,h=document.getElementById('harvHint');
@@ -694,29 +810,8 @@ function openHarv(id){
   document.getElementById('hDate').value=b.statusDate||new Date().toISOString().split('T')[0];
   document.getElementById('hNotes').value=b.notes||'';
   tempPhotos=(b.photos||[]).slice();
-  renderHarvPhotos();
+  renderTempPhotos('harvPhotos');
   updHarvHint();openM('harvM');
-}
-function renderHarvPhotos(){
-  document.getElementById('harvPhotos').innerHTML=tempPhotos.map((p,i)=>`<div class="ph-item"><img src="${p}"><button type="button" class="ph-del" onclick="delPhoto(${i})">✕</button></div>`).join('');
-}
-function delPhoto(i){tempPhotos.splice(i,1);renderHarvPhotos();}
-function addPhoto(ev){
-  var f=ev.target.files&&ev.target.files[0];if(!f)return;
-  var r=new FileReader();
-  r.onload=function(e){
-    var img=new Image();
-    img.onload=function(){
-      var c=document.createElement('canvas'),max=600,w=img.width,h=img.height;
-      if(w>h&&w>max){h=Math.round(h*max/w);w=max;}else if(h>max){w=Math.round(w*max/h);h=max;}
-      c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);
-      tempPhotos.push(c.toDataURL('image/jpeg',0.72));
-      renderHarvPhotos();
-    };
-    img.src=e.target.result;
-  };
-  r.readAsDataURL(f);
-  ev.target.value='';
 }
 function saveHarv(){
   var id=document.getElementById('hId').value;
@@ -803,8 +898,9 @@ function refresh(){
     var ringColor=isFridgeEat?(fDays>=8?'#ef4444':'#22c55e'):'#facc15';
     var ringSub=isFridgeEat?'OF 10d FRIDGE':(isOpen?'DAYS IN CAVE':'OF '+b.days+' DAYS');
     var ringFoot=isFridgeEat?`🍽️ ${Math.max(0,10-fDays)}d Left to Eat`:(isOpen?'🔄 Flip Every 3–4d':'⏱️ '+dp+'% Aged');
-    var phHtml=(b.photos&&b.photos.length)?`<div class="ph-grid" style="margin-bottom:10px">${b.photos.map(p=>`<div class="ph-item"><img src="${p}"></div>`).join('')}</div>`:'';
-    return `<div class="card" id="batch-card-${b.id}">${al}<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bd);padding-bottom:10px;margin-bottom:12px"><div><span class="tag">🏷️ ${b.code||'PRO'}</span>${climBadge}${q?`<span class="tag">❄️ ${b.fridge||fridges[0]}</span>`:''}<h3 style="margin:4px 0;font-size:1.2rem;color:#fff">${bm.icon} ${cleanName}</h3><small style="color:var(--mu)">In: ${b.startD} • ${isFridgeEat?'In Fridge Since '+b.statusDate+' (Max 8–10d)':(isOpen?'Open-Ended Cave Aging':'Target: '+b.days+'d')}</small></div><button onclick="delB('${b.id}')" style="background:#2a1815;color:#ef4444;border:2px solid #7f1d1d;width:40px;height:40px;border-radius:8px;font-weight:900;cursor:pointer">✕</button></div><div class="grid2"><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="${ringColor}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(dp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.3rem;color:#fff;display:block">${gaugeDays}</b><small style="color:var(--mu);font-size:.7rem;font-weight:800">${ringSub}</small></div><div style="margin-top:4px;font-weight:800;font-size:.82rem;color:var(--glow)">${ringFoot}</div></div><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(lp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.3rem;color:#fff;display:block">-${ls.toFixed(1)}%</b><small style="color:var(--mu);font-size:.7rem;font-weight:800">${isOpen?'RIND LOSS':'GOAL -'+goalLoss+'%'}</small></div><div style="margin-top:4px;font-weight:800;font-size:.82rem;color:#fdba74">💧 Water Loss</div></div></div><div class="wstrip"><div><small style="color:var(--mu);display:block">START</small><b>${fmtW(b.startW)}</b></div><div><small style="color:var(--mu);display:block">NOW</small><b style="color:var(--glow)">${fmtW(lw)}</b></div><div><small style="color:var(--mu);display:block">SHED</small><b style="color:var(--cop)">-${fmtW(Math.max(0,b.startW-lw))}</b></div></div>${b.tip?`<div style="background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:8px 10px;border-radius:8px;font-size:.84rem;margin-bottom:8px;color:#d6d3d1">${b.tip}</div>`:''}<div style="padding:8px;background:rgba(255,255,255,.04);border-radius:8px;font-weight:800;color:var(--glow);margin-bottom:8px;font-size:.9rem">📍 Status: ${st} (${b.statusDate||b.startD})</div>${b.notes?`<div style="background:rgba(212,175,55,.12);border-left:4px solid var(--gold);padding:8px;margin-bottom:8px;font-size:.9rem"><b>📝 Notes:</b> ${b.notes}</div>`:''}${phHtml}<div style="background:var(--in);border:1px solid var(--bd);border-radius:10px;padding:10px;font-size:.88rem;margin-bottom:12px"><b style="color:var(--gold);display:block;margin-bottom:4px">📊 Weigh-In Log:</b>${hRows}</div><div class="grid2" style="margin:0"><button class="btn b-grn" onclick="openWeigh('${b.id}')">⚖️ Weigh</button><button class="btn b-red" onclick="openHarv('${b.id}')">🔪 Harvest</button></div></div>`;
+    var phCount=(b.photos&&b.photos.length)?b.photos.length:0;
+    var phHtml=phCount?`<div style="margin-bottom:10px"><b style="color:var(--glow);font-size:.85rem;display:block;margin-bottom:4px">📷 Batch Photos (${phCount}):</b><div class="ph-grid">${b.photos.map(p=>`<div class="ph-item"><img src="${p}" onclick="openMedia('${b.id}')"></div>`).join('')}</div></div>`:'';
+    return `<div class="card" id="batch-card-${b.id}">${al}<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bd);padding-bottom:10px;margin-bottom:12px"><div><span class="tag">🏷️ ${b.code||'PRO'}</span>${climBadge}${q?`<span class="tag">❄️ ${b.fridge||fridges[0]}</span>`:''}<h3 style="margin:4px 0;font-size:1.2rem;color:#fff">${bm.icon} ${cleanName}</h3><small style="color:var(--mu)">In: ${b.startD} • ${isFridgeEat?'In Fridge Since '+b.statusDate+' (Max 8–10d)':(isOpen?'Open-Ended Cave Aging':'Target: '+b.days+'d')}</small></div><button onclick="delB('${b.id}')" style="background:#2a1815;color:#ef4444;border:2px solid #7f1d1d;width:40px;height:40px;border-radius:8px;font-weight:900;cursor:pointer">✕</button></div><div class="grid2"><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="${ringColor}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(dp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.3rem;color:#fff;display:block">${gaugeDays}</b><small style="color:var(--mu);font-size:.7rem;font-weight:800">${ringSub}</small></div><div style="margin-top:4px;font-weight:800;font-size:.82rem;color:var(--glow)">${ringFoot}</div></div><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(lp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.3rem;color:#fff;display:block">-${ls.toFixed(1)}%</b><small style="color:var(--mu);font-size:.7rem;font-weight:800">${isOpen?'RIND LOSS':'GOAL -'+goalLoss+'%'}</small></div><div style="margin-top:4px;font-weight:800;font-size:.82rem;color:#fdba74">💧 Water Loss</div></div></div><div class="wstrip"><div><small style="color:var(--mu);display:block">START</small><b>${fmtW(b.startW)}</b></div><div><small style="color:var(--mu);display:block">NOW</small><b style="color:var(--glow)">${fmtW(lw)}</b></div><div><small style="color:var(--mu);display:block">SHED</small><b style="color:var(--cop)">-${fmtW(Math.max(0,b.startW-lw))}</b></div></div>${b.tip?`<div style="background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:8px 10px;border-radius:8px;font-size:.84rem;margin-bottom:8px;color:#d6d3d1">${b.tip}</div>`:''}<div style="padding:8px;background:rgba(255,255,255,.04);border-radius:8px;font-weight:800;color:var(--glow);margin-bottom:8px;font-size:.9rem">📍 Status: ${st} (${b.statusDate||b.startD})</div>${b.notes?`<div style="background:rgba(212,175,55,.12);border-left:4px solid var(--gold);padding:8px;margin-bottom:8px;font-size:.9rem"><b>📝 Notes:</b> ${b.notes}</div>`:''}${phHtml}<div style="background:var(--in);border:1px solid var(--bd);border-radius:10px;padding:10px;font-size:.88rem;margin-bottom:12px"><b style="color:var(--gold);display:block;margin-bottom:4px">📊 Weigh-In Log:</b>${hRows}</div><div class="grid3"><button class="btn b-grn" onclick="openWeigh('${b.id}')">⚖️ Weigh</button><button class="btn b-gold" onclick="openMedia('${b.id}')">📷 Photo/Note</button><button class="btn b-red" onclick="openHarv('${b.id}')">🔪 Harvest</button></div></div>`;
   }).join('');
 }
 refresh();
