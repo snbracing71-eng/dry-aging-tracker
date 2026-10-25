@@ -147,11 +147,17 @@
     .card-btn-green { background: var(--green); color: #fff; padding: 11px 6px; font-size: 0.88rem; }
     .card-btn-red { background: var(--red); color: #fff; padding: 11px 6px; font-size: 0.88rem; }
 
-    /* PHOTO STRIP & CAMERA BUTTONS */
+    /* PHOTO STRIP & DUAL CAMERA/GALLERY BUTTONS */
+    .cam-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
     .cam-btn {
-      background: #141210; border: 2px dashed var(--gold); color: var(--gold);
-      padding: 11px; border-radius: 10px; font-weight: 800; font-size: 0.9rem;
+      background: #141210; border: 2px solid var(--gold); color: var(--gold);
+      padding: 11px 6px; border-radius: 10px; font-weight: 800; font-size: 0.86rem;
       text-align: center; cursor: pointer; display: block; width: 100%;
+    }
+    .cam-btn.gal {
+      border-color: var(--blue); color: var(--blue);
     }
     .cam-preview {
       margin-top: 8px; display: none; align-items: center; gap: 10px;
@@ -535,11 +541,15 @@
         <input type="date" id="inDate">
       </div>
 
-      <!-- STAGE 1: DAY 0 PHOTO CAPTURE -->
+      <!-- STAGE 1: DAY 0 PHOTO CAPTURE (DIRECT CAMERA OR GALLERY) -->
       <div class="form-group">
         <label>📸 Day 0 Starting Photo (Optional)</label>
-        <label class="cam-btn" for="photoAddInput">📸 Take / Choose Start Photo</label>
-        <input type="file" id="photoAddInput" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'add')">
+        <div class="cam-grid">
+          <label class="cam-btn" for="photoAddCam">📸 Open Camera</label>
+          <label class="cam-btn gal" for="photoAddGal">🖼️ From Gallery</label>
+        </div>
+        <input type="file" id="photoAddCam" accept="image/*" capture="environment" style="display:none;" onchange="handlePhotoInput(event, 'add')">
+        <input type="file" id="photoAddGal" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'add')">
         <div id="photoAddPreview" class="cam-preview">
           <img id="photoAddImg" src="">
           <span style="font-size:0.82rem; color:var(--green); font-weight:800; flex:1;">✅ Start Photo Ready</span>
@@ -564,11 +574,15 @@
         <input type="number" step="any" id="inNewWeight" placeholder="e.g. 5650">
       </div>
 
-      <!-- STAGE 2: WEIGH-IN PHOTO CAPTURE -->
+      <!-- STAGE 2: WEIGH-IN PHOTO CAPTURE (DIRECT CAMERA OR GALLERY) -->
       <div class="form-group">
         <label>📸 Progress / Weigh-In Photo (Optional)</label>
-        <label class="cam-btn" for="photoWeighInput">📸 Take / Choose Weigh-In Photo</label>
-        <input type="file" id="photoWeighInput" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'weigh')">
+        <div class="cam-grid">
+          <label class="cam-btn" for="photoWeighCam">📸 Open Camera</label>
+          <label class="cam-btn gal" for="photoWeighGal">🖼️ From Gallery</label>
+        </div>
+        <input type="file" id="photoWeighCam" accept="image/*" capture="environment" style="display:none;" onchange="handlePhotoInput(event, 'weigh')">
+        <input type="file" id="photoWeighGal" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'weigh')">
         <div id="photoWeighPreview" class="cam-preview">
           <img id="photoWeighImg" src="">
           <span style="font-size:0.82rem; color:var(--green); font-weight:800; flex:1;">✅ Weigh-In Photo Ready</span>
@@ -613,11 +627,15 @@
         <textarea id="tastingNotes" rows="3" placeholder="e.g. Rich roasted hazelnut aroma, 45mm thick steaks, incredible crust."></textarea>
       </div>
 
-      <!-- STAGE 3: HARVEST PHOTO CAPTURE -->
+      <!-- STAGE 3: HARVEST PHOTO CAPTURE (DIRECT CAMERA OR GALLERY) -->
       <div class="form-group">
         <label>📸 Harvest / Trimmed Steaks Photo (Optional)</label>
-        <label class="cam-btn" for="photoHarvestInput">📸 Take / Choose Harvest Photo</label>
-        <input type="file" id="photoHarvestInput" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'harvest')">
+        <div class="cam-grid">
+          <label class="cam-btn" for="photoHarvestCam">📸 Open Camera</label>
+          <label class="cam-btn gal" for="photoHarvestGal">🖼️ From Gallery</label>
+        </div>
+        <input type="file" id="photoHarvestCam" accept="image/*" capture="environment" style="display:none;" onchange="handlePhotoInput(event, 'harvest')">
+        <input type="file" id="photoHarvestGal" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'harvest')">
         <div id="photoHarvestPreview" class="cam-preview">
           <img id="photoHarvestImg" src="">
           <span style="font-size:0.82rem; color:var(--green); font-weight:800; flex:1;">✅ Harvest Photo Ready</span>
@@ -651,7 +669,7 @@
       renderList();
     }
 
-    // PHOTO COMPRESSION & CAPTURE ENGINE (Smart 550px JPEG compression so localStorage never fills up)
+    // PHOTO COMPRESSION & CAPTURE ENGINE
     var pendingPhotos = { add: null, weigh: null, harvest: null };
     var viewingPhotoRef = { batchId: null, photoIdx: null };
 
@@ -1455,7 +1473,6 @@
         var modeObj = DEFAULT_MODES[b.mode || 'meat'] || DEFAULT_MODES.meat;
         var isAct = (b.status || 'Active') === 'Active';
 
-        // Ready-to-Eat Fridge (Not Vacuum Sealed) 8-10 Day Tracker Banner
         var fridgeCountdownHtml = '';
         if (b.status === 'In Fridge - Ready to Eat') {
           var fDays = Math.max(0, Math.floor((new Date() - new Date(b.actionDate || new Date())) / 86400000));
@@ -1481,7 +1498,6 @@
           </div>
         ` : '';
 
-        // Stage Photo Gallery Strip
         var photoStripHtml = '';
         if (b.photos && b.photos.length > 0) {
           photoStripHtml = `
