@@ -33,7 +33,7 @@
       font-size: 16px; line-height: 1.45;
     }
     header {
-      background: #14110f; border-bottom: 2px solid var(--copper);
+      background: #14110f; border-bottom: 2px solid var(--gold);
       padding: 10px 12px; position: sticky; top: 0; z-index: 50;
       display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
@@ -53,10 +53,10 @@
     }
     .search-wrap { position: relative; width: 145px; flex-shrink: 0; }
     .search-wrap input {
-      width: 100%; background: #090807; border: 1.5px solid var(--border);
+      width: 100%; background: #090807; border: 1.5px solid var(--gold);
       color: #fff; border-radius: 9px; padding: 7px 26px 7px 9px; font-size: 0.82rem; font-weight: 600;
     }
-    .search-wrap input:focus { outline: none; border-color: var(--gold); }
+    .search-wrap input:focus { outline: none; box-shadow: 0 0 8px rgba(212,175,55,0.4); }
     .search-clr {
       position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
       background: var(--red); color: #fff; border: none; border-radius: 50%;
@@ -66,25 +66,25 @@
 
     main { max-width: 600px; margin: 0 auto; padding: 12px; }
 
-    /* 4 LARGE TOP BUTTONS */
+    /* 4 LARGE TOP BUTTONS — PERMANENT GOLD BORDER */
     .top-actions {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px;
     }
     .top-btn {
-      background: var(--card2); border: 1.5px solid var(--border); border-radius: 12px;
+      background: var(--card2); border: 2px solid var(--gold); border-radius: 12px;
       padding: 11px 4px; color: #fff; font-weight: 800; font-size: 0.85rem;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 4px; cursor: pointer; position: relative; text-align: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.35);
     }
-    .top-btn:active { transform: scale(0.97); border-color: var(--gold); }
+    .top-btn:active { transform: scale(0.97); }
     .top-btn .ico { font-size: 1.3rem; line-height: 1; }
     .maint-badge {
       position: absolute; top: -4px; right: -4px; width: 12px; height: 12px;
       background: var(--red); border-radius: 50%; border: 2px solid #fff;
     }
 
-    /* DEDICATED FRIDGE BOX */
+    /* DEDICATED FRIDGE BOX — PERMANENT GOLD BORDER */
     .fridge-box {
       background: linear-gradient(145deg, #1b1613, #120e0c);
       border: 2px solid var(--gold); border-radius: 14px; padding: 12px;
@@ -101,7 +101,7 @@
       display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;
     }
     .fridge-sel {
-      width: 100%; background: #090807; border: 1.5px solid var(--border);
+      width: 100%; background: #090807; border: 1.5px solid var(--gold);
       color: #fff; font-size: 1rem; font-weight: 800; padding: 10px 12px; border-radius: 10px;
     }
     .fridge-add-btn {
@@ -110,28 +110,28 @@
       cursor: pointer; white-space: nowrap;
     }
 
-    /* 2x2 MODE GRID */
+    /* 2x2 MODE GRID — ONLY SELECTED HAS BORDER */
     .mode-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;
     }
     .mode-tile {
-      background: var(--card); border: 2px solid var(--border); border-radius: 14px;
+      background: var(--card); border: 2px solid transparent; border-radius: 14px;
       padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer;
-      position: relative;
+      position: relative; transition: all 0.15s;
     }
     .mode-tile.active {
-      border-color: var(--gold); background: rgba(212,175,55,0.14);
-      box-shadow: 0 0 14px rgba(212,175,55,0.22);
+      border: 2px solid var(--gold); background: rgba(212,175,55,0.16);
+      box-shadow: 0 0 14px rgba(212,175,55,0.25);
     }
-    .mode-tile.locked { opacity: 0.5; }
+    .mode-tile.locked { opacity: 0.45; }
     .m-ico { font-size: 2rem; line-height: 1; }
     .m-title { font-size: 1rem; font-weight: 900; color: #fff; display: block; }
     .m-sub { font-size: 0.76rem; color: var(--muted); display: block; }
 
-    /* CHAMBER TARGET BANNER */
+    /* FRIDGE SETTING / CHAMBER TARGET BANNER — PERMANENT GOLD BORDER */
     .chamber-panel {
-      background: #14110f; border: 1.5px solid var(--border); border-radius: 14px;
-      padding: 12px; margin-bottom: 16px;
+      background: #14110f; border: 2px solid var(--gold); border-radius: 14px;
+      padding: 12px; margin-bottom: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.4);
     }
     .chamber-head {
       font-size: 0.78rem; font-weight: 900; color: var(--gold);
@@ -149,10 +149,10 @@
       border-left: 3px solid var(--gold); padding: 7px 10px; border-radius: 6px;
     }
 
-    /* BATCH CARDS */
+    /* BATCH CARDS — PERMANENT GOLD BORDER */
     .batch-card {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 16px;
-      padding: 15px; margin-bottom: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      background: var(--card); border: 2px solid var(--gold); border-radius: 16px;
+      padding: 15px; margin-bottom: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.45);
       position: relative;
     }
     .alert-banner {
@@ -245,7 +245,7 @@
     /* BOTTOM ADD BAR */
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0; background: rgba(12,10,9,0.96);
-      border-top: 2px solid var(--copper); padding: 12px 16px; z-index: 40;
+      border-top: 2px solid var(--gold); padding: 12px 16px; z-index: 40;
       max-width: 600px; margin: 0 auto;
     }
 
@@ -311,7 +311,7 @@
 </header>
 
 <main>
-  <!-- 4 LARGE TOP ACTION BUTTONS -->
+  <!-- 4 LARGE TOP ACTION BUTTONS (PERMANENT GOLD BORDERS) -->
   <div class="top-actions">
     <button class="top-btn" onclick="cycleUnit()">
       <span class="ico">⚖️</span>
@@ -332,7 +332,7 @@
     </button>
   </div>
 
-  <!-- DEDICATED FRIDGE CHAMBER SPACE -->
+  <!-- DEDICATED FRIDGE CHAMBER SPACE (PERMANENT GOLD BORDER) -->
   <div class="fridge-box">
     <div class="fridge-hdr">
       <span class="fridge-lbl">❄️ Active Aging Chamber</span>
@@ -344,7 +344,7 @@
     </div>
   </div>
 
-  <!-- 4 CATEGORY MODE TILES -->
+  <!-- 4 CATEGORY MODE TILES (ONLY SELECTED HAS GOLD BORDER) -->
   <div class="mode-grid">
     <div class="mode-tile active" id="tile-meat" onclick="selectCategory('meat')">
       <span class="m-ico">🥩</span>
@@ -364,10 +364,10 @@
     </div>
   </div>
 
-  <!-- LIVE CHAMBER TARGETS -->
+  <!-- LIVE CHAMBER TARGETS (PERMANENT GOLD BORDER) -->
   <div id="chamberBanner"></div>
 
-  <!-- ACTIVE & ARCHIVED BATCH LIST -->
+  <!-- ACTIVE & ARCHIVED BATCH LIST (PERMANENT GOLD BORDERS) -->
   <div id="batchList"></div>
 </main>
 
@@ -776,8 +776,13 @@ const DEFAULT_MODES = {
 
 let fridges = JSON.parse(localStorage.getItem('dryAgeFridges')) || ['Thermaster MA400 #1'];
 let currentFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
-let items = JSON.parse(localStorage.getItem('dryAgeItemsV5')) || [];
-let customItems = JSON.parse(localStorage.getItem('dryAgeCustomItemsV5')) || { meat:[], fish:[], salami:[], cheese:[] };
+
+/* MERGE BOTH V5 AND V6 STORAGE KEYS SO NO BATCH IS EVER STUCK */
+let itemsV5 = JSON.parse(localStorage.getItem('dryAgeItemsV5')) || [];
+let itemsV6 = JSON.parse(localStorage.getItem('dryAgeItemsV6')) || [];
+let items = itemsV5.length >= itemsV6.length ? itemsV5 : itemsV6;
+
+let customItems = JSON.parse(localStorage.getItem('dryAgeCustomItemsV5')) || JSON.parse(localStorage.getItem('dryAgeCustomItemsV6')) || { meat:[], fish:[], salami:[], cheese:[] };
 let maintData = JSON.parse(localStorage.getItem('agerProMaint')) || {};
 let currentUnit = localStorage.getItem('agerProUnit') || 'g';
 let currentMode = 'meat';
@@ -796,6 +801,7 @@ function normalizeExistingBatches() {
     if (!b.startWeight && b.startW) { b.startWeight = parseFloat(b.startW) || 0; changed = true; }
     if (!b.startDate && b.startD) { b.startDate = b.startD; changed = true; }
     if (!b.targetDays && b.days) { b.targetDays = parseInt(b.days, 10) || 28; changed = true; }
+    if (!b.program && b.tier) { b.program = b.tier; changed = true; }
     if (!b.logs && Array.isArray(b.history)) {
       b.logs = b.history.map(h => ({ date: h.date || b.startDate, weight: parseFloat(h.weight) || b.startWeight, note: h.note || '' }));
       changed = true;
@@ -815,7 +821,9 @@ function saveAll() {
   localStorage.setItem('dryAgeFridges', JSON.stringify(fridges));
   localStorage.setItem('dryAgeCurrentFridge', currentFridge);
   localStorage.setItem('dryAgeItemsV5', JSON.stringify(items));
+  localStorage.setItem('dryAgeItemsV6', JSON.stringify(items));
   localStorage.setItem('dryAgeCustomItemsV5', JSON.stringify(customItems));
+  localStorage.setItem('dryAgeCustomItemsV6', JSON.stringify(customItems));
   localStorage.setItem('agerProMaint', JSON.stringify(maintData));
   localStorage.setItem('agerProUnit', currentUnit);
 }
@@ -1090,7 +1098,7 @@ function saveNewBatch() {
   refreshUI();
 }
 
-/* WEIGH-IN LOGGING (STRING/NUMBER SAFE) */
+/* WEIGH-IN LOGGING */
 function openWeighModal(id) {
   document.getElementById('weighId').value = String(id);
   document.getElementById('inNewWeight').value = '';
@@ -1121,7 +1129,7 @@ function saveNewWeight() {
   refreshUI();
 }
 
-/* HARVEST & LIFECYCLE LOGGING (STRING/NUMBER SAFE) */
+/* HARVEST & LIFECYCLE LOGGING */
 function openHarvestModal(id) {
   const b = items.find(x => String(x.id) === String(id));
   if (!b) return;
@@ -1161,7 +1169,7 @@ function saveHarvest() {
   refreshUI();
 }
 
-/* GUARANTEED BATCH DELETION (HANDLES OLD NUMERIC IDS & STRING IDS) */
+/* GUARANTEED BATCH DELETION */
 function askDeleteBatch(id) {
   batchIdToDelete = String(id);
   const b = items.find(x => String(x.id) === batchIdToDelete);
