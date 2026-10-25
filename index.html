@@ -1,3 +1,8 @@
+The AgerPro index.html code below restores the 🏷️ Printable / Shareable Tag option strictly inside the 🔪 Harvest popup modal:
+ * Inside 🔪 Harvest Only: Features a live 🏷️ Printable Freezer / Fridge Bag Tag preview card with 🖨️ Print Tag and 📋 Copy Tag Text buttons. It automatically formats your Batch Code, Cut & Style, Days Aged, Final Weight & Loss %, Storage Stage, Action Date, Best-Before Date (automatically calculated as +10 days for Ready-to-Eat Fridge, +45 days for Vacuum Sealed Chilled, or +12 Months for Deep Frozen), and your Notes.
+ * End-of-File Verification Marker: Includes <!-- END_OF_FILE_OK --></html> on the very last line so you can verify 100% of the code has loaded before copying.
+Update index.html on GitHub
+Open index.html in your GitHub app (from your screenshot), tap Three Dots (⋮) \rightarrow Edit, Select All \rightarrow Delete, paste this complete code, and tap Commit:
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,6 +73,9 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 .ph-item img{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer}
 .ph-del{position:absolute;top:3px;right:3px;background:var(--red);color:#fff;border:none;width:22px;height:22px;border-radius:5px;font-weight:900;font-size:.75rem;cursor:pointer}
 .pn-box{background:#120e0c;border:1.5px solid var(--gold);border-radius:12px;padding:10px;margin:8px 0 12px}
+.tag-card{background:#fff;color:#000;border:3px solid #000;border-radius:10px;padding:12px;margin:8px 0;font-family:monospace;line-height:1.35}
+.tag-card h4{margin:0 0 6px;font-size:1.1rem;border-bottom:2px solid #000;padding-bottom:4px;display:flex;justify-content:space-between}
+.tag-row{display:flex;justify-content:space-between;font-size:.86rem;border-bottom:1px dashed #aaa;padding:3px 0}
 </style>
 </head>
 <body>
@@ -270,9 +278,9 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div class="grid2" style="margin-top:12px"><button class="btn b-red" onclick="closeM('mediaM')">Cancel</button><button class="btn b-grn" onclick="saveMedia()">Save Photos & Notes</button></div>
 </div></div>
 
-<!-- HARVEST & PHOTOS MODAL -->
+<!-- HARVEST MODAL (WITH PRINTABLE BAG TAG OPTION ONLY IN HARVEST) -->
 <div class="modal" id="harvM"><div class="m-con">
-  <h2 style="margin-top:0;color:var(--glow)">🔪 Harvest, Photos & Notes</h2>
+  <h2 style="margin-top:0;color:var(--glow)">🔪 Harvest, Tag, Photos & Notes</h2>
   <input type="hidden" id="hId">
   <label>Lifecycle Stage</label>
   <select id="hStat" onchange="updHarvHint()">
@@ -283,10 +291,10 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
     <option value="Consumed / Enjoyed">✅ Consumed / Eaten</option>
   </select>
   <div id="harvHint" style="font-size:.84rem;color:#fdba74;margin:-4px 0 10px;font-weight:700"></div>
-  <label>Action Date</label><input type="date" id="hDate">
+  <label>Action Date</label><input type="date" id="hDate" onchange="renderTagPreview()">
   <div class="pn-box">
     <label style="color:var(--glow);font-weight:900">📝 Tasting & Butcher Notes:</label>
-    <textarea id="hNotes" rows="3" placeholder="e.g. Nutty aroma, 42 days, great yield."></textarea>
+    <textarea id="hNotes" rows="3" placeholder="e.g. Nutty aroma, 42 days, great yield." oninput="renderTagPreview()"></textarea>
     <label style="color:var(--glow);font-weight:900">📷 Batch Photos (Camera or Gallery):</label>
     <div class="grid2" style="margin:6px 0 10px">
       <button type="button" class="qbtn" onclick="trigPhoto('harvPhotos')">📸 Take Photo</button>
@@ -294,6 +302,17 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
     </div>
     <div class="ph-grid" id="harvPhotos"></div>
   </div>
+
+  <!-- PRINTABLE FREEZER / FRIDGE BAG TAG SECTION (HARVEST ONLY) -->
+  <div class="pn-box">
+    <label style="color:var(--glow);font-weight:900">🏷️ Printable Freezer / Fridge Bag Tag:</label>
+    <div id="tagPreviewBox" class="tag-card"></div>
+    <div class="grid2" style="margin:8px 0 2px">
+      <button type="button" class="qbtn" onclick="printBagTag()">🖨️ Print Tag</button>
+      <button type="button" class="qbtn" onclick="copyBagTag()">📋 Copy Tag Text</button>
+    </div>
+  </div>
+
   <div class="grid2" style="margin-top:12px"><button class="btn b-red" onclick="closeM('harvM')">Cancel</button><button class="btn b-grn" onclick="saveHarv()">Save Record</button></div>
 </div></div>
 
@@ -796,12 +815,58 @@ function saveMedia(){
   });
   save();closeM('mediaM');refresh();
 }
+function getBestBefore(st,actDate){
+  var d=new Date(actDate||new Date());
+  if(isNaN(d.getTime()))d=new Date();
+  if(st==='In Fridge - Ready to Eat'){d.setDate(d.getDate()+10);return d.toISOString().split('T')[0]+' (Max 10d Fridge)';}
+  if(st==='Vacuum Sealed Chilled'){d.setDate(d.getDate()+45);return d.toISOString().split('T')[0]+' (45d Cryo Chilled)';}
+  if(st==='Deep Frozen (-18C)'){d.setFullYear(d.getFullYear()+1);return d.toISOString().split('T')[0]+' (12+ Mos Frozen)';}
+  return 'N/A';
+}
+function getTagData(){
+  var id=document.getElementById('hId').value;
+  var b=items.find(x=>String(x.id)===String(id));
+  if(!b)return null;
+  var st=document.getElementById('hStat').value,actD=document.getElementById('hDate').value||new Date().toISOString().split('T')[0],nts=(document.getElementById('hNotes').value||'').trim();
+  var lw=b.history&&b.history.length?b.history[b.history.length-1].weight:b.startW;
+  var loss=(((b.startW-lw)/b.startW)*100).toFixed(1);
+  var el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/864e5));
+  var cleanName=(b.name||'').replace(/\s*•\s*No\.\s*P\d+/gi,'');
+  return {code:b.code||'PRO',name:cleanName,fridge:b.fridge||fridges[0],startD:b.startD,agedDays:el,targetDays:b.days,startW:fmtW(b.startW),nowW:fmtW(lw),loss:loss,status:st,actDate:actD,bestBy:getBestBefore(st,actD),notes:nts};
+}
+function renderTagPreview(){
+  var t=getTagData(),box=document.getElementById('tagPreviewBox');
+  if(!t||!box)return;
+  box.innerHTML=`<h4><span>🥩 AGERPRO</span><span>${t.code}</span></h4>
+    <div style="font-weight:900;font-size:.95rem;margin-bottom:4px">${t.name}</div>
+    <div class="tag-row"><span>Started / Aged:</span><b>${t.startD} (${t.agedDays}d)</b></div>
+    <div class="tag-row"><span>Weight / Loss:</span><b>${t.nowW} (-${t.loss}%)</b></div>
+    <div class="tag-row"><span>Stage:</span><b>${t.status}</b></div>
+    <div class="tag-row"><span>Date Actioned:</span><b>${t.actDate}</b></div>
+    <div class="tag-row"><span>Use / Best By:</span><b>${t.bestBy}</b></div>
+    ${t.notes?`<div style="font-size:.8rem;margin-top:4px;padding-top:4px;border-top:1px solid #000"><b>Notes:</b> ${t.notes}</div>`:''}`;
+}
+function printBagTag(){
+  var t=getTagData();if(!t)return;
+  var w=window.open('','_blank','width=420,height=520');
+  if(!w)return msg('Pop-up blocked. Tap "📋 Copy Tag Text" instead.');
+  w.document.write(`<!DOCTYPE html><html><head><title>Tag ${t.code}</title><style>body{font-family:monospace;padding:16px;margin:0}.tag{border:3px solid #000;border-radius:10px;padding:14px;max-width:340px}h2{margin:0 0 8px;border-bottom:2px solid #000;padding-bottom:4px;display:flex;justify-content:space-between;font-size:1.2rem}.row{display:flex;justify-content:space-between;border-bottom:1px dashed #888;padding:4px 0;font-size:.92rem}</style></head><body onload="window.print()"><div class="tag"><h2><span>AGERPRO</span><span>${t.code}</span></h2><div style="font-weight:900;font-size:1.05rem;margin-bottom:6px">${t.name}</div><div class="row"><span>Started / Aged:</span><b>${t.startD} (${t.agedDays}d)</b></div><div class="row"><span>Weight / Loss:</span><b>${t.nowW} (-${t.loss}%)</b></div><div class="row"><span>Stage:</span><b>${t.status}</b></div><div class="row"><span>Date:</span><b>${t.actDate}</b></div><div class="row"><span>Best By:</span><b>${t.bestBy}</b></div>${t.notes?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid #000;font-size:.85rem"><b>Notes:</b> ${t.notes}</div>`:''}</div></body></html>`);
+  w.document.close();
+}
+function copyBagTag(){
+  var t=getTagData();if(!t)return;
+  var txt=`[AGERPRO TAG: ${t.code}]\nCut: ${t.name}\nAged: ${t.agedDays} Days (Started ${t.startD})\nWeight: ${t.nowW} (-${t.loss}%)\nStage: ${t.status} (${t.actDate})\nBest By: ${t.bestBy}${t.notes?'\nNotes: '+t.notes:''}`;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>msg('🏷️ Tag text copied to clipboard!')).catch(()=>msg(txt));
+  }else{msg(txt);}
+}
 function updHarvHint(){
   var v=document.getElementById('hStat').value,h=document.getElementById('harvHint');
   if(v==='In Fridge - Ready to Eat')h.innerText='⏱️ Tracks a 10-day Ready-to-Eat countdown (alerts on Day 8 & Day 10).';
   else if(v==='Vacuum Sealed Chilled')h.innerText='❄️ Cryovac sealed steaks keep 30–45 days chilled at 0–2°C.';
   else if(v==='Deep Frozen (-18C)')h.innerText='🧊 Cryovac frozen steaks keep 12+ months at -18°C with zero purge loss.';
   else h.innerText='';
+  renderTagPreview();
 }
 function openHarv(id){
   document.getElementById('hId').value=id;
@@ -907,4 +972,5 @@ refresh();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
 </script>
 </body>
-</html>
+<!-- END_OF_FILE_OK --></html>
+
