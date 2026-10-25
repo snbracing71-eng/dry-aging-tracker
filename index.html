@@ -1,8 +1,3 @@
-The AgerPro index.html code below restores the 🏷️ Printable / Shareable Tag option strictly inside the 🔪 Harvest popup modal:
- * Inside 🔪 Harvest Only: Features a live 🏷️ Printable Freezer / Fridge Bag Tag preview card with 🖨️ Print Tag and 📋 Copy Tag Text buttons. It automatically formats your Batch Code, Cut & Style, Days Aged, Final Weight & Loss %, Storage Stage, Action Date, Best-Before Date (automatically calculated as +10 days for Ready-to-Eat Fridge, +45 days for Vacuum Sealed Chilled, or +12 Months for Deep Frozen), and your Notes.
- * End-of-File Verification Marker: Includes <!-- END_OF_FILE_OK --></html> on the very last line so you can verify 100% of the code has loaded before copying.
-Update index.html on GitHub
-Open index.html in your GitHub app (from your screenshot), tap Three Dots (⋮) \rightarrow Edit, Select All \rightarrow Delete, paste this complete code, and tap Commit:
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +87,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   </div>
 </header>
 <main>
-  <!-- 4 DEDICATED TOP ACTION BUTTONS -->
   <div class="top-grid">
     <button class="act-btn" onclick="cycleUnit()">
       <span class="ic">⚖️</span>
@@ -113,7 +107,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
     </button>
   </div>
 
-  <!-- FRIDGE SECTION WITH FRIDGE DROPDOWN, MAINT & + FRIDGES -->
   <div class="bar">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:6px;flex-wrap:wrap">
       <span style="font-size:.82rem;color:var(--glow);font-weight:900">🔥 ACTIVE AGING CHAMBER:</span>
@@ -138,14 +131,11 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 </main>
 <div class="b-bar" id="botBar"></div>
 
-<!-- SHARED HIDDEN CAMERA & GALLERY INPUTS -->
 <input type="file" id="camIn" accept="image/*" capture="environment" style="display:none" onchange="addPhoto(event)">
 <input type="file" id="galIn" accept="image/*" style="display:none" onchange="addPhoto(event)">
 
-<!-- CUSTOM MESSAGE MODAL -->
 <div class="modal" id="msgM"><div class="m-con" style="max-width:380px;text-align:center"><h2 style="margin-top:0;color:var(--glow);font-size:1.3rem">🥩 AgerPro Says</h2><p id="msgTxt" style="font-size:1.05rem;font-weight:700;margin:14px 0 20px;line-height:1.45"></p><button class="btn b-grn" onclick="closeM('msgM')">OK</button></div></div>
 
-<!-- ALERTS & REMINDERS CENTER MODAL -->
 <div class="modal" id="alertsM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">🔔 Active Reminders & Messages</h2>
   <p style="font-size:.86rem;color:var(--mu);margin:-6px 0 12px">Tap any reminder below to jump straight to that batch or fridge maintenance item:</p>
@@ -153,7 +143,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <button class="btn b-red" onclick="closeM('alertsM')" style="margin-top:10px">Close Reminders</button>
 </div></div>
 
-<!-- IS THIS SAFE TROUBLESHOOTER MODAL -->
 <div class="modal" id="safeM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">🩺 "Is This Safe?" Troubleshooter</h2>
   <p style="font-size:.86rem;color:var(--mu);margin:-6px 0 12px">Tap what you see or smell on your batch for an instant diagnosis:</p>
@@ -167,7 +156,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <button class="btn b-red" onclick="closeM('safeM')" style="margin-top:8px">Close Troubleshooter</button>
 </div></div>
 
-<!-- FRIDGE MAINTENANCE MODAL -->
 <div class="modal" id="maintM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">🔧 Fridge Maintenance</h2>
   <div id="maintFridgeTitle" style="font-size:.9rem;color:#fdba74;font-weight:900;margin-bottom:12px"></div>
@@ -175,7 +163,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <button class="btn b-red" onclick="closeM('maintM')" style="margin-top:8px">Close Maintenance</button>
 </div></div>
 
-<!-- MASTER GUIDE & BACKUP MODAL -->
 <div class="modal" id="guideM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">📖 Master Butcher's Guide & Backup</h2>
   <div class="g-sec">
@@ -215,10 +202,8 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <button class="btn b-red" onclick="closeM('guideM')">Close Field Guide</button>
 </div></div>
 
-<!-- MANAGE FRIDGES MODAL -->
 <div class="modal" id="fridgeM"><div class="m-con"><h2 style="margin-top:0;color:var(--glow)">⚙️ Manage Fridges</h2><input id="newFName" placeholder="e.g. Thermaster MA400 #2"><button class="btn b-grn" onclick="addFridge()" style="margin-bottom:14px">+ Add Fridge</button><div id="fList"></div><button class="btn b-red" onclick="closeM('fridgeM')" style="margin-top:12px">Close</button></div></div>
 
-<!-- ADD BATCH MODAL (WITH PHOTOS & NOTES AT START) -->
 <div class="modal" id="addM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)" id="addTitle">Add Batch</h2>
   <label>Batch Tracking ID</label><input id="bCode">
@@ -245,7 +230,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div class="grid2"><button class="btn b-red" onclick="closeM('addM')">Cancel</button><button class="btn b-grn" onclick="saveBatch()">Start Aging</button></div>
 </div></div>
 
-<!-- WEIGH MODAL (WITH PHOTOS & NOTES DURING AGING) -->
 <div class="modal" id="weighM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">⚖️ Log Weight, Photo & Note</h2>
   <input type="hidden" id="wId">
@@ -263,7 +247,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div class="grid2"><button class="btn b-red" onclick="closeM('weighM')">Cancel</button><button class="btn b-grn" onclick="saveWeight()">Save Weight</button></div>
 </div></div>
 
-<!-- DEDICATED PHOTOS & NOTES MODAL (1-TAP FROM ANY BATCH CARD) -->
 <div class="modal" id="mediaM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">📷 Batch Photos & Notes</h2>
   <input type="hidden" id="mId">
@@ -278,7 +261,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div class="grid2" style="margin-top:12px"><button class="btn b-red" onclick="closeM('mediaM')">Cancel</button><button class="btn b-grn" onclick="saveMedia()">Save Photos & Notes</button></div>
 </div></div>
 
-<!-- HARVEST MODAL (WITH PRINTABLE BAG TAG OPTION ONLY IN HARVEST) -->
 <div class="modal" id="harvM"><div class="m-con">
   <h2 style="margin-top:0;color:var(--glow)">🔪 Harvest, Tag, Photos & Notes</h2>
   <input type="hidden" id="hId">
@@ -303,7 +285,6 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
     <div class="ph-grid" id="harvPhotos"></div>
   </div>
 
-  <!-- PRINTABLE FREEZER / FRIDGE BAG TAG SECTION (HARVEST ONLY) -->
   <div class="pn-box">
     <label style="color:var(--glow);font-weight:900">🏷️ Printable Freezer / Fridge Bag Tag:</label>
     <div id="tagPreviewBox" class="tag-card"></div>
@@ -973,4 +954,3 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
 </script>
 </body>
 <!-- END_OF_FILE_OK --></html>
-
