@@ -30,27 +30,36 @@
       font-size: 15px; line-height: 1.45;
     }
 
-    /* Sticky Top Header with Brand Left & Compact Search Right */
+    /* Sticky Top Header: Brand Left, Alert Bell + Search Right */
     header {
-      background: #12100e; border-bottom: 1px solid var(--border);
+      background: #12100e; border-bottom: 1.5px solid var(--border);
       padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
       position: sticky; top: 0; z-index: 40;
     }
     .brand { display: flex; align-items: center; gap: 8px; }
     .brand-icon {
-      width: 32px; height: 32px; border-radius: 8px; background: #1c1917;
+      width: 34px; height: 34px; border-radius: 8px; background: #1c1917;
       border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
-    .brand-title { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; }
+    .brand-title { font-size: 1.3rem; font-weight: 900; letter-spacing: 0.5px; color: #fff; margin: 0; }
     .brand-title span { color: var(--gold); }
 
-    .search-wrap {
-      position: relative; width: 145px;
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .bell-btn {
+      position: relative; background: #1c1917; border: 1.5px solid var(--red);
+      color: #fff; border-radius: 8px; padding: 6px 10px; font-size: 0.95rem;
+      cursor: pointer; display: none; align-items: center; gap: 4px; font-weight: 800;
     }
+    .bell-dot {
+      background: var(--red); color: #fff; border-radius: 99px; padding: 1px 6px;
+      font-size: 0.72rem; font-weight: 900;
+    }
+
+    .search-wrap { position: relative; width: 145px; }
     .search-input {
       width: 100%; background: #1c1917; border: 1.5px solid var(--gold);
-      border-radius: 8px; padding: 6px 26px 6px 26px; color: #fff; font-size: 0.82rem; font-weight: 600;
+      border-radius: 8px; padding: 7px 26px 7px 26px; color: #fff; font-size: 0.84rem; font-weight: 600;
     }
     .search-input::placeholder { color: var(--muted); }
     .search-icon {
@@ -64,122 +73,126 @@
       display: none; align-items: center; justify-content: center; cursor: pointer; padding: 0;
     }
 
-    main { max-width: 650px; margin: 0 auto; padding: 12px 14px; }
+    main { max-width: 650px; margin: 0 auto; padding: 14px; }
 
-    /* 1. The 4 Dedicated Top Action Buttons */
+    /* 1. FOUR LARGER TOP BUTTONS */
     .top-btn-bar {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px;
     }
     .top-btn {
-      background: var(--card2); border: 1.5px solid #3f3a36; border-radius: 10px;
-      padding: 10px 4px; color: var(--gold); font-size: 0.82rem; font-weight: 800;
-      cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 4px;
-      white-space: nowrap;
+      background: var(--card2); border: 2px solid #3f3a36; border-radius: 12px;
+      padding: 12px 6px; color: #fff; font-size: 0.88rem; font-weight: 800;
+      cursor: pointer; text-align: center; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 4px; transition: 0.15s;
     }
-    .top-btn:active { transform: scale(0.97); }
+    .top-btn span.t-ico { font-size: 1.25rem; line-height: 1; }
+    .top-btn span.t-lbl { color: var(--gold); font-size: 0.78rem; letter-spacing: 0.3px; }
+    .top-btn.overdue { border-color: var(--red); background: rgba(220, 38, 38, 0.18); }
 
-    /* 2. Standalone Fridge Selector Box */
-    .fridge-standalone-box {
-      background: var(--card); border: 1.5px solid var(--gold); border-radius: 12px;
-      padding: 10px 12px; margin-bottom: 14px;
+    /* 2. FRIDGE SPACE (Fridge Selector + Add/Manage Fridge Button Inside) */
+    .fridge-bar {
+      background: var(--card); border: 2px solid var(--gold); border-radius: 14px;
+      padding: 12px 14px; margin-bottom: 14px;
     }
-    .fridge-box-top {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
+    .fridge-header-row {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
     }
-    .fridge-box-lbl {
-      font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--gold); letter-spacing: 0.6px;
+    .fridge-label {
+      font-size: 0.78rem; text-transform: uppercase; color: var(--gold);
+      font-weight: 900; letter-spacing: 0.6px;
     }
-    .maint-pill {
-      background: #27221d; border: 1px solid var(--gold); color: #fff;
-      border-radius: 6px; padding: 3px 8px; font-size: 0.74rem; font-weight: 800; cursor: pointer;
+    .manage-fridge-btn {
+      background: var(--gold-dim); color: var(--gold); border: 1.5px solid var(--gold);
+      padding: 5px 10px; border-radius: 8px; font-size: 0.78rem; font-weight: 800; cursor: pointer;
     }
-    .maint-pill.overdue { background: var(--red); border-color: #fff; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.75; } }
     .fridge-select {
-      width: 100%; background: #0c0a09; border: 1.5px solid #3f3a36; border-radius: 8px;
-      padding: 10px 12px; color: #fff; font-size: 0.98rem; font-weight: 800;
+      width: 100%; background: #0c0a09; border: 1.5px solid #3f3a36; border-radius: 10px;
+      padding: 11px 12px; color: #fff; font-size: 1rem; font-weight: 800;
     }
 
-    /* 3. 2x2 Category Grid */
+    /* 3. FOUR CATEGORY TILES */
     .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .mode-tile {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 12px;
-      padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.15s;
+      background: var(--card); border: 2px solid var(--border); border-radius: 14px;
+      padding: 13px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.15s;
     }
     .mode-tile.active {
       border-color: var(--gold); background: var(--gold-dim);
-      box-shadow: 0 0 12px rgba(234, 179, 8, 0.18);
+      box-shadow: 0 0 14px rgba(234, 179, 8, 0.2);
     }
     .mode-tile.locked { opacity: 0.42; }
-    .m-icon { font-size: 1.9rem; line-height: 1; }
-    .m-name { font-size: 0.95rem; font-weight: 800; color: #fff; display: block; }
-    .m-sub { font-size: 0.75rem; color: var(--muted); display: block; margin-top: 2px; }
+    .m-icon { font-size: 2rem; line-height: 1; }
+    .m-name { font-size: 0.98rem; font-weight: 800; color: #fff; display: block; }
+    .m-sub { font-size: 0.76rem; color: var(--muted); display: block; margin-top: 2px; }
 
-    /* 4. Live Chamber Targets Panel */
+    /* 4. CHAMBER TARGETS PANEL */
     .chamber-panel {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 12px;
+      background: var(--card); border: 1.5px solid var(--border); border-radius: 14px;
       padding: 14px; margin-bottom: 14px;
     }
     .chamber-head {
-      font-size: 0.82rem; font-weight: 900; color: var(--gold); text-transform: uppercase;
+      font-size: 0.84rem; font-weight: 900; color: var(--gold); text-transform: uppercase;
       letter-spacing: 0.5px; margin-bottom: 10px;
     }
     .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
     .m-box { background: #100e0d; border: 1px solid #292524; border-radius: 10px; padding: 10px 4px; }
     .m-lbl { font-size: 0.68rem; color: var(--muted); font-weight: 800; text-transform: uppercase; }
-    .m-val { font-size: 1.05rem; font-weight: 900; color: var(--blue); margin-top: 4px; }
+    .m-val { font-size: 1.08rem; font-weight: 900; color: var(--blue); margin-top: 4px; }
     .rule-box {
       margin-top: 10px; background: #100e0d; border-radius: 8px; padding: 10px 12px;
-      font-size: 0.82rem; color: #e7e5e4; line-height: 1.5;
+      font-size: 0.84rem; color: #e7e5e4; line-height: 1.5;
     }
 
-    /* 5. View Switcher Tabs (Active vs Fridge/Freezer/Archive) */
+    /* 5. VIEW TABS */
     .tab-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .tab-btn {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 10px;
-      padding: 11px 8px; color: var(--muted); font-size: 0.86rem; font-weight: 800;
+      background: var(--card); border: 2px solid var(--border); border-radius: 12px;
+      padding: 12px 8px; color: var(--muted); font-size: 0.88rem; font-weight: 800;
       cursor: pointer; text-align: center;
     }
-    .tab-btn.active {
-      border-color: var(--gold); color: #fff; background: var(--gold-dim);
-    }
+    .tab-btn.active { border-color: var(--gold); color: #fff; background: var(--gold-dim); }
 
-    /* Batch Cards */
+    /* 6. BATCH CARDS */
     .card {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 14px;
-      padding: 15px; margin-bottom: 14px;
+      background: var(--card); border: 2px solid var(--border); border-radius: 14px;
+      padding: 16px; margin-bottom: 14px;
     }
+    .card.alert-card { border-color: var(--red); box-shadow: 0 0 12px rgba(220,38,38,0.25); }
     .tag-badge {
       background: #27221d; color: var(--gold); border: 1px solid rgba(234,179,8,0.4);
-      padding: 3px 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; display: inline-block;
+      padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; display: inline-block;
     }
     .prog-badge {
       background: rgba(56, 189, 248, 0.15); color: var(--blue); border: 1px solid rgba(56, 189, 248, 0.35);
-      padding: 3px 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; display: inline-block; margin-left: 6px;
+      padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; display: inline-block; margin-left: 6px;
+    }
+    .alert-banner {
+      background: rgba(220, 38, 38, 0.18); border: 1px solid var(--red); color: #fecaca;
+      padding: 8px 10px; border-radius: 8px; font-size: 0.82rem; font-weight: 800;
+      margin-top: 10px; display: flex; justify-content: space-between; align-items: center;
     }
     .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; text-align: center; }
     .stat-item { background: #100e0d; border: 1px solid #292524; border-radius: 10px; padding: 10px 4px; }
     .stat-num { font-size: 1.05rem; font-weight: 900; color: #fff; margin-top: 3px; }
     .history-dropdown {
       margin-top: 10px; background: #100e0d; border: 1px solid #292524; border-radius: 8px;
-      padding: 8px 10px; font-size: 0.8rem; color: var(--muted);
+      padding: 9px 11px; font-size: 0.82rem; color: var(--muted);
     }
     .history-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .history-row:last-child { border-bottom: none; }
 
-    /* Buttons — Strict Red for Close/Cancel/Delete, Green for Start/Save */
+    /* Buttons: Strict Red Close/Cancel, Green Start/Save */
     .btn {
-      display: block; width: 100%; text-align: center; border: none; border-radius: 10px;
-      padding: 13px; font-size: 0.98rem; font-weight: 800; cursor: pointer; color: #fff;
+      display: block; width: 100%; text-align: center; border: none; border-radius: 12px;
+      padding: 14px; font-size: 1rem; font-weight: 800; cursor: pointer; color: #fff;
     }
     .btn-green { background: var(--green); color: #fff; }
     .btn-red { background: var(--red); color: #fff; }
     .btn-blue { background: #0284c7; color: #fff; }
-    .btn-gold { background: #ca8a04; color: #fff; }
 
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0; background: #12100e;
-      border-top: 1px solid var(--border); padding: 12px 14px; z-index: 35;
+      border-top: 1.5px solid var(--border); padding: 12px 14px; z-index: 35;
     }
     .bottom-inner { max-width: 650px; margin: 0 auto; }
 
@@ -190,14 +203,14 @@
     }
     .modal.active { display: flex; }
     .modal-content {
-      background: var(--card); border: 1.5px solid var(--gold); border-radius: 16px;
+      background: var(--card); border: 2px solid var(--gold); border-radius: 16px;
       padding: 18px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;
     }
     .form-group { margin-bottom: 13px; }
-    .form-group label { display: block; font-size: 0.85rem; color: #d6d3d1; margin-bottom: 5px; font-weight: 700; }
+    .form-group label { display: block; font-size: 0.86rem; color: #d6d3d1; margin-bottom: 5px; font-weight: 700; }
     input, select, textarea {
       width: 100%; background: #0c0a09; border: 1.5px solid #3f3a36; border-radius: 8px;
-      padding: 11px; color: #fff; font-size: 0.95rem; font-weight: 600;
+      padding: 11px; color: #fff; font-size: 0.96rem; font-weight: 600;
     }
     .callout {
       background: rgba(56, 189, 248, 0.12); border: 1px solid var(--blue);
@@ -205,8 +218,8 @@
     }
     .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
     .tier-btn {
-      background: #100e0d; border: 1.5px solid #3f3a36; border-radius: 8px; padding: 8px 4px;
-      color: var(--muted); font-size: 0.78rem; font-weight: 800; cursor: pointer; text-align: center;
+      background: #100e0d; border: 1.5px solid #3f3a36; border-radius: 8px; padding: 9px 4px;
+      color: var(--muted); font-size: 0.8rem; font-weight: 800; cursor: pointer; text-align: center;
     }
     .tier-btn.active { border-color: var(--gold); background: var(--gold-dim); color: #fff; }
     .step-box {
@@ -218,33 +231,50 @@
 </head>
 <body>
 
-  <!-- TOP HEADER: AGERPRO ON LEFT, SMALL SEARCH ON RIGHT -->
+  <!-- STICKY HEADER: AGERPRO + ALERT BELL + COMPACT SEARCH -->
   <header>
     <div class="brand">
       <div class="brand-icon">🥩</div>
       <h1 class="brand-title">AGER<span>PRO</span></h1>
     </div>
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="batchSearch" class="search-input" placeholder="Batch #..." oninput="handleSearch(this.value)">
-      <button type="button" id="searchClearBtn" class="search-clear" onclick="clearSearch()">✕</button>
+    <div class="header-right">
+      <button type="button" id="alertBellBtn" class="bell-btn" onclick="jumpToNextAlert()" title="View Due Batch">
+        🔔 <span id="alertBellCount" class="bell-dot">1</span>
+      </button>
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="batchSearch" class="search-input" placeholder="Batch #..." oninput="handleSearch(this.value)">
+        <button type="button" id="searchClearBtn" class="search-clear" onclick="clearSearch()">✕</button>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- 1. FOUR BUTTONS ON TOP -->
+    <!-- 1. FOUR LARGER UTILITY BUTTONS ON TOP -->
     <div class="top-btn-bar">
-      <button type="button" class="top-btn" onclick="openManageFridges()">➕ Fridge</button>
-      <button type="button" class="top-btn" id="unitCycleBtn" onclick="cycleUnit()">⚖️ g</button>
-      <button type="button" class="top-btn" onclick="openModal('safeModal')">🩺 Safe?</button>
-      <button type="button" class="top-btn" onclick="openModal('guideModal')">📖 Guide</button>
+      <button type="button" class="top-btn" onclick="cycleUnit()">
+        <span class="t-ico">⚖️</span>
+        <span class="t-lbl" id="unitCycleBtn">Unit: g</span>
+      </button>
+      <button type="button" class="top-btn" onclick="openModal('safeModal')">
+        <span class="t-ico">🩺</span>
+        <span class="t-lbl">Safe?</span>
+      </button>
+      <button type="button" class="top-btn" id="maintTopBtn" onclick="openMaintModal()">
+        <span class="t-ico">🔧</span>
+        <span class="t-lbl" id="maintTopLbl">Maint.</span>
+      </button>
+      <button type="button" class="top-btn" onclick="openModal('guideModal')">
+        <span class="t-ico">📋</span>
+        <span class="t-lbl">Guide</span>
+      </button>
     </div>
 
-    <!-- 2. FRIDGE BY ITSELF -->
-    <div class="fridge-standalone-box">
-      <div class="fridge-box-top">
-        <span class="fridge-box-lbl">🗄️ Active Aging Fridge / Chamber</span>
-        <button type="button" id="maintBtn" class="maint-pill" onclick="openMaintModal()">🔧 Maint.</button>
+    <!-- 2. DEDICATED FRIDGE SPACE (Fridge Choice + Add/Manage Fridge Together) -->
+    <div class="fridge-bar">
+      <div class="fridge-header-row">
+        <span class="fridge-label">🗄️ Active Aging Chamber / Fridge</span>
+        <button type="button" class="manage-fridge-btn" onclick="openManageFridges()">+ Add / Manage Fridges</button>
       </div>
       <select id="fridgeSelect" class="fridge-select" onchange="switchFridge(this.value)"></select>
     </div>
@@ -285,11 +315,11 @@
   <!-- STICKY GREEN ADD BUTTON -->
   <div class="bottom-bar">
     <div class="bottom-inner">
-      <button type="button" class="btn btn-green" onclick="openAddModal()">+ Add New Batch to Fridge</button>
+      <button type="button" class="btn btn-green" id="addBottomBtn" onclick="openAddModal()">+ Add New Batch to Fridge</button>
     </div>
   </div>
 
-  <!-- CUSTOM AGERPRO SAYS ALERT MODAL -->
+  <!-- CUSTOM AGERPRO SAYS MODAL -->
   <div class="modal" id="msgModal">
     <div class="modal-content" style="max-width:380px; text-align:center;">
       <h3 style="margin:0 0 10px 0; color:var(--gold);">🥩 AgerPro Says</h3>
@@ -301,9 +331,9 @@
   <!-- MANAGE FRIDGES MODAL -->
   <div class="modal" id="fridgesModal">
     <div class="modal-content">
-      <h3 style="margin-top:0; color:var(--gold);">🗄️ Manage Aging Fridges</h3>
+      <h3 style="margin-top:0; color:var(--gold);">🗄️ Add or Manage Aging Fridges</h3>
       <div class="form-group">
-        <label>Add New Fridge / Cabinet Name</label>
+        <label>New Fridge / Cabinet Name</label>
         <input type="text" id="newFridgeName" placeholder="e.g. Thermaster MA400 #2">
       </div>
       <button type="button" class="btn btn-green" onclick="addNewFridge()" style="margin-bottom:16px;">+ Save New Fridge</button>
@@ -316,7 +346,7 @@
   <div class="modal" id="maintModal">
     <div class="modal-content">
       <h3 style="margin-top:0; color:var(--gold);">🔧 Chamber Maintenance Tracker</h3>
-      <p style="font-size:0.82rem; color:var(--muted); margin-top:0;">Track hygiene & component life for <b id="maintFridgeName" style="color:#fff;"></b>:</p>
+      <p style="font-size:0.84rem; color:var(--muted); margin-top:0;">Component & hygiene countdowns for <b id="maintFridgeName" style="color:#fff;"></b>:</p>
       <div id="maintListUI"></div>
       <button type="button" class="btn btn-red" onclick="closeModal('maintModal')" style="margin-top:12px;">Close Maintenance</button>
     </div>
@@ -328,36 +358,36 @@
       <h3 style="margin-top:0; color:var(--gold);">🩺 "Is This Safe?" Mold & Odor Check</h3>
       <div class="step-box">
         <strong>⚪ White Chalky Specs / Patchy White Dust</strong>
-        ✅ <b>SAFE:</b> Either harmless salt crystals or beneficial white <i>Penicillium</i> mold. Leave it or wipe gently with vinegar/ethanol cloth at harvest.
+        ✅ <b>SAFE:</b> Either harmless salt crystallization or beneficial white <i>Penicillium</i> mold. Leave it or wipe gently with a vinegar/70% ethanol cloth at harvest.
       </div>
       <div class="step-box">
         <strong>🟢 Green, Black, or Tall Fuzzy Mold</strong>
-        🚫 <b>DANGER:</b> Spoilage mold. Remove piece immediately; if localized on outer fat, excuse 2cm deep around spot, sanitize chamber with 70% ethanol, and check fan airflow.
+        🚫 <b>DANGER:</b> Spoilage contamination. Remove piece immediately; if localized on outer fat, excise 2cm deep around spot, sanitize chamber with 70% ethanol, and check airflow.
       </div>
       <div class="step-box">
         <strong>💧 Sticky, Slimy, or Wet Surface</strong>
-        ⚠️ <b>HUMIDITY TOO HIGH (>85% RH):</b> Pat dry with paper towel, ensure UVC is ON, verify 8cm air gap around meat, and lower RH setpoint to 75–80%.
+        ⚠️ <b>HUMIDITY TOO HIGH (>85% RH):</b> Pat dry with clean paper towel, ensure UVC light is ON, verify 8cm air gap around meat, and lower RH setpoint to 75–80%.
       </div>
       <div class="step-box">
         <strong>🪨 Thick Leathery Outer Ring (Case Hardening)</strong>
-        ⚠️ <b>HUMIDITY TOO LOW (<68% RH):</b> Outside dried too fast, trapping moisture inside. Raise RH to 80–82%.
+        ⚠️ <b>HUMIDITY TOO LOW (<68% RH):</b> Outside crust dried too fast, trapping moisture inside. Raise RH to 80–82%.
       </div>
       <div class="step-box">
-        <strong>👃 Nutty / Blue Cheese vs. Sour / Putrid Smell</strong>
-        ✅ <b>Nutty, earthy, roasted hazelnut, mild blue cheese:</b> Normal enzymatic dry-aging aroma.<br>
-        🚫 <b>Sharp sour, ammonia, or rotting odor:</b> Spoilage near the bone. Discard affected section.
+        <strong>👃 Nutty / Blue Cheese vs. Sour / Ammonia Smell</strong>
+        ✅ <b>Nutty, roasted hazelnut, mild blue cheese:</b> Normal enzymatic dry-aging aroma.<br>
+        🚫 <b>Sharp sour, ammonia, or putrid odor:</b> Bacterial spoilage near the bone. Discard affected cut.
       </div>
       <button type="button" class="btn btn-red" onclick="closeModal('safeModal')">Close Troubleshooter</button>
     </div>
   </div>
 
-  <!-- GUIDE & BACKUP MODAL (#5) -->
+  <!-- MASTER GUIDE & BACKUP MODAL (#5) -->
   <div class="modal" id="guideModal">
     <div class="modal-content">
-      <h3 style="margin-top:0; color:var(--gold);">📖 Master Butcher Guide & Backup</h3>
+      <h3 style="margin-top:0; color:var(--gold);">📋 Master Butcher's Field Guide & Backup</h3>
       <div class="step-box">
-        <strong>💾 Data Backup & Restore (Phone Memory)</strong>
-        Save a backup file of all your fridges, active batches, and freezer logs, or restore from a file:
+        <strong>💾 Phone Data Backup & Restore</strong>
+        Save a backup file of all your fridges, active batches, and freezer logs, or restore from a saved file:
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
           <button type="button" class="btn btn-green" style="padding:10px; font-size:0.82rem;" onclick="exportBackup()">📤 Export Backup</button>
           <button type="button" class="btn btn-blue" style="padding:10px; font-size:0.82rem;" onclick="document.getElementById('importFile').click()">📥 Restore File</button>
@@ -365,16 +395,22 @@
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
       </div>
       <div class="step-box">
-        <strong>1. Selecting Meat & Day 0 Prep</strong>
-        • Buy fresh bone-in cuts (5–10 days post-slaughter) with full fat cap intact.<br>
-        • Never wash with tap water. Blot bone-dry with paper towels.<br>
-        • Load on wire racks <b>Fat Side UP, Bones DOWN</b> with 8cm spacing.
+        <strong>1. Cabinet Hygiene & Salt Block Prep</strong>
+        • Remove Himalayan salt blocks before washing walls. Wipe interior and stainless racks with warm water, then sanitize with <b>70% Food-Grade Ethanol</b>.<br>
+        • Let chamber run empty with UVC ON for 1 hour before loading fresh meat.
       </div>
       <div class="step-box">
-        <strong>2. Post-Harvest Storage Rules</strong>
-        • <b>🍽️ Unsealed in Fridge (Ready to Eat):</b> Wrap in butcher paper or on a rack; cook within <b>8–10 days max</b>.<br>
-        • <b>❄️ Vacuum Sealed (Cryo Chilled):</b> Keeps in regular fridge (0–3°C) for <b>30–45 days</b>.<br>
-        • <b>🧊 Deep Frozen (-18°C):</b> Vacuum-sealed steaks last <b>12+ months</b> without freezer burn.
+        <strong>2. Buying & Day-0 Loading Rules</strong>
+        • Choose bone-in sub-primals (5–10 days post-slaughter) with thick, untrimmed fat caps.<br>
+        • <b>Never wash meat with tap water.</b> Blot completely bone-dry with paper towels.<br>
+        • Place on wire shelves <b>Fat Cap UP, Bones DOWN</b> with an 8cm air gap between pieces.
+      </div>
+      <div class="step-box">
+        <strong>3. Trimming & Post-Harvest Storage Stages</strong>
+        • Slice off 1–2mm dark outer pellicle with a stiff boning knife (save clean fat trimmings to render dry-aged tallow).<br>
+        • <b>🍽️ In Fridge — Ready to Eat (Not Cryo):</b> Store on a rack or wrapped in butcher paper; cook within <b>8–10 days max</b>.<br>
+        • <b>❄️ Vacuum Sealed & Chilled (Cryo):</b> Keeps at 0–3°C for <b>30–45 days</b>.<br>
+        • <b>🧊 Deep Frozen (-18°C):</b> Vacuum-sealed steaks last <b>12+ months</b> with zero freezer burn.
       </div>
       <button type="button" class="btn btn-red" onclick="closeModal('guideModal')">Close Guide</button>
     </div>
@@ -617,7 +653,7 @@
       },
       fish: {
         name: "Seafood", icon: "🐟", temp: "0.8°C", rh: "82% RH", uvc: "ON ✅", uvcColor: "#22c55e",
-        rule: "✅ <b>Can Share:</b> Scaled/ gutted Kingfish, Tuna, Coral Trout, Salmon.<br>🚫 <b>Run Alone:</b> Marine odors will taint beef or cheese.",
+        rule: "✅ <b>Can Share:</b> Scaled/gutted Kingfish, Tuna, Coral Trout, Salmon.<br>🚫 <b>Run Alone:</b> Marine odors will taint beef or cheese.",
         items: [
           { name: "Whole Kingfish / Amberjack / Snapper", tiers: [{ label: "Basic", days: 5, note: "5 Days • Tightens flesh and crisps skin." }, { label: "Intense", days: 10, note: "10 Days • Sushi-grade umami & buttery sashimi texture." }] },
           { name: "Atlantic Salmon Loin / Gravlax", tiers: [{ label: "Basic", days: 4, note: "4 Days • Firm, glossy slicing texture." }, { label: "Intense", days: 7, note: "7 Days • Deeply concentrated oils." }] }
@@ -718,7 +754,7 @@
     function selectCategory(cat) {
       var lockedCat = getActiveCategoryInCurrentFridge();
       if (lockedCat && lockedCat !== cat) {
-        showMsg('"' + currentFridge + '" is currently running an active batch in ' + DEFAULT_MODES[lockedCat].name + '. You cannot mix categories in the same chamber. Harvest the active batch or switch fridges first.');
+        showMsg('"' + currentFridge + '" currently has an active batch in ' + DEFAULT_MODES[lockedCat].name + '. You cannot mix categories in the same fridge. Harvest the active batch or switch fridges first.');
         return;
       }
       selectedCat = cat;
@@ -730,6 +766,52 @@
       document.getElementById('tabActive').className = 'tab-btn ' + (t === 'active' ? 'active' : '');
       document.getElementById('tabArchive').className = 'tab-btn ' + (t === 'archive' ? 'active' : '');
       renderList();
+    }
+
+    /* Batch Reminder & Red Dot Notification System */
+    function getBatchAlertText(b) {
+      if (b.alertDismissed) return null;
+      var st = b.status || 'Active in Agers';
+      if (st === 'Active in Agers') {
+        var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
+        var rem = b.days - elapsed;
+        if (rem <= 0) return '🔥 HARVEST DUE TODAY (' + elapsed + ' of ' + b.days + 'd reached!)';
+        if (rem === 1) return '⏰ 1 Day Until Harvest (' + elapsed + ' of ' + b.days + 'd)';
+      } else if (st.indexOf('Ready to Eat') !== -1) {
+        var fDays = Math.max(0, Math.floor((new Date() - new Date(b.statusDate || b.startD)) / 86400000));
+        if (fDays >= 8) return '🍽️ Ready-to-Eat Fridge Limit: Day ' + fDays + ' of 10 Max!';
+      }
+      return null;
+    }
+
+    function getAllAlertBatches() {
+      return items.filter(b => getBatchAlertText(b) !== null);
+    }
+
+    function dismissAlert(id) {
+      items.forEach(b => { if (b.id === id) b.alertDismissed = true; });
+      saveStorage();
+      refreshUI();
+    }
+
+    function jumpToNextAlert() {
+      var due = getAllAlertBatches();
+      if (!due.length) return;
+      var target = due[0];
+      currentFridge = target.fridge || fridges[0];
+      var isActive = !target.status || target.status === 'Active in Agers';
+      if (isActive) {
+        selectedCat = target.mode || 'meat';
+        currentTab = 'active';
+      } else {
+        currentTab = 'archive';
+      }
+      saveStorage();
+      refreshUI();
+      setTimeout(() => {
+        var el = document.getElementById('batch-card-' + target.id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
     }
 
     /* Maintenance Logic */
@@ -894,7 +976,7 @@
         tierBtns.innerHTML = item.tiers.map((t, tIdx) => `
           <button type="button" class="tier-btn ${tIdx === 0 ? 'active' : ''}" id="tbtn-${tIdx}" onclick="selectTier(${idx}, ${tIdx})">
             <div>${t.label}</div>
-            <div style="font-size:0.7rem; color:var(--gold);">${t.days} Days</div>
+            <div style="font-size:0.72rem; color:var(--gold);">${t.days} Days</div>
           </button>
         `).join('');
         selectTier(idx, 0);
@@ -959,6 +1041,7 @@
         days: days,
         status: 'Active in Agers',
         statusDate: d,
+        alertDismissed: false,
         notes: '',
         history: [{ date: d, weight: wGrams }]
       });
@@ -1012,6 +1095,7 @@
           x.status = st;
           x.statusDate = dt;
           x.notes = nt;
+          x.alertDismissed = false;
         }
       });
       saveStorage();
@@ -1072,25 +1156,35 @@
         var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
         var loss = (((b.startW - latestW) / b.startW) * 100).toFixed(1);
         var icon = DEFAULT_MODES[b.mode || 'meat'].icon;
+        var alertMsg = getBatchAlertText(b);
+
+        var isReadyToEat = (b.status || '').indexOf('Ready to Eat') !== -1;
+        var readyDays = isReadyToEat ? Math.max(0, Math.floor((new Date() - new Date(b.statusDate || b.startD)) / 86400000)) : 0;
 
         var histHTML = (b.history || [{ date: b.startD, weight: b.startW }]).map(h => {
           var hLoss = (((b.startW - h.weight) / b.startW) * 100).toFixed(1);
           return `<div class="history-row"><span>📅 ${h.date}</span><span><b>${formatWeight(h.weight)}</b> (-${hLoss}%)</span></div>`;
         }).join('');
 
-        return `<div class="card">
+        return `<div class="card ${alertMsg ? 'alert-card' : ''}" id="batch-card-${b.id}">
           <div style="display:flex; justify-content:space-between; align-items:flex-start;">
             <div>
               <span class="tag-badge">🏷️ ${b.code || 'PRO-' + b.id}</span>
               ${b.tier ? `<span class="prog-badge">${b.tier}</span>` : ''}
               <h3 style="margin:6px 0 2px 0; color:#fff; font-size:1.05rem;">${icon} ${b.name}</h3>
               <div style="font-size:0.8rem; color:var(--muted);">Started: ${b.startD} • Day ${elapsed} of ${b.days}</div>
-              <div style="font-size:0.8rem; font-weight:800; color:var(--gold); margin-top:3px;">Stage: ${b.status || 'Active in Agers'}</div>
+              <div style="font-size:0.8rem; font-weight:800; color:var(--gold); margin-top:3px;">
+                Stage: ${b.status || 'Active in Agers'} ${isReadyToEat ? `(Day ${readyDays} of 10 in Fridge)` : ''}
+              </div>
             </div>
             <button type="button" class="btn btn-red" style="width:34px; height:34px; padding:0; font-size:0.95rem;" onclick="removeBatch(${b.id})">✕</button>
           </div>
+          ${alertMsg ? `<div class="alert-banner">
+            <span>${alertMsg}</span>
+            <button type="button" class="btn btn-red" style="width:auto; padding:4px 8px; font-size:0.72rem;" onclick="dismissAlert(${b.id})">Clear</button>
+          </div>` : ''}
           <div class="stat-row">
-            <div class="stat-item"><div class="m-lbl">Age</div><div class="stat-num">${elapsed} / ${b.days}d</div></div>
+            <div class="stat-item"><div class="m-lbl">${isReadyToEat ? 'Fridge Days' : 'Age'}</div><div class="stat-num">${isReadyToEat ? readyDays + ' / 10d' : elapsed + ' / ' + b.days + 'd'}</div></div>
             <div class="stat-item"><div class="m-lbl">Moisture Loss</div><div class="stat-num" style="color:var(--gold);">-${loss}%</div></div>
             <div class="stat-item"><div class="m-lbl">Current Weight</div><div class="stat-num">${formatWeight(latestW)}</div></div>
           </div>
@@ -1108,14 +1202,24 @@
     }
 
     function refreshUI() {
-      document.getElementById('unitCycleBtn').innerText = '⚖️ ' + UNITS[unitIdx];
+      document.getElementById('unitCycleBtn').innerText = 'Unit: ' + UNITS[unitIdx];
       var sel = document.getElementById('fridgeSelect');
       sel.innerHTML = fridges.map(f => `<option value="${f}" ${f === currentFridge ? 'selected' : ''}>${f}</option>`).join('');
 
       var overdue = checkMaintOverdue(currentFridge);
-      var mBtn = document.getElementById('maintBtn');
-      mBtn.className = 'maint-pill ' + (overdue ? 'overdue' : '');
-      mBtn.innerText = overdue ? '⚠️ Maint. Due!' : '🔧 Maint.';
+      var mBtn = document.getElementById('maintTopBtn');
+      var mLbl = document.getElementById('maintTopLbl');
+      mBtn.className = 'top-btn ' + (overdue ? 'overdue' : '');
+      mLbl.innerText = overdue ? 'Maint. Due!' : 'Maint.';
+
+      var dueAlerts = getAllAlertBatches();
+      var bellBtn = document.getElementById('alertBellBtn');
+      if (dueAlerts.length > 0) {
+        bellBtn.style.display = 'flex';
+        document.getElementById('alertBellCount').innerText = dueAlerts.length;
+      } else {
+        bellBtn.style.display = 'none';
+      }
 
       var lockedCat = getActiveCategoryInCurrentFridge();
       if (lockedCat) selectedCat = lockedCat;
@@ -1124,6 +1228,8 @@
         var el = document.getElementById('tile-' + c);
         el.className = 'mode-tile' + (c === selectedCat ? ' active' : '') + (lockedCat && lockedCat !== c ? ' locked' : '');
       });
+
+      document.getElementById('addBottomBtn').innerText = '+ Add New Batch to ' + currentFridge;
 
       renderChamber();
       renderList();
