@@ -51,9 +51,7 @@
       font-size: 0.7rem; font-weight: 900; border-radius: 999px; padding: 1px 5px;
       border: 1.5px solid #fff; box-shadow: 0 0 8px rgba(220,38,38,0.9);
     }
-    .search-wrap {
-      position: relative; width: 145px; flex-shrink: 0;
-    }
+    .search-wrap { position: relative; width: 145px; flex-shrink: 0; }
     .search-wrap input {
       width: 100%; background: #090807; border: 1.5px solid var(--border);
       color: #fff; border-radius: 9px; padding: 7px 26px 7px 9px; font-size: 0.82rem; font-weight: 600;
@@ -176,11 +174,14 @@
     .b-title { font-size: 1.15rem; font-weight: 900; color: #fff; margin: 0; }
     .b-meta { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
     .del-x {
-      background: var(--red); color: #fff; border: none; border-radius: 8px;
-      width: 32px; height: 32px; font-weight: 900; font-size: 0.95rem; cursor: pointer; flex-shrink: 0;
+      background: var(--red); color: #fff; border: 1.5px solid #fca5a5; border-radius: 10px;
+      width: 38px; height: 38px; font-weight: 900; font-size: 1.05rem; cursor: pointer;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 5;
     }
+    .del-x:active { transform: scale(0.92); }
 
-    /* GAUGE RINGS / STATS */
+    /* STATS */
     .stats-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0;
     }
@@ -383,6 +384,18 @@
   </div>
 </div>
 
+<!-- CONFIRM DELETE BATCH MODAL -->
+<div class="modal" id="delConfirmModal">
+  <div class="modal-box" style="text-align:center;">
+    <h2>🗑️ Delete Batch?</h2>
+    <p id="delConfirmText" style="font-size:0.98rem; color:#fff; margin:12px 0 20px 0;"></p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <button class="btn btn-red" style="background:#44403c;" onclick="closeModal('delConfirmModal')">Cancel</button>
+      <button class="btn btn-red" onclick="confirmDeleteBatchNow()">🗑️ Delete Now</button>
+    </div>
+  </div>
+</div>
+
 <!-- MANAGE FRIDGES MODAL -->
 <div class="modal" id="fridgesModal">
   <div class="modal-box">
@@ -479,7 +492,7 @@
     <div class="f-grp">
       <label>📷 Progress Photo (Optional)</label>
       <input type="file" id="weighCamIn" accept="image/*" capture="environment" style="display:none;" onchange="previewPhoto(this,'weighPrevImg','weighPrevBox','weigh')">
-      <input type="file" id="weighGalIn" accept="image/*" style="display:none;" onchange="previewPhoto(this,'weighGalIn','weighPrevBox','weigh')">
+      <input type="file" id="weighGalIn" accept="image/*" style="display:none;" onchange="previewPhoto(this,'weighPrevImg','weighPrevBox','weigh')">
       <div class="cam-grid">
         <button type="button" class="btn-cam" onclick="document.getElementById('weighCamIn').click()">📸 Open Camera</button>
         <button type="button" class="btn-cam" onclick="document.getElementById('weighGalIn').click()">🖼️ From Gallery</button>
@@ -766,10 +779,37 @@ let currentFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
 let items = JSON.parse(localStorage.getItem('dryAgeItemsV5')) || [];
 let customItems = JSON.parse(localStorage.getItem('dryAgeCustomItemsV5')) || { meat:[], fish:[], salami:[], cheese:[] };
 let maintData = JSON.parse(localStorage.getItem('agerProMaint')) || {};
-let currentUnit = localStorage.getItem('agerProUnit') || 'g'; // g, kg, oz, lb
+let currentUnit = localStorage.getItem('agerProUnit') || 'g';
 let currentMode = 'meat';
 let selectedProgIdx = 1;
 let pendingPhotos = { add: null, weigh: null, harv: null };
+let batchIdToDelete = null;
+
+/* SELF-HEALING MIGRATION FOR OLDER BATCH FORMATS */
+function normalizeExistingBatches() {
+  let changed = false;
+  items.forEach((b, idx) => {
+    if (b.id === undefined || b.id === null) { b.id = 'B-' + Date.now() + '-' + idx; changed = true; }
+    else if (typeof b.id !== 'string') { b.id = String(b.id); changed = true; }
+    if (!b.cut && b.name) { b.cut = b.name; changed = true; }
+    if (b.cut) { b.cut = b.cut.replace(/\s*•\s*No\.\s*P\d+/gi, ''); }
+    if (!b.startWeight && b.startW) { b.startWeight = parseFloat(b.startW) || 0; changed = true; }
+    if (!b.startDate && b.startD) { b.startDate = b.startD; changed = true; }
+    if (!b.targetDays && b.days) { b.targetDays = parseInt(b.days, 10) || 28; changed = true; }
+    if (!b.logs && Array.isArray(b.history)) {
+      b.logs = b.history.map(h => ({ date: h.date || b.startDate, weight: parseFloat(h.weight) || b.startWeight, note: h.note || '' }));
+      changed = true;
+    }
+    if (!b.currentWeight) {
+      if (b.logs && b.logs.length > 0) b.currentWeight = b.logs[b.logs.length - 1].weight;
+      else b.currentWeight = b.startWeight || 0;
+      changed = true;
+    }
+    if (!b.fridge) { b.fridge = fridges[0]; changed = true; }
+    if (!b.mode) { b.mode = 'meat'; changed = true; }
+  });
+  if (changed) saveAll();
+}
 
 function saveAll() {
   localStorage.setItem('dryAgeFridges', JSON.stringify(fridges));
@@ -1029,7 +1069,7 @@ function saveNewBatch() {
   }
 
   items.unshift({
-    id: Date.now().toString(),
+    id: String(Date.now()),
     code: code,
     fridge: currentFridge,
     mode: currentMode,
@@ -1050,9 +1090,9 @@ function saveNewBatch() {
   refreshUI();
 }
 
-/* WEIGH-IN LOGGING */
+/* WEIGH-IN LOGGING (STRING/NUMBER SAFE) */
 function openWeighModal(id) {
-  document.getElementById('weighId').value = id;
+  document.getElementById('weighId').value = String(id);
   document.getElementById('inNewWeight').value = '';
   document.getElementById('inWeighNote').value = '';
   clearPendingPhoto('weigh', 'weighPrevBox');
@@ -1060,8 +1100,8 @@ function openWeighModal(id) {
   openModal('weighModal');
 }
 function saveNewWeight() {
-  const id = document.getElementById('weighId').value;
-  const b = items.find(x => x.id === id);
+  const id = String(document.getElementById('weighId').value);
+  const b = items.find(x => String(x.id) === id);
   if (!b) return;
   const gWeight = toGrams(document.getElementById('inNewWeight').value);
   if (!gWeight || gWeight <= 0) return agerAlert('Please enter a valid weight.');
@@ -1081,11 +1121,11 @@ function saveNewWeight() {
   refreshUI();
 }
 
-/* HARVEST & LIFECYCLE LOGGING */
+/* HARVEST & LIFECYCLE LOGGING (STRING/NUMBER SAFE) */
 function openHarvestModal(id) {
-  const b = items.find(x => x.id === id);
+  const b = items.find(x => String(x.id) === String(id));
   if (!b) return;
-  document.getElementById('harvestId').value = id;
+  document.getElementById('harvestId').value = String(b.id);
   document.getElementById('harvStatus').value = (b.status === 'Active in Agers' ? 'Active in Ager' : (b.status || 'Active in Ager'));
   document.getElementById('harvFridgeDate').value = b.fridgeDate || '';
   document.getElementById('harvVacDate').value = b.vacDate || '';
@@ -1096,8 +1136,8 @@ function openHarvestModal(id) {
   openModal('harvestModal');
 }
 function saveHarvest() {
-  const id = document.getElementById('harvestId').value;
-  const b = items.find(x => x.id === id);
+  const id = String(document.getElementById('harvestId').value);
+  const b = items.find(x => String(x.id) === id);
   if (!b) return;
   b.status = document.getElementById('harvStatus').value;
   b.fridgeDate = document.getElementById('harvFridgeDate').value;
@@ -1121,14 +1161,27 @@ function saveHarvest() {
   refreshUI();
 }
 
-function deleteBatch(id) {
-  items = items.filter(x => x.id !== id);
-  saveAll();
-  refreshUI();
+/* GUARANTEED BATCH DELETION (HANDLES OLD NUMERIC IDS & STRING IDS) */
+function askDeleteBatch(id) {
+  batchIdToDelete = String(id);
+  const b = items.find(x => String(x.id) === batchIdToDelete);
+  const label = b ? `${b.code || 'Batch'} (${b.cut || b.name || 'Item'})` : 'this batch';
+  document.getElementById('delConfirmText').innerText = `Permanently remove "${label}" from AgerPro?`;
+  openModal('delConfirmModal');
+}
+
+function confirmDeleteBatchNow() {
+  if (batchIdToDelete !== null) {
+    items = items.filter(x => String(x.id) !== String(batchIdToDelete));
+    batchIdToDelete = null;
+    saveAll();
+    refreshUI();
+  }
+  closeModal('delConfirmModal');
 }
 
 function clearBatchAlert(id, alertKey) {
-  const b = items.find(x => x.id === id);
+  const b = items.find(x => String(x.id) === String(id));
   if (!b) return;
   if (!b.clearedAlerts) b.clearedAlerts = {};
   b.clearedAlerts[alertKey] = true;
@@ -1138,14 +1191,16 @@ function clearBatchAlert(id, alertKey) {
 
 /* NOTIFICATION BELL & DUE DETECTION */
 function getBatchAlert(b) {
-  const elapsed = Math.max(0, Math.floor((Date.now() - new Date(b.startDate).getTime()) / 86400000));
+  const sDate = b.startDate || b.startD || new Date().toISOString().split('T')[0];
+  const tDays = b.targetDays || b.days || 28;
+  const elapsed = Math.max(0, Math.floor((Date.now() - new Date(sDate).getTime()) / 86400000));
   const cleared = b.clearedAlerts || {};
   const isActive = (!b.status || b.status === 'Active in Ager' || b.status === 'Active in Agers');
   if (isActive) {
-    if (elapsed >= b.targetDays && !cleared.harvestDay) {
+    if (elapsed >= tDays && !cleared.harvestDay) {
       return { key: 'harvestDay', text: "🔪 IT'S HARVEST DAY! (" + elapsed + "d reached)" };
     }
-    if (elapsed === b.targetDays - 1 && !cleared.dayBefore) {
+    if (elapsed === tDays - 1 && !cleared.dayBefore) {
       return { key: 'dayBefore', text: "🚨 GET READY TO HARVEST TOMORROW!" };
     }
   }
@@ -1201,10 +1256,11 @@ function renderList() {
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
   const catIcon = { meat:'🥩', fish:'🐟', salami:'🥓', cheese:'🧀' };
   let filtered = items.filter(i => {
+    const cutTitle = i.cut || i.name || '';
     if (q) {
-      return (i.code || '').toLowerCase().includes(q) || (i.cut || '').toLowerCase().includes(q) || (i.notes || '').toLowerCase().includes(q);
+      return (i.code || '').toLowerCase().includes(q) || cutTitle.toLowerCase().includes(q) || (i.notes || '').toLowerCase().includes(q);
     }
-    return (i.fridge || fridges[0]) === currentFridge && i.mode === currentMode;
+    return (i.fridge || fridges[0]) === currentFridge && (i.mode || 'meat') === currentMode;
   });
 
   const box = document.getElementById('batchList');
@@ -1214,9 +1270,15 @@ function renderList() {
   }
 
   box.innerHTML = filtered.map(b => {
-    const elapsed = Math.max(0, Math.floor((Date.now() - new Date(b.startDate).getTime()) / 86400000));
-    const lossPct = b.startWeight > 0 ? (((b.startWeight - b.currentWeight) / b.startWeight) * 100).toFixed(1) : '0.0';
-    const progPct = Math.min(100, Math.round((elapsed / (b.targetDays || 28)) * 100));
+    const sDate = b.startDate || b.startD || new Date().toISOString().split('T')[0];
+    const tDays = b.targetDays || b.days || 28;
+    const sWeight = b.startWeight || b.startW || 0;
+    const cWeight = b.currentWeight || sWeight;
+    const cutTitle = b.cut || b.name || 'Aging Cut';
+
+    const elapsed = Math.max(0, Math.floor((Date.now() - new Date(sDate).getTime()) / 86400000));
+    const lossPct = sWeight > 0 ? (((sWeight - cWeight) / sWeight) * 100).toFixed(1) : '0.0';
+    const progPct = Math.min(100, Math.round((elapsed / tDays) * 100));
     const alertObj = getBatchAlert(b);
 
     let stageBanner = '';
@@ -1241,7 +1303,7 @@ function renderList() {
 
     const logs = b.logs || [];
     const logsHTML = logs.map(l => {
-      const lLoss = b.startWeight > 0 ? (((b.startWeight - l.weight) / b.startWeight) * 100).toFixed(1) : '0.0';
+      const lLoss = sWeight > 0 ? (((sWeight - l.weight) / sWeight) * 100).toFixed(1) : '0.0';
       return `
         <div class="log-row">
           <span>📅 ${l.date} — <b>${fmtWeight(l.weight)}</b> (-${lLoss}%) ${l.note ? `• <i>${l.note}</i>` : ''}</span>
@@ -1255,22 +1317,22 @@ function renderList() {
         ${alertObj ? `
           <div class="alert-banner">
             <span>${alertObj.text}</span>
-            <button class="alert-clr" onclick="clearBatchAlert('${b.id}','${alertObj.key}')">✓ CLEAR</button>
+            <button type="button" class="alert-clr" onclick="clearBatchAlert('${b.id}','${alertObj.key}')">✓ CLEAR</button>
           </div>
         ` : ''}
         <div class="b-top">
           <div>
             <span class="b-code">${b.code || 'PRO-BATCH'}</span>
             ${b.program ? `<span class="b-code" style="border-color:var(--copper); color:#fde68a;">${b.program}</span>` : ''}
-            <h3 class="b-title">${catIcon[b.mode] || '🥩'} ${b.cut}</h3>
-            <div class="b-meta">Started: <b>${b.startDate}</b> • Chamber: <b>${b.fridge || fridges[0]}</b></div>
+            <h3 class="b-title">${catIcon[b.mode] || '🥩'} ${cutTitle}</h3>
+            <div class="b-meta">Started: <b>${sDate}</b> • Chamber: <b>${b.fridge || fridges[0]}</b></div>
           </div>
-          <button class="del-x" onclick="deleteBatch('${b.id}')" title="Delete Batch">✕</button>
+          <button type="button" class="del-x" onclick="askDeleteBatch('${b.id}')" title="Delete Batch">✕</button>
         </div>
 
         <div class="stats-grid">
-          <div class="stat-pill"><div class="stat-lbl">Age / Target</div><div class="stat-val">${elapsed} / ${b.targetDays}d</div></div>
-          <div class="stat-pill"><div class="stat-lbl">Weight</div><div class="stat-val">${fmtWeight(b.currentWeight)}</div></div>
+          <div class="stat-pill"><div class="stat-lbl">Age / Target</div><div class="stat-val">${elapsed} / ${tDays}d</div></div>
+          <div class="stat-pill"><div class="stat-lbl">Weight</div><div class="stat-val">${fmtWeight(cWeight)}</div></div>
           <div class="stat-pill"><div class="stat-lbl">Water Loss</div><div class="stat-val" style="color:var(--gold);">-${lossPct}%</div></div>
         </div>
 
@@ -1280,8 +1342,8 @@ function renderList() {
         ${photoHTML}
 
         <div class="card-btns">
-          <button class="btn btn-green" onclick="openWeighModal('${b.id}')">⚖️ Weigh & Photo</button>
-          <button class="btn btn-red" onclick="openHarvestModal('${b.id}')">🔪 Harvest & Notes</button>
+          <button type="button" class="btn btn-green" onclick="openWeighModal('${b.id}')">⚖️ Weigh & Photo</button>
+          <button type="button" class="btn btn-red" onclick="openHarvestModal('${b.id}')">🔪 Harvest & Notes</button>
         </div>
 
         <details class="log-drop">
@@ -1371,6 +1433,7 @@ function importBackup(input) {
       if (data.items) items = data.items;
       if (data.customItems) customItems = data.customItems;
       if (data.maintData) maintData = data.maintData;
+      normalizeExistingBatches();
       saveAll();
       renderFridgesDropdown();
       refreshUI();
@@ -1391,6 +1454,7 @@ function refreshUI() {
   checkMaintOverdue();
 }
 
+normalizeExistingBatches();
 renderFridgesDropdown();
 refreshUI();
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(()=>{}); }
