@@ -12,14 +12,17 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;padding:0 0 130px;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.4}
 header{background:#120e0c;border-bottom:3px solid var(--gold);padding:10px 8px;position:sticky;top:0;z-index:40;box-shadow:0 4px 20px rgba(0,0,0,.9)}
-.h-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.h-row{display:flex;align-items:center;justify-content:space-between;gap:5px}
 .brand{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.b-title{font-size:1.1rem;font-weight:900;margin:0;color:#fff;letter-spacing:.3px}.b-title span{color:var(--gold)}
-.s-wrap{position:relative;flex:1;max-width:165px;min-width:90px;display:flex;align-items:center}
-.s-in{width:100%;background:#090706;border:1.5px solid var(--gold);border-radius:8px;padding:7px 24px 7px 8px;color:#fff;font-size:.82rem;font-weight:700;margin:0}
+.b-title{font-size:1.05rem;font-weight:900;margin:0;color:#fff;letter-spacing:.3px}.b-title span{color:var(--gold)}
+.s-wrap{position:relative;flex:1;max-width:150px;min-width:80px;display:flex;align-items:center}
+.s-in{width:100%;background:#090706;border:1.5px solid var(--gold);border-radius:8px;padding:7px 22px 7px 7px;color:#fff;font-size:.8rem;font-weight:700;margin:0}
 .s-in::placeholder{color:#a8a29e;font-weight:600}
 .s-clr{position:absolute;right:4px;background:var(--red);color:#fff;border:none;width:18px;height:18px;border-radius:4px;font-weight:900;font-size:.7rem;line-height:1;padding:0;cursor:pointer;display:none}
-.top-btn{background:#221a15;border:1.5px solid var(--gold);color:var(--glow);padding:7px 8px;border-radius:8px;font-size:.78rem;font-weight:900;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.top-btn{background:#221a15;border:1.5px solid var(--gold);color:var(--glow);padding:7px 8px;border-radius:8px;font-size:.76rem;font-weight:900;cursor:pointer;white-space:nowrap;flex-shrink:0;position:relative}
+.al-bell{background:#2a1212;border:2px solid #ef4444;color:#fff;padding:6px 9px;border-radius:8px;font-size:.82rem;font-weight:900;cursor:pointer;position:relative;display:none;align-items:center;gap:3px;box-shadow:0 0 12px rgba(239,68,68,.75);animation:pulse 1.5s infinite}
+.al-dot{background:#ef4444;color:#fff;border:1.5px solid #fff;border-radius:99px;padding:1px 5px;font-size:.68rem;font-weight:900;line-height:1.1}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 main{padding:14px;max-width:600px;margin:0 auto}
 .sec{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin:10px 0;font-weight:900}
 .bar{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:12px;margin-bottom:14px}
@@ -33,7 +36,8 @@ main{padding:14px;max-width:600px;margin:0 auto}
 .tile{background:var(--card);border:2px solid var(--bd);border-radius:14px;padding:14px 10px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .tile.active{border-color:var(--gold);background:rgba(212,175,55,.18);box-shadow:0 0 15px rgba(212,175,55,.3)}
 .m-box{background:var(--in);border:1px solid var(--bd);border-radius:10px;padding:10px 4px;text-align:center}
-.card{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:0 8px 24px rgba(0,0,0,.8)}
+.card{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:0 8px 24px rgba(0,0,0,.8);scroll-margin-top:75px}
+.card.hi-card{border-color:#ef4444;box-shadow:0 0 22px rgba(239,68,68,.55)}
 .tag{display:inline-block;background:rgba(212,175,55,.18);color:var(--glow);border:1px solid var(--gold);padding:3px 9px;border-radius:7px;font-size:.82rem;font-weight:900;margin:0 5px 5px 0}
 .gbox{background:var(--in);border:1.5px solid var(--bd);border-radius:14px;padding:12px 6px;text-align:center;position:relative}
 .rsvg{width:110px;height:110px;transform:rotate(-90deg);display:block;margin:0 auto}
@@ -51,20 +55,23 @@ main{padding:14px;max-width:600px;margin:0 auto}
 .m-con{background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:18px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
 input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd);border-radius:10px;padding:14px;color:#fff;font-size:1.05rem;font-weight:800;margin:5px 0 12px}
 .qbtn{background:#221a15;border:2px solid var(--gold);color:var(--glow);padding:12px 4px;border-radius:8px;font-weight:900;font-size:.95rem;cursor:pointer}
+.g-sec{background:var(--in);border:1px solid var(--bd);border-left:4px solid var(--gold);border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:.88rem;line-height:1.45}
+.g-sec b{color:var(--glow);display:block;font-size:.94rem;margin-bottom:3px}
 </style>
 </head>
 <body>
 <header>
   <div class="h-row">
     <div class="brand">
-      <img id="hdrLogo" style="width:36px;height:36px;border-radius:8px;border:1.5px solid var(--gold)">
+      <img id="hdrLogo" style="width:34px;height:34px;border-radius:8px;border:1.5px solid var(--gold)">
       <h1 class="b-title">AGER<span>PRO</span></h1>
     </div>
     <div class="s-wrap">
       <input type="text" id="batchSearch" class="s-in" placeholder="🔍 Batch #..." oninput="onSearch(this.value)">
       <button id="clrSearchBtn" class="s-clr" onclick="clearSearch()">✕</button>
     </div>
-    <div style="display:flex;gap:4px;flex-shrink:0">
+    <div style="display:flex;gap:4px;align-items:center;flex-shrink:0">
+      <button class="al-bell" id="alertBell" onclick="jumpToNextAlert()" title="Jump to Active Reminder">🔔<span class="al-dot" id="alertCount">0</span></button>
       <button class="top-btn" id="unitBtn" onclick="toggleUnit()">⚖️ g/kg</button>
       <button class="top-btn" onclick="openM('guideM')">📋</button>
     </div>
@@ -92,17 +99,39 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
 <div class="b-bar" id="botBar"></div>
 <div class="modal" id="msgM"><div class="m-con" style="max-width:380px;text-align:center"><h2 style="margin-top:0;color:var(--glow);font-size:1.3rem">🥩 AgerPro Says</h2><p id="msgTxt" style="font-size:1.05rem;font-weight:700;margin:14px 0 20px;line-height:1.45"></p><button class="btn b-grn" onclick="closeM('msgM')">OK</button></div></div>
 <div class="modal" id="guideM"><div class="m-con">
-  <h2 style="margin-top:0;color:var(--glow)">📖 AgerPro Checklist</h2>
-  <p><b>1. Prep:</b> UVC ON for Meat/Poultry/Fish (<b>OFF for Salami & Cheese</b>). Wipe bone dust clean; hook through bone, never meat.</p>
-  <p><b>2. Climates:</b><br>
-  • <b>Basic (1.5°C | 80–82% RH):</b> Gentle maturation & maximum yield.<br>
-  • <b>Intense (1.8°C | 75–78% RH):</b> Concentrates nutty steakhouse flavor.<br>
-  • <b>Intense+ (2.5°C–3.0°C | 72–75% RH):</b> Warmer temp & lower RH speeds up enzymes for deeper funk in the same days.<br>
-  • <b>Salami (12°C–14°C | 75–82% RH | UVC OFF):</b> Harvest by target weight loss % (25%–40% loss).<br>
-  • <b>Cheese (10°C–12°C | 85–90% RH | UVC OFF):</b> Universal cave setting; time is open-ended—just flip wheels every 3–4 days.</p>
+  <h2 style="margin-top:0;color:var(--glow)">📖 Master Butcher's Field Guide</h2>
+  <div class="g-sec">
+    <b>1. Buying & Selection Rules</b>
+    • <b>Skip Old Cryovac Meat:</b> Buy cuts freshly broken down (5–10 days post-slaughter). Meat wet-aged in blood purge for 3+ weeks develops sour/metallic lactic notes.<br>
+    • <b>Bone-In & Fat Cap Intact:</b> Bones and thick dorsal fat shield the eye muscle so you only trim outer crust, not expensive steak.<br>
+    • <b>Marbling & Heifer Beef:</b> Higher intramuscular fat protects fibres from over-drying and absorbs rich, nutty aroma compounds.
+  </div>
+  <div class="g-sec">
+    <b>2. Cabinet Hygiene & Loading</b>
+    • <b>Sanitise First:</b> Wipe racks, hooks, and walls with food-safe sanitiser or 70% alcohol before loading. Never touch meat with bare unwashed hands.<br>
+    • <b>Airflow & Hook Rules:</b> Leave 5–8cm spacing between pieces. Wipe away all bone sawdust after sawing. Always pierce hooks through the bone—never pierce the meat flesh.<br>
+    • <b>UVC Light Rule:</b> Keep UVC <b>ON</b> for Meat, Poultry & Fish. Keep UVC <b>STRICTLY OFF</b> for Salami & Cheese (UV kills beneficial curing flora).
+  </div>
+  <div class="g-sec">
+    <b>3. How Basic / Intense / Intense+ Climates Work</b>
+    • <b>Basic (1.5°C | 80–82% RH):</b> Higher humidity keeps outer pellicle thin for maximum yield & gentle tenderisation.<br>
+    • <b>Intense (1.8°C | 75–78% RH):</b> Drier air draws out more free water to concentrate roasted-hazelnut & buttery umami flavour.<br>
+    • <b>Intense+ (2.5°C–3.0°C | 72–75% RH):</b> Slightly warmer temp & lower RH accelerates natural enzymes (<i>calpains</i>) to achieve deep steakhouse funk in the exact same number of days!
+  </div>
+  <div class="g-sec">
+    <b>4. Mould Check & Salami Case-Hardening</b>
+    • <b>Good vs. Bad Mould:</b> Fine chalky white mould (<i>Penicillium nalgiovense</i>) is desirable on salami. Green, black, or furry whisker mould means humidity is too high or airflow is blocked—wipe immediately with vinegar/brine.<br>
+    • <b>Case Hardening (Salami):</b> If humidity drops below 70% too early, the outside of a salami dries into a hard shell that traps raw wet meat inside. Keep RH at 75–82%.
+  </div>
+  <div class="g-sec">
+    <b>5. Harvest, Trimming & Storage Lifespans</b>
+    • <b>Pellicle Excision:</b> Use a stiff boning knife to shave off all dark, leathery outer crust (1–3mm). Never eat raw pellicle (render trimmings into tallow or burger fat).<br>
+    • <b>In Fridge — Ready to Eat (Unsealed):</b> Trimmed steaks or roasts kept in the fridge or dry ager on a rack/plate last <b>8–10 days max</b>. Cook before Day 10!<br>
+    • <b>Vacuum Sealed & Chilled:</b> Lasts <b>30–45 days</b> at 0–2°C.<br>
+    • <b>Deep Frozen (-18°C):</b> Lasts <b>12+ months</b> in vacuum bags with zero cell-wall damage or purge drip because excess free water already evaporated during dry aging.
+  </div>
   <button id="pwaBtn" class="btn b-grn" style="display:none;margin-bottom:10px" onclick="installPWA()">📲 Install Clean App</button>
-  <a id="dlIcon" download="icon.png" class="btn b-gold" style="display:block;text-align:center;text-decoration:none;margin-bottom:10px">📥 Download icon.png</a>
-  <button class="btn b-red" onclick="closeM('guideM')">Close Guide</button>
+  <button class="btn b-gold" onclick="closeM('guideM')">Close Field Guide</button>
 </div></div>
 <div class="modal" id="fridgeM"><div class="m-con"><h2 style="margin-top:0;color:var(--glow)">⚙️ Manage Fridges</h2><input id="newFName" placeholder="e.g. Thermaster MA400 #2"><button class="btn b-grn" onclick="addFridge()" style="margin-bottom:14px">+ Add Fridge</button><div id="fList"></div><button class="btn b-red" onclick="closeM('fridgeM')" style="margin-top:12px">Done</button></div></div>
 <div class="modal" id="addM"><div class="m-con">
@@ -122,7 +151,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   <div class="grid2"><button class="btn b-red" onclick="closeM('addM')">Cancel</button><button class="btn b-grn" onclick="saveBatch()">Start Aging</button></div>
 </div></div>
 <div class="modal" id="weighM"><div class="m-con"><h2 style="margin-top:0;color:var(--glow)">⚖️ Log New Weight</h2><input type="hidden" id="wId"><div id="wMGrp"><label>Current Weight (Grams)</label><input type="number" id="nwG"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px"><button class="qbtn" onclick="stepG(-50)">-50g</button><button class="qbtn" onclick="stepG(-10)">-10g</button><button class="qbtn" onclick="stepG(10)">+10g</button><button class="qbtn" onclick="stepG(50)">+50g</button></div></div><div id="wIGrp" style="display:none"><label>Current Weight (lb / oz)</label><div class="grid2"><input type="number" id="nwLb"><input type="number" step="0.1" id="nwOz"></div></div><div class="grid2"><button class="btn b-red" onclick="closeM('weighM')">Cancel</button><button class="btn b-grn" onclick="saveWeight()">Save Weight</button></div></div></div>
-<div class="modal" id="harvM"><div class="m-con"><h2 style="margin-top:0;color:var(--glow)">🔪 Harvest & Storage Notes</h2><input type="hidden" id="hId"><label>Lifecycle Stage</label><select id="hStat"><option value="Active in Agers">🥩 Active in Dry Ager</option><option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled</option><option value="Deep Frozen (-18C)">🧊 Deep Frozen (-18°C)</option><option value="Consumed / Enjoyed">🍽️ Consumed / Eaten</option></select><label>Action Date</label><input type="date" id="hDate"><label>Tasting & Butcher Notes</label><textarea id="hNotes" rows="3" placeholder="e.g. Great aroma and texture, spot-on spice balance."></textarea><div class="grid2"><button class="btn b-red" onclick="closeM('harvM')">Cancel</button><button class="btn b-grn" onclick="saveHarv()">Save Record</button></div></div></div>
+<div class="modal" id="harvM"><div class="m-con"><h2 style="margin-top:0;color:var(--glow)">🔪 Harvest & Storage Notes</h2><input type="hidden" id="hId"><label>Lifecycle Stage</label><select id="hStat" onchange="updHarvHint()"><option value="Active in Agers">🥩 Active in Dry Ager</option><option value="In Fridge - Ready to Eat">🍽️ In Fridge — Ready to Eat (Not Cryo • Max 8–10d)</option><option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (Cryo • 30–45d Max)</option><option value="Deep Frozen (-18C)">🧊 Deep Frozen in Cryo (-18°C • 12+ Mos)</option><option value="Consumed / Enjoyed">✅ Consumed / Eaten</option></select><div id="harvHint" style="font-size:.84rem;color:#fdba74;margin:-4px 0 10px;font-weight:700"></div><label>Action Date</label><input type="date" id="hDate"><label>Tasting & Butcher Notes</label><textarea id="hNotes" rows="3" placeholder="e.g. Nutty aroma, 42 days, great yield."></textarea><div class="grid2"><button class="btn b-red" onclick="closeM('harvM')">Cancel</button><button class="btn b-grn" onclick="saveHarv()">Save Record</button></div></div></div>
 <script>
 (function(){
   var c=document.createElement('canvas');c.width=512;c.height=512;var x=c.getContext('2d');
@@ -138,7 +167,7 @@ input,select,textarea{width:100%;background:var(--in);border:2px solid var(--bd)
   x.fillStyle='#b91c1c';x.strokeStyle='#fef3c7';x.lineWidth=8;x.beginPath();
   x.moveTo(236,144);x.bezierCurveTo(280,140,356,240,356,318);x.bezierCurveTo(356,385,295,412,245,410);x.bezierCurveTo(175,408,155,355,165,305);x.bezierCurveTo(175,260,220,210,236,144);x.fill();x.stroke();
   x.strokeStyle='#fef3c7';x.lineWidth=6;x.beginPath();x.moveTo(190,315);x.lineTo(265,280);x.lineTo(335,305);x.moveTo(210,360);x.lineTo(275,340);x.lineTo(325,365);x.moveTo(250,180);x.lineTo(265,275);x.stroke();
-  var u=c.toDataURL('image/png');document.getElementById('hdrLogo').src=u;document.getElementById('dlIcon').href=u;
+  var u=c.toDataURL('image/png');document.getElementById('hdrLogo').src=u;
   ['icon','apple-touch-icon'].forEach(r=>{var l=document.createElement('link');l.rel=r;l.href=u;document.head.appendChild(l);});
 })();
 var defPrompt=null;
@@ -318,7 +347,7 @@ const MODES={
     {n:"Parmesan / Grana Hard Wheel",d:0,t:"🧀 <b>UNIVERSAL SETTING (10–12°C | 85–90% RH | UVC OFF):</b> Open-ended maturation; brush and flip weekly."}
   ]}
 };
-var fridges=JSON.parse(localStorage.getItem('dryAgeFridges')||'["Thermaster MA400 #1"]'),curF=localStorage.getItem('dryAgeCurrentFridge')||fridges[0],unit=localStorage.getItem('dryAgeUnitSystem')||'metric',items=JSON.parse(localStorage.getItem('dryAgeItemsV5')||localStorage.getItem('dryAgeItemsV4')||'[]'),cust=JSON.parse(localStorage.getItem('dryAgeCustomItemsV5')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}'),curM='meat',searchQ='',curProgIdx=0;
+var fridges=JSON.parse(localStorage.getItem('dryAgeFridges')||'["Thermaster MA400 #1"]'),curF=localStorage.getItem('dryAgeCurrentFridge')||fridges[0],unit=localStorage.getItem('dryAgeUnitSystem')||'metric',items=JSON.parse(localStorage.getItem('dryAgeItemsV5')||localStorage.getItem('dryAgeItemsV4')||'[]'),cust=JSON.parse(localStorage.getItem('dryAgeCustomItemsV5')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}'),curM='meat',searchQ='',curProgIdx=0,alertIdx=0;
 function save(){localStorage.setItem('dryAgeFridges',JSON.stringify(fridges));localStorage.setItem('dryAgeCurrentFridge',curF);localStorage.setItem('dryAgeUnitSystem',unit);localStorage.setItem('dryAgeItemsV5',JSON.stringify(items));localStorage.setItem('dryAgeCustomItemsV5',JSON.stringify(cust));}
 function fmtW(g){g=parseFloat(g)||0;if(unit==='imperial'){var oz=g/28.3495,lb=Math.floor(oz/16);return lb+'lb '+Math.round(oz%16)+'oz';}return Math.round(g)+'g';}
 function toggleUnit(){unit=unit==='metric'?'imperial':'metric';save();refresh();}
@@ -331,6 +360,40 @@ function clearSearch(){searchQ='';document.getElementById('batchSearch').value='
 function getActBatches(){return items.filter(i=>(i.fridge||fridges[0])===curF&&(i.status||'Active in Agers')==='Active in Agers');}
 function getActCat(){var a=getActBatches();return a.length?a[0].mode:null;}
 function selCat(m){var a=getActCat();if(a&&a!==m)return msg('⚠️ '+curF+' is locked to '+MODES[a].name+' while a batch is active.');curM=m;refresh();}
+function getBatchAlert(b){
+  var bm=MODES[b.mode||'meat'],isOpen=!b.days||b.days<=0||(bm&&bm.openTime),ca=b.clearedAlerts||{},st=b.status||'Active in Agers';
+  if(!isOpen&&st==='Active in Agers'){
+    var el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/864e5));
+    if(el>=b.days&&!ca.dayOf)return{type:'dayOf',title:"🔪 IT'S HARVEST DAY!",sub:"Target of "+b.days+" days reached! Trim pellicle & portion, or move to Fridge/Cryo."};
+    if(el===(b.days-1)&&!ca.dayBefore)return{type:'dayBefore',title:"🚨 GET READY TO HARVEST TOMORROW!",sub:"1 day remaining ("+el+"/"+b.days+" days)."};
+  }
+  if(st==='In Fridge - Ready to Eat'){
+    var fDays=Math.max(0,Math.floor((new Date()-new Date(b.statusDate||b.startD))/864e5));
+    if(fDays>=10&&!ca.fridgeMax)return{type:'fridgeMax',title:"🚨 10-DAY FRIDGE LIMIT REACHED!",sub:"In fridge for "+fDays+" days (max 8–10d unsealed). Cook today or vacuum-seal & freeze immediately!"};
+    if(fDays>=8&&!ca.fridgeWarn)return{type:'fridgeWarn',title:"🍽️ EAT OR FREEZE SOON (DAY "+fDays+" OF 10)!",sub:"Unsealed in fridge for "+fDays+" days (recommended max 8–10 days)."};
+  }
+  return null;
+}
+function getAllAlertBatches(){return items.filter(b=>getBatchAlert(b)!==null);}
+function jumpToNextAlert(){
+  var alList=getAllAlertBatches();
+  if(!alList.length)return;
+  if(alertIdx>=alList.length)alertIdx=0;
+  var target=alList[alertIdx++];
+  clearSearch();
+  curF=target.fridge||fridges[0];
+  curM=target.mode||'meat';
+  save();
+  refresh();
+  setTimeout(function(){
+    var el=document.getElementById('batch-card-'+target.id);
+    if(el){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('hi-card');
+      setTimeout(()=>el.classList.remove('hi-card'),2600);
+    }
+  },80);
+}
 function openFridges(){document.getElementById('fList').innerHTML=fridges.map(f=>`<div style="display:flex;justify-content:space-between;padding:10px;background:var(--in);border:1px solid var(--bd);border-radius:8px;margin-bottom:6px"><b>${f}</b>${fridges.length>1?`<button onclick="delF('${f}')" style="background:var(--red);color:#fff;border:none;padding:5px 10px;border-radius:6px;font-weight:800">Delete</button>`:'<span>Default</span>'}</div>`).join('');openM('fridgeM');}
 function addFridge(){var n=document.getElementById('newFName').value.trim();if(!n||fridges.includes(n))return;fridges.push(n);curF=n;document.getElementById('newFName').value='';save();openFridges();refresh();}
 function delF(n){if(confirm('Delete '+n+'?')){fridges=fridges.filter(f=>f!==n);items=items.filter(i=>i.fridge!==n);curF=fridges[0];save();openFridges();refresh();}}
@@ -371,13 +434,22 @@ function saveBatch(){var m=getActCat()||curM,it=getList(m)[document.getElementBy
 function openWeigh(id){document.getElementById('wId').value=id;var b=items.find(x=>x.id===id),w=b.history.length?b.history[b.history.length-1].weight:b.startW;document.getElementById('wMGrp').style.display=unit==='metric'?'block':'none';document.getElementById('wIGrp').style.display=unit==='imperial'?'block':'none';if(unit==='imperial'){var oz=w/28.3495;document.getElementById('nwLb').value=Math.floor(oz/16);document.getElementById('nwOz').value=(oz%16).toFixed(1);}else document.getElementById('nwG').value=Math.round(w);openM('weighM');}
 function stepG(d){document.getElementById('nwG').value=Math.max(0,(parseFloat(document.getElementById('nwG').value)||0)+d);}
 function saveWeight(){var id=parseInt(document.getElementById('wId').value),w=unit==='imperial'?Math.round(((parseFloat(document.getElementById('nwLb').value)||0)*16+(parseFloat(document.getElementById('nwOz').value)||0))*28.3495):parseFloat(document.getElementById('nwG').value)||0;if(w<=0)return;items.forEach(x=>{if(x.id===id)x.history.push({date:new Date().toISOString().split('T')[0],weight:w});});save();closeM('weighM');refresh();}
-function openHarv(id){document.getElementById('hId').value=id;var b=items.find(x=>x.id===id);document.getElementById('hStat').value=b.status||'Active in Agers';document.getElementById('hDate').value=b.statusDate||new Date().toISOString().split('T')[0];document.getElementById('hNotes').value=b.notes||'';openM('harvM');}
-function saveHarv(){var id=parseInt(document.getElementById('hId').value);items.forEach(x=>{if(x.id===id){x.status=document.getElementById('hStat').value;x.statusDate=document.getElementById('hDate').value;x.notes=document.getElementById('hNotes').value;}});save();closeM('harvM');refresh();}
+function updHarvHint(){
+  var v=document.getElementById('hStat').value,h=document.getElementById('harvHint');
+  if(v==='In Fridge - Ready to Eat')h.innerText='⏱️ Tracks a 10-day Ready-to-Eat countdown (alerts on Day 8 & Day 10).';
+  else if(v==='Vacuum Sealed Chilled')h.innerText='❄️ Cryovac sealed steaks keep 30–45 days chilled at 0–2°C.';
+  else if(v==='Deep Frozen (-18C)')h.innerText='🧊 Cryovac frozen steaks keep 12+ months at -18°C with zero purge loss.';
+  else h.innerText='';
+}
+function openHarv(id){document.getElementById('hId').value=id;var b=items.find(x=>x.id===id);document.getElementById('hStat').value=b.status||'Active in Agers';document.getElementById('hDate').value=b.statusDate||new Date().toISOString().split('T')[0];document.getElementById('hNotes').value=b.notes||'';updHarvHint();openM('harvM');}
+function saveHarv(){var id=parseInt(document.getElementById('hId').value);items.forEach(x=>{if(x.id===id){var newSt=document.getElementById('hStat').value;if(newSt!==x.status&&newSt==='In Fridge - Ready to Eat'){if(x.clearedAlerts){delete x.clearedAlerts.fridgeWarn;delete x.clearedAlerts.fridgeMax;}}x.status=newSt;x.statusDate=document.getElementById('hDate').value;x.notes=document.getElementById('hNotes').value;}});save();closeM('harvM');refresh();}
 function clearAlert(id,t){items.forEach(x=>{if(x.id===id){if(!x.clearedAlerts)x.clearedAlerts={};x.clearedAlerts[t]=true;}});save();refresh();}
 function delB(id){if(confirm('Delete batch permanently?')){items=items.filter(x=>x.id!==id);save();refresh();}}
 function refresh(){
   document.getElementById('fridgeSel').innerHTML=fridges.map(f=>`<option value="${f}" ${f===curF?'selected':''}>${f}</option>`).join('');
   document.getElementById('unitBtn').innerText=unit==='metric'?'⚖️ g/kg':'⚖️ lb/oz';
+  var allAlerts=getAllAlertBatches(),bell=document.getElementById('alertBell');
+  if(allAlerts.length>0){bell.style.display='inline-flex';document.getElementById('alertCount').innerText=allAlerts.length;}else{bell.style.display='none';}
   var actB=getActBatches(),m=actB.length?actB[0].mode:curM;curM=m;
   document.querySelectorAll('.tile').forEach(e=>e.classList.remove('active'));document.getElementById('t-'+m).classList.add('active');
   var mo=MODES[m],dispTemp=(actB.length&&actB[0].cTemp)?actB[0].cTemp:mo.temp,dispRh=(actB.length&&actB[0].cRh)?actB[0].cRh:mo.rh;
@@ -387,16 +459,20 @@ function refresh(){
   document.getElementById('listSecTitle').innerText=q?`🔍 Search Results (${fl.length} Found):`:`2. Active Batches & Gauges:`;
   if(!fl.length){document.getElementById('batchBox').innerHTML=`<div class="card" style="text-align:center;color:var(--mu)">${q?`No batches matching "<b>${searchQ}</b>"`:`No active batches in <b>${curF}</b>. Tap the gold button below to start!`}</div>`;return;}
   document.getElementById('batchBox').innerHTML=fl.map(b=>{
-    var bm=MODES[b.mode||'meat']||mo,isOpen=!b.days||b.days<=0||bm.openTime,goalLoss=b.tLoss||bm.loss,lw=b.history&&b.history.length?b.history[b.history.length-1].weight:b.startW,el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/864e5)),ls=Math.max(0,((b.startW-lw)/b.startW)*100),dp=isOpen?100:Math.min(100,Math.max(4,Math.round((el/b.days)*100))),lp=Math.min(100,Math.max(4,Math.round((ls/goalLoss)*100)));
+    var bm=MODES[b.mode||'meat']||mo,st=b.status||'Active in Agers',isFridgeEat=(st==='In Fridge - Ready to Eat'),isOpen=(!b.days||b.days<=0||bm.openTime)&&!isFridgeEat,goalLoss=b.tLoss||bm.loss,lw=b.history&&b.history.length?b.history[b.history.length-1].weight:b.startW,el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/864e5)),fDays=Math.max(0,Math.floor((new Date()-new Date(b.statusDate||b.startD))/864e5)),ls=Math.max(0,((b.startW-lw)/b.startW)*100);
+    var gaugeDays=isFridgeEat?fDays:el,gaugeTarget=isFridgeEat?10:b.days;
+    var dp=isOpen?100:Math.min(100,Math.max(4,Math.round((gaugeDays/gaugeTarget)*100))),lp=Math.min(100,Math.max(4,Math.round((ls/goalLoss)*100)));
     var hRows=(b.history||[{date:b.startD,weight:b.startW}]).map(h=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>📅 ${h.date}</span><b>${fmtW(h.weight)} (-${(((b.startW-h.weight)/b.startW)*100).toFixed(1)}%)</b></div>`).join('');
-    var al='',ca=b.clearedAlerts||{};
-    if(!isOpen&&(b.status||'Active in Agers')==='Active in Agers'){
-      if(el>=b.days&&!ca.dayOf)al=`<div class="alert-b"><div><b style="font-size:1.05rem;display:block">🔪 IT'S HARVEST DAY!</b><small>Target of ${b.days} days reached!</small></div><button class="clr-btn" onclick="clearAlert(${b.id},'dayOf')">✓ CLEAR</button></div>`;
-      else if(el===(b.days-1)&&!ca.dayBefore)al=`<div class="alert-b"><div><b style="font-size:1rem;display:block">🚨 GET READY TO HARVEST TOMORROW!</b><small>1 day remaining (${el}/${b.days} days).</small></div><button class="clr-btn" onclick="clearAlert(${b.id},'dayBefore')">✓ CLEAR</button></div>`;
+    var alObj=getBatchAlert(b),al='';
+    if(alObj){
+      al=`<div class="alert-b"><div><b style="font-size:1.02rem;display:block">${alObj.title}</b><small>${alObj.sub}</small></div><button class="clr-btn" onclick="clearAlert(${b.id},'${alObj.type}')">✓ CLEAR</button></div>`;
     }
     var cleanName=(b.name||'').replace(/\s*•\s*No\.\s*P\d+/gi,'');
     var climBadge=(b.cTemp&&b.cRh)?`<span class="tag" style="border-color:var(--cop);color:#fdba74">🌡️ ${b.cTemp} • 💧 ${b.cRh}</span>`:'';
-    return `<div class="card">${al}<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bd);padding-bottom:10px;margin-bottom:12px"><div><span class="tag">🏷️ ${b.code||'PRO'}</span>${climBadge}${q?`<span class="tag">❄️ ${b.fridge||fridges[0]}</span>`:''}<h3 style="margin:4px 0;font-size:1.2rem;color:#fff">${bm.icon} ${cleanName}</h3><small style="color:var(--mu)">In: ${b.startD} • ${isOpen?'Open-Ended Cave Aging (Flip every 3–4d)':'Target: '+b.days+'d'}</small></div><button onclick="delB(${b.id})" style="background:#2a1815;color:#ef4444;border:2px solid #7f1d1d;width:40px;height:40px;border-radius:8px;font-weight:900">✕</button></div><div class="grid2"><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#facc15" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(dp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.3rem;color:#fff;display:block">${el}</b><small style="color:var(--mu);font-size:.7rem;font-weight:800">${isOpen?'DAYS IN CAVE':'OF '+b.days+' DAYS'}</small></div><div style="margin-top:4px;font-weight:800;font-size:.82rem;color:var(--glow)">${isOpen?'🔄 Flip Every 3–4d':'⏱️ '+dp+'% Aged'}</div></div><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(lp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.3rem;color:#fff;display:block">-${ls.toFixed(1)}%</b><small style="color:var(--mu);font-size:.7rem;font-weight:800">${isOpen?'RIND LOSS':'GOAL -'+goalLoss+'%'}</small></div><div style="margin-top:4px;font-weight:800;font-size:.82rem;color:#fdba74">💧 Water Loss</div></div></div><div class="wstrip"><div><small style="color:var(--mu);display:block">START</small><b>${fmtW(b.startW)}</b></div><div><small style="color:var(--mu);display:block">NOW</small><b style="color:var(--glow)">${fmtW(lw)}</b></div><div><small style="color:var(--mu);display:block">SHED</small><b style="color:var(--cop)">-${fmtW(Math.max(0,b.startW-lw))}</b></div></div>${b.tip?`<div style="background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:8px 10px;border-radius:8px;font-size:.84rem;margin-bottom:8px;color:#d6d3d1">${b.tip}</div>`:''}<div style="padding:8px;background:rgba(255,255,255,.04);border-radius:8px;font-weight:800;color:var(--glow);margin-bottom:8px;font-size:.9rem">📍 Status: ${b.status||'Active'} (${b.statusDate||b.startD})</div>${b.notes?`<div style="background:rgba(212,175,55,.12);border-left:4px solid var(--gold);padding:8px;margin-bottom:8px;font-size:.9rem"><b>📝 Notes:</b> ${b.notes}</div>`:''}<div style="background:var(--in);border:1px solid var(--bd);border-radius:10px;padding:10px;font-size:.88rem;margin-bottom:12px"><b style="color:var(--gold);display:block;margin-bottom:4px">📊 Weigh-In Log:</b>${hRows}</div><div class="grid2" style="margin:0"><button class="btn b-grn" onclick="openWeigh(${b.id})">⚖️ Weigh</button><button class="btn b-red" onclick="openHarv(${b.id})">🔪 Harvest</button></div></div>`;
+    var ringColor=isFridgeEat?(fDays>=8?'#ef4444':'#22c55e'):'#facc15';
+    var ringSub=isFridgeEat?'OF 10d FRIDGE':(isOpen?'DAYS IN CAVE':'OF '+b.days+' DAYS');
+    var ringFoot=isFridgeEat?`🍽️ ${Math.max(0,10-fDays)}d Left to Eat`:(isOpen?'🔄 Flip Every 3–4d':'⏱️ '+dp+'% Aged');
+    return `<div class="card" id="batch-card-${b.id}">${al}<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bd);padding-bottom:10px;margin-bottom:12px"><div><span class="tag">🏷️ ${b.code||'PRO'}</span>${climBadge}${q?`<span class="tag">❄️ ${b.fridge||fridges[0]}</span>`:''}<h3 style="margin:4px 0;font-size:1.2rem;color:#fff">${bm.icon} ${cleanName}</h3><small style="color:var(--mu)">In: ${b.startD} • ${isFridgeEat?'In Fridge Since '+b.statusDate+' (Max 8–10d)':(isOpen?'Open-Ended Cave Aging':'Target: '+b.days+'d')}</small></div><button onclick="delB(${b.id})" style="background:#2a1815;color:#ef4444;border:2px solid #7f1d1d;width:40px;height:40px;border-radius:8px;font-weight:900">✕</button></div><div class="grid2"><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="${ringColor}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(dp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.3rem;color:#fff;display:block">${gaugeDays}</b><small style="color:var(--mu);font-size:.7rem;font-weight:800">${ringSub}</small></div><div style="margin-top:4px;font-weight:800;font-size:.82rem;color:var(--glow)">${ringFoot}</div></div><div class="gbox"><svg class="rsvg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#29201a" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c-(lp/100)*c}"/></svg><div class="rcenter"><b style="font-size:1.3rem;color:#fff;display:block">-${ls.toFixed(1)}%</b><small style="color:var(--mu);font-size:.7rem;font-weight:800">${isOpen?'RIND LOSS':'GOAL -'+goalLoss+'%'}</small></div><div style="margin-top:4px;font-weight:800;font-size:.82rem;color:#fdba74">💧 Water Loss</div></div></div><div class="wstrip"><div><small style="color:var(--mu);display:block">START</small><b>${fmtW(b.startW)}</b></div><div><small style="color:var(--mu);display:block">NOW</small><b style="color:var(--glow)">${fmtW(lw)}</b></div><div><small style="color:var(--mu);display:block">SHED</small><b style="color:var(--cop)">-${fmtW(Math.max(0,b.startW-lw))}</b></div></div>${b.tip?`<div style="background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:8px 10px;border-radius:8px;font-size:.84rem;margin-bottom:8px;color:#d6d3d1">${b.tip}</div>`:''}<div style="padding:8px;background:rgba(255,255,255,.04);border-radius:8px;font-weight:800;color:var(--glow);margin-bottom:8px;font-size:.9rem">📍 Status: ${st} (${b.statusDate||b.startD})</div>${b.notes?`<div style="background:rgba(212,175,55,.12);border-left:4px solid var(--gold);padding:8px;margin-bottom:8px;font-size:.9rem"><b>📝 Notes:</b> ${b.notes}</div>`:''}<div style="background:var(--in);border:1px solid var(--bd);border-radius:10px;padding:10px;font-size:.88rem;margin-bottom:12px"><b style="color:var(--gold);display:block;margin-bottom:4px">📊 Weigh-In Log:</b>${hRows}</div><div class="grid2" style="margin:0"><button class="btn b-grn" onclick="openWeigh(${b.id})">⚖️ Weigh</button><button class="btn b-red" onclick="openHarv(${b.id})">🔪 Harvest</button></div></div>`;
   }).join('');
 }
 refresh();
