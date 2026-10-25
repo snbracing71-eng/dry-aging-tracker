@@ -14,7 +14,7 @@
     :root {
       --bg: #0c0a09; --card: #1c1917; --border: #292524; --text: #f5f5f4;
       --muted: #a8a29e; --gold: #eab308; --primary: #b91c1c; --blue: #38bdf8;
-      --green: #22c55e; --red: #ef4444; --amber: #f59e0b;
+      --green: #16a34a; --red: #dc2626; --amber: #f59e0b;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
@@ -48,7 +48,7 @@
     }
     .big-icon-btn:active { transform: scale(0.97); background: rgba(234,179,8,0.18); }
     .big-icon-btn .bi-emo { font-size: 1.55rem; line-height: 1; }
-    .big-icon-btn .bi-lbl { font-size: 0.78rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.3px; }
+    .big-icon-btn .bi-lbl { font-size: 0.76rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.3px; }
 
     .fridge-bar {
       background: #161412; border: 2px solid var(--border); border-radius: 12px;
@@ -60,7 +60,7 @@
       background: #292524; color: #fff; border: 1.5px solid #57534e;
       padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; cursor: pointer;
     }
-    .mini-btn.alert { border-color: var(--red); background: rgba(239,68,68,0.2); color: #fecaca; }
+    .mini-btn.alert { border-color: var(--red); background: rgba(220,38,38,0.25); color: #fecaca; }
     select, input, textarea {
       width: 100%; background: #090807; border: 2px solid #3f3a36;
       border-radius: 10px; padding: 12px; color: #fff; font-size: 1rem; font-weight: 600;
@@ -127,10 +127,13 @@
       border: none; padding: 14px; border-radius: 11px; font-size: 1rem;
       font-weight: 800; cursor: pointer; width: 100%;
     }
-    .btn-sec { background: #292524; }
-    .btn-blue { background: #0284c7; padding: 11px 6px; font-size: 0.88rem; }
-    .btn-green { background: #16a34a; padding: 11px 6px; font-size: 0.88rem; }
-    .btn-gold { background: #ca8a04; padding: 11px 6px; font-size: 0.88rem; color: #fff; }
+    .btn-red { background: var(--red); color: #fff; padding: 14px; font-size: 1rem; }
+    .btn-green { background: var(--green); color: #fff; padding: 14px; font-size: 1rem; }
+    .btn-blue { background: #0284c7; color: #fff; padding: 11px 6px; font-size: 0.88rem; }
+    .btn-gold { background: #ca8a04; color: #fff; padding: 11px 6px; font-size: 0.88rem; }
+    .card-btn-green { background: var(--green); color: #fff; padding: 11px 6px; font-size: 0.88rem; }
+    .card-btn-red { background: var(--red); color: #fff; padding: 11px 6px; font-size: 0.88rem; }
+
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0; background: #141210;
       border-top: 2px solid var(--border); padding: 12px 14px; max-width: 600px;
@@ -213,7 +216,7 @@
   <main>
     <!-- BIG EASY-TO-TAP TOP ICON BAR ABOVE FRIDGE SELECTOR -->
     <div class="top-action-grid">
-      <button type="button" class="big-icon-btn" onclick="toggleUnit()">
+      <button type="button" class="big-icon-btn" onclick="toggleUnit()" title="Cycle g / kg / oz / lb">
         <span class="bi-emo">⚖️</span>
         <span class="bi-lbl" id="unitBtn">Unit: g</span>
       </button>
@@ -240,7 +243,7 @@
         </div>
       </div>
       <select id="fridgeSelect" onchange="switchFridge(this.value)"></select>
-      <div id="maintBanner" style="display:none; margin-top:8px; background:rgba(239,68,68,0.16); border:1px solid var(--red); color:#fecaca; padding:8px 10px; border-radius:8px; font-size:0.8rem; font-weight:700; cursor:pointer;" onclick="openMaintModal()"></div>
+      <div id="maintBanner" style="display:none; margin-top:8px; background:rgba(220,38,38,0.2); border:1px solid var(--red); color:#fecaca; padding:8px 10px; border-radius:8px; font-size:0.8rem; font-weight:700; cursor:pointer;" onclick="openMaintModal()"></div>
     </div>
 
     <div class="sec-title">1. Cabinet Climate Zone (Strictly 1 Zone Per Fridge):</div>
@@ -274,7 +277,7 @@
   </main>
 
   <div class="bottom-bar">
-    <button class="btn" onclick="openAddModal()">+ Add New Batch to Fridge</button>
+    <button class="btn btn-green" onclick="openAddModal()">+ Add New Batch to Fridge</button>
   </div>
 
   <!-- CUSTOM AGERPRO ALERT MODAL -->
@@ -282,7 +285,7 @@
     <div class="modal-content" style="max-width:380px; text-align:center; border-color:var(--gold);">
       <h3 style="margin-top:0; color:var(--gold);">🥩 AgerPro Says</h3>
       <p id="msgText" style="color:#fff; font-size:0.98rem; margin:14px 0 20px 0;"></p>
-      <button class="btn btn-green" onclick="closeModal('msgModal')">OK</button>
+      <button class="btn btn-red" onclick="closeModal('msgModal')">Close</button>
     </div>
   </div>
 
@@ -296,15 +299,15 @@
       <div class="step-box" style="border-color:var(--gold);">
         <strong>📤 Step 1: Save Backup File</strong>
         Downloads an <code>AgerPro-Backup.json</code> file to your phone's Downloads folder.
-        <button class="btn btn-blue" style="margin-top:10px;" onclick="exportBackup()">📤 Download Backup File Now</button>
+        <button class="btn btn-green" style="margin-top:10px;" onclick="exportBackup()">📤 Download Backup File Now</button>
       </div>
       <div class="step-box">
         <strong>📥 Step 2: Restore From Backup File</strong>
         Switching phones or cleared browser cache? Select your saved <code>.json</code> backup file to restore everything instantly:
-        <button class="btn btn-gold" style="margin-top:10px;" onclick="document.getElementById('importFile').click()">📥 Choose Backup File to Restore</button>
+        <button class="btn btn-gold" style="margin-top:10px; padding:14px;" onclick="document.getElementById('importFile').click()">📥 Choose Backup File to Restore</button>
         <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importBackup(event)">
       </div>
-      <button class="btn btn-sec" onclick="closeModal('backupModal')">Close</button>
+      <button class="btn btn-red" onclick="closeModal('backupModal')">Close</button>
     </div>
   </div>
 
@@ -317,10 +320,10 @@
       <div id="labelPrintArea" class="label-preview"></div>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
-        <button class="btn btn-blue" onclick="window.print()">🖨️ Print / Save PDF</button>
-        <button class="btn btn-gold" onclick="copyLabelText()">📋 Copy Label Text</button>
+        <button class="btn btn-blue" style="padding:13px;" onclick="window.print()">🖨️ Print / Save PDF</button>
+        <button class="btn btn-gold" style="padding:13px;" onclick="copyLabelText()">📋 Copy Label Text</button>
       </div>
-      <button class="btn btn-sec" onclick="closeModal('labelModal')">Close</button>
+      <button class="btn btn-red" onclick="closeModal('labelModal')">Close</button>
     </div>
   </div>
 
@@ -370,7 +373,7 @@
         </div>
       </div>
 
-      <button class="btn" onclick="closeModal('troubleModal')">Close Troubleshooter</button>
+      <button class="btn btn-red" onclick="closeModal('troubleModal')">Close</button>
     </div>
   </div>
 
@@ -383,7 +386,7 @@
       <div class="callout" style="font-size:0.82rem;">
         💡 <b>MA400 Tip:</b> Always remove the pink Himalayan salt block before spraying 70% food-grade ethanol inside the cabinet, and wipe away any standing liquid in the bottom tray every 3–5 days.
       </div>
-      <button class="btn" onclick="closeModal('maintModal')">Done</button>
+      <button class="btn btn-red" onclick="closeModal('maintModal')">Close</button>
     </div>
   </div>
 
@@ -411,7 +414,7 @@
         • Slice off 1–2mm dark pellicle (save for smash burgers or rendering tallow).<br>
         • Cut steaks 38–50mm thick. Vacuum-sealed steaks last 30–45 days chilled or 12+ months frozen at -18°C with zero drip loss.
       </div>
-      <button class="btn" onclick="closeModal('guideModal')">Close Guide</button>
+      <button class="btn btn-red" onclick="closeModal('guideModal')">Close</button>
     </div>
   </div>
 
@@ -423,11 +426,11 @@
         <label>Add New Cabinet / Fridge Name</label>
         <div style="display:flex; gap:8px;">
           <input type="text" id="newFridgeName" placeholder="e.g. Garage MA400 #2">
-          <button class="btn btn-green" style="width:auto; padding:0 16px;" onclick="addFridge()">Add</button>
+          <button class="btn btn-green" style="width:auto; padding:0 18px;" onclick="addFridge()">Add</button>
         </div>
       </div>
       <div id="fridgeManageList" style="margin:14px 0;"></div>
-      <button class="btn btn-sec" onclick="closeModal('fridgeModal')">Close</button>
+      <button class="btn btn-red" onclick="closeModal('fridgeModal')">Close</button>
     </div>
   </div>
 
@@ -473,8 +476,8 @@
         <input type="date" id="inDate">
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
-        <button class="btn btn-sec" onclick="closeModal('addModal')">Cancel</button>
-        <button class="btn" onclick="saveNewBatch()">Start Aging</button>
+        <button class="btn btn-red" onclick="closeModal('addModal')">Cancel</button>
+        <button class="btn btn-green" onclick="saveNewBatch()">Start Aging</button>
       </div>
     </div>
   </div>
@@ -489,8 +492,8 @@
         <input type="number" step="any" id="inNewWeight" placeholder="e.g. 5650">
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px;">
-        <button class="btn btn-sec" onclick="closeModal('weighModal')">Cancel</button>
-        <button class="btn btn-blue" onclick="saveNewWeight()">Save Weight</button>
+        <button class="btn btn-red" onclick="closeModal('weighModal')">Cancel</button>
+        <button class="btn btn-green" onclick="saveNewWeight()">Save Weight</button>
       </div>
     </div>
   </div>
@@ -523,9 +526,9 @@
         <label>Sensory & Replication Notes (Aroma, Crust, Tenderness)</label>
         <textarea id="tastingNotes" rows="3" placeholder="e.g. Rich roasted hazelnut aroma, 45mm thick steaks, incredible crust."></textarea>
       </div>
-      <button type="button" class="btn btn-gold" style="margin-bottom:10px;" onclick="openLabelFromHarvest()">🏷️ View / Print Freezer Bag Label</button>
+      <button type="button" class="btn btn-gold" style="margin-bottom:10px; padding:13px;" onclick="openLabelFromHarvest()">🏷️ View / Print Freezer Bag Label</button>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <button class="btn btn-sec" onclick="closeModal('harvestModal')">Cancel</button>
+        <button class="btn btn-red" onclick="closeModal('harvestModal')">Cancel</button>
         <button class="btn btn-green" onclick="saveHarvestDetails()">Save Lifecycle</button>
       </div>
     </div>
@@ -539,49 +542,49 @@
 
     const BIBLE_PROGS = {
       std21_28: [
-        { label: "Basic", days: 21, code: "P1", temp: "1.5°C", rh: "82% RH" },
-        { label: "Intense", days: 28, code: "P9", temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 28, code: "P5", temp: "2.8°C", rh: "73% RH" }
+        { label: "Basic", days: 21, temp: "1.5°C", rh: "82% RH" },
+        { label: "Intense", days: 28, temp: "2.0°C", rh: "76% RH" },
+        { label: "Intense+", days: 28, temp: "2.8°C", rh: "73% RH" }
       ],
       rib21_42: [
-        { label: "Basic", days: 21, code: "P1", temp: "1.5°C", rh: "82% RH" },
-        { label: "Intense", days: 42, code: "P3", temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 42, code: "P4", temp: "2.8°C", rh: "73% RH" }
+        { label: "Basic", days: 21, temp: "1.5°C", rh: "82% RH" },
+        { label: "Intense", days: 42, temp: "2.0°C", rh: "76% RH" },
+        { label: "Intense+", days: 42, temp: "2.8°C", rh: "73% RH" }
       ],
       long28_42: [
-        { label: "Basic", days: 28, code: "P9", temp: "1.5°C", rh: "80% RH" },
-        { label: "Intense", days: 42, code: "P3", temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 42, code: "P4", temp: "2.8°C", rh: "73% RH" }
+        { label: "Basic", days: 28, temp: "1.5°C", rh: "80% RH" },
+        { label: "Intense", days: 42, temp: "2.0°C", rh: "76% RH" },
+        { label: "Intense+", days: 42, temp: "2.8°C", rh: "73% RH" }
       ],
       short7_21: [
-        { label: "Basic", days: 7, code: "P6", temp: "1.5°C", rh: "82% RH" },
-        { label: "Intense", days: 21, code: "P1", temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 21, code: "P2", temp: "2.8°C", rh: "73% RH" }
+        { label: "Basic", days: 7, temp: "1.5°C", rh: "82% RH" },
+        { label: "Intense", days: 21, temp: "2.0°C", rh: "76% RH" },
+        { label: "Intense+", days: 21, temp: "2.8°C", rh: "73% RH" }
       ],
       pork14_21: [
-        { label: "Basic", days: 14, code: "P1", temp: "1.5°C", rh: "80% RH" },
-        { label: "Intense", days: 21, code: "P3", temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 28, code: "P4", temp: "2.5°C", rh: "74% RH" }
+        { label: "Basic", days: 14, temp: "1.5°C", rh: "80% RH" },
+        { label: "Intense", days: 21, temp: "2.0°C", rh: "76% RH" },
+        { label: "Intense+", days: 28, temp: "2.5°C", rh: "74% RH" }
       ],
       poultry7_14: [
-        { label: "Basic", days: 7, code: "P6", temp: "1.0°C", rh: "78% RH" },
-        { label: "Intense", days: 14, code: "P1", temp: "1.5°C", rh: "75% RH" },
-        { label: "Intense+", days: 18, code: "P2", temp: "2.0°C", rh: "73% RH" }
+        { label: "Basic", days: 7, temp: "1.0°C", rh: "78% RH" },
+        { label: "Intense", days: 14, temp: "1.5°C", rh: "75% RH" },
+        { label: "Intense+", days: 18, temp: "2.0°C", rh: "73% RH" }
       ],
       fish5_10: [
-        { label: "Basic", days: 5, code: "F1", temp: "0.5°C", rh: "82% RH" },
-        { label: "Intense", days: 10, code: "F2", temp: "0.8°C", rh: "80% RH" },
-        { label: "Intense+", days: 14, code: "F3", temp: "1.0°C", rh: "78% RH" }
+        { label: "Basic", days: 5, temp: "0.5°C", rh: "82% RH" },
+        { label: "Intense", days: 10, temp: "0.8°C", rh: "80% RH" },
+        { label: "Intense+", days: 14, temp: "1.0°C", rh: "78% RH" }
       ],
       salami28_56: [
-        { label: "Basic", days: 28, code: "S1", temp: "13°C", rh: "80% RH" },
-        { label: "Intense", days: 42, code: "S2", temp: "12.5°C", rh: "76% RH" },
-        { label: "Intense+", days: 56, code: "S3", temp: "12°C", rh: "74% RH" }
+        { label: "Basic", days: 28, temp: "13°C", rh: "80% RH" },
+        { label: "Intense", days: 42, temp: "12.5°C", rh: "76% RH" },
+        { label: "Intense+", days: 56, temp: "12°C", rh: "74% RH" }
       ],
       cheese30_90: [
-        { label: "Basic", days: 30, code: "C1", temp: "11°C", rh: "88% RH" },
-        { label: "Intense", days: 60, code: "C2", temp: "11°C", rh: "85% RH" },
-        { label: "Intense+", days: 90, code: "C3", temp: "10°C", rh: "82% RH" }
+        { label: "Basic", days: 30, temp: "11°C", rh: "88% RH" },
+        { label: "Intense", days: 60, temp: "11°C", rh: "85% RH" },
+        { label: "Intense+", days: 90, temp: "10°C", rh: "82% RH" }
       ]
     };
 
@@ -593,14 +596,19 @@
           { name: "Beef Chuck (Shoulder Clod)", progs: BIBLE_PROGS.long28_42, tip: "🥩 Less connective tissue than top blade; great for chuck roast or pan-seared teres major." },
           { name: "Chuck Eye / Sierra / Denver (Neck Steak)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Age as part of whole neck. Trim connective tissue on Chuck Eye; slice Sierra at 45°." },
           { name: "Duck (Whole Crown / Dry-Aged Duck)", progs: BIBLE_PROGS.poultry7_14, tip: "🦆 Hang whole by the neck; dry aging makes skin paper-thin and glass-crispy when seared." },
+          { name: "Fillet of Pork (Pork Tenderloin)", progs: BIBLE_PROGS.short7_21, tip: "🐖 Very lean; short dry-aging concentrates sweetness and velvety texture." },
           { name: "Flat Iron Steak (Shoulder / Oyster Blade)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Do NOT remove silver skin before aging; ensure even surfaces and hang to age." },
-          { name: "Lamb Rack / Saddle (Bone-In)", progs: BIBLE_PROGS.pork14_21, tip: "🐑 Leave kidney fat and outer cap intact; shares identical climate with beef." },
+          { name: "Haunch of Pork (Whole Pork Leg)", progs: BIBLE_PROGS.pork14_21, tip: "🐖 Keep outer rind and fat intact; great for roasting or carving steaks." },
+          { name: "Lamb (Whole Carcass / Saddle)", progs: BIBLE_PROGS.pork14_21, tip: "🐑 Leave kidney fat and outer cap intact; shares identical climate with beef." },
+          { name: "Leg of Lamb (Hind Shank)", progs: BIBLE_PROGS.pork14_21, tip: "🐑 Hang by bone; enzymes tenderize hard-working leg muscles." },
           { name: "Neck (Whole Chuck of Beef)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Softens connective tissue. Hang whole beef neck or turn segments regularly." },
           { name: "OP Rib / Ribeye Bone-In (Standing Rib)", progs: BIBLE_PROGS.rib21_42, tip: "🥩 Gold standard! Sealed fat cap UP, chine/feather bones DOWN. Wipe bone dust clean." },
+          { name: "Pheasant / Wildfowl (Whole)", progs: BIBLE_PROGS.poultry7_14, tip: "🪶 Hang whole in feathers or plucked crown for game tenderness." },
           { name: "Pork Loin Rack (Bone-In, Fat Cap On)", progs: BIBLE_PROGS.pork14_21, tip: "🐖 Keep 1.5–2cm back-fat intact; develops buttery Ibérico-style tenderness." },
           { name: "Round (Whole Leg / Topside of Beef)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Age as a whole leg or topside with thick fat layer so steaks don't dry out." },
           { name: "Rump Cap (Top Butt Cap / Picanha)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Age whole with silver skin and thick fat cap completely intact and zero incisions." },
           { name: "Santa Fe Cut (Topside Gracilis)", progs: BIBLE_PROGS.long28_42, tip: "🥩 Age as whole topside, then trim and slice 1.5cm steaks against grain at 45°." },
+          { name: "Shank (Beef Shin Bone-In)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Concentrates marrow and collagen for rich Osso Buco or braised beef shin." },
           { name: "Short Loin (T-Bone / Porterhouse Saddle)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Whole bone-in saddle with eye fillet intact; do not exceed 35 days to protect tenderloin." },
           { name: "Short Rib (Bone-In Beef Plate Ribs)", progs: BIBLE_PROGS.short7_21, tip: "🥩 Age as whole rib plate resting bone-side down on shelf; do not cut into meat." },
           { name: "Striploin (Bone-In Sirloin, Full Fat Cap)", progs: BIBLE_PROGS.rib21_42, tip: "🥩 Requires thick untrimmed dorsal fat cap to protect eye muscle." },
@@ -638,7 +646,11 @@
       }
     };
 
+    // 4-WAY UNIT SYSTEM: g -> kg -> oz -> lb
+    const UNIT_CYCLE = ['g', 'kg', 'oz', 'lb'];
     var unit = localStorage.getItem('agerProUnit') || 'g';
+    if (!UNIT_CYCLE.includes(unit)) unit = 'g';
+
     var fridges = JSON.parse(localStorage.getItem('dryAgeFridges') || '["Thermaster MA400 #1"]');
     var currentFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
     if (!fridges.includes(currentFridge)) currentFridge = fridges[0];
@@ -662,11 +674,30 @@
 
     function fmtW(grams) {
       var g = parseFloat(grams) || 0;
-      return unit === 'kg' ? (g / 1000).toFixed(2) + 'kg' : Math.round(g) + 'g';
+      if (unit === 'kg') return (g / 1000).toFixed(2) + 'kg';
+      if (unit === 'oz') return (g / 28.3495231).toFixed(1) + 'oz';
+      if (unit === 'lb') return (g / 453.59237).toFixed(2) + 'lb';
+      return Math.round(g) + 'g';
+    }
+
+    function toGrams(val) {
+      var v = parseFloat(val) || 0;
+      if (unit === 'kg') return Math.round(v * 1000);
+      if (unit === 'oz') return Math.round(v * 28.3495231);
+      if (unit === 'lb') return Math.round(v * 453.59237);
+      return Math.round(v);
+    }
+
+    function unitPlaceholder() {
+      if (unit === 'kg') return 'e.g. 6.5';
+      if (unit === 'oz') return 'e.g. 229';
+      if (unit === 'lb') return 'e.g. 14.3';
+      return 'e.g. 6500';
     }
 
     function toggleUnit() {
-      unit = (unit === 'g') ? 'kg' : 'g';
+      var nextIdx = (UNIT_CYCLE.indexOf(unit) + 1) % UNIT_CYCLE.length;
+      unit = UNIT_CYCLE[nextIdx];
       localStorage.setItem('agerProUnit', unit);
       document.getElementById('unitBtn').innerText = 'Unit: ' + unit;
       renderList();
@@ -698,7 +729,7 @@
     function selectCategory(m) {
       var lockedCat = getActiveCategoryInCurrentFridge();
       if (lockedCat && lockedCat !== m) {
-        agerAlert(`🔒 ${currentFridge} is currently running ${DEFAULT_MODES[lockedCat].name}.\n\nFollowing The Dry Aging Bible, never mix different climate zones in the same fridge. Harvest or move your active batch first, or switch to a second fridge!`);
+        agerAlert(`🔒 ${currentFridge} is currently running ${DEFAULT_MODES[lockedCat].name}.\n\nNever mix different climate zones in the same fridge. Harvest or move your active batch first, or switch to a second fridge!`);
         return;
       }
       currentMode = m;
@@ -726,7 +757,7 @@
       if (activeInFridge.length && activeInFridge[0].progTemp) {
         dispTemp = activeInFridge[0].progTemp;
         dispRh = activeInFridge[0].progRh;
-        progBadge = `<span class="badge">${activeInFridge[0].progLabel || 'Intense'} (${activeInFridge[0].progCode || ''})</span>`;
+        progBadge = `<span class="badge">${activeInFridge[0].progLabel || 'Intense'}</span>`;
       }
       document.getElementById('chamberBanner').innerHTML = `
         <div class="chamber-panel">
@@ -762,7 +793,6 @@
       var loss = (((b.startW - b.currW) / b.startW) * 100).toFixed(1);
       var harvestD = b.actionDate || new Date().toISOString().split('T')[0];
 
-      // Calculate 12-Month Best Before Date for Deep Frozen (-18C)
       var bbDateObj = new Date(harvestD);
       bbDateObj.setFullYear(bbDateObj.getFullYear() + 1);
       var bestBefore = bbDateObj.toISOString().split('T')[0];
@@ -866,7 +896,7 @@
               <div style="font-size:0.78rem; color:var(--muted); margin:3px 0;">${t.desc}</div>
               <div style="font-size:0.78rem; font-weight:800; color:${statusColor};">Last Reset: ${lastStr} • ${statusTxt}</div>
             </div>
-            <button class="mini-btn" style="border-color:var(--green); color:var(--green); padding:8px 10px;" onclick="resetMaintTask('${t.key}')">✅ Reset Today</button>
+            <button class="mini-btn" style="background:var(--green); border-color:var(--green); color:#fff; padding:8px 10px;" onclick="resetMaintTask('${t.key}')">✅ Reset Today</button>
           </div>
         `;
       }).join('');
@@ -949,7 +979,7 @@
       document.getElementById('fridgeManageList').innerHTML = fridges.map((f, idx) => `
         <div class="maint-row">
           <strong style="color:#fff;">🗄️ ${f}</strong>
-          ${fridges.length > 1 ? `<button class="mini-btn alert" onclick="deleteFridge(${idx})">Delete</button>` : `<span style="font-size:0.75rem; color:var(--muted);">Primary</span>`}
+          ${fridges.length > 1 ? `<button class="mini-btn" style="background:var(--red); border-color:var(--red);" onclick="deleteFridge(${idx})">Delete</button>` : `<span style="font-size:0.75rem; color:var(--muted);">Primary</span>`}
         </div>
       `).join('');
     }
@@ -995,6 +1025,7 @@
       document.getElementById('addModalTitle').innerText = `Add ${m.name} (${currentFridge})`;
       document.getElementById('batchCode').value = 'PRO-' + Math.floor(1000 + Math.random() * 9000);
       document.getElementById('weightInputLbl').innerText = `Starting Weight (${unit})`;
+      document.getElementById('inWeight').placeholder = unitPlaceholder();
       document.getElementById('inWeight').value = '';
       document.getElementById('inDate').value = new Date().toISOString().split('T')[0];
       selectedProgIdx = 1;
@@ -1026,7 +1057,7 @@
       box.innerHTML = progs.map((p, i) => `
         <div class="prog-opt ${i === selectedProgIdx ? 'active' : ''}" onclick="selectProg(${i})">
           <strong>${p.label}</strong>
-          <span>${p.days} Days (${Math.round(p.days/7)}w)</span>
+          <span>${p.days} Days (${Math.max(1, Math.round(p.days/7))}w)</span>
           <small>${p.temp} • ${p.rh}</small>
         </div>
       `).join('');
@@ -1070,7 +1101,7 @@
 
       var rawW = parseFloat(document.getElementById('inWeight').value);
       if (!rawW || rawW <= 0) { agerAlert('Please enter the starting weight.'); return; }
-      var weightInGrams = (unit === 'kg') ? Math.round(rawW * 1000) : Math.round(rawW);
+      var weightInGrams = toGrams(rawW);
 
       var progs = item.progs || BIBLE_PROGS.std21_28;
       var chosenProg = progs[selectedProgIdx] || progs[0];
@@ -1089,7 +1120,6 @@
         startD: startD,
         days: targetDays,
         progLabel: chosenProg.label,
-        progCode: chosenProg.code,
         progTemp: chosenProg.temp,
         progRh: chosenProg.rh,
         status: 'Active',
@@ -1107,6 +1137,7 @@
     function promptWeigh(id) {
       document.getElementById('weighId').value = id;
       document.getElementById('weighModalLbl').innerText = `Current Scale Reading (${unit})`;
+      document.getElementById('inNewWeight').placeholder = unitPlaceholder();
       document.getElementById('inNewWeight').value = '';
       openModal('weighModal');
     }
@@ -1115,7 +1146,7 @@
       var id = parseInt(document.getElementById('weighId').value, 10);
       var rawW = parseFloat(document.getElementById('inNewWeight').value);
       if (!rawW || rawW <= 0) return;
-      var wGrams = (unit === 'kg') ? Math.round(rawW * 1000) : Math.round(rawW);
+      var wGrams = toGrams(rawW);
       var today = new Date().toISOString().split('T')[0];
 
       items.forEach(x => {
@@ -1227,8 +1258,8 @@
           <div style="background:#12100e; border:1px solid #292524; border-radius:9px; padding:9px 12px; margin:10px 0; display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:0.86rem; font-weight:800; color:var(--gold);">🥩 Steaks Left in Freezer: ${b.steakCount}</span>
             <div style="display:flex; gap:6px;">
-              <button class="mini-btn" onclick="adjustSteaks(${b.id}, -1)">-1 Eaten</button>
-              <button class="mini-btn" onclick="adjustSteaks(${b.id}, 1)">+1</button>
+              <button class="mini-btn" style="background:var(--red); border-color:var(--red);" onclick="adjustSteaks(${b.id}, -1)">-1 Eaten</button>
+              <button class="mini-btn" style="background:var(--green); border-color:var(--green);" onclick="adjustSteaks(${b.id}, 1)">+1</button>
             </div>
           </div>
         ` : '';
@@ -1245,7 +1276,7 @@
                 <h3 style="margin:2px 0; color:#fff; font-size:1.08rem;">${modeObj.icon} ${b.name}</h3>
                 <div style="font-size:0.8rem; color:var(--muted);">🗄️ ${b.fridge || fridges[0]} • Started: ${b.startD}</div>
               </div>
-              <button onclick="removeBatch(${b.id})" style="background:#292524; color:#fff; border:none; width:32px; height:32px; border-radius:8px; cursor:pointer;">✕</button>
+              <button onclick="removeBatch(${b.id})" style="background:var(--red); color:#fff; border:none; width:32px; height:32px; border-radius:8px; font-weight:900; cursor:pointer;">✕</button>
             </div>
 
             <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;"></div></div>
@@ -1261,8 +1292,8 @@
             ${b.notes ? `<div style="font-size:0.84rem; color:#d6d3d1; background:#12100e; padding:9px; border-radius:8px; margin-bottom:10px;">📝 <b>Notes:</b> ${b.notes}</div>` : ''}
 
             <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px;">
-              <button class="btn btn-blue" onclick="promptWeigh(${b.id})">⚖️ Weigh</button>
-              <button class="btn btn-green" onclick="openHarvestModal(${b.id})">🥩 ${isAct ? 'Harvest' : 'Vault'}</button>
+              <button class="btn card-btn-green" onclick="promptWeigh(${b.id})">⚖️ Weigh</button>
+              <button class="btn card-btn-red" onclick="openHarvestModal(${b.id})">🔪 ${isAct ? 'Harvest' : 'Vault'}</button>
               <button class="btn btn-gold" onclick="openLabelModal(${b.id})">🏷️ Label</button>
             </div>
           </div>
