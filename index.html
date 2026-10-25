@@ -203,13 +203,18 @@
       background: #090807; border: 2px solid #3f3a36; border-radius: 9px;
       padding: 9px 4px; text-align: center; cursor: pointer;
     }
-    .prog-opt.active { border-color: var(--gold); background: rgba(234,179,8,0.16); }
-    .prog-opt strong { display: block; font-size: 0.86rem; color: #fff; }
-    .prog-opt span { display: block; font-size: 0.72rem; color: var(--gold); margin-top: 2px; }
-    .prog-opt small { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+    .prog-opt.active { border-color: var(--gold); background: rgba(234,179,8,0.18); box-shadow: 0 0 10px rgba(234,179,8,0.25); }
+    .prog-opt strong { display: block; font-size: 0.88rem; color: #fff; }
+    .prog-opt span { display: block; font-size: 0.74rem; color: var(--gold); font-weight: 800; margin-top: 2px; }
+    .prog-opt small { display: block; font-size: 0.7rem; color: var(--blue); font-weight: 700; margin-top: 2px; }
+
+    .prog-detail-box {
+      background: rgba(234, 179, 8, 0.12); border: 1.5px solid var(--gold);
+      border-radius: 10px; padding: 11px; font-size: 0.85rem; color: #fef08a; margin-top: 9px; line-height: 1.45;
+    }
     .callout {
-      background: rgba(56, 189, 248, 0.12); border: 1px solid var(--blue);
-      border-radius: 10px; padding: 11px; font-size: 0.88rem; color: #e0f2fe; margin: 10px 0;
+      background: rgba(56, 189, 248, 0.12); border: 1.5px solid var(--blue);
+      border-radius: 10px; padding: 12px; font-size: 0.86rem; color: #e0f2fe; margin: 10px 0; line-height: 1.48;
     }
     .step-box {
       background: #12100e; border: 1px solid #292524; border-radius: 10px;
@@ -520,10 +525,13 @@
       </div>
 
       <div class="form-group" id="progGroup">
-        <label>Select Aging Intensity & Climate Program:</label>
+        <label>Select Aging Duration, Flavour Intensity & Climate:</label>
         <div class="prog-selector" id="progSelector"></div>
+        <!-- LIVE SELECTED PROGRAM FLAVOUR & CLIMATE EXPLANATION -->
+        <div id="progDetailBox" class="prog-detail-box"></div>
       </div>
 
+      <!-- FULL DRY AGING BIBLE CUT DESCRIPTION & PREP NOTES -->
       <div id="cutTipBox" class="callout"></div>
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
@@ -727,51 +735,52 @@
       renderList();
     }
 
+    // DETAILED CLIMATE & FLAVOUR PROGRAMS FROM THE DRY AGING BIBLE
     const BIBLE_PROGS = {
       std21_28: [
-        { label: "Basic", days: 21, temp: "1.5°C", rh: "82% RH" },
-        { label: "Intense", days: 28, temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 28, temp: "2.8°C", rh: "73% RH" }
+        { label: "Basic", days: 21, temp: "1.5°C", rh: "82% RH", desc: "<b>Gentle Standard Climate (3 Weeks • 1.5°C | 82% RH):</b> Cold 1.5°C with higher 82% humidity slows surface evaporation, keeps the outer pellicle crust thin for maximum edible yield (~8–10% loss), and delivers clean, buttery tenderness with mild nutty notes." },
+        { label: "Intense", days: 28, temp: "2.0°C", rh: "76% RH", desc: "<b>Classic Steakhouse Climate (4 Weeks • 2.0°C | 76% RH):</b> Dropping humidity to 76% RH at 2.0°C draws out more free water (~12–15% loss) and concentrates rich roasted-hazelnut, buttered popcorn, and deep beefy umami flavour." },
+        { label: "Intense+", days: 28, temp: "2.8°C", rh: "73% RH", desc: "<b>Accelerated Enzyme & Deep Funk Climate (4 Weeks • 2.8°C | 73% RH):</b> Raising temperature slightly to 2.8°C speeds up natural <i>calpain</i> & <i>cathepsin</i> enzyme breakdown while drier 73% RH air accelerates moisture concentration—achieving a bold, funky steakhouse profile in the same 28 days!" }
       ],
       rib21_42: [
-        { label: "Basic", days: 21, temp: "1.5°C", rh: "82% RH" },
-        { label: "Intense", days: 42, temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 42, temp: "2.8°C", rh: "73% RH" }
+        { label: "Basic", days: 21, temp: "1.5°C", rh: "82% RH", desc: "<b>Gentle Butcher's Cure (3 Weeks • 1.5°C | 82% RH):</b> Preserves maximum eye-muscle yield with a thin crust (~9–11% loss). Delivers tender, juicy steaks with a clean, sweet, buttery beef aroma." },
+        { label: "Intense", days: 42, temp: "2.0°C", rh: "76% RH", desc: "<b>The Prime Steakhouse Sweet Spot (6 Weeks • 2.0°C | 76% RH):</b> 42 days at 76% RH hits the ultimate balance of fork-tender muscle fibres, roasted hazelnut aroma, and rich marbling concentration (~16–20% moisture loss)." },
+        { label: "Intense+", days: 42, temp: "2.8°C", rh: "73% RH", desc: "<b>Connoisseur Deep Funk Climate (6 Weeks • 2.8°C | 73% RH):</b> Warmer 2.8°C enzymatic acceleration paired with drier 73% RH air creates an intense, earthy mushroom, aged cheddar, and charcuterie-style umami finish in 42 days." }
       ],
       long28_42: [
-        { label: "Basic", days: 28, temp: "1.5°C", rh: "80% RH" },
-        { label: "Intense", days: 42, temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 42, temp: "2.8°C", rh: "73% RH" }
+        { label: "Basic", days: 28, temp: "1.5°C", rh: "80% RH", desc: "<b>Balanced 4-Week Maturation (28 Days • 1.5°C | 80% RH):</b> Gives harder-working muscles 4 full weeks at 80% RH to soften connective tissue without drying out the leaner edges." },
+        { label: "Intense", days: 42, temp: "2.0°C", rh: "76% RH", desc: "<b>Deep 6-Week Tenderisation (42 Days • 2.0°C | 76% RH):</b> Extended 42-day enzymatic breakdown transforms firm chuck/topside fibres into velvety, deeply nutty steak cuts." },
+        { label: "Intense+", days: 42, temp: "2.8°C", rh: "73% RH", desc: "<b>Maximum Enzyme & Aroma Boost (42 Days • 2.8°C | 73% RH):</b> Uses 2.8°C and 73% RH to maximize collagen softening and deliver a powerful, buttery dry-aged funk." }
       ],
       short7_21: [
-        { label: "Basic", days: 7, temp: "1.5°C", rh: "82% RH" },
-        { label: "Intense", days: 21, temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 21, temp: "2.8°C", rh: "73% RH" }
+        { label: "Basic", days: 7, temp: "1.5°C", rh: "82% RH", desc: "<b>Short 1-Week Maturation (7 Days • 1.5°C | 82% RH):</b> Ideal for cuts with high surface area or leaner profiles; dries the exterior for a superior Maillard crust while keeping the interior juicy." },
+        { label: "Intense", days: 21, temp: "2.0°C", rh: "76% RH", desc: "<b>Full 3-Week Concentration (21 Days • 2.0°C | 76% RH):</b> Concentrates intramuscular fat and marrow notes with a pronounced nutty, buttery finish." },
+        { label: "Intense+", days: 21, temp: "2.8°C", rh: "73% RH", desc: "<b>Accelerated 3-Week Intense+ (21 Days • 2.8°C | 73% RH):</b> Uses warmer 2.8°C enzyme activity and 73% RH to pack 4 weeks of tenderness and umami punch into 21 days." }
       ],
       pork14_21: [
-        { label: "Basic", days: 14, temp: "1.5°C", rh: "80% RH" },
-        { label: "Intense", days: 21, temp: "2.0°C", rh: "76% RH" },
-        { label: "Intense+", days: 28, temp: "2.5°C", rh: "74% RH" }
+        { label: "Basic", days: 14, temp: "1.5°C", rh: "80% RH", desc: "<b>Classic 2-Week Pork/Lamb Cure (14 Days • 1.5°C | 80% RH):</b> Eliminates excess water so chops sear with zero pan-steaming, unlocking sweet, nutty flavours." },
+        { label: "Intense", days: 21, temp: "2.0°C", rh: "76% RH", desc: "<b>3-Week Ibérico-Style Maturation (21 Days • 2.0°C | 76% RH):</b> Turns pork back-fat and lamb saddle buttery-soft with rich, herbaceous, almond-like aroma." },
+        { label: "Intense+", days: 28, temp: "2.5°C", rh: "74% RH", desc: "<b>4-Week Connoisseur Age (28 Days • 2.5°C | 74% RH):</b> Maximum tenderness and deep, savoury ham-like umami concentration." }
       ],
       poultry7_14: [
-        { label: "Basic", days: 7, temp: "1.0°C", rh: "78% RH" },
-        { label: "Intense", days: 14, temp: "1.5°C", rh: "75% RH" },
-        { label: "Intense+", days: 18, temp: "2.0°C", rh: "73% RH" }
+        { label: "Basic", days: 5, temp: "1.0°C", rh: "78% RH", desc: "<b>5-Day Skin-Crisping & Tenderising (5 Days • 1.0°C | 78% RH):</b> Draws moisture out of poultry skin so it roasts glass-crispy while breast meat becomes velvety and tender." },
+        { label: "Intense", days: 10, temp: "1.5°C", rh: "75% RH", desc: "<b>10-Day Top-Quality Crown Maturation (10 Days • 1.5°C | 75% RH):</b> For pristine, fresh birds; intensifies gamey, buttery roast notes and paper-thin skin." },
+        { label: "Intense+", days: 14, temp: "2.0°C", rh: "73% RH", desc: "<b>14-Day Restaurant Game Profile (14 Days • 2.0°C | 73% RH):</b> Deeply concentrated wildfowl/duck umami; cook breast medium-rare (54°C–58°C core)." }
       ],
-      fish5_10: [
-        { label: "Basic", days: 5, temp: "0.5°C", rh: "82% RH" },
-        { label: "Intense", days: 10, temp: "0.8°C", rh: "80% RH" },
-        { label: "Intense+", days: 14, temp: "1.0°C", rh: "78% RH" }
+      fish3_10: [
+        { label: "Basic", days: 3, temp: "0.5°C", rh: "82% RH", desc: "<b>3-Day Delicate Sashimi & Butter-Poach Cure (3 Days • 0.5°C | 82% RH):</b> Ultra-cold 0.5°C firms fragile fish flakes, removes metallic moisture, and brings out a clean, nutty sweetness." },
+        { label: "Intense", days: 5, temp: "0.8°C", rh: "80% RH", desc: "<b>5-Day Sushi-Master Umami Peak (5 Days • 0.8°C | 80% RH):</b> Enzymes break down ATP into inosinic acid (pure umami) while skin dries for blistering-crisp searing." },
+        { label: "Intense+", days: 10, temp: "1.0°C", rh: "78% RH", desc: "<b>10-Day Extended Whole-Fish Maturation (10 Days • 1.0°C | 78% RH):</b> For large whole Kingfish, Tuna loins, or Gravlax; yields dense, buttery, ham-like slices." }
       ],
       salami28_56: [
-        { label: "Basic", days: 28, temp: "13°C", rh: "80% RH" },
-        { label: "Intense", days: 42, temp: "12.5°C", rh: "76% RH" },
-        { label: "Intense+", days: 56, temp: "12°C", rh: "74% RH" }
+        { label: "Basic", days: 28, temp: "13.0°C", rh: "80% RH", desc: "<b>4-Week Standard Charcuterie Cure (28 Days • 13°C | 80% RH | UVC OFF):</b> Steady moisture release (~30% weight loss) preventing case hardening while white <i>Penicillium</i> mould blooms." },
+        { label: "Intense", days: 42, temp: "12.5°C", rh: "76% RH", desc: "<b>6-Week Artisan Curing (42 Days • 12.5°C | 76% RH | UVC OFF):</b> Hits the classic 35%–38% weight loss target for firm, ruby-red sliceable salami and coppa." },
+        { label: "Intense+", days: 56, temp: "12.0°C", rh: "74% RH", desc: "<b>8-Week Slow Cellar Affinage (56 Days • 12°C | 74% RH | UVC OFF):</b> Up to 40% weight loss for dense, deeply aromatic, old-world charcuterie." }
       ],
       cheese30_90: [
-        { label: "Basic", days: 30, temp: "11°C", rh: "88% RH" },
-        { label: "Intense", days: 60, temp: "11°C", rh: "85% RH" },
-        { label: "Intense+", days: 90, temp: "10°C", rh: "82% RH" }
+        { label: "Basic", days: 30, temp: "11.0°C", rh: "88% RH", desc: "<b>30-Day Young Affinage (11°C | 88% RH | UVC OFF):</b> High humidity prevents wheel cracking while developing a supple rind and creamy, buttery paste." },
+        { label: "Intense", days: 60, temp: "11.0°C", rh: "85% RH", desc: "<b>60-Day Cave Maturation (11°C | 85% RH | UVC OFF):</b> Deepens nutty, fruity, and savoury notes across the wheel; flip every 3–4 days." },
+        { label: "Intense+", days: 90, temp: "10.0°C", rh: "82% RH", desc: "<b>90-Day Aged Reserve (10°C | 82% RH | UVC OFF):</b> Forms crunchy tyrosine protein crystals and bold, sharp cellar complexity." }
       ]
     };
 
@@ -780,57 +789,57 @@
         name: "Meat & Poultry", icon: "🥩", temp: "1.5°C – 2.0°C", rh: "75% – 80%", uvc: "ON ✅", uvcColor: "#22c55e",
         rule: "✅ <b>Can Share:</b> Beef, Pork, Lamb, Venison, Duck.<br>🚫 <b>Never Mix With:</b> Seafood, Salami, or Cheese.",
         items: [
-          { name: "Beef Chuck (Shoulder Clod)", progs: BIBLE_PROGS.long28_42, tip: "🥩 Less connective tissue than top blade; great for chuck roast or pan-seared teres major." },
-          { name: "Chuck Eye / Sierra / Denver (Neck Steak)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Age as part of whole neck. Trim connective tissue on Chuck Eye; slice Sierra at 45°." },
-          { name: "Duck (Whole Crown / Dry-Aged Duck)", progs: BIBLE_PROGS.poultry7_14, tip: "🦆 Hang whole by the neck; dry aging makes skin paper-thin and glass-crispy when seared." },
-          { name: "Fillet of Pork (Pork Tenderloin)", progs: BIBLE_PROGS.short7_21, tip: "🐖 Very lean; short dry-aging concentrates sweetness and velvety texture." },
-          { name: "Flat Iron Steak (Shoulder / Oyster Blade)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Do NOT remove silver skin before aging; ensure even surfaces and hang to age." },
-          { name: "Haunch of Pork (Whole Pork Leg)", progs: BIBLE_PROGS.pork14_21, tip: "🐖 Keep outer rind and fat intact; great for roasting or carving steaks." },
-          { name: "Lamb (Whole Carcass / Saddle)", progs: BIBLE_PROGS.pork14_21, tip: "🐑 Leave kidney fat and outer cap intact; shares identical climate with beef." },
-          { name: "Leg of Lamb (Hind Shank)", progs: BIBLE_PROGS.pork14_21, tip: "🐑 Hang by bone; enzymes tenderize hard-working leg muscles." },
-          { name: "Neck (Whole Chuck of Beef)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Softens connective tissue. Hang whole beef neck or turn segments regularly." },
-          { name: "OP Rib / Ribeye Bone-In (Standing Rib)", progs: BIBLE_PROGS.rib21_42, tip: "🥩 Gold standard! Sealed fat cap UP, chine/feather bones DOWN. Wipe bone dust clean." },
-          { name: "Pheasant / Wildfowl (Whole)", progs: BIBLE_PROGS.poultry7_14, tip: "🪶 Hang whole in feathers or plucked crown for game tenderness." },
-          { name: "Pork Loin Rack (Bone-In, Fat Cap On)", progs: BIBLE_PROGS.pork14_21, tip: "🐖 Keep 1.5–2cm back-fat intact; develops buttery Ibérico-style tenderness." },
-          { name: "Round (Whole Leg / Topside of Beef)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Age as a whole leg or topside with thick fat layer so steaks don't dry out." },
-          { name: "Rump Cap (Top Butt Cap / Picanha)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Age whole with silver skin and thick fat cap completely intact and zero incisions." },
-          { name: "Santa Fe Cut (Topside Gracilis)", progs: BIBLE_PROGS.long28_42, tip: "🥩 Age as whole topside, then trim and slice 1.5cm steaks against grain at 45°." },
-          { name: "Shank (Beef Shin Bone-In)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Concentrates marrow and collagen for rich Osso Buco or braised beef shin." },
-          { name: "Short Loin (T-Bone / Porterhouse Saddle)", progs: BIBLE_PROGS.std21_28, tip: "🥩 Whole bone-in saddle with eye fillet intact; do not exceed 35 days to protect tenderloin." },
-          { name: "Short Rib (Bone-In Beef Plate Ribs)", progs: BIBLE_PROGS.short7_21, tip: "🥩 Age as whole rib plate resting bone-side down on shelf; do not cut into meat." },
-          { name: "Striploin (Bone-In Sirloin, Full Fat Cap)", progs: BIBLE_PROGS.rib21_42, tip: "🥩 Requires thick untrimmed dorsal fat cap to protect eye muscle." },
-          { name: "Tri Tip (Bottom Sirloin / Mayor's Cut)", progs: BIBLE_PROGS.long28_42, tip: "🥩 Do not trim beforehand; hang in ager due to triangular shape and check progress." }
+          { name: "Beef Chuck (Shoulder Clod)", progs: BIBLE_PROGS.long28_42, tip: "🥩 <b>Beef Chuck (Shoulder Clod):</b> Contains less connective tissue than the top blade and develops pronounced flavour and tenderness. Make sure cut surfaces are even with no deep incisions into the meat. Ideal for ragout strips, chuck roast, or pan-searing the <i>teres major</i> (petite tender)." },
+          { name: "Chuck Eye / Sierra / Denver (Neck Steak)", progs: BIBLE_PROGS.std21_28, tip: "🥩 <b>Neck Steaks (Chuck Eye, Sierra & Denver):</b> Always age as part of a whole beef neck (individual steaks dry out too quickly). <b>Chuck Eye (Delmonico):</b> Remove all connective tissue before serving. <b>Sierra Steak:</b> Slice cooked steak at a 45° angle. <b>Denver Steak:</b> Cut from the marble-rich bottom neck; wonderful nutty flavour seared medium-rare or raw as carpaccio." },
+          { name: "Duck (Whole Domestic Duck)", progs: BIBLE_PROGS.poultry7_14, tip: "🦆 <b>Domestic Duck:</b> Buy whole with head/neck intact so you can hang it by the neck, or rest breast-up on the rack. Dry aging draws water from the skin so it roasts paper-thin and glass-crispy, while the breast meat turns velvety. Top-quality birds can be matured up to 10–14 days; cook breast to 54°C–58°C (medium-rare)." },
+          { name: "Fillet of Pork (Pork Tenderloin)", progs: BIBLE_PROGS.short7_21, tip: "🐖 <b>Fillet of Pork (Tenderloin):</b> Because pork fillet is lean and slender, age for 7 days (Basic) up to 14–21 days with the thin protective silver skin left on. Dry aging eliminates watery pan purge and concentrates a sweet, velvety, Melt-in-the-mouth texture." },
+          { name: "Flat Iron Steak (Shoulder / Oyster Blade)", progs: BIBLE_PROGS.std21_28, tip: "🥩 <b>Flat Iron Steak (Top Blade / Oyster Blade):</b> Famous for heavy marbling second only to ribeye. <b>Crucial Rule:</b> Do NOT remove the silver skin or central sinew before aging—age as a whole top blade roast hanging in the cabinet, then fillet out the internal sinew at harvest to yield two flat steaks." },
+          { name: "Haunch of Pork (Whole Pork Leg)", progs: BIBLE_PROGS.pork14_21, tip: "🐖 <b>Haunch of Pork (Whole Leg):</b> Age on the bone with the outer skin/rind and thick fat layer completely intact (1 Week Basic / 3 Weeks Intense). Hang from the exposed leg bone. Yields incredible crisp-crackling roasts or thick-cut leg steaks." },
+          { name: "Lamb (Whole Carcass / Saddle)", progs: BIBLE_PROGS.pork14_21, tip: "🐑 <b>Whole Lamb / Saddle:</b> Leave the kidney fat and outer protective parchment fat intact. Hanging in the cabinet at 1.5°C–2.0°C softens the muscle fibres and transforms grassy notes into a sweet, mild, herbaceous pasture aroma." },
+          { name: "Leg of Lamb (Hind Shank)", progs: BIBLE_PROGS.pork14_21, tip: "🐑 <b>Leg of Lamb (Hind Shank):</b> Hang whole by the Achilles tendon or hock bone with external fat cover intact. 14 to 21 days of enzymatic aging tenderizes the hard-working leg muscles for pink roast leg of lamb or lamb steaks." },
+          { name: "Neck (Whole Chuck of Beef)", progs: BIBLE_PROGS.std21_28, tip: "🥩 <b>The Neck (Chuck of Beef):</b> Rich in intramuscular fat and collagen. Dry aging for 21–28 days softens the tough connective tissue so neck cuts can be pan-seared or grilled rather than just braised. Hang the whole neck for even airflow or turn regularly on the rack." },
+          { name: "OP Rib / Ribeye Bone-In (Standing Rib)", progs: BIBLE_PROGS.rib21_42, tip: "🥩 <b>Ribeye Bone-In (OP Rib / Standing Rib Roast):</b> The gold standard of dry aging! Age on the bone (hanging by the first rib or resting <b>Fat Cap UP, Bones DOWN</b> on the rack). Ensure a sealed fat layer with zero incisions or air pockets, and wipe all bone dust clean before loading." },
+          { name: "Pheasant / Wildfowl (Whole)", progs: BIBLE_PROGS.poultry7_14, tip: "🪶 <b>Pheasant (Wildfowl):</b> Hang by the neck for 5 to 10 days. Controlled cabinet humidity prevents the lean breast meat from drying out while enzymes develop a delicate, noble game aroma without traditional 'high' spoilage." },
+          { name: "Pork Loin Rack (Bone-In, Fat Cap On)", progs: BIBLE_PROGS.pork14_21, tip: "🐖 <b>Pork Loin Rack (Bone-In):</b> Ask the butcher to leave a full 1.5–2cm back-fat cap intact and rib bones on. Place fat-side up on the rack for 14–28 days; develops nutty, buttery Ibérico-style tenderness." },
+          { name: "Round (Whole Leg / Topside of Beef)", progs: BIBLE_PROGS.std21_28, tip: "🥩 <b>Round (Whole Leg of Beef):</b> Age as a whole leg or whole topside/silverside sub-primal with a thick fat layer (individual steaks dry out too fast). Yields tender Tucson and Santa Fe steaks; sear over medium-high heat to max medium-rare." },
+          { name: "Rump Cap (Top Butt Cap / Picanha)", progs: BIBLE_PROGS.std21_28, tip: "🥩 <b>Rump Cap (Top Butt Cap / Picanha):</b> Age whole and hanging (or fat-cap up on rack) with the <b>silver skin and thick 1.5cm+ fat cap completely intact</b> and zero incisions into the meat. Trim silver skin only on the underside at harvest, leaving the aged fat cap on for grilling." },
+          { name: "Santa Fe Cut (Topside Gracilis)", progs: BIBLE_PROGS.long28_42, tip: "🥩 <b>Santa Fe Cut (Connoisseur Cut from Topside):</b> Aged for 28–42 days as part of the whole topside so it stays protected, then trimmed at harvest to slice the upper <i>gracilis</i> muscle into 1.5cm (3/4\") steaks. Marinate briefly, sear rare to medium-rare, and slice against the grain at 45°." },
+          { name: "Shank (Beef Shin Bone-In)", progs: BIBLE_PROGS.std21_28, tip: "🥩 <b>Shank (Beef Shin Bone-In):</b> Age whole on the bone for 21–28 days. Concentrates the bone marrow and gelatinous connective tissue for an extraordinary, deeply savoury Osso Buco or slow-braised beef shin." },
+          { name: "Short Loin (T-Bone / Porterhouse Saddle)", progs: BIBLE_PROGS.std21_28, tip: "🥩 <b>Short Loin (T-Bone / Porterhouse):</b> Whole bone-in saddle with the eye fillet (tenderloin) and striploin intact. Rest flat on the bone with 8–10 cm airflow clearance. Do not exceed 35 days so the exposed tenderloin fillet doesn't over-dry." },
+          { name: "Short Rib (Bone-In Beef Plate Ribs)", progs: BIBLE_PROGS.short7_21, tip: "🥩 <b>Short Rib (Beef Plate Ribs):</b> Age as a whole 3-to-4-bone rib plate resting bone-side down on the shelf (7 days Basic / 21 days Intense). Ensure evenly cut surfaces and do not cut into the meat while trimming." },
+          { name: "Striploin (Bone-In Sirloin, Full Fat Cap)", progs: BIBLE_PROGS.rib21_42, tip: "🥩 <b>Bone-In Striploin (Sirloin):</b> Requires an untrimmed, thick dorsal fat cap and bone base to shield the striploin eye muscle across 21 to 42 days of aging." },
+          { name: "Tri Tip (Bottom Sirloin / Mayor's Cut)", progs: BIBLE_PROGS.long28_42, tip: "🥩 <b>Tri Tip (Bottom Sirloin Roast):</b> Triangular cut from the lower sirloin. <b>Do not trim fat or silver skin beforehand;</b> hang in the ager due to its uneven triangular shape and check moisture loss regularly across 28–42 days." }
         ]
       },
       fish: {
         name: "Whole Fish & Seafood", icon: "🐟", temp: "0.5°C – 1.0°C", rh: "80% – 85%", uvc: "ON ✅", uvcColor: "#22c55e",
         rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon, Coral Trout, Cod, Sole.<br>🚫 <b>Run Strictly Alone</b> so marine amines don't taint beef fat.",
         items: [
-          { name: "Atlantic Salmon Fillet / Gravlax", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Scale off or skin-on; hang or rest on rack for dense sushi-grade texture." },
-          { name: "Cod / Skrei (Whole or Loin)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Suitable for raw dry aging (3–5 days) for a fresh, slightly salty tang." },
-          { name: "Common Sole / Dover Sole (Whole)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Use larger specimens (0.8kg+); dry age 3–5 days and poach in butter." },
-          { name: "Coral Trout / Snapper (Whole)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Leave scales ON to shield skin; remove gills & guts, scrape bloodline, blot bone-dry." },
-          { name: "Kingfish / Hiramasa Amberjack", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Hang from tail or support belly up; wipe cavity daily for first 48 hours." },
-          { name: "Real Tuna Loin (Bluefin / Yellowfin)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Blot dry and age on rack 5 days for deep sashimi umami." }
+          { name: "Atlantic Salmon Fillet / Gravlax", progs: BIBLE_PROGS.fish3_10, tip: "🐟 <b>Atlantic Salmon (<i>Salmo salar</i>):</b> Matured whole or as fillets. <b>Dry Aging Bible Gravlax Cure:</b> Mix 150g salt, 100g brown sugar, 35g vodka, 10g crushed juniper berries, 5g black pepper, 10g grapefruit zest & 2.5g lime zest. Rub onto fillets, cure 2 days in fridge, rinse & blot bone-dry, then dry-age 5 days in cabinet!" },
+          { name: "Cod / Skrei (Whole or Loin)", progs: BIBLE_PROGS.fish3_10, tip: "🐟 <b>Cod / Skrei (<i>Gadus morhua</i>):</b> Suitable for dry aging in its raw state for 3 days even without an overnight salt cure. The fragile white muscle segments firm up and acquire a fresh, slightly salty umami tang." },
+          { name: "Common Sole / Dover Sole (Whole)", progs: BIBLE_PROGS.fish3_10, tip: "🐟 <b>Common Sole (<i>Solea solea</i>):</b> Use larger specimens of 0.8 kg (1.8 lbs) and up in the dry ager for 3 days to bring out its prized nutty aroma. Tastes best poached briefly in plenty of butter while the centre remains slightly translucent." },
+          { name: "Coral Trout / Snapper (Whole)", progs: BIBLE_PROGS.fish3_10, tip: "🐟 <b>Coral Trout / Snapper:</b> Leave scales ON to shield the skin; remove gills and guts, scrape the kidney bloodline along the spine with a brush, blot cavity bone-dry with paper towels, and hang for 5–7 days." },
+          { name: "Kingfish / Hiramasa Amberjack", progs: BIBLE_PROGS.fish3_10, tip: "🐟 <b>Kingfish / Amberjack:</b> Bleed, gut, remove gills, and blot cavity bone-dry (never rinse with tap water). Hang from the tail or support belly-up; wipe cavity daily for the first 48 hours." },
+          { name: "Real Tuna Loin (Bluefin / Yellowfin)", progs: BIBLE_PROGS.fish3_10, tip: "🐟 <b>Real Tuna (<i>Thunnus</i>):</b> Buy loins/cuts up to 10 kg (22 lbs) and mature for 5 days hanging or resting on the rack. <b>Sashimi Safety Rule:</b> Must be frozen at -20°C (-4°F) for 24 hours prior to dry aging to eliminate potential nematodes." }
         ]
       },
       salami: {
         name: "Salami & Charcuterie", icon: "🥓", temp: "12°C – 14°C", rh: "75% – 82%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
         rule: "✅ <b>Can Share:</b> Salami, Coppa, Pancetta, Guanciale.<br>🚫 <b>UVC MUST BE OFF</b> to protect beneficial white curing mold.",
         items: [
-          { name: "Coppa / Capocollo (Cured Pork Neck)", progs: BIBLE_PROGS.salami28_56, tip: "🥓 Equilibrium cure first, case in bung, and hang until 35% weight loss." },
-          { name: "Guanciale / Pancetta Tesa", progs: BIBLE_PROGS.salami28_56, tip: "🥓 Hang until firm with ~30% weight loss; UVC light OFF." },
-          { name: "Prosciutto / Whole Cured Ham", progs: BIBLE_PROGS.salami28_56, tip: "🥓 Long-term slow affinage; coat exposed muscle face with sugna (lard + rice flour)." },
-          { name: "Salami / Soppressata", progs: BIBLE_PROGS.salami28_56, tip: "🥓 Target 35%–40% weight loss. White powdery Penicillium mold is beneficial." }
+          { name: "Coppa / Capocollo (Cured Pork Neck)", progs: BIBLE_PROGS.salami28_56, tip: "🥓 <b>Coppa / Capocollo:</b> Equilibrium-cure whole pork neck collar with salt, curing salt #2, and spices for 14 days, truss tightly in natural bung/netting, and hang at 12.5°C / 76% RH (UVC OFF) until 35% weight loss." },
+          { name: "Guanciale / Pancetta Tesa", progs: BIBLE_PROGS.salami28_56, tip: "🥓 <b>Guanciale / Pancetta:</b> Cure pork jowl or belly slab with salt, black pepper, rosemary, and juniper, then hang in cabinet with UVC OFF until ~30% weight loss." },
+          { name: "Prosciutto / Whole Cured Ham", progs: BIBLE_PROGS.salami28_56, tip: "🥓 <b>Prosciutto / Whole Ham:</b> Long-term slow affinage; coat exposed muscle face with <i>sugna</i> (unsalted pork lard + rice flour paste) so moisture exits evenly without hardening." },
+          { name: "Salami / Soppressata", progs: BIBLE_PROGS.salami28_56, tip: "🥓 <b>Salami / Soppressata:</b> Target 35%–40% weight loss. Keep UVC light OFF so beneficial chalky-white <i>Penicillium nalgiovense</i> mould protects the casing from case hardening." }
         ]
       },
       cheese: {
         name: "Cheese Affinage", icon: "🧀", temp: "10°C – 12°C", rh: "85% – 90%", uvc: "OFF ⚠️", uvcColor: "#ef4444",
         rule: "✅ <b>Can Share:</b> Cheddar, Gouda, Alpine Wheels.<br>🚫 <b>Keep Away From Meat</b> to prevent dairy cross-contamination.",
         items: [
-          { name: "Alpine / Gruyère Style Wheel", progs: BIBLE_PROGS.cheese30_90, tip: "🧀 Flip and brush with light brine every 3–4 days for natural rind development." },
-          { name: "Gouda Wheel (Waxed or Natural)", progs: BIBLE_PROGS.cheese30_90, tip: "🧀 Flip every 3 days so moisture distributes evenly through the paste." },
-          { name: "Hard Cheddar Clothbound Wheel", progs: BIBLE_PROGS.cheese30_90, tip: "🧀 Flip every 3 days; brush away stray dark mold spots." }
+          { name: "Alpine / Gruyère Style Wheel", progs: BIBLE_PROGS.cheese30_90, tip: "🧀 <b>Alpine / Gruyère Wheel:</b> Flip and brush lightly with a 3% salt brine wash every 3–4 days at 11°C / 85%–88% RH (UVC OFF) for natural nutty rind development." },
+          { name: "Gouda Wheel (Waxed or Natural)", progs: BIBLE_PROGS.cheese30_90, tip: "🧀 <b>Gouda Wheel:</b> Flip every 3 days on clean wooden or stainless racks so butterfat and moisture distribute evenly through the paste." },
+          { name: "Hard Cheddar Clothbound Wheel", progs: BIBLE_PROGS.cheese30_90, tip: "🧀 <b>Clothbound Cheddar Wheel:</b> Flip every 3 days; brush away any stray dark mould spots while developing crunchy tyrosine crystals over 60–90 days." }
         ]
       }
     };
@@ -945,7 +954,7 @@
       if (activeInFridge.length && activeInFridge[0].progTemp) {
         dispTemp = activeInFridge[0].progTemp;
         dispRh = activeInFridge[0].progRh;
-        progBadge = `<span class="badge">${activeInFridge[0].progLabel || 'Intense'}</span>`;
+        progBadge = `<span class="badge">${activeInFridge[0].progLabel || 'Intense'} (${dispTemp} • ${dispRh})</span>`;
       }
       document.getElementById('chamberBanner').innerHTML = `
         <div class="chamber-panel">
@@ -1199,15 +1208,15 @@
       renderManageFridges();
     }
 
-    // ADD NEW BATCH & ALPHABETICAL DROPDOWN
+    // ADD NEW BATCH & ALPHABETICAL DROPDOWN WITH FULL DESCRIPTIONS
     function getCombinedItems(mKey) {
       var defs = DEFAULT_MODES[mKey].items.slice();
-      var defaultProg = mKey === 'meat' ? BIBLE_PROGS.std21_28 : (mKey === 'fish' ? BIBLE_PROGS.fish5_10 : (mKey === 'salami' ? BIBLE_PROGS.salami28_56 : BIBLE_PROGS.cheese30_90));
+      var defaultProg = mKey === 'meat' ? BIBLE_PROGS.std21_28 : (mKey === 'fish' ? BIBLE_PROGS.fish3_10 : (mKey === 'salami' ? BIBLE_PROGS.salami28_56 : BIBLE_PROGS.cheese30_90));
       var cust = (customItems[mKey] || []).map(c => ({
-        name: c, progs: defaultProg, tip: "✨ Custom User Item — check temperature and humidity regularly.", isCustom: true
+        name: c, progs: defaultProg, tip: "✨ <b>Custom User Item:</b> Ensure 8–10 cm of open airflow around all sides and verify cabinet temperature and relative humidity match your selected intensity program above.", isCustom: true
       }));
       var merged = defs.concat(cust).sort((a, b) => a.name.localeCompare(b.name));
-      merged.push({ name: "➕ Other (Type custom item)...", progs: defaultProg, tip: "Type your own custom cut or product below.", isOther: true });
+      merged.push({ name: "➕ Other (Type custom item)...", progs: defaultProg, tip: "Type your own custom cut or product below and select your preferred climate program above.", isOther: true });
       return merged;
     }
 
@@ -1242,21 +1251,28 @@
       document.getElementById('customInputGroup').style.display = item.isOther ? 'block' : 'none';
       document.getElementById('customDeleteContainer').style.display = item.isCustom ? 'block' : 'none';
       renderProgSelector(item);
-      document.getElementById('cutTipBox').innerHTML = `<b>📖 Good to Know:</b> ${item.tip}`;
+      document.getElementById('cutTipBox').innerHTML = `📖 <b>Butcher & Prep Guide:</b><br>${item.tip}`;
     }
 
     function renderProgSelector(item) {
       var progs = item.progs || BIBLE_PROGS.std21_28;
       if (selectedProgIdx >= progs.length) selectedProgIdx = 0;
       var box = document.getElementById('progSelector');
-      box.innerHTML = progs.map((p, i) => `
-        <div class="prog-opt ${i === selectedProgIdx ? 'active' : ''}" onclick="selectProg(${i})">
-          <strong>${p.label}</strong>
-          <span>${p.days} Days (${Math.max(1, Math.round(p.days/7))}w)</span>
-          <small>${p.temp} • ${p.rh}</small>
-        </div>
-      `).join('');
-      document.getElementById('inDays').value = progs[selectedProgIdx].days;
+      box.innerHTML = progs.map((p, i) => {
+        var wks = p.days >= 7 ? ` (${Math.round(p.days/7)}w)` : '';
+        return `
+          <div class="prog-opt ${i === selectedProgIdx ? 'active' : ''}" onclick="selectProg(${i})">
+            <strong>${p.label}</strong>
+            <span>${p.days} Days${wks}</span>
+            <small>🌡️ ${p.temp} • 💧 ${p.rh}</small>
+          </div>
+        `;
+      }).join('');
+      var chosen = progs[selectedProgIdx];
+      document.getElementById('inDays').value = chosen.days;
+      document.getElementById('progDetailBox').innerHTML =
+        `🔥 <b>${chosen.label} Program (${chosen.days} Days @ ${chosen.temp} & ${chosen.rh}):</b><br>` +
+        (chosen.desc || `Set cabinet to ${chosen.temp} and ${chosen.rh} for ${chosen.days} days.`);
     }
 
     function selectProg(i) {
@@ -1322,6 +1338,8 @@
         progLabel: chosenProg.label,
         progTemp: chosenProg.temp,
         progRh: chosenProg.rh,
+        progDesc: chosenProg.desc || '',
+        cutTip: item.tip || '',
         status: 'Active',
         logs: [{ date: startD, w: weightInGrams }],
         photos: initialPhotos
@@ -1487,7 +1505,7 @@
           `;
         }
 
-        var progInfo = b.progLabel ? `<span class="badge">${b.progLabel} • ${b.progTemp || ''} ${b.progRh || ''}</span>` : '';
+        var progInfo = b.progLabel ? `<span class="badge">🌡️ ${b.progLabel}: ${b.progTemp || ''} • ${b.progRh || ''}</span>` : '';
         var steakTracker = (!isAct && b.steakCount > 0) ? `
           <div style="background:#12100e; border:1px solid #292524; border-radius:9px; padding:9px 12px; margin:10px 0; display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:0.86rem; font-weight:800; color:var(--gold);">🥩 Portions Left: ${b.steakCount}</span>
@@ -1515,6 +1533,12 @@
           `;
         }
 
+        var cutDetailsToggle = b.cutTip ? `
+          <div style="font-size:0.82rem; color:#e0f2fe; background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.3); border-radius:8px; padding:8px 10px; margin:8px 0;">
+            ${b.cutTip}
+          </div>
+        ` : '';
+
         return `
           <div class="card">
             <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
@@ -1539,6 +1563,7 @@
             </div>
 
             ${isAct ? `<div class="stage-box">${getStageGuide(elapsed, b.days, b.mode || 'meat')}</div>` : ''}
+            ${cutDetailsToggle}
             ${fridgeCountdownHtml}
             ${steakTracker}
             ${photoStripHtml}
