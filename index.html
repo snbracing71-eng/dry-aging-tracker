@@ -18,37 +18,47 @@
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
-      margin: 0; padding: 0 0 100px 0; background: var(--bg); color: var(--text);
+      margin: 0; padding: 0 0 105px 0; background: var(--bg); color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 16px; line-height: 1.45;
     }
     header {
       background: #141210; border-bottom: 2px solid var(--border);
-      padding: 10px 12px; display: flex; justify-content: space-between;
-      align-items: center; gap: 6px; position: sticky; top: 0; z-index: 40;
+      padding: 12px 14px; display: flex; justify-content: space-between;
+      align-items: center; gap: 10px; position: sticky; top: 0; z-index: 40;
     }
     .brand { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-    .brand-title { font-weight: 900; font-size: 1.15rem; letter-spacing: 0.5px; color: #fff; }
+    .brand-title { font-weight: 900; font-size: 1.3rem; letter-spacing: 0.5px; color: #fff; }
     .brand-title span { color: var(--gold); }
     .search-box {
-      flex: 1; max-width: 145px; background: #090807; border: 1.5px solid #3f3a36;
-      border-radius: 8px; padding: 6px 8px; color: #fff; font-size: 0.82rem; font-weight: 600;
-    }
-    .hdr-btns { display: flex; gap: 5px; flex-shrink: 0; }
-    .icon-btn {
-      background: #26221f; color: #fff; border: 1.5px solid var(--gold);
-      padding: 6px 9px; border-radius: 8px; font-size: 0.82rem; font-weight: 800; cursor: pointer;
+      flex: 1; background: #090807; border: 2px solid #3f3a36;
+      border-radius: 10px; padding: 9px 12px; color: #fff; font-size: 0.92rem; font-weight: 600;
     }
     main { padding: 14px; max-width: 600px; margin: 0 auto; }
+
+    /* LARGE ACTION ICON BAR ABOVE FRIDGE SELECTOR */
+    .top-action-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px;
+    }
+    .big-icon-btn {
+      background: #1c1917; border: 2px solid var(--gold); border-radius: 12px;
+      padding: 10px 4px; color: #fff; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 4px; cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    }
+    .big-icon-btn:active { transform: scale(0.97); background: rgba(234,179,8,0.18); }
+    .big-icon-btn .bi-emo { font-size: 1.55rem; line-height: 1; }
+    .big-icon-btn .bi-lbl { font-size: 0.78rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.3px; }
+
     .fridge-bar {
       background: #161412; border: 2px solid var(--border); border-radius: 12px;
       padding: 12px; margin-bottom: 14px;
     }
     .fridge-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 6px; flex-wrap: wrap; }
-    .fridge-lbl { font-size: 0.8rem; font-weight: 800; color: var(--gold); text-transform: uppercase; }
+    .fridge-lbl { font-size: 0.82rem; font-weight: 800; color: var(--gold); text-transform: uppercase; }
     .mini-btn {
-      background: #292524; color: #fff; border: 1px solid #44403c;
-      padding: 5px 9px; border-radius: 7px; font-size: 0.76rem; font-weight: 700; cursor: pointer;
+      background: #292524; color: #fff; border: 1.5px solid #57534e;
+      padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; cursor: pointer;
     }
     .mini-btn.alert { border-color: var(--red); background: rgba(239,68,68,0.2); color: #fecaca; }
     select, input, textarea {
@@ -92,7 +102,7 @@
     .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
     .tab-btn {
       background: #161412; border: 2px solid var(--border); color: var(--muted);
-      padding: 10px; border-radius: 10px; font-weight: 800; font-size: 0.9rem; cursor: pointer; text-align: center;
+      padding: 11px; border-radius: 10px; font-weight: 800; font-size: 0.92rem; cursor: pointer; text-align: center;
     }
     .tab-btn.active { border-color: var(--gold); color: #fff; background: rgba(234, 179, 8, 0.14); }
     .card {
@@ -118,9 +128,9 @@
       font-weight: 800; cursor: pointer; width: 100%;
     }
     .btn-sec { background: #292524; }
-    .btn-blue { background: #0284c7; padding: 11px; font-size: 0.92rem; }
-    .btn-green { background: #16a34a; padding: 11px; font-size: 0.92rem; }
-    .btn-gold { background: #ca8a04; padding: 11px; font-size: 0.92rem; }
+    .btn-blue { background: #0284c7; padding: 11px 6px; font-size: 0.88rem; }
+    .btn-green { background: #16a34a; padding: 11px 6px; font-size: 0.88rem; }
+    .btn-gold { background: #ca8a04; padding: 11px 6px; font-size: 0.88rem; color: #fff; }
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0; background: #141210;
       border-top: 2px solid var(--border); padding: 12px 14px; max-width: 600px;
@@ -158,7 +168,7 @@
     .step-box strong { color: var(--gold); font-size: 0.96rem; display: block; margin-bottom: 4px; }
     .diag-card {
       background: #12100e; border: 2px solid #292524; border-radius: 10px;
-      padding: 12px; margin-bottom: 9px; cursor: pointer;
+      padding: 12px; margin-bottom: 9px;
     }
     .diag-card.safe { border-left: 5px solid var(--green); }
     .diag-card.warn { border-left: 5px solid var(--amber); }
@@ -166,6 +176,28 @@
     .maint-row {
       background: #12100e; border: 1px solid #292524; border-radius: 10px;
       padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    }
+
+    /* PRINTABLE BUTCHER & FREEZER LABEL CARD */
+    .label-preview {
+      background: #fff; color: #000; border: 3px solid #000; border-radius: 10px;
+      padding: 16px; margin: 10px 0 14px 0; font-family: monospace, sans-serif;
+    }
+    .label-preview h3 {
+      margin: 0 0 6px 0; font-size: 1.25rem; font-weight: 900; text-transform: uppercase;
+      border-bottom: 3px solid #000; padding-bottom: 6px; display: flex; justify-content: space-between;
+    }
+    .label-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0;
+      border-bottom: 2px dashed #000; padding-bottom: 10px; font-size: 0.9rem;
+    }
+    @media print {
+      body * { visibility: hidden; }
+      #labelPrintArea, #labelPrintArea * { visibility: visible; }
+      #labelPrintArea {
+        position: fixed; left: 0; top: 0; width: 100%; max-width: 380px;
+        border: 3px solid #000; padding: 16px; background: #fff; color: #000;
+      }
     }
   </style>
 </head>
@@ -175,15 +207,30 @@
     <div class="brand">
       <div class="brand-title">AGER<span>PRO</span></div>
     </div>
-    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Batch # or Cut..." oninput="renderList()">
-    <div class="hdr-btns">
-      <button class="icon-btn" onclick="toggleUnit()" id="unitBtn">⚖️ g</button>
-      <button class="icon-btn" onclick="openModal('troubleModal')" title="Mold & Safety Troubleshooter">🩺</button>
-      <button class="icon-btn" onclick="openModal('guideModal')" title="Guide & Backup">📋</button>
-    </div>
+    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search Batch # or Cut..." oninput="renderList()">
   </header>
 
   <main>
+    <!-- BIG EASY-TO-TAP TOP ICON BAR ABOVE FRIDGE SELECTOR -->
+    <div class="top-action-grid">
+      <button type="button" class="big-icon-btn" onclick="toggleUnit()">
+        <span class="bi-emo">⚖️</span>
+        <span class="bi-lbl" id="unitBtn">Unit: g</span>
+      </button>
+      <button type="button" class="big-icon-btn" onclick="openModal('troubleModal')">
+        <span class="bi-emo">🩺</span>
+        <span class="bi-lbl">Safe?</span>
+      </button>
+      <button type="button" class="big-icon-btn" onclick="openModal('backupModal')">
+        <span class="bi-emo">💾</span>
+        <span class="bi-lbl">Backup</span>
+      </button>
+      <button type="button" class="big-icon-btn" onclick="openModal('guideModal')">
+        <span class="bi-emo">📋</span>
+        <span class="bi-lbl">Guide</span>
+      </button>
+    </div>
+
     <div class="fridge-bar">
       <div class="fridge-top">
         <span class="fridge-lbl">🗄️ Active Cabinet:</span>
@@ -239,49 +286,87 @@
     </div>
   </div>
 
-  <!-- FEATURE #4: VISUAL MOLD & SPOILAGE TROUBLESHOOTER MODAL -->
+  <!-- DEDICATED BACKUP & RESTORE MODAL -->
+  <div class="modal" id="backupModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:#fff;">💾 Backup & Restore Data</h2>
+      <p style="font-size:0.88rem; color:var(--muted); margin-top:-6px;">
+        Keep a safe copy of all your fridges, active batches, weight logs, custom cuts, and freezer inventory on your phone or Google Drive:
+      </p>
+      <div class="step-box" style="border-color:var(--gold);">
+        <strong>📤 Step 1: Save Backup File</strong>
+        Downloads an <code>AgerPro-Backup.json</code> file to your phone's Downloads folder.
+        <button class="btn btn-blue" style="margin-top:10px;" onclick="exportBackup()">📤 Download Backup File Now</button>
+      </div>
+      <div class="step-box">
+        <strong>📥 Step 2: Restore From Backup File</strong>
+        Switching phones or cleared browser cache? Select your saved <code>.json</code> backup file to restore everything instantly:
+        <button class="btn btn-gold" style="margin-top:10px;" onclick="document.getElementById('importFile').click()">📥 Choose Backup File to Restore</button>
+        <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importBackup(event)">
+      </div>
+      <button class="btn btn-sec" onclick="closeModal('backupModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- PRINTABLE / SHAREABLE FREEZER BAG LABEL MODAL -->
+  <div class="modal" id="labelModal">
+    <div class="modal-content">
+      <h2 style="margin-top:0; color:#fff;">🏷️ Freezer Bag & Butcher Label</h2>
+      <p style="font-size:0.84rem; color:var(--muted); margin-top:-6px;">Print directly to a Bluetooth thermal label maker, save as PDF, or copy onto your vacuum bags:</p>
+
+      <div id="labelPrintArea" class="label-preview"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
+        <button class="btn btn-blue" onclick="window.print()">🖨️ Print / Save PDF</button>
+        <button class="btn btn-gold" onclick="copyLabelText()">📋 Copy Label Text</button>
+      </div>
+      <button class="btn btn-sec" onclick="closeModal('labelModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- VISUAL MOLD & SPOILAGE TROUBLESHOOTER MODAL -->
   <div class="modal" id="troubleModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">🩺 "Is This Safe?" Troubleshooter</h2>
-      <p style="font-size:0.86rem; color:var(--muted); margin-top:-6px;">Tap what you see or smell inside your cabinet for an instant diagnosis:</p>
+      <p style="font-size:0.86rem; color:var(--muted); margin-top:-6px;">Check what you see or smell inside your cabinet for an instant diagnosis:</p>
 
-      <div class="diag-card safe" onclick="toggleDiag(this)">
+      <div class="diag-card safe">
         <strong style="color:var(--green);">⚪ White Chalky Specs / Patchy White Dust</strong>
         <div style="font-size:0.85rem; color:#e7e5e4; margin-top:5px;">
           <b>VERDICT: SAFE ✅</b><br>
-          This is either harmless salt/tyrosine amino acid crystals forming on the dry pellicle or beneficial white <i>Penicillium</i> mold (the same noble mold on salami and Brie). Leave it alone and trim off normally at harvest.
+          Harmless tyrosine/salt crystals forming on the dry pellicle or beneficial white <i>Penicillium</i> mold. Leave alone and trim off normally at harvest.
         </div>
       </div>
 
-      <div class="diag-card danger" onclick="toggleDiag(this)">
+      <div class="diag-card danger">
         <strong style="color:var(--red);">🟢 Green, Black, or Tall Fuzzy Hair Mold</strong>
         <div style="font-size:0.85rem; color:#e7e5e4; margin-top:5px;">
           <b>VERDICT: DANGER ⚠️ (Mycotoxin Risk)</b><br>
-          If it is a tiny isolated surface spot early on, wipe immediately with 70% food-grade ethanol or vinegar and drop RH to 75%. If green/black mold has penetrated deep into muscle fissures accompanied by a putrid smell, discard the affected section and sanitize the cabinet + UVC loop.
+          If tiny and isolated early on, wipe immediately with 70% food-grade ethanol or vinegar and drop RH to 75%. If green/black mold penetrates deep into muscle cracks with a putrid smell, discard affected section and sanitize cabinet.
         </div>
       </div>
 
-      <div class="diag-card warn" onclick="toggleDiag(this)">
+      <div class="diag-card warn">
         <strong style="color:var(--amber);">💧 Sticky, Slimy, or Wet Shiny Exterior</strong>
         <div style="font-size:0.85rem; color:#e7e5e4; margin-top:5px;">
           <b>VERDICT: HUMIDITY TOO HIGH (>82% RH) ⚠️</b><br>
-          Surface water activity ($a_w$) hasn't dropped fast enough. Blot the meat dry with clean paper towels, make sure cuts have 8–10 cm of airflow clearance on all sides, mop up any liquid around your Himalayan salt block, and lower RH to 74%–76%.
+          Blot meat dry with clean paper towels, ensure 8–10 cm airflow clearance on all sides, empty any liquid around your Himalayan salt block, and lower RH to 74%–76%.
         </div>
       </div>
 
-      <div class="diag-card warn" onclick="toggleDiag(this)">
+      <div class="diag-card warn">
         <strong style="color:var(--amber);">🪨 Rock-Hard Thick Outer Ring (Case Hardening)</strong>
         <div style="font-size:0.85rem; color:#e7e5e4; margin-top:5px;">
           <b>VERDICT: HUMIDITY TOO LOW (<70% RH) ⚠️</b><br>
-          When RH drops below 70%, the outer 5mm turns into an impermeable shell that traps wet moisture inside the core (which can spoil internally). Raise cabinet humidity to 78%–80% immediately.
+          Outer crust dried too fast and trapped moisture inside the core. Raise cabinet humidity to 78%–80% immediately.
         </div>
       </div>
 
-      <div class="diag-card safe" onclick="toggleDiag(this)">
+      <div class="diag-card safe">
         <strong style="color:var(--blue);">👃 Smell Test: Nutty/Funky vs. Sour/Ammonia</strong>
         <div style="font-size:0.85rem; color:#e7e5e4; margin-top:5px;">
           • <b>Buttered popcorn, roasted hazelnut, earthy mushroom, mild blue cheese:</b> 100% Normal & Desired ✅<br>
-          • <b>Sharp sour vinegar, rotting garbage, or stinging ammonia:</b> Anaerobic bacterial spoilage ⚠️ (Verify temperature hasn't risen above 4°C).
+          • <b>Sharp sour vinegar, rotting garbage, or stinging ammonia:</b> Spoilage ⚠️ (Check cabinet temp hasn't risen above 4°C).
         </div>
       </div>
 
@@ -289,7 +374,7 @@
     </div>
   </div>
 
-  <!-- FEATURE #6: CABINET MAINTENANCE & FILTER TRACKER MODAL -->
+  <!-- CABINET MAINTENANCE & FILTER TRACKER MODAL -->
   <div class="modal" id="maintModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">🔧 Cabinet Maintenance Tracker</h2>
@@ -302,21 +387,10 @@
     </div>
   </div>
 
-  <!-- GUIDE & FEATURE #5 (BACKUP / RESTORE) MODAL -->
+  <!-- GUIDE MODAL -->
   <div class="modal" id="guideModal">
     <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff;">📋 Master Guide & Data Backup</h2>
-
-      <div class="step-box" style="border-color:var(--gold);">
-        <strong>💾 #5: Data Backup & Restore (Keep Logs Safe)</strong>
-        Save a backup file of all your fridges, active batches, custom cuts, and freezer inventory to your phone or Google Drive:
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
-          <button class="btn btn-blue" onclick="exportBackup()">📤 Export Backup</button>
-          <button class="btn btn-gold" onclick="document.getElementById('importFile').click()">📥 Restore File</button>
-        </div>
-        <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importBackup(event)">
-      </div>
-
+      <h2 style="margin-top:0; color:#fff;">📋 Master Dry Aging Checklist</h2>
       <div class="step-box">
         <strong>Step 1: Buying at the Butcher (Landig Standard)</strong>
         • Ask for fresh bone-in sub-primals (5–10 days post-slaughter), NOT old cryovac bags sitting in blood purge.<br>
@@ -449,7 +523,8 @@
         <label>Sensory & Replication Notes (Aroma, Crust, Tenderness)</label>
         <textarea id="tastingNotes" rows="3" placeholder="e.g. Rich roasted hazelnut aroma, 45mm thick steaks, incredible crust."></textarea>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
+      <button type="button" class="btn btn-gold" style="margin-bottom:10px;" onclick="openLabelFromHarvest()">🏷️ View / Print Freezer Bag Label</button>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
         <button class="btn btn-sec" onclick="closeModal('harvestModal')">Cancel</button>
         <button class="btn btn-green" onclick="saveHarvestDetails()">Save Lifecycle</button>
       </div>
@@ -575,6 +650,7 @@
     var currentMode = 'meat';
     var currentTab = 'active';
     var selectedProgIdx = 1;
+    var activeLabelText = '';
 
     function ensureMaintForFridge(fName) {
       var today = new Date().toISOString().split('T')[0];
@@ -592,7 +668,7 @@
     function toggleUnit() {
       unit = (unit === 'g') ? 'kg' : 'g';
       localStorage.setItem('agerProUnit', unit);
-      document.getElementById('unitBtn').innerText = '⚖️ ' + unit;
+      document.getElementById('unitBtn').innerText = 'Unit: ' + unit;
       renderList();
     }
 
@@ -678,7 +754,70 @@
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-    // FEATURE #6: MAINTENANCE LOGIC
+    // PRINTABLE / SHAREABLE FREEZER LABEL GENERATOR
+    function openLabelModal(id) {
+      var b = items.find(x => x.id === id);
+      if (!b) return;
+      var elapsed = Math.max(0, Math.floor((new Date() - new Date(b.startD)) / 86400000));
+      var loss = (((b.startW - b.currW) / b.startW) * 100).toFixed(1);
+      var harvestD = b.actionDate || new Date().toISOString().split('T')[0];
+
+      // Calculate 12-Month Best Before Date for Deep Frozen (-18C)
+      var bbDateObj = new Date(harvestD);
+      bbDateObj.setFullYear(bbDateObj.getFullYear() + 1);
+      var bestBefore = bbDateObj.toISOString().split('T')[0];
+
+      var progStr = b.progLabel ? `${b.progLabel} (${b.progTemp || ''} / ${b.progRh || ''})` : 'Standard Dry Age';
+      var steaksStr = b.steakCount ? `${b.steakCount} Portions Left` : 'Whole / Unportioned';
+
+      activeLabelText =
+        `=== AGERPRO BUTCHER TAG ===\n` +
+        `BATCH CODE: ${b.code || 'PRO'}\n` +
+        `CUT: ${b.name}\n` +
+        `CABINET: ${b.fridge || currentFridge}\n` +
+        `PROGRAM: ${progStr}\n` +
+        `STARTED: ${b.startD} | AGED: ${elapsed} Days (Target ${b.days}d)\n` +
+        `WEIGHT: ${fmtW(b.startW)} -> ${fmtW(b.currW)} (-${loss}% Loss)\n` +
+        `STATUS: ${b.status || 'Active'} (${steaksStr})\n` +
+        `PACKED/FROZEN: ${harvestD} | BEST BEFORE (-18°C): ${bestBefore}\n` +
+        (b.notes ? `NOTES: ${b.notes}` : '');
+
+      document.getElementById('labelPrintArea').innerHTML = `
+        <h3>
+          <span>🥩 AGERPRO VAULT</span>
+          <span>#${b.code || 'BATCH'}</span>
+        </h3>
+        <div style="font-size:1.1rem; font-weight:900; margin-bottom:6px;">${b.name}</div>
+        <div class="label-grid">
+          <div><b>STARTED:</b><br>${b.startD}</div>
+          <div><b>TIME AGED:</b><br>${elapsed} Days (Target ${b.days}d)</div>
+          <div><b>PROGRAM:</b><br>${progStr}</div>
+          <div><b>WEIGHT / LOSS:</b><br>${fmtW(b.currW)} (-${loss}%)</div>
+          <div><b>PACKED DATE:</b><br>${harvestD}</div>
+          <div><b>BEST BEFORE (-18°C):</b><br>${bestBefore}</div>
+        </div>
+        <div style="font-size:0.86rem; margin-bottom:4px;"><b>STORAGE:</b> ${b.status || 'Active'} • <b>PORTIONS:</b> ${steaksStr}</div>
+        ${b.notes ? `<div style="font-size:0.82rem; border-top:1px solid #000; padding-top:5px; margin-top:5px;"><b>NOTES:</b> ${b.notes}</div>` : ''}
+      `;
+      openModal('labelModal');
+    }
+
+    function openLabelFromHarvest() {
+      var id = parseInt(document.getElementById('harvestId').value, 10);
+      openLabelModal(id);
+    }
+
+    function copyLabelText() {
+      if (navigator.clipboard && activeLabelText) {
+        navigator.clipboard.writeText(activeLabelText).then(function() {
+          agerAlert("✅ Label text copied! You can paste it into your notes, messages, or thermal printer app.");
+        });
+      } else {
+        agerAlert(activeLabelText);
+      }
+    }
+
+    // MAINTENANCE LOGIC
     function getMaintTasks() {
       return [
         { key: 'salt', name: '🧂 Wash & Dry Himalayan Salt Block', interval: 45, desc: 'Wash off surface residue in warm water and air-dry completely between runs.' },
@@ -743,7 +882,7 @@
       openMaintModal();
     }
 
-    // FEATURE #5: EXPORT & IMPORT BACKUP
+    // EXPORT & IMPORT BACKUP
     function exportBackup() {
       var payload = {
         app: "AgerPro",
@@ -789,7 +928,7 @@
           localStorage.setItem('dryAgeCustomItemsV5', JSON.stringify(customItems));
           localStorage.setItem('agerProMaint', JSON.stringify(maintData));
 
-          closeModal('guideModal');
+          closeModal('backupModal');
           switchFridge(currentFridge);
           agerAlert("✅ All fridges, batches, and freezer records have been restored!");
         } catch (err) {
@@ -1121,9 +1260,10 @@
             ${steakTracker}
             ${b.notes ? `<div style="font-size:0.84rem; color:#d6d3d1; background:#12100e; padding:9px; border-radius:8px; margin-bottom:10px;">📝 <b>Notes:</b> ${b.notes}</div>` : ''}
 
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-              <button class="btn btn-blue" onclick="promptWeigh(${b.id})">⚖️ Weigh-In</button>
-              <button class="btn btn-green" onclick="openHarvestModal(${b.id})">🥩 ${isAct ? 'Harvest / Vault' : 'Update Vault'}</button>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px;">
+              <button class="btn btn-blue" onclick="promptWeigh(${b.id})">⚖️ Weigh</button>
+              <button class="btn btn-green" onclick="openHarvestModal(${b.id})">🥩 ${isAct ? 'Harvest' : 'Vault'}</button>
+              <button class="btn btn-gold" onclick="openLabelModal(${b.id})">🏷️ Label</button>
             </div>
           </div>
         `;
@@ -1131,7 +1271,7 @@
     }
 
     // INIT
-    document.getElementById('unitBtn').innerText = '⚖️ ' + unit;
+    document.getElementById('unitBtn').innerText = 'Unit: ' + unit;
     var initLock = getActiveCategoryInCurrentFridge();
     if (initLock) currentMode = initLock;
     renderFridgeBar();
