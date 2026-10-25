@@ -24,16 +24,29 @@
     }
     header {
       background: #141210; border-bottom: 2px solid var(--border);
-      padding: 12px 14px; display: flex; justify-content: space-between;
+      padding: 10px 14px; display: flex; justify-content: space-between;
       align-items: center; gap: 10px; position: sticky; top: 0; z-index: 40;
     }
     .brand { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .brand-title { font-weight: 900; font-size: 1.3rem; letter-spacing: 0.5px; color: #fff; }
     .brand-title span { color: var(--gold); }
-    .search-box {
-      flex: 1; background: #090807; border: 2px solid #3f3a36;
-      border-radius: 10px; padding: 9px 12px; color: #fff; font-size: 0.92rem; font-weight: 600;
+
+    /* COMPACT RIGHT-ALIGNED SEARCH BAR */
+    .search-wrap {
+      position: relative; width: 148px; flex-shrink: 0; margin-left: auto;
     }
+    .search-box {
+      width: 100%; background: #090807; border: 1.5px solid var(--gold);
+      border-radius: 8px; padding: 6px 24px 6px 8px; color: #fff;
+      font-size: 0.8rem; font-weight: 600;
+    }
+    .search-clear {
+      position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+      background: var(--red); color: #fff; border: none; border-radius: 50%;
+      width: 16px; height: 16px; font-size: 0.65rem; font-weight: 900;
+      line-height: 16px; text-align: center; padding: 0; cursor: pointer; display: none;
+    }
+
     main { padding: 14px; max-width: 600px; margin: 0 auto; }
 
     /* LARGE ACTION ICON BAR ABOVE FRIDGE SELECTOR */
@@ -61,7 +74,7 @@
       padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; cursor: pointer;
     }
     .mini-btn.alert { border-color: var(--red); background: rgba(220,38,38,0.25); color: #fecaca; }
-    select, input, textarea {
+    select, input:not(.search-box), textarea {
       width: 100%; background: #090807; border: 2px solid #3f3a36;
       border-radius: 10px; padding: 12px; color: #fff; font-size: 1rem; font-weight: 600;
     }
@@ -210,7 +223,10 @@
     <div class="brand">
       <div class="brand-title">AGER<span>PRO</span></div>
     </div>
-    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search Batch # or Cut..." oninput="renderList()">
+    <div class="search-wrap">
+      <input type="text" id="searchInput" class="search-box" placeholder="🔍 Batch #..." oninput="onSearchInput()">
+      <button type="button" id="searchClearBtn" class="search-clear" onclick="clearSearch()">✕</button>
+    </div>
   </header>
 
   <main>
@@ -540,6 +556,18 @@
       openModal('msgModal');
     }
 
+    function onSearchInput() {
+      var val = document.getElementById('searchInput').value;
+      document.getElementById('searchClearBtn').style.display = val.length > 0 ? 'block' : 'none';
+      renderList();
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('searchClearBtn').style.display = 'none';
+      renderList();
+    }
+
     const BIBLE_PROGS = {
       std21_28: [
         { label: "Basic", days: 21, temp: "1.5°C", rh: "82% RH" },
@@ -646,7 +674,6 @@
       }
     };
 
-    // 4-WAY UNIT SYSTEM: g -> kg -> oz -> lb
     const UNIT_CYCLE = ['g', 'kg', 'oz', 'lb'];
     var unit = localStorage.getItem('agerProUnit') || 'g';
     if (!UNIT_CYCLE.includes(unit)) unit = 'g';
@@ -1241,7 +1268,7 @@
 
       if (!filtered.length) {
         box.innerHTML = `<div class="card" style="text-align:center; color:var(--muted); padding:26px 14px;">
-          ${currentTab === 'active' ? 'No active batches in <b>' + currentFridge + '</b>.<br>Tap <b>+ Add New Batch</b> below to start!' : 'No harvested or frozen batches in your vault yet.'}
+          ${q ? 'No batches matching "<b>' + q + '</b>".' : (currentTab === 'active' ? 'No active batches in <b>' + currentFridge + '</b>.<br>Tap <b>+ Add New Batch</b> below to start!' : 'No harvested or frozen batches in your vault yet.')}
         </div>`;
         return;
       }
