@@ -147,6 +147,34 @@
     .card-btn-green { background: var(--green); color: #fff; padding: 11px 6px; font-size: 0.88rem; }
     .card-btn-red { background: var(--red); color: #fff; padding: 11px 6px; font-size: 0.88rem; }
 
+    /* PHOTO STRIP & CAMERA BUTTONS */
+    .cam-btn {
+      background: #141210; border: 2px dashed var(--gold); color: var(--gold);
+      padding: 11px; border-radius: 10px; font-weight: 800; font-size: 0.9rem;
+      text-align: center; cursor: pointer; display: block; width: 100%;
+    }
+    .cam-preview {
+      margin-top: 8px; display: none; align-items: center; gap: 10px;
+      background: #090807; padding: 8px; border-radius: 8px; border: 1px solid var(--green);
+    }
+    .cam-preview img {
+      width: 54px; height: 54px; object-fit: cover; border-radius: 6px; border: 1px solid var(--gold);
+    }
+    .photo-strip {
+      display: flex; gap: 8px; overflow-x: auto; padding: 6px 0; margin: 8px 0;
+    }
+    .photo-thumb {
+      flex-shrink: 0; width: 76px; background: #090807; border: 1.5px solid #3f3a36;
+      border-radius: 8px; overflow: hidden; cursor: pointer; text-align: center;
+    }
+    .photo-thumb img {
+      width: 100%; height: 58px; object-fit: cover; display: block;
+    }
+    .photo-thumb span {
+      display: block; font-size: 0.65rem; font-weight: 800; color: var(--gold);
+      padding: 2px 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0; background: #141210;
       border-top: 2px solid var(--border); padding: 12px 14px; max-width: 600px;
@@ -286,7 +314,7 @@
 
     <div class="tabs">
       <div class="tab-btn active" id="tab-active" onclick="switchTab('active')">🔥 Active in Fridge</div>
-      <div class="tab-btn" id="tab-vault" onclick="switchTab('vault')">❄️ Freezer & Archive</div>
+      <div class="tab-btn" id="tab-vault" onclick="switchTab('vault')">❄️ Fridge, Freezer & Archive</div>
     </div>
 
     <div id="batchList"></div>
@@ -305,12 +333,25 @@
     </div>
   </div>
 
+  <!-- FULL-SCREEN PHOTO VIEWER MODAL -->
+  <div class="modal" id="photoViewModal" style="z-index:180;">
+    <div class="modal-content" style="text-align:center;">
+      <h3 id="photoViewTitle" style="margin-top:0; color:var(--gold);">📸 Stage Photo</h3>
+      <div id="photoViewSub" style="font-size:0.84rem; color:var(--muted); margin-bottom:10px;"></div>
+      <img id="photoViewImg" src="" style="width:100%; max-height:60vh; object-fit:contain; border-radius:10px; border:2px solid var(--gold); background:#000; margin-bottom:12px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <button class="btn btn-red" onclick="deleteViewedPhoto()">🗑️ Delete Photo</button>
+        <button class="btn btn-green" onclick="closeModal('photoViewModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- DEDICATED BACKUP & RESTORE MODAL -->
   <div class="modal" id="backupModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">💾 Backup & Restore Data</h2>
       <p style="font-size:0.88rem; color:var(--muted); margin-top:-6px;">
-        Keep a safe copy of all your fridges, active batches, weight logs, custom cuts, and freezer inventory on your phone or Google Drive:
+        Keep a safe copy of all your fridges, active batches, weight logs, stage photos, custom cuts, and freezer inventory on your phone or Google Drive:
       </p>
       <div class="step-box" style="border-color:var(--gold);">
         <strong>📤 Step 1: Save Backup File</strong>
@@ -331,7 +372,7 @@
   <div class="modal" id="labelModal">
     <div class="modal-content">
       <h2 style="margin-top:0; color:#fff;">🏷️ Freezer Bag & Butcher Label</h2>
-      <p style="font-size:0.84rem; color:var(--muted); margin-top:-6px;">Print directly to a Bluetooth thermal label maker, save as PDF, or copy onto your vacuum bags:</p>
+      <p style="font-size:0.84rem; color:var(--muted); margin-top:-6px;">Print directly to a Bluetooth thermal label maker, save as PDF, or copy onto your bags:</p>
 
       <div id="labelPrintArea" class="label-preview"></div>
 
@@ -426,9 +467,11 @@
         • Place on rack (<b>Fat Cap UP, Bones DOWN</b>) or hang from bone with 8–10 cm airflow clearance.
       </div>
       <div class="step-box">
-        <strong>Step 4: Harvest, Pellicle & Freezer Vault</strong>
+        <strong>Step 4: Harvest, Fridge, Vacuum & Freezer Vault</strong>
         • Slice off 1–2mm dark pellicle (save for smash burgers or rendering tallow).<br>
-        • Cut steaks 38–50mm thick. Vacuum-sealed steaks last 30–45 days chilled or 12+ months frozen at -18°C with zero drip loss.
+        • <b>In Fridge (Not Vacuum Sealed):</b> Keep covered/on rack in regular fridge for up to <b>8–10 days max</b>.<br>
+        • <b>Vacuum Sealed Chilled:</b> Lasts <b>30–45 days</b> in the fridge.<br>
+        • <b>Deep Frozen (-18°C):</b> Vacuum-sealed steaks last <b>12+ months</b> with zero drip loss.
       </div>
       <button class="btn btn-red" onclick="closeModal('guideModal')">Close</button>
     </div>
@@ -491,6 +534,19 @@
         <label>Date Placed in Cabinet</label>
         <input type="date" id="inDate">
       </div>
+
+      <!-- STAGE 1: DAY 0 PHOTO CAPTURE -->
+      <div class="form-group">
+        <label>📸 Day 0 Starting Photo (Optional)</label>
+        <label class="cam-btn" for="photoAddInput">📸 Take / Choose Start Photo</label>
+        <input type="file" id="photoAddInput" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'add')">
+        <div id="photoAddPreview" class="cam-preview">
+          <img id="photoAddImg" src="">
+          <span style="font-size:0.82rem; color:var(--green); font-weight:800; flex:1;">✅ Start Photo Ready</span>
+          <button type="button" class="mini-btn alert" onclick="clearPendingPhoto('add')">✕</button>
+        </div>
+      </div>
+
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
         <button class="btn btn-red" onclick="closeModal('addModal')">Cancel</button>
         <button class="btn btn-green" onclick="saveNewBatch()">Start Aging</button>
@@ -501,12 +557,25 @@
   <!-- WEIGH-IN MODAL -->
   <div class="modal" id="weighModal">
     <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff;">⚖️ Log New Weight</h2>
+      <h2 style="margin-top:0; color:#fff;">⚖️ Log New Weight & Photo</h2>
       <input type="hidden" id="weighId">
       <div class="form-group">
         <label id="weighModalLbl">Current Scale Reading (g)</label>
         <input type="number" step="any" id="inNewWeight" placeholder="e.g. 5650">
       </div>
+
+      <!-- STAGE 2: WEIGH-IN PHOTO CAPTURE -->
+      <div class="form-group">
+        <label>📸 Progress / Weigh-In Photo (Optional)</label>
+        <label class="cam-btn" for="photoWeighInput">📸 Take / Choose Weigh-In Photo</label>
+        <input type="file" id="photoWeighInput" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'weigh')">
+        <div id="photoWeighPreview" class="cam-preview">
+          <img id="photoWeighImg" src="">
+          <span style="font-size:0.82rem; color:var(--green); font-weight:800; flex:1;">✅ Weigh-In Photo Ready</span>
+          <button type="button" class="mini-btn alert" onclick="clearPendingPhoto('weigh')">✕</button>
+        </div>
+      </div>
+
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px;">
         <button class="btn btn-red" onclick="closeModal('weighModal')">Cancel</button>
         <button class="btn btn-green" onclick="saveNewWeight()">Save Weight</button>
@@ -514,18 +583,19 @@
     </div>
   </div>
 
-  <!-- HARVEST / FREEZER VAULT MODAL -->
+  <!-- HARVEST / FRIDGE / FREEZER VAULT MODAL -->
   <div class="modal" id="harvestModal">
     <div class="modal-content">
-      <h2 style="margin-top:0; color:#fff;">🥩 Harvest, Portion & Freezer Vault</h2>
+      <h2 style="margin-top:0; color:#fff;">🔪 Harvest, Fridge & Freezer Vault</h2>
       <input type="hidden" id="harvestId">
       <div class="form-group">
-        <label>Post-Aging Storage Status</label>
+        <label>Post-Aging Storage Stage</label>
         <select id="postStatus">
-          <option value="Active">🔥 Active in Dry Ager</option>
-          <option value="Vacuum Sealed Chilled">🧊 Vacuum Sealed & Chilled (Max 30–45 Days)</option>
-          <option value="Deep Frozen (-18C)">❄️ Deep Frozen in Vacuum Seal (-18°C / 12+ Mos)</option>
-          <option value="Consumed">🍽️ Consumed / Completed</option>
+          <option value="Active">🔥 Active in Dry Ager Cabinet</option>
+          <option value="In Fridge - Ready to Eat">🍽️ In Fridge — Ready to Eat (Not Vacuum Sealed • Max 8–10 Days)</option>
+          <option value="Vacuum Sealed Chilled">🧊 Vacuum Sealed & Chilled in Fridge (Max 30–45 Days)</option>
+          <option value="Deep Frozen (-18C)">❄️ Deep Frozen in Vacuum Seal (-18°C • 12+ Months)</option>
+          <option value="Consumed">✅ Consumed / Completed</option>
         </select>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
@@ -542,6 +612,19 @@
         <label>Sensory & Replication Notes (Aroma, Crust, Tenderness)</label>
         <textarea id="tastingNotes" rows="3" placeholder="e.g. Rich roasted hazelnut aroma, 45mm thick steaks, incredible crust."></textarea>
       </div>
+
+      <!-- STAGE 3: HARVEST PHOTO CAPTURE -->
+      <div class="form-group">
+        <label>📸 Harvest / Trimmed Steaks Photo (Optional)</label>
+        <label class="cam-btn" for="photoHarvestInput">📸 Take / Choose Harvest Photo</label>
+        <input type="file" id="photoHarvestInput" accept="image/*" style="display:none;" onchange="handlePhotoInput(event, 'harvest')">
+        <div id="photoHarvestPreview" class="cam-preview">
+          <img id="photoHarvestImg" src="">
+          <span style="font-size:0.82rem; color:var(--green); font-weight:800; flex:1;">✅ Harvest Photo Ready</span>
+          <button type="button" class="mini-btn alert" onclick="clearPendingPhoto('harvest')">✕</button>
+        </div>
+      </div>
+
       <button type="button" class="btn btn-gold" style="margin-bottom:10px; padding:13px;" onclick="openLabelFromHarvest()">🏷️ View / Print Freezer Bag Label</button>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
         <button class="btn btn-red" onclick="closeModal('harvestModal')">Cancel</button>
@@ -565,6 +648,64 @@
     function clearSearch() {
       document.getElementById('searchInput').value = '';
       document.getElementById('searchClearBtn').style.display = 'none';
+      renderList();
+    }
+
+    // PHOTO COMPRESSION & CAPTURE ENGINE (Smart 550px JPEG compression so localStorage never fills up)
+    var pendingPhotos = { add: null, weigh: null, harvest: null };
+    var viewingPhotoRef = { batchId: null, photoIdx: null };
+
+    function handlePhotoInput(ev, slot) {
+      var file = ev.target.files && ev.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var maxDim = 550;
+          var w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h = Math.round(h * (maxDim / w)); w = maxDim; }
+          else if (h >= w && h > maxDim) { w = Math.round(w * (maxDim / h)); h = maxDim; }
+          var canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          var dataUrl = canvas.toDataURL('image/jpeg', 0.68);
+          pendingPhotos[slot] = dataUrl;
+          var capSlot = slot.charAt(0).toUpperCase() + slot.slice(1);
+          document.getElementById('photo' + capSlot + 'Img').src = dataUrl;
+          document.getElementById('photo' + capSlot + 'Preview').style.display = 'flex';
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      ev.target.value = '';
+    }
+
+    function clearPendingPhoto(slot) {
+      pendingPhotos[slot] = null;
+      var capSlot = slot.charAt(0).toUpperCase() + slot.slice(1);
+      document.getElementById('photo' + capSlot + 'Img').src = '';
+      document.getElementById('photo' + capSlot + 'Preview').style.display = 'none';
+    }
+
+    function viewBatchPhoto(batchId, idx) {
+      var b = items.find(x => x.id === batchId);
+      if (!b || !b.photos || !b.photos[idx]) return;
+      var p = b.photos[idx];
+      viewingPhotoRef = { batchId: batchId, photoIdx: idx };
+      document.getElementById('photoViewTitle').innerText = '📸 ' + (p.stage || 'Stage Photo');
+      document.getElementById('photoViewSub').innerText = b.name + ' (' + (b.code || 'BATCH') + ') • ' + (p.date || '');
+      document.getElementById('photoViewImg').src = p.data;
+      openModal('photoViewModal');
+    }
+
+    function deleteViewedPhoto() {
+      var b = items.find(x => x.id === viewingPhotoRef.batchId);
+      if (!b || !b.photos) return;
+      b.photos.splice(viewingPhotoRef.photoIdx, 1);
+      localStorage.setItem('dryAgeItemsV5', JSON.stringify(items));
+      closeModal('photoViewModal');
       renderList();
     }
 
@@ -645,12 +786,14 @@
       },
       fish: {
         name: "Whole Fish & Seafood", icon: "🐟", temp: "0.5°C – 1.0°C", rh: "80% – 85%", uvc: "ON ✅", uvcColor: "#22c55e",
-        rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon, Coral Trout.<br>🚫 <b>Run Strictly Alone</b> so marine amines don't taint beef fat.",
+        rule: "✅ <b>Can Share:</b> Kingfish, Tuna, Salmon, Coral Trout, Cod, Sole.<br>🚫 <b>Run Strictly Alone</b> so marine amines don't taint beef fat.",
         items: [
           { name: "Atlantic Salmon Fillet / Gravlax", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Scale off or skin-on; hang or rest on rack for dense sushi-grade texture." },
+          { name: "Cod / Skrei (Whole or Loin)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Suitable for raw dry aging (3–5 days) for a fresh, slightly salty tang." },
+          { name: "Common Sole / Dover Sole (Whole)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Use larger specimens (0.8kg+); dry age 3–5 days and poach in butter." },
           { name: "Coral Trout / Snapper (Whole)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Leave scales ON to shield skin; remove gills & guts, scrape bloodline, blot bone-dry." },
           { name: "Kingfish / Hiramasa Amberjack", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Hang from tail or support belly up; wipe cavity daily for first 48 hours." },
-          { name: "Tuna Loin (Bluefin / Yellowfin)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Blot dry and age on parchment/rack for deep umami concentration." }
+          { name: "Real Tuna Loin (Bluefin / Yellowfin)", progs: BIBLE_PROGS.fish5_10, tip: "🐟 Blot dry and age on rack 5 days for deep sashimi umami." }
         ]
       },
       salami: {
@@ -821,7 +964,13 @@
       var harvestD = b.actionDate || new Date().toISOString().split('T')[0];
 
       var bbDateObj = new Date(harvestD);
-      bbDateObj.setFullYear(bbDateObj.getFullYear() + 1);
+      if (b.status === 'In Fridge - Ready to Eat') {
+        bbDateObj.setDate(bbDateObj.getDate() + 10);
+      } else if (b.status === 'Vacuum Sealed Chilled') {
+        bbDateObj.setDate(bbDateObj.getDate() + 40);
+      } else {
+        bbDateObj.setFullYear(bbDateObj.getFullYear() + 1);
+      }
       var bestBefore = bbDateObj.toISOString().split('T')[0];
 
       var progStr = b.progLabel ? `${b.progLabel} (${b.progTemp || ''} / ${b.progRh || ''})` : 'Standard Dry Age';
@@ -836,7 +985,7 @@
         `STARTED: ${b.startD} | AGED: ${elapsed} Days (Target ${b.days}d)\n` +
         `WEIGHT: ${fmtW(b.startW)} -> ${fmtW(b.currW)} (-${loss}% Loss)\n` +
         `STATUS: ${b.status || 'Active'} (${steaksStr})\n` +
-        `PACKED/FROZEN: ${harvestD} | BEST BEFORE (-18°C): ${bestBefore}\n` +
+        `PACKED DATE: ${harvestD} | USE BY: ${bestBefore}\n` +
         (b.notes ? `NOTES: ${b.notes}` : '');
 
       document.getElementById('labelPrintArea').innerHTML = `
@@ -850,8 +999,8 @@
           <div><b>TIME AGED:</b><br>${elapsed} Days (Target ${b.days}d)</div>
           <div><b>PROGRAM:</b><br>${progStr}</div>
           <div><b>WEIGHT / LOSS:</b><br>${fmtW(b.currW)} (-${loss}%)</div>
-          <div><b>PACKED DATE:</b><br>${harvestD}</div>
-          <div><b>BEST BEFORE (-18°C):</b><br>${bestBefore}</div>
+          <div><b>HARVESTED:</b><br>${harvestD}</div>
+          <div><b>USE BY:</b><br>${bestBefore}</div>
         </div>
         <div style="font-size:0.86rem; margin-bottom:4px;"><b>STORAGE:</b> ${b.status || 'Active'} • <b>PORTIONS:</b> ${steaksStr}</div>
         ${b.notes ? `<div style="font-size:0.82rem; border-top:1px solid #000; padding-top:5px; margin-top:5px;"><b>NOTES:</b> ${b.notes}</div>` : ''}
@@ -987,7 +1136,7 @@
 
           closeModal('backupModal');
           switchFridge(currentFridge);
-          agerAlert("✅ All fridges, batches, and freezer records have been restored!");
+          agerAlert("✅ All fridges, batches, photos, and freezer records have been restored!");
         } catch (err) {
           agerAlert("⚠️ Could not read backup file.");
         }
@@ -1055,6 +1204,7 @@
       document.getElementById('inWeight').placeholder = unitPlaceholder();
       document.getElementById('inWeight').value = '';
       document.getElementById('inDate').value = new Date().toISOString().split('T')[0];
+      clearPendingPhoto('add');
       selectedProgIdx = 1;
       updateDropdown();
       openModal('addModal');
@@ -1136,6 +1286,11 @@
       var startD = document.getElementById('inDate').value || new Date().toISOString().split('T')[0];
       var code = document.getElementById('batchCode').value.trim() || ('PRO-' + Math.floor(1000 + Math.random() * 9000));
 
+      var initialPhotos = [];
+      if (pendingPhotos.add) {
+        initialPhotos.push({ stage: 'Day 0 Start', date: startD, data: pendingPhotos.add });
+      }
+
       items.unshift({
         id: Date.now(),
         code: code,
@@ -1150,9 +1305,11 @@
         progTemp: chosenProg.temp,
         progRh: chosenProg.rh,
         status: 'Active',
-        logs: [{ date: startD, w: weightInGrams }]
+        logs: [{ date: startD, w: weightInGrams }],
+        photos: initialPhotos
       });
 
+      clearPendingPhoto('add');
       localStorage.setItem('dryAgeItemsV5', JSON.stringify(items));
       closeModal('addModal');
       switchTab('active');
@@ -1166,23 +1323,31 @@
       document.getElementById('weighModalLbl').innerText = `Current Scale Reading (${unit})`;
       document.getElementById('inNewWeight').placeholder = unitPlaceholder();
       document.getElementById('inNewWeight').value = '';
+      clearPendingPhoto('weigh');
       openModal('weighModal');
     }
 
     function saveNewWeight() {
       var id = parseInt(document.getElementById('weighId').value, 10);
       var rawW = parseFloat(document.getElementById('inNewWeight').value);
-      if (!rawW || rawW <= 0) return;
-      var wGrams = toGrams(rawW);
       var today = new Date().toISOString().split('T')[0];
 
       items.forEach(x => {
         if (x.id === id) {
-          x.currW = wGrams;
-          if (!x.logs) x.logs = [{ date: x.startD, w: x.startW }];
-          x.logs.push({ date: today, w: wGrams });
+          if (rawW && rawW > 0) {
+            var wGrams = toGrams(rawW);
+            x.currW = wGrams;
+            if (!x.logs) x.logs = [{ date: x.startD, w: x.startW }];
+            x.logs.push({ date: today, w: wGrams });
+          }
+          if (pendingPhotos.weigh) {
+            if (!x.photos) x.photos = [];
+            var elapsed = Math.max(0, Math.floor((new Date() - new Date(x.startD)) / 86400000));
+            x.photos.push({ stage: `Day ${elapsed} Weigh-In`, date: today, data: pendingPhotos.weigh });
+          }
         }
       });
+      clearPendingPhoto('weigh');
       localStorage.setItem('dryAgeItemsV5', JSON.stringify(items));
       closeModal('weighModal');
       renderList();
@@ -1192,26 +1357,35 @@
       var b = items.find(x => x.id === id);
       if (!b) return;
       document.getElementById('harvestId').value = id;
-      document.getElementById('postStatus').value = b.status || 'Vacuum Sealed Chilled';
+      document.getElementById('postStatus').value = (b.status && b.status !== 'Active') ? b.status : 'In Fridge - Ready to Eat';
       document.getElementById('steakCount').value = b.steakCount || '';
       document.getElementById('actionDate').value = b.actionDate || new Date().toISOString().split('T')[0];
       document.getElementById('tastingNotes').value = b.notes || '';
+      clearPendingPhoto('harvest');
       openModal('harvestModal');
     }
 
     function saveHarvestDetails() {
       var id = parseInt(document.getElementById('harvestId').value, 10);
+      var chosenStatus = document.getElementById('postStatus').value;
+      var actDate = document.getElementById('actionDate').value || new Date().toISOString().split('T')[0];
+
       items.forEach(x => {
         if (x.id === id) {
-          x.status = document.getElementById('postStatus').value;
+          x.status = chosenStatus;
           x.steakCount = parseInt(document.getElementById('steakCount').value, 10) || 0;
-          x.actionDate = document.getElementById('actionDate').value;
+          x.actionDate = actDate;
           x.notes = document.getElementById('tastingNotes').value.trim();
+          if (pendingPhotos.harvest) {
+            if (!x.photos) x.photos = [];
+            x.photos.push({ stage: 'Harvest', date: actDate, data: pendingPhotos.harvest });
+          }
         }
       });
+      clearPendingPhoto('harvest');
       localStorage.setItem('dryAgeItemsV5', JSON.stringify(items));
       closeModal('harvestModal');
-      if (document.getElementById('postStatus').value !== 'Active') switchTab('vault');
+      if (chosenStatus !== 'Active') switchTab('vault');
       updateCategoryTiles();
       renderChamber();
       renderList();
@@ -1256,6 +1430,7 @@
         if (q) {
           return (x.code || '').toLowerCase().includes(q) ||
                  (x.name || '').toLowerCase().includes(q) ||
+                 (x.status || '').toLowerCase().includes(q) ||
                  (x.notes || '').toLowerCase().includes(q);
         }
         var isAct = (x.status || 'Active') === 'Active';
@@ -1268,7 +1443,7 @@
 
       if (!filtered.length) {
         box.innerHTML = `<div class="card" style="text-align:center; color:var(--muted); padding:26px 14px;">
-          ${q ? 'No batches matching "<b>' + q + '</b>".' : (currentTab === 'active' ? 'No active batches in <b>' + currentFridge + '</b>.<br>Tap <b>+ Add New Batch</b> below to start!' : 'No harvested or frozen batches in your vault yet.')}
+          ${q ? 'No batches matching "<b>' + q + '</b>".' : (currentTab === 'active' ? 'No active batches in <b>' + currentFridge + '</b>.<br>Tap <b>+ Add New Batch</b> below to start!' : 'No harvested, fridge, or frozen batches in your vault yet.')}
         </div>`;
         return;
       }
@@ -1280,16 +1455,49 @@
         var modeObj = DEFAULT_MODES[b.mode || 'meat'] || DEFAULT_MODES.meat;
         var isAct = (b.status || 'Active') === 'Active';
 
+        // Ready-to-Eat Fridge (Not Vacuum Sealed) 8-10 Day Tracker Banner
+        var fridgeCountdownHtml = '';
+        if (b.status === 'In Fridge - Ready to Eat') {
+          var fDays = Math.max(0, Math.floor((new Date() - new Date(b.actionDate || new Date())) / 86400000));
+          var isWarn = fDays >= 8;
+          fridgeCountdownHtml = `
+            <div style="background:${isWarn ? 'rgba(220,38,38,0.22)' : 'rgba(245,158,11,0.15)'}; border:1.5px solid ${isWarn ? 'var(--red)' : 'var(--amber)'}; border-radius:9px; padding:9px 11px; margin:10px 0; font-size:0.84rem; font-weight:700; color:#fff;">
+              🍽️ <b>In Fridge (Not Vacuum Sealed): Day ${fDays} of 10 Max</b><br>
+              <span style="font-size:0.78rem; color:${isWarn ? '#fecaca' : '#fde68a'};">
+                ${isWarn ? '⚠️ Eat or vacuum-seal & freeze immediately (8–10 day limit reached)!' : 'Best cooked within 8–10 days of harvest, or vacuum-seal to extend.'}
+              </span>
+            </div>
+          `;
+        }
+
         var progInfo = b.progLabel ? `<span class="badge">${b.progLabel} • ${b.progTemp || ''} ${b.progRh || ''}</span>` : '';
         var steakTracker = (!isAct && b.steakCount > 0) ? `
           <div style="background:#12100e; border:1px solid #292524; border-radius:9px; padding:9px 12px; margin:10px 0; display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:0.86rem; font-weight:800; color:var(--gold);">🥩 Steaks Left in Freezer: ${b.steakCount}</span>
+            <span style="font-size:0.86rem; font-weight:800; color:var(--gold);">🥩 Portions Left: ${b.steakCount}</span>
             <div style="display:flex; gap:6px;">
               <button class="mini-btn" style="background:var(--red); border-color:var(--red);" onclick="adjustSteaks(${b.id}, -1)">-1 Eaten</button>
               <button class="mini-btn" style="background:var(--green); border-color:var(--green);" onclick="adjustSteaks(${b.id}, 1)">+1</button>
             </div>
           </div>
         ` : '';
+
+        // Stage Photo Gallery Strip
+        var photoStripHtml = '';
+        if (b.photos && b.photos.length > 0) {
+          photoStripHtml = `
+            <div style="margin-top:8px;">
+              <div style="font-size:0.74rem; font-weight:800; color:var(--gold); text-transform:uppercase;">📸 Stage Photos (${b.photos.length}) — Tap to Enlarge:</div>
+              <div class="photo-strip">
+                ${b.photos.map((p, pIdx) => `
+                  <div class="photo-thumb" onclick="viewBatchPhoto(${b.id}, ${pIdx})">
+                    <img src="${p.data}" alt="${p.stage}">
+                    <span>${p.stage}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
 
         return `
           <div class="card">
@@ -1315,11 +1523,13 @@
             </div>
 
             ${isAct ? `<div class="stage-box">${getStageGuide(elapsed, b.days, b.mode || 'meat')}</div>` : ''}
+            ${fridgeCountdownHtml}
             ${steakTracker}
-            ${b.notes ? `<div style="font-size:0.84rem; color:#d6d3d1; background:#12100e; padding:9px; border-radius:8px; margin-bottom:10px;">📝 <b>Notes:</b> ${b.notes}</div>` : ''}
+            ${photoStripHtml}
+            ${b.notes ? `<div style="font-size:0.84rem; color:#d6d3d1; background:#12100e; padding:9px; border-radius:8px; margin:8px 0 10px 0;">📝 <b>Notes:</b> ${b.notes}</div>` : ''}
 
-            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px;">
-              <button class="btn card-btn-green" onclick="promptWeigh(${b.id})">⚖️ Weigh</button>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; margin-top:8px;">
+              <button class="btn card-btn-green" onclick="promptWeigh(${b.id})">⚖️ Weigh/📸</button>
               <button class="btn card-btn-red" onclick="openHarvestModal(${b.id})">🔪 ${isAct ? 'Harvest' : 'Vault'}</button>
               <button class="btn btn-gold" onclick="openLabelModal(${b.id})">🏷️ Label</button>
             </div>
