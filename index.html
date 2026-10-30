@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>AgerPro — Dry Aging & Archive Hub</title>
-<link rel="manifest" id="dynManifest" href="manifest.json">
-<link rel="icon" id="dynFav" type="image/png" href="icon.png">
+<link rel="manifest" id="dynManifest" href="manifest.json?v=99">
+<link rel="icon" id="dynFav" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='frame' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2344403c'/%3E%3Cstop offset='50%25' stop-color='%231c1917'/%3E%3Cstop offset='100%25' stop-color='%230c0a09'/%3E%3C/linearGradient%3E%3ClinearGradient id='uv' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%237e22ce'/%3E%3Cstop offset='45%25' stop-color='%233b0764'/%3E%3Cstop offset='100%25' stop-color='%23141210'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fef08a'/%3E%3Cstop offset='50%25' stop-color='%23eab308'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3ClinearGradient id='meat' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23dc2626'/%3E%3Cstop offset='60%25' stop-color='%23991b1b'/%3E%3Cstop offset='100%25' stop-color='%23450a0a'/%3E%3C/linearGradient%3E%3ClinearGradient id='salt' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%23fda4af'/%3E%3Cstop offset='50%25' stop-color='%23fb7185'/%3E%3Cstop offset='100%25' stop-color='%23e11d48'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='105' fill='url(%23frame)' stroke='url(%23gold)' stroke-width='14'/%3E%3Crect x='52' y='46' width='408' height='368' rx='48' fill='url(%23uv)' stroke='%2357534e' stroke-width='8'/%3E%3Ccircle cx='34' cy='46' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='478' cy='46' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='34' cy='456' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='478' cy='456' r='10' fill='url(%23gold)'/%3E%3Crect x='90' y='54' width='332' height='10' rx='5' fill='%23e9d5ff'/%3E%3Cline x1='60' y1='290' x2='452' y2='290' stroke='%23a8a29e' stroke-width='5'/%3E%3Cline x1='60' y1='385' x2='452' y2='385' stroke='%23a8a29e' stroke-width='6'/%3E%3Crect x='146' y='342' width='220' height='40' rx='8' fill='url(%23salt)' stroke='%23fecdd3' stroke-width='3'/%3E%3Cpath d='M256 54 L256 76 C230 76 230 116 258 128 C285 140 285 175 252 182' fill='none' stroke='url(%23gold)' stroke-width='16' stroke-linecap='round'/%3E%3Cpath d='M242 152 C295 148 368 235 362 308 C356 364 300 382 248 378 C182 374 156 328 170 278 C182 238 225 205 242 152 Z' fill='url(%23meat)' stroke='%23fef3c7' stroke-width='12'/%3E%3Cpath d='M195 280 Q255 250 340 285 M205 330 Q265 305 330 340 M250 175 L265 268 M225 230 L285 225' fill='none' stroke='%23fef3c7' stroke-width='9' stroke-linecap='round'/%3E%3Ctext x='256' y='472' font-family='system-ui,sans-serif' font-size='54' font-weight='900' fill='url(%23gold)' text-anchor='middle' letter-spacing='3'%3EAGERPRO%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" id="dynTouch" href="icon.png">
 <meta name="theme-color" content="#0c0a09">
 <style>
@@ -14,11 +14,11 @@
 body{background:var(--bg);color:var(--ink);padding-bottom:90px;font-size:16px}
 header{position:sticky;top:0;z-index:50;background:#141210;border-bottom:2px solid var(--gold);padding:8px 10px}
 .h-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.brand{display:flex;align-items:center;gap:7px;font-weight:900;font-size:1.15rem;letter-spacing:.5px;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:1.15rem;letter-spacing:.5px;white-space:nowrap;cursor:pointer}
 .brand span{color:var(--gold)}
-.s-wrap{position:relative;flex:1;max-width:145px}
-.s-in{width:100%;background:#0c0a09;color:#fff;border:1.5px solid var(--gold);border-radius:8px;padding:6px 24px 6px 8px;font-size:.82rem}
-.s-clr{position:absolute;right:4px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;display:none;cursor:pointer}
+.s-wrap{position:relative;flex:1;max-width:190px}
+.s-in{width:100%;background:#0c0a09;color:#fff;border:1.5px solid var(--gold);border-radius:8px;padding:6px 26px 6px 8px;font-size:.85rem}
+.s-clr{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;display:none;cursor:pointer}
 .bell-btn{position:relative;background:#292524;border:2px solid var(--red);color:#fff;border-radius:8px;padding:5px 8px;font-size:1rem;cursor:pointer;display:none}
 .bell-dot{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:.7rem;font-weight:900;border-radius:50%;padding:1px 5px}
 .u-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
@@ -69,17 +69,16 @@ select,input,textarea{width:100%;background:#0c0a09;color:#fff;border:1.5px soli
 <body>
 <header>
   <div class="h-top">
-    <div class="brand">
-      <img id="hdrIcon" src="icon.png" onerror="this.style.display='none'" style="width:30px;height:30px;border-radius:7px;border:1.5px solid var(--gold);object-fit:cover">
+    <div class="brand" onclick="document.getElementById('iconConvIn').click()" title="Tap to pick custom icon from your phone Gallery">
+      <img id="hdrCustomImg" style="display:none;width:32px;height:32px;border-radius:7px;border:1.5px solid var(--gold);object-fit:cover">
+      <svg id="hdrDefaultSvg" width="32" height="32" viewBox="0 0 512 512" style="border-radius:7px"><defs><linearGradient id="frame" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44403c"/><stop offset="50%" stop-color="#1c1917"/><stop offset="100%" stop-color="#0c0a09"/></linearGradient><linearGradient id="uv" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7e22ce"/><stop offset="45%" stop-color="#3b0764"/><stop offset="100%" stop-color="#141210"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef08a"/><stop offset="50%" stop-color="#eab308"/><stop offset="100%" stop-color="#a16207"/></linearGradient><linearGradient id="meat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#dc2626"/><stop offset="60%" stop-color="#991b1b"/><stop offset="100%" stop-color="#450a0a"/></linearGradient><linearGradient id="salt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fda4af"/><stop offset="50%" stop-color="#fb7185"/><stop offset="100%" stop-color="#e11d48"/></linearGradient></defs><rect width="512" height="512" rx="105" fill="url(#frame)" stroke="url(#gold)" stroke-width="18"/><rect x="52" y="46" width="408" height="368" rx="48" fill="url(#uv)" stroke="#57534e" stroke-width="8"/><rect x="90" y="54" width="332" height="12" rx="5" fill="#e9d5ff"/><line x1="60" y1="290" x2="452" y2="290" stroke="#a8a29e" stroke-width="6"/><line x1="60" y1="385" x2="452" y2="385" stroke="#a8a29e" stroke-width="8"/><rect x="146" y="342" width="220" height="40" rx="8" fill="url(#salt)" stroke="#fecdd3" stroke-width="4"/><path d="M256 54 L256 76 C230 76 230 116 258 128 C285 140 285 175 252 182" fill="none" stroke="url(#gold)" stroke-width="18" stroke-linecap="round"/><path d="M242 152 C295 148 368 235 362 308 C356 364 300 382 248 378 C182 374 156 328 170 278 C182 238 225 205 242 152 Z" fill="url(#meat)" stroke="#fef3c7" stroke-width="14"/><path d="M195 280 Q255 250 340 285 M205 330 Q265 305 330 340 M250 175 L265 268" fill="none" stroke="#fef3c7" stroke-width="10" stroke-linecap="round"/><text x="256" y="476" font-family="system-ui,sans-serif" font-size="60" font-weight="900" fill="url(#gold)" text-anchor="middle">AGERPRO</text></svg>
       AGER<span>PRO</span>
     </div>
-    <div style="display:flex;align-items:center;gap:6px">
-      <button id="bellBtn" class="bell-btn" onclick="jumpToAlert()">🔔<span id="bellDot" class="bell-dot">0</span></button>
-      <div class="s-wrap">
-        <input type="text" id="searchIn" class="s-in" placeholder="🔍 Batch #..." oninput="handleSearch()">
-        <button id="searchClr" class="s-clr" onclick="clearSearch()">✕</button>
-      </div>
+    <div class="s-wrap">
+      <input type="text" id="searchIn" class="s-in" placeholder="🔍 Batch # or Cut..." oninput="handleSearch()">
+      <button id="searchClr" class="s-clr" onclick="clearSearch()">✕</button>
     </div>
+    <button id="bellBtn" class="bell-btn" onclick="jumpToAlert()">🔔<span id="bellDot" class="bell-dot">0</span></button>
   </div>
   <div class="u-bar">
     <button class="u-btn" id="unitBtn" onclick="cycleUnit()">⚖️ g</button>
@@ -291,8 +290,8 @@ select,input,textarea{width:100%;background:#0c0a09;color:#fff;border:1.5px soli
   <div class="tip-box"><b>2. Buying Rules:</b> Buy fresh bone-in sub-primals (5–10d post-slaughter) with intact fat caps. Avoid old cryovac meat sitting in blood purge.</div>
   <div class="tip-box"><b>3. Loading Orientation:</b> Blot meat bone-dry with paper towels (never rinse with water). Place Fat Side UP, Bone DOWN with 8cm airflow clearance.</div>
   <div class="tip-box"><b>4. Post-Harvest Lifecycle:</b> Once harvested, weighing and photo buttons lock automatically. Track Ready-to-Eat Fridge (8–10d), Vacuum Chilled (45d), or Deep Frozen (12m), then file to your Archive Vault when consumed!</div>
-  <h4 style="color:var(--gold);margin:12px 0 6px">🎨 App Icon (No GitHub Upload Needed!)</h4>
-  <button class="btn b-gld" style="margin-bottom:10px" onclick="document.getElementById('iconConvIn').click()">🖼️ Pick Saved Photo as App Icon</button>
+  <h4 style="color:var(--gold);margin:12px 0 6px">🎨 Use Your Saved Photo as App Icon</h4>
+  <button class="btn b-gld" style="margin-bottom:10px" onclick="document.getElementById('iconConvIn').click()">🖼️ Pick Saved Photo from Phone Gallery</button>
   <input type="file" id="iconConvIn" accept="image/*" style="display:none" onchange="applyCustomIconFromGallery(this)">
   <h4 style="color:var(--gold);margin:10px 0 6px">💾 Data Backup & Restore</h4>
   <div class="act-2" style="margin-bottom:12px">
@@ -402,8 +401,10 @@ function saveAll(){
 function loadSavedIcon(){
   let saved = localStorage.getItem('agerProCustomIcon');
   if(saved){
-    let h = document.getElementById('hdrIcon');
-    if(h){ h.src = saved; h.style.display = 'inline-block'; }
+    let img = document.getElementById('hdrCustomImg');
+    let svg = document.getElementById('hdrDefaultSvg');
+    if(img && svg){ img.src = saved; img.style.display = 'inline-block'; svg.style.display = 'none'; }
+    document.getElementById('dynFav').type = 'image/png';
     document.getElementById('dynFav').href = saved;
     document.getElementById('dynTouch').href = saved;
     let mObj = {
@@ -433,7 +434,7 @@ function applyCustomIconFromGallery(input){
       localStorage.setItem('agerProCustomIcon', dataUrl);
       loadSavedIcon();
       closeModal('guideModal');
-      showMsg('✅ New 3D App Icon applied! Now tap Chrome Three Dots (⋮) -> "Add to Home screen" to place your new icon on your phone!');
+      showMsg('✅ Your custom 3D Hanging Meat photo is now set! You can see it at the top-left of your screen right now.');
     };
     img.src = e.target.result;
   };
