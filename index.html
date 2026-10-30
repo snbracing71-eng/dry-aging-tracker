@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>AgerPro — Dry Aging & Archive Hub</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
+<link rel="manifest" id="dynManifest" href="manifest.json">
+<link rel="icon" id="dynFav" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" id="dynTouch" href="icon.png">
 <meta name="theme-color" content="#0c0a09">
 <style>
 :root{--bg:#0c0a09;--card:#1c1917;--ink:#fafaf9;--muted:#a8a29e;--gold:#eab308;--red:#dc2626;--grn:#16a34a;--blu:#0284c7;--bdr:#44403c}
@@ -16,9 +16,9 @@ header{position:sticky;top:0;z-index:50;background:#141210;border-bottom:2px sol
 .h-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
 .brand{display:flex;align-items:center;gap:7px;font-weight:900;font-size:1.15rem;letter-spacing:.5px;white-space:nowrap}
 .brand span{color:var(--gold)}
-.s-wrap{position:relative;flex:1;max-width:190px}
-.s-in{width:100%;background:#0c0a09;color:#fff;border:1.5px solid var(--gold);border-radius:8px;padding:6px 26px 6px 8px;font-size:.85rem}
-.s-clr{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;display:none;cursor:pointer}
+.s-wrap{position:relative;flex:1;max-width:145px}
+.s-in{width:100%;background:#0c0a09;color:#fff;border:1.5px solid var(--gold);border-radius:8px;padding:6px 24px 6px 8px;font-size:.82rem}
+.s-clr{position:absolute;right:4px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;display:none;cursor:pointer}
 .bell-btn{position:relative;background:#292524;border:2px solid var(--red);color:#fff;border-radius:8px;padding:5px 8px;font-size:1rem;cursor:pointer;display:none}
 .bell-dot{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:.7rem;font-weight:900;border-radius:50%;padding:1px 5px}
 .u-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
@@ -70,14 +70,16 @@ select,input,textarea{width:100%;background:#0c0a09;color:#fff;border:1.5px soli
 <header>
   <div class="h-top">
     <div class="brand">
-      <img src="icon.png" onerror="this.style.display='none'" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--gold)">
+      <img id="hdrIcon" src="icon.png" onerror="this.style.display='none'" style="width:30px;height:30px;border-radius:7px;border:1.5px solid var(--gold);object-fit:cover">
       AGER<span>PRO</span>
     </div>
-    <div class="s-wrap">
-      <input type="text" id="searchIn" class="s-in" placeholder="🔍 Batch # or Cut..." oninput="handleSearch()">
-      <button id="searchClr" class="s-clr" onclick="clearSearch()">✕</button>
+    <div style="display:flex;align-items:center;gap:6px">
+      <button id="bellBtn" class="bell-btn" onclick="jumpToAlert()">🔔<span id="bellDot" class="bell-dot">0</span></button>
+      <div class="s-wrap">
+        <input type="text" id="searchIn" class="s-in" placeholder="🔍 Batch #..." oninput="handleSearch()">
+        <button id="searchClr" class="s-clr" onclick="clearSearch()">✕</button>
+      </div>
     </div>
-    <button id="bellBtn" class="bell-btn" onclick="jumpToAlert()">🔔<span id="bellDot" class="bell-dot">0</span></button>
   </div>
   <div class="u-bar">
     <button class="u-btn" id="unitBtn" onclick="cycleUnit()">⚖️ g</button>
@@ -282,16 +284,16 @@ select,input,textarea{width:100%;background:#0c0a09;color:#fff;border:1.5px soli
   <button class="btn b-red" style="margin-top:12px" onclick="closeModal('maintModal')">Close</button>
 </div></div>
 
-<!-- GUIDE, ICON CONVERTER & BACKUP MODAL -->
+<!-- GUIDE, CUSTOM ICON SETTER & BACKUP MODAL -->
 <div class="modal" id="guideModal"><div class="m-cnt">
   <h3 style="color:var(--gold);margin-bottom:10px">📋 Master Butcher's Field Guide</h3>
   <div class="tip-box"><b>1. Cabinet Prep & Hygiene:</b> Sanitize shelves & walls with 70% food-grade ethanol before loading. Keep UVC ON for Meat & Fish, OFF for Salami & Cheese.</div>
   <div class="tip-box"><b>2. Buying Rules:</b> Buy fresh bone-in sub-primals (5–10d post-slaughter) with intact fat caps. Avoid old cryovac meat sitting in blood purge.</div>
   <div class="tip-box"><b>3. Loading Orientation:</b> Blot meat bone-dry with paper towels (never rinse with water). Place Fat Side UP, Bone DOWN with 8cm airflow clearance.</div>
   <div class="tip-box"><b>4. Post-Harvest Lifecycle:</b> Once harvested, weighing and photo buttons lock automatically. Track Ready-to-Eat Fridge (8–10d), Vacuum Chilled (45d), or Deep Frozen (12m), then file to your Archive Vault when consumed!</div>
-  <h4 style="color:var(--gold);margin:12px 0 6px">🎨 App Icon Converter (Auto-Renames to icon.png)</h4>
-  <button class="btn b-gld" style="margin-bottom:10px" onclick="document.getElementById('iconConvIn').click()">🖼️ Pick Saved Photo & Save as icon.png</button>
-  <input type="file" id="iconConvIn" accept="image/*" style="display:none" onchange="convertPhotoToIconPng(this)">
+  <h4 style="color:var(--gold);margin:12px 0 6px">🎨 App Icon (No GitHub Upload Needed!)</h4>
+  <button class="btn b-gld" style="margin-bottom:10px" onclick="document.getElementById('iconConvIn').click()">🖼️ Pick Saved Photo as App Icon</button>
+  <input type="file" id="iconConvIn" accept="image/*" style="display:none" onchange="applyCustomIconFromGallery(this)">
   <h4 style="color:var(--gold);margin:10px 0 6px">💾 Data Backup & Restore</h4>
   <div class="act-2" style="margin-bottom:12px">
     <button class="btn b-blu" onclick="exportBackup()">📤 Export Backup</button>
@@ -397,7 +399,28 @@ function saveAll(){
   localStorage.setItem('agerProUnit', curUnit);
 }
 
-function convertPhotoToIconPng(input){
+function loadSavedIcon(){
+  let saved = localStorage.getItem('agerProCustomIcon');
+  if(saved){
+    let h = document.getElementById('hdrIcon');
+    if(h){ h.src = saved; h.style.display = 'inline-block'; }
+    document.getElementById('dynFav').href = saved;
+    document.getElementById('dynTouch').href = saved;
+    let mObj = {
+      name: "AgerPro",
+      short_name: "AgerPro",
+      start_url: location.href,
+      display: "standalone",
+      background_color: "#0c0a09",
+      theme_color: "#0c0a09",
+      icons: [{src: saved, sizes: "512x512", type: "image/png", purpose: "any maskable"}]
+    };
+    let blob = new Blob([JSON.stringify(mObj)], {type:'application/json'});
+    document.getElementById('dynManifest').href = URL.createObjectURL(blob);
+  }
+}
+
+function applyCustomIconFromGallery(input){
   if(!input.files || !input.files[0]) return;
   let r = new FileReader();
   r.onload = function(e){
@@ -405,15 +428,12 @@ function convertPhotoToIconPng(input){
     img.onload = function(){
       let c = document.createElement('canvas');
       c.width = 512; c.height = 512;
-      let ctx = c.getContext('2d');
-      ctx.drawImage(img, 0, 0, 512, 512);
-      c.toBlob(function(blob){
-        let a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'icon.png';
-        a.click();
-        showMsg('✅ Saved as "icon.png" in your Downloads folder! Now upload icon.png to GitHub.');
-      }, 'image/png');
+      c.getContext('2d').drawImage(img, 0, 0, 512, 512);
+      let dataUrl = c.toDataURL('image/png');
+      localStorage.setItem('agerProCustomIcon', dataUrl);
+      loadSavedIcon();
+      closeModal('guideModal');
+      showMsg('✅ New 3D App Icon applied! Now tap Chrome Three Dots (⋮) -> "Add to Home screen" to place your new icon on your phone!');
     };
     img.src = e.target.result;
   };
@@ -1105,7 +1125,7 @@ function refreshUI(){
   renderBatches();
 }
 
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
+loadSavedIcon();
 refreshUI();
 </script>
 <!-- END_OF_FILE_OK --></html>
