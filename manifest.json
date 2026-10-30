@@ -1,17 +1,23 @@
 {
-  "id": "/dry-aging-tracker/?v=99",
+  "id": "/dry-aging-tracker/",
   "name": "AgerPro",
   "short_name": "AgerPro",
-  "start_url": "/dry-aging-tracker/?v=99",
+  "start_url": "/dry-aging-tracker/",
   "scope": "/dry-aging-tracker/",
   "display": "standalone",
   "background_color": "#0c0a09",
   "theme_color": "#0c0a09",
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='frame' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2344403c'/%3E%3Cstop offset='50%25' stop-color='%231c1917'/%3E%3Cstop offset='100%25' stop-color='%230c0a09'/%3E%3C/linearGradient%3E%3ClinearGradient id='uv' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%237e22ce'/%3E%3Cstop offset='45%25' stop-color='%233b0764'/%3E%3Cstop offset='100%25' stop-color='%23141210'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fef08a'/%3E%3Cstop offset='50%25' stop-color='%23eab308'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3ClinearGradient id='meat' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23dc2626'/%3E%3Cstop offset='60%25' stop-color='%23991b1b'/%3E%3Cstop offset='100%25' stop-color='%23450a0a'/%3E%3C/linearGradient%3E%3ClinearGradient id='salt' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%23fda4af'/%3E%3Cstop offset='50%25' stop-color='%23fb7185'/%3E%3Cstop offset='100%25' stop-color='%23e11d48'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='105' fill='url(%23frame)' stroke='url(%23gold)' stroke-width='14'/%3E%3Crect x='52' y='46' width='408' height='368' rx='48' fill='url(%23uv)' stroke='%2357534e' stroke-width='8'/%3E%3Ccircle cx='34' cy='46' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='478' cy='46' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='34' cy='456' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='478' cy='456' r='10' fill='url(%23gold)'/%3E%3Crect x='90' y='54' width='332' height='10' rx='5' fill='%23e9d5ff'/%3E%3Cline x1='60' y1='290' x2='452' y2='290' stroke='%23a8a29e' stroke-width='5'/%3E%3Cline x1='60' y1='385' x2='452' y2='385' stroke='%23a8a29e' stroke-width='6'/%3E%3Crect x='146' y='342' width='220' height='40' rx='8' fill='url(%23salt)' stroke='%23fecdd3' stroke-width='3'/%3E%3Cpath d='M256 54 L256 76 C230 76 230 116 258 128 C285 140 285 175 252 182' fill='none' stroke='url(%23gold)' stroke-width='16' stroke-linecap='round'/%3E%3Cpath d='M242 152 C295 148 368 235 362 308 C356 364 300 382 248 378 C182 374 156 328 170 278 C182 238 225 205 242 152 Z' fill='url(%23meat)' stroke='%23fef3c7' stroke-width='12'/%3E%3Cpath d='M195 280 Q255 250 340 285 M205 330 Q265 305 330 340 M250 175 L265 268 M225 230 L285 225' fill='none' stroke='%23fef3c7' stroke-width='9' stroke-linecap='round'/%3E%3Ctext x='256' y='472' font-family='system-ui,sans-serif' font-size='54' font-weight='900' fill='url(%23gold)' text-anchor='middle' letter-spacing='3'%3EAGERPRO%3C/text%3E%3C/svg%3E",
-      "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
