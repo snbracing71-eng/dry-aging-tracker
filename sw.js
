@@ -1,1 +1,60 @@
-self.addEventListener('fetch', function(e) {});
+self.addEventListener('install', e => self.skipWaiting());
+self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+
+self.addEventListener('fetch', e => {
+  if (e.request.url.includes('icon.png')) {
+    e.respondWith((async () => {
+      if (typeof OffscreenCanvas !== 'undefined') {
+        const c = new OffscreenCanvas(512, 512);
+        const x = c.getContext('2d');
+        // 3D Dark Iron Outer Frame
+        x.fillStyle = '#1c1917';
+        x.beginPath(); x.roundRect(0, 0, 512, 512, 100); x.fill();
+        x.lineWidth = 16; x.strokeStyle = '#eab308';
+        x.beginPath(); x.roundRect(8, 8, 496, 496, 94); x.fill(); x.stroke();
+        // Gold Corner Rivets
+        [[42,42],[470,42],[42,462],[470,462]].forEach(([cx,cy]) => {
+          x.fillStyle = '#eab308'; x.beginPath(); x.arc(cx, cy, 11, 0, Math.PI*2); x.fill();
+        });
+        // Purple UVC Chamber Interior
+        const g = x.createLinearGradient(0, 54, 0, 410);
+        g.addColorStop(0, '#7e22ce'); g.addColorStop(0.5, '#3b0764'); g.addColorStop(1, '#141210');
+        x.fillStyle = g; x.strokeStyle = '#57534e'; x.lineWidth = 8;
+        x.beginPath(); x.roundRect(54, 54, 404, 356, 42); x.fill(); x.stroke();
+        // UVC Glowing Top Tube
+        x.fillStyle = '#f3e8ff';
+        x.beginPath(); x.roundRect(96, 64, 320, 12, 6); x.fill();
+        // Stainless Racks
+        x.strokeStyle = '#a8a29e'; x.lineWidth = 6;
+        x.beginPath(); x.moveTo(62, 290); x.lineTo(450, 290); x.moveTo(62, 382); x.lineTo(450, 382); x.stroke();
+        // Pink Himalayan Salt Block
+        x.fillStyle = '#fb7185'; x.strokeStyle = '#fecdd3'; x.lineWidth = 4;
+        x.beginPath(); x.roundRect(156, 340, 200, 38, 8); x.fill(); x.stroke();
+        // Brass S-Hook
+        x.strokeStyle = '#eab308'; x.lineWidth = 16; x.lineCap = 'round';
+        x.beginPath(); x.moveTo(256, 64); x.lineTo(256, 84);
+        x.bezierCurveTo(226, 84, 226, 122, 256, 134);
+        x.bezierCurveTo(286, 146, 286, 180, 252, 186); x.stroke();
+        // Hanging Marbled Ribeye Roast
+        x.fillStyle = '#991b1b'; x.strokeStyle = '#fef3c7'; x.lineWidth = 14;
+        x.beginPath(); x.moveTo(242, 156);
+        x.bezierCurveTo(298, 152, 366, 236, 360, 308);
+        x.bezierCurveTo(354, 362, 298, 378, 248, 374);
+        x.bezierCurveTo(184, 370, 158, 326, 172, 276);
+        x.bezierCurveTo(184, 236, 224, 206, 242, 156);
+        x.closePath(); x.fill(); x.stroke();
+        // Marbling Veins
+        x.strokeStyle = '#fef3c7'; x.lineWidth = 9;
+        x.beginPath(); x.moveTo(196, 280); x.quadraticCurveTo(255, 250, 340, 286);
+        x.moveTo(206, 328); x.quadraticCurveTo(265, 305, 328, 338);
+        x.moveTo(250, 178); x.lineTo(265, 268); x.stroke();
+        // AGERPRO Bottom Plate
+        x.fillStyle = '#eab308'; x.font = '900 52px system-ui, sans-serif'; x.textAlign = 'center';
+        x.fillText('AGERPRO', 256, 472);
+        const blob = await c.convertToBlob({ type: 'image/png' });
+        return new Response(blob, { headers: { 'Content-Type': 'image/png' } });
+      }
+      return fetch(e.request);
+    })());
+  }
+});
