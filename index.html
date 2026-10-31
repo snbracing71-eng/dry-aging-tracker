@@ -76,8 +76,8 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 .fld{margin-bottom:11px}
 .fld label{display:block;font-size:.86rem;font-weight:900;color:#d6d3d1;margin-bottom:4px;text-transform:uppercase}
 .fld input,.fld select,.fld textarea{width:100%;background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:10px;color:#fff;font-size:1.02rem;font-weight:700}
-.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
-.p-btn{background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:8px 4px;color:#fff;font-size:.88rem;font-weight:900;cursor:pointer;text-align:center;line-height:1.25}
+.p-grid{display:grid;gap:6px;margin-top:6px}
+.p-btn{background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:8px 6px;color:#fff;font-size:.88rem;font-weight:900;cursor:pointer;text-align:center;line-height:1.25}
 .p-btn.active{border-color:var(--gold);background:rgba(234,179,8,.18);color:var(--gold)}
 .note-box{background:#0c0a09;border-left:4px solid var(--gold);padding:10px;border-radius:6px;font-size:.92rem;color:#f5f5f4;margin-top:8px;line-height:1.42}
 .tag-pre{background:#fff;color:#000;border:2px dashed #000;border-radius:8px;padding:10px;font-family:monospace;font-size:.88rem;line-height:1.38;margin:8px 0;white-space:pre-wrap}
@@ -146,15 +146,15 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 <div class="modal" id="addM"><div class="modal-in">
   <div class="m-hdr"><span id="addTtl">New Batch</span><button class="del-x" onclick="closeModal('addM')">✕</button></div>
   <div class="fld"><label>Batch Code</label><input id="bCode"></div>
-  <div class="fld"><label>Select Cut / Item (A–Z)</label><select id="bCut" onchange="onCutChange()"></select></div>
+  <div class="fld"><label>Select Cut / Item (Dry Aging Bible A–Z)</label><select id="bCut" onchange="onCutChange()"></select></div>
   <div class="fld" id="customCutWrap" style="display:none"><label>Custom Item Name</label><input id="bCustom" placeholder="Enter custom name..."></div>
   <div class="fld">
-    <label>Select Aging Intensity Stage</label>
+    <label>Dry Aging Bible Stage & Climate</label>
     <div class="p-grid" id="progGrid"></div>
     <div class="note-box" id="stageDesc"></div>
     <div class="note-box" id="cutNote" style="border-left-color:#38bdf8;margin-top:6px"></div>
   </div>
-  <div class="fld"><label>Target Days</label><input type="number" id="bDays" value="28"></div>
+  <div class="fld"><label>Target Days</label><input type="number" id="bDays" value="21"></div>
   <div class="fld"><label id="wInLbl">Starting Weight (g)</label><input type="number" step="0.01" id="bWeight" placeholder="e.g. 4200"></div>
   <div class="fld"><label>Start Date</label><input type="date" id="bDate"></div>
   <div class="act-row">
@@ -232,7 +232,7 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 <div class="modal" id="guideM"><div class="modal-in">
   <div class="m-hdr"><span>📋 Guide & Backup</span><button class="del-x" onclick="closeModal('guideM')">✕</button></div>
   <div class="note-box" style="margin-bottom:10px">
-    <b>Chamber Rules:</b> Never mix Red Meat, Fish, Salami, or Cheese in the same chamber at the same time. Keep 8cm air gaps between cuts.
+    <b>Dry Aging Bible Rules:</b> Never mix Red Meat, Fish, Salami, or Cheese in the same chamber at the same time. Use fresh meat (5–10 days post-slaughter), never wash with tap water, blot bone-dry, and leave 8cm air gaps.
   </div>
   <div class="act-row" style="margin-bottom:8px">
     <button class="btn btn-green" onclick="exportData()">📤 Backup JSON</button>
@@ -249,70 +249,55 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 </div></div>
 
 <script>
-const STAGE_INFO={
-  meat:[
-    {l:'Basic',t:'1.5°C',rh:'82% RH',desc:'<b>🟢 BASIC STAGE (1.5°C • 80–82% RH — Gentle & Max Yield):</b><br>Runs cold with higher humidity to slow evaporation. Keeps the outer pellicle crust thin for maximum steak yield while delivering buttery tenderness and mild, clean beefy notes.'},
-    {l:'Intense',t:'2.0°C',rh:'76% RH',desc:'<b>🟡 INTENSE STAGE (1.5–2.0°C • 75–78% RH — Classic Steakhouse):</b><br>Drier air draws out more free water over the run, concentrating roasted-hazelnut, browned-butter, and rich steakhouse umami flavors with a firm mahogany crust.'},
-    {l:'Intense+',t:'2.8°C',rh:'73% RH',desc:'<b>🔴 INTENSE+ STAGE (2.5–3.0°C • 72–75% RH — Accelerated Deep Funk):</b><br>Slightly warmer temp accelerates natural <i>calpain & cathepsin</i> enzyme breakdown while lower humidity speeds desiccation—achieving deep, funky, blue-cheese & charcuterie complexity in the exact same days!'}
-  ],
-  fish:[
-    {l:'Basic',t:'0.8°C',rh:'84% RH',desc:'<b>🟢 BASIC STAGE (0.8°C • 84% RH — Sashimi Firming):</b><br>Light surface moisture draw tightens flesh texture and brightens clean ocean sweetness with minimal trim loss.'},
-    {l:'Intense',t:'0.8°C',rh:'80% RH',desc:'<b>🟡 INTENSE STAGE (0.8°C • 80% RH — Umami Concentration):</b><br>Enzymes break down glycogen into glutamate and inosinate, giving buttery texture and crispy-skin searing performance.'},
-    {l:'Intense+',t:'1.2°C',rh:'76% RH',desc:'<b>🔴 INTENSE+ STAGE (1.2°C • 76% RH — Deep Marine Maturation):</b><br>Maximum moisture reduction and concentrated savory depth for thick tuna, kingfish, or coral trout loins.'}
-  ],
-  salami:[
-    {l:'Basic',t:'13°C',rh:'80% RH',desc:'<b>🟢 BASIC STAGE (13°C • 80% RH — Gentle Cure):</b><br>Slow, even moisture release (~30% weight loss) prevents case hardening. Keep UVC OFF.'},
-    {l:'Intense',t:'13°C',rh:'77% RH',desc:'<b>🟡 INTENSE STAGE (13°C • 77% RH — Classic Artisan Cure):</b><br>Targets 35% weight loss for firm sliceable texture and rich fermented aroma. Keep UVC OFF.'},
-    {l:'Intense+',t:'14°C',rh:'74% RH',desc:'<b>🔴 INTENSE+ STAGE (14°C • 74% RH — Firm Aged Charcuterie):</b><br>Targets 38–40% weight loss for dense, deeply matured salami and whole-muscle cures. Keep UVC OFF.'}
-  ],
-  cheese:[
-    {l:'Basic',t:'11°C',rh:'88% RH',desc:'<b>🟢 BASIC STAGE (11°C • 88% RH — Young Affinage):</b><br>Maintains supple paste and light rind development. Flip wheel every 3 days; keep UVC OFF.'},
-    {l:'Intense',t:'11°C',rh:'85% RH',desc:'<b>🟡 INTENSE STAGE (11°C • 85% RH — Matured Wheel):</b><br>Develops nutty, sharp crystalline structure and firm natural rind. Keep UVC OFF.'},
-    {l:'Intense+',t:'12°C',rh:'82% RH',desc:'<b>🔴 INTENSE+ STAGE (12°C • 82% RH — Vintage Crystallization):</b><br>Long affinage with pronounced tyrosine crunch and deep savory complexity. Keep UVC OFF.'}
-  ]
+const STAGE_DESCS={
+  Basic:'<b>🟢 BASIC STAGE (1.5°C • 82% RH — Gentle Maturation & Max Yield):</b><br>Higher 82% humidity slows surface evaporation so the outer pellicle crust stays thin. Maximizes tenderness and juicy yield with clean, mild buttery flavor.',
+  Intense:'<b>🟡 INTENSE STAGE (1.5°C–2.0°C • 75% RH — Classic Dry-Aged Profile):</b><br>Lower 75% humidity draws out more free water over the aging window, concentrating roasted-hazelnut, browned-butter, and rich steakhouse umami notes.',
+  'Intense+':'<b>🔴 INTENSE+ STAGE (2.5°C • 73% RH — Accelerated Enzyme & Deep Funk):</b><br>Slightly warmer temperature speeds up natural <i>calpain & cathepsin</i> enzymatic breakdown while drier air accelerates moisture concentration—delivering deep, funky steakhouse complexity in the exact same days.',
+  FishStd:'<b>🐟 DRY AGING BIBLE SEAFOOD CLIMATE (0.8°C • 82% RH • UVC ON):</b><br>Ultra-cold temperature halts bacterial spoilage while controlled airflow firms the flesh, tightens the skin, and concentrates sweet marine umami.',
+  SalamiStd:'<b>🥓 CHARCUTERIE CURING CLIMATE (13°C • 78% RH • UVC OFF):</b><br>Moderate cellar temperature and humidity allow slow moisture release (30–40% weight loss) without case-hardening. Keep UVC OFF to protect curing flora.',
+  CheeseStd:'<b>🧀 CHEESE AFFINAGE CLIMATE (11°C • 86% RH • UVC OFF):</b><br>High humidity prevents wheel cracking while natural rind and tyrosine crystals develop. Flip every 3 days.'
 };
 
 const MODES={
-  meat:{ico:'🥩',name:'Red Meat',sub:'1.5°C • UVC ON',temp:'1.5°C',rh:'75–80% RH',uvc:'UVC ON',cuts:[
-    {n:'Beef Chuck (Shoulder Clod)',p:[28,35,42],note:'Contains less connective tissue than top blade; pronounced flavor and tenderness for chuck steaks or roast.'},
-    {n:'Duck (Domestic Whole)',p:[5,7,10],note:'Hang by neck; dry-aging draws moisture from skin for paper-thin glass-crispy skin.'},
-    {n:'Fillet (Pork Tenderloin)',p:[7,10,14],note:'Short maturation concentrates sweetness and velvety tenderness.'},
-    {n:'Flat Iron (Oyster Blade)',p:[21,28,28],note:'Do not remove silver skin before aging; ensure even surfaces and hang to age.'},
-    {n:'Haunch (Whole Pork Leg)',p:[7,21,28],note:'Hang whole leg with rind intact to protect muscle from over-drying.'},
-    {n:'Lamb (Whole Carcass)',p:[7,14,21],note:'Hang whole carcass; transforms grassy notes into sweet, nutty tenderness.'},
-    {n:'Leg (Hind Shank of Lamb)',p:[7,14,21],note:'Keep fell and outer fat cover intact during aging.'},
-    {n:'Neck Steaks (Chuck Eye / Sierra / Denver)',p:[21,28,28],note:'Age as whole neck first, then trim connective tissue and portion into Denver, Sierra, or Chuck Eye steaks.'},
-    {n:'Pheasant (Wildfowl)',p:[5,7,10],note:'Eviscerate, wipe cavity bone-dry with paper towel, and hang.'},
-    {n:'Pork Rack / Bone-In Loin',p:[10,14,21],note:'Keep fat cap/rind intact; blot completely dry on Day 0.'},
-    {n:'Ribeye Bone-In (OP Rib)',p:[21,42,42],note:'Age on the bone (Fat UP, Bones DOWN). Sealed fat layer, wipe bone dust clean, hook through bone never meat.'},
-    {n:'Round (Whole Leg / Topside)',p:[21,28,28],note:'Age as whole sub-primal with thick fat layer so steaks do not dry out prematurely.'},
-    {n:'Rump Cap (Picanha)',p:[21,28,35],note:'Age whole with silver skin and thick fat layer 100% intact and zero incisions.'},
-    {n:'Santa Fe Cut (Topside)',p:[28,42,42],note:'Age as whole topside, then trim gracilis muscle into 1.5cm steaks and slice at 45°.'},
-    {n:'Shank (Beef Shin)',p:[21,28,28],note:'Concentrates marrow and collagen for rich braised dishes.'},
-    {n:'Short Loin (T-Bone / Porterhouse)',p:[21,35,42],note:'Bone frame and fat cap shield both striploin and eye fillet. Keep under 42d to protect tenderloin.'},
-    {n:'Short Rib (Beef Ribs)',p:[7,21,28],note:'Age as whole rib plate on rack. Do not cut into meat while trimming.'},
-    {n:'Striploin (Bone-In / Thick Fat Cap)',p:[21,28,35],note:'Rest fat-cap UP on wire rack with 8cm airflow gap around sides.'},
-    {n:'The Neck (Whole Chuck Neck)',p:[21,28,28],note:'Dry aging softens heavy connective tissue; hang whole neck for even airflow.'},
-    {n:'Tri Tip (Bottom Sirloin)',p:[28,42,42],note:'Do not trim beforehand; hang in chamber due to triangular shape.'},
-    {n:'+ Custom Item...',p:[21,30,45],note:'Enter your custom cut name and target days below.'}
+  meat:{ico:'🥩',name:'Red Meat',sub:'1.5°C • UVC ON',temp:'1.5°C',rh:'75–82% RH',uvc:'UVC ON',cuts:[
+    {n:'Beef Chuck (Shoulder Clod) 📖',p:[{l:'Basic',w:'4 Weeks',d:28,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4 Weeks',d:28,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'6 Weeks',d:42,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Contains less connective tissue than top blade; pronounced flavor and tenderness for ragout strips, chuck roast, or pan-seared teres major.'},
+    {n:'Duck (Domestic Whole) 📖',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Extended',w:'10 Days Max',d:10,t:'1.5°C',rh:'78% RH',k:'Intense'}],note:'[Dry Aging Bible] Mature whole hanging for 5 days (top-quality specimens can mature up to 10 days) for paper-thin crispy skin and tender breast meat.'},
+    {n:'Fillet (Pork Tenderloin) 📖',p:[{l:'Basic',w:'1 Week',d:7,t:'1.5°C',rh:'82% RH',k:'Basic'}],note:'[Dry Aging Bible] Short 1-week maturation concentrates sweetness and velvety tenderness without over-drying the lean tenderloin.'},
+    {n:'Flat Iron Steak (Oyster Blade) 📖',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4 Weeks',d:28,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'4 Weeks',d:28,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Top blade roast with central sinew removed after aging to yield two flat steaks. Do NOT remove silver skin before aging; ensure even surfaces and hang to age.'},
+    {n:'Haunch (Whole Pork Leg) 📖',p:[{l:'Basic',w:'1 Week',d:7,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'3 Weeks',d:21,t:'1.8°C',rh:'76% RH',k:'Intense'}],note:'[Dry Aging Bible] Hang whole pork leg with rind and fat cover intact for 1 week (Basic) or 3 weeks (Intense).'},
+    {n:'Lamb (Whole Carcass) 📖',p:[{l:'Basic',w:'1 Week',d:7,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'2 Weeks',d:14,t:'1.8°C',rh:'76% RH',k:'Intense'}],note:'[Dry Aging Bible] Hang whole lamb carcass for 1 to 2 weeks; transforms strong pasture notes into sweet, nutty tenderness.'},
+    {n:'Leg (Hind Shank of Lamb) 📖',p:[{l:'Basic',w:'1 Week',d:7,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'2 Weeks',d:14,t:'1.8°C',rh:'76% RH',k:'Intense'}],note:'[Dry Aging Bible] Keep outer fell and fat cover intact; age 1 week (Basic) or 2 weeks (Intense).'},
+    {n:'Neck Steaks: Chuck Eye / Sierra / Denver 📖',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4 Weeks',d:28,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'4 Weeks',d:28,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Age as whole beef neck first. Chuck Eye: trim all connective tissue before serving. Sierra: slice at 45° angle. Denver: nutty flavor, great seared or raw carpaccio.'},
+    {n:'Pheasant (Wildfowl) 📖',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'82% RH',k:'Basic'}],note:'[Dry Aging Bible] Eviscerate, wipe cavity bone-dry with paper towel, and hang for 5 days.'},
+    {n:'Ribeye Bone-In (OP Rib / Beef Rib) 📖',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'6 Weeks',d:42,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'6 Weeks',d:42,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Age on the bone (hanging or resting fat-up, bones-down). Sealed fat layer with no air pockets or incisions; wipe bone dust clean; hook through bone, never meat.'},
+    {n:'Round (Whole Leg of Beef) 📖',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4 Weeks',d:28,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'4 Weeks',d:28,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Age as a whole leg or topside/silverside with a thick fat layer (individual steaks dry out too fast). Yields Tucson & Santa Fe steaks; cook over medium heat to max medium-rare.'},
+    {n:'Rump Cap (Top Butt Cap / Picanha) 📖',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4 Weeks',d:28,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'4 Weeks',d:28,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Age whole and hanging with silver skin and thick fat layer intact and zero incisions into the meat.'},
+    {n:'Santa Fe Cut (Connoisseur Topside) 📖',p:[{l:'Basic',w:'4 Weeks',d:28,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'6 Weeks',d:42,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'6 Weeks',d:42,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Aged as a whole topside, then trimmed to slice the upper gracilis muscle into 1.5cm (3/4") steaks. Marinate before cooking briefly to medium-rare; slice against grain at 45°.'},
+    {n:'Shank (Beef Shin) 📖',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4 Weeks',d:28,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'4 Weeks',d:28,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Concentrates marrow and collagen for rich braised Osso Buco or slow-cooked dishes.'},
+    {n:'Short Loin (T-Bone / Porterhouse Saddle)',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4–5 Weeks',d:32,t:'2.0°C',rh:'75% RH',k:'Intense'}],note:'Whole bone-in saddle with eye fillet (tenderloin) and striploin. Do not exceed 35 days so the tenderloin side stays juicy.'},
+    {n:'Short Rib (Beef Ribs) 📖',p:[{l:'Basic',w:'1 Week',d:7,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'3 Weeks',d:21,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'3 Weeks',d:21,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Age as a whole rib section or pre-sliced boneless resting on the shelf. Evenly cut surfaces; do not cut into the meat while trimming.'},
+    {n:'Striploin (Bone-In / Thick Fat Cap)',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'5 Weeks',d:35,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'6 Weeks',d:42,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'Keep full dorsal fat cap untrimmed and place Fat UP, Bone DOWN on shelf.'},
+    {n:'The Neck (Chuck of Beef) 📖',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4 Weeks',d:28,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'4 Weeks',d:28,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Dry aging softens heavy connective tissue for pan/grill. Hang whole beef neck for even drying, or turn individual segments regularly.'},
+    {n:'Tri Tip (Bottom Sirloin / Mayor Cut) 📖',p:[{l:'Basic',w:'4 Weeks',d:28,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'6 Weeks',d:42,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'6 Weeks',d:42,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'[Dry Aging Bible] Triangular lower sirloin cut. Do NOT trim beforehand; hang in the ager due to its uneven shape and check progress regularly.'},
+    {n:'+ Custom Item...',p:[{l:'Basic',w:'3 Weeks',d:21,t:'1.5°C',rh:'82% RH',k:'Basic'},{l:'Intense',w:'4 Weeks',d:28,t:'2.0°C',rh:'75% RH',k:'Intense'},{l:'Intense+',w:'6 Weeks',d:42,t:'2.5°C',rh:'73% RH',k:'Intense+'}],note:'Enter your custom cut name and target days below.'}
   ]},
   fish:{ico:'🐟',name:'Seafood',sub:'0.8°C • UVC ON',temp:'0.5–1.0°C',rh:'80–85% RH',uvc:'UVC ON',cuts:[
-    {n:'Bluefin / Yellowfin Tuna Loin',p:[7,14,21],note:'Hang or rest on perforated rack wrapped in dry paper membrane if needed.'},
-    {n:'Coral Trout / Snapper',p:[4,7,10],note:'Scale on, gills & guts removed, blot belly cavity bone-dry daily.'},
-    {n:'King Salmon Side',p:[4,7,10],note:'Skin-on, hang from tail or rest skin-side down on rack.'},
-    {n:'Kingfish / Amberjack',p:[5,10,14],note:'Scale on, gills & guts removed, scrape kidney bloodline completely clean.'},
-    {n:'+ Custom Item...',p:[5,7,10],note:'Custom seafood batch.'}
+    {n:'Atlantic Salmon (Salmo salar) 📖',p:[{l:'Gravlax Fillet / Whole',w:'5 Days',d:5,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Dry Aging Bible] Mature whole or as fillets for 5 days. For Gravlax Fillets: rub with 150g salt, 100g brown sugar, 35g vodka, 10g ground juniper, 5g pepper, 10g grapefruit zest & 2.5g lime zest; marinate 2 days in fridge, rinse off, then dry age 5 days!'},
+    {n:'Cod / Skrei (Gadus morhua) 📖',p:[{l:'Raw Dry Aged',w:'3 Days',d:3,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Dry Aging Bible] Suitable for dry aging in its raw state even without an overnight salt cure. Fragile muscle segments acquire a fresh, slightly salty tang after 3 days.'},
+    {n:'Common Sole / Dover Sole (Solea solea) 📖',p:[{l:'Whole Flatfish',w:'3 Days',d:3,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Dry Aging Bible] Use larger specimens of 0.8 kg (1.8 lbs) and up for 3 days to bring out its nutty aroma. Best poached briefly in plenty of butter while inside remains slightly translucent.'},
+    {n:'Real Tuna (Thunnus Loin) 📖',p:[{l:'Loin up to 10kg',w:'5 Days',d:5,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Dry Aging Bible] Buy cuts up to 10 kg (22 lbs) and mature 5 days hanging or resting on shelf. MUST be frozen at -20°C (-4°F) for 24 hours prior to dry aging to kill potential nematodes when serving as sashimi.'},
+    {n:'+ Custom Seafood...',p:[{l:'Standard',w:'5 Days',d:5,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'Custom seafood batch.'}
   ]},
   salami:{ico:'🥓',name:'Salami',sub:'13°C • UVC OFF',temp:'12–14°C',rh:'75–82% RH',uvc:'UVC OFF ⚠️',cuts:[
-    {n:'Guanciale / Coppa',p:[45,60,90],note:'Target 35% weight loss. Keep UVC light strictly OFF.'},
-    {n:'Pancetta Tesa / Arrotolata',p:[21,35,45],note:'Target 30% weight loss. Keep UVC light OFF.'},
-    {n:'Pork Salami / Soppressata',p:[28,42,56],note:'Target 35–40% weight loss. Keep UVC OFF to protect white curing flora.'},
-    {n:'+ Custom Item...',p:[30,45,60],note:'Custom charcuterie batch.'}
+    {n:'Guanciale / Coppa',p:[{l:'Standard Cure',w:'6–8 Weeks',d:50,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'Target 35% weight loss. Keep UVC light strictly OFF.'},
+    {n:'Pancetta Tesa / Arrotolata',p:[{l:'Standard Cure',w:'4–5 Weeks',d:32,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'Target 30% weight loss. Keep UVC light OFF.'},
+    {n:'Pork Salami / Soppressata',p:[{l:'Standard Cure',w:'6 Weeks',d:42,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'Target 35–40% weight loss. Keep UVC OFF to protect white curing flora.'},
+    {n:'+ Custom Charcuterie...',p:[{l:'Standard Cure',w:'30 Days',d:30,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'Custom charcuterie batch.'}
   ]},
   cheese:{ico:'🧀',name:'Cheese',sub:'11°C • UVC OFF',temp:'10–12°C',rh:'85–90% RH',uvc:'UVC OFF ⚠️',cuts:[
-    {n:'Clothbound Cheddar Wheel',p:[60,120,180],note:'Flip wheel every 3 days. Keep UVC OFF.'},
-    {n:'Gouda / Farmhouse Wheel',p:[45,90,150],note:'Flip regularly for even rind development.'},
-    {n:'+ Custom Item...',p:[60,90,120],note:'Custom cheese affinage.'}
+    {n:'Clothbound Cheddar Wheel',p:[{l:'Standard Affinage',w:'60 Days',d:60,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'Flip wheel every 3 days. Keep UVC OFF.'},
+    {n:'Gouda / Farmhouse Wheel',p:[{l:'Standard Affinage',w:'45 Days',d:45,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'Flip regularly for even rind development.'},
+    {n:'+ Custom Cheese...',p:[{l:'Standard Affinage',w:'60 Days',d:60,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'Custom cheese affinage.'}
   ]}
 };
 
@@ -424,44 +409,46 @@ function openAddM(){
 function onCutChange(){
   let m=MODES[curMode], idx=parseInt(document.getElementById('bCut').value)||0;
   let cut=m.cuts[idx];
-  let stgs=STAGE_INFO[curMode]||STAGE_INFO.meat;
+  selProgIdx=0;
   document.getElementById('customCutWrap').style.display=cut.n.includes('Custom')?'block':'none';
-  document.getElementById('cutNote').innerHTML='<b>🔪 Butcher & Prep Note:</b> '+cut.note;
+  document.getElementById('cutNote').innerHTML='<b>📖 Good to Know & Prep:</b> '+cut.note;
   let pg=document.getElementById('progGrid');
-  pg.innerHTML=cut.p.map((days,i)=>{
-    let s=stgs[i];
-    return `<button type="button" class="p-btn ${i===selProgIdx?'active':''}" onclick="pickProg(${i},${days})">
-      ${s.l}<br><span style="color:var(--gold);font-size:.95rem">${days} Days</span><br><span style="font-size:.74rem;color:#38bdf8">${s.t} • ${s.rh}</span>
-    </button>`;
-  }).join('');
-  pickProg(selProgIdx,cut.p[selProgIdx]);
+  pg.style.gridTemplateColumns=`repeat(${cut.p.length},1fr)`;
+  pg.innerHTML=cut.p.map((p,i)=>`<button type="button" class="p-btn ${i===0?'active':''}" onclick="pickProg(${i})">
+    ${p.l}<br><span style="color:var(--gold);font-size:.96rem">${p.w} (${p.d}d)</span><br><span style="font-size:.76rem;color:#38bdf8">${p.t} • ${p.rh}</span>
+  </button>`).join('');
+  pickProg(0);
 }
 
-function pickProg(idx,days){
+function pickProg(idx){
+  let m=MODES[curMode], cutIdx=parseInt(document.getElementById('bCut').value)||0;
+  let cut=m.cuts[cutIdx];
+  if(!cut.p[idx]) idx=0;
   selProgIdx=idx;
-  let stgs=STAGE_INFO[curMode]||STAGE_INFO.meat;
+  let p=cut.p[idx];
   document.querySelectorAll('#progGrid .p-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
-  document.getElementById('bDays').value=days;
-  document.getElementById('stageDesc').innerHTML=stgs[idx].desc;
+  document.getElementById('bDays').value=p.d;
+  document.getElementById('stageDesc').innerHTML=STAGE_DESCS[p.k]||STAGE_DESCS.Basic;
 }
 
 function saveBatch(){
   let m=MODES[curMode], idx=parseInt(document.getElementById('bCut').value)||0;
-  let cutName=m.cuts[idx].n;
+  let cut=m.cuts[idx];
+  let cutName=cut.n.replace(' 📖','');
   if(cutName.includes('Custom')){
     cutName=document.getElementById('bCustom').value.trim()||'Custom Batch';
   }
   let w=fromDisp(document.getElementById('bWeight').value);
   if(!w||w<=0){say('Please enter a valid starting weight.');return;}
-  let days=parseInt(document.getElementById('bDays').value)||28;
+  let days=parseInt(document.getElementById('bDays').value)||21;
   let startD=document.getElementById('bDate').value||new Date().toISOString().split('T')[0];
   let code=document.getElementById('bCode').value.trim()||('PRO-'+Math.floor(1000+Math.random()*9000));
-  let stgObj=(STAGE_INFO[curMode]||STAGE_INFO.meat)[selProgIdx];
+  let p=cut.p[selProgIdx]||cut.p[0];
   let all=getBatches();
   all.unshift({
     id:Date.now(),code,name:cutName,cat:curMode,fridge:curFridge,
     startW:w,days,startD,logs:[{d:startD,w}],archived:false,
-    stage:'Active Aging',prog:stgObj.l,progClimate:stgObj.t+' • '+stgObj.rh,notes:''
+    stage:'Active Aging',prog:p.l,progClimate:p.t+' • '+p.rh,notes:''
   });
   setBatches(all);closeModal('addM');render();
 }
@@ -586,8 +573,8 @@ function getDueAlerts(){
 function getLiveStageText(b,el){
   if(b.archived) return `<b>🗄️ POST-AGING STORAGE (${b.stage})</b>Vacuum-sealed cuts keep up to 45 days chilled or 12+ months deep frozen at -18°C with zero drip loss.`;
   if(b.cat==='fish'){
-    if(el<=3) return `<b>STAGE 1: PELLICLE & SURFACE DRYING (Days 1–3)</b>Skin tightening and surface moisture evaporating. Keep cavity blotted bone-dry.`;
-    return `<b>STAGE 2: ENZYMATIC UMAMI PEAK (Day ${el})</b>Glycogen converting into savory glutamate and tender sashimi texture.`;
+    if(el<=2) return `<b>STAGE 1: PELLICLE & SURFACE DRYING (Days 1–2)</b>Skin tightening and surface moisture evaporating. Keep cavity blotted bone-dry.`;
+    return `<b>STAGE 2: ENZYMATIC UMAMI MATURATION (Day ${el} of ${b.days})</b>Muscle enzymes concentrating savory amino acids and firm sashimi/roasting texture.`;
   }
   if(b.cat==='salami'){
     return `<b>CURING & FERMENTATION STAGE (Day ${el})</b>Target 35–40% weight loss. Keep UVC OFF so beneficial white flora protects the casing.`;
@@ -596,9 +583,9 @@ function getLiveStageText(b,el){
     return `<b>AFFINAGE RIND MATURATION (Day ${el})</b>Flip wheel every 3 days for even moisture distribution. Keep UVC OFF.`;
   }
   if(el<=7) return `<b>STAGE 1: PELLICLE CRUST FORMING (Days 1–7)</b>Surface drying rapidly into a protective dark mahogany rind. Keep door closed and check salt block tray.`;
-  if(el<=28) return `<b>STAGE 2: ENZYMATIC TENDERISATION (Days 8–28)</b>Natural enzymes breaking down muscle fibres; faint roasted-nut and buttery aromas developing.`;
-  if(el<=45) return `<b>STAGE 3: PRIME SWEET SPOT (Days 29–45)</b>Peak hazelnut and steakhouse umami maturity! Ideal window to harvest, trim 1–2mm pellicle, and slice thick 45mm steaks.`;
-  return `<b>STAGE 4: DEEP STEAKHOUSE FUNK (Day 45+)</b>Intense blue-cheese & charcuterie notes. High crust trim yield—harvest when ready!`;
+  if(el<=21) return `<b>STAGE 2: ENZYMATIC TENDERISATION (Days 8–21)</b>Natural calpain & cathepsin enzymes breaking down muscle fibres; mild buttery notes forming.`;
+  if(el<=35) return `<b>STAGE 3: INTENSE AROMA DEVELOPMENT (Days 22–35)</b>Deepening roasted-nut and steakhouse umami character as moisture loss reaches 15–18%.`;
+  return `<b>STAGE 4: PEAK MATURITY & DEEP FUNK (Day ${el})</b>Full 6-week Dry Aging Bible maturation—rich hazelnut & blue-cheese complexity. Trim pellicle cleanly before slicing!`;
 }
 
 function exportData(){
