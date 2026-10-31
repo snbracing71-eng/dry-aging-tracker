@@ -11,74 +11,76 @@
 <style>
 :root{--bg:#0c0a09;--card:#161412;--border:#292524;--gold:#eab308;--copper:#b45309;--red:#dc2626;--green:#16a34a;--blue:#0284c7;--muted:#a8a29e}
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;margin:0 auto}
+body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;margin:0 auto;font-size:17px}
 .hdr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0 12px;border-bottom:1px solid var(--border);margin-bottom:12px}
 .brand{display:flex;align-items:center;gap:8px;white-space:nowrap;flex-shrink:0}
 .brand img,.brand svg{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--gold);flex-shrink:0}
-.brand-txt{font-size:1.3rem;font-weight:900;letter-spacing:.5px;color:#fff;white-space:nowrap}
+.brand-txt{font-size:1.42rem;font-weight:900;letter-spacing:.4px;color:#fff;white-space:nowrap}
 .brand-txt span{color:var(--gold)}
 .hdr-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .srch-wrap{position:relative;width:138px}
-.srch{width:100%;background:#1c1917;border:1.5px solid var(--gold);border-radius:8px;padding:6px 24px 6px 8px;color:#fff;font-size:.82rem;font-weight:600}
-.srch-clr{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border:none;border-radius:4px;width:16px;height:16px;font-size:.65rem;font-weight:900;display:none;align-items:center;justify-content:center;cursor:pointer}
-.bell-btn{position:relative;background:#1c1917;border:1.5px solid var(--gold);border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer}
-.bell-cnt{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:.65rem;font-weight:900;min-width:17px;height:17px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px;border:1.5px solid #0c0a09}
+.srch{width:100%;background:#1c1917;border:1.5px solid var(--gold);border-radius:8px;padding:6px 24px 6px 8px;color:#fff;font-size:.92rem;font-weight:700}
+.srch-clr{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border:none;border-radius:4px;width:16px;height:16px;font-size:.7rem;font-weight:900;display:none;align-items:center;justify-content:center;cursor:pointer}
+.bell-btn{position:relative;background:#1c1917;border:1.5px solid var(--gold);border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer}
+.bell-cnt{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:.72rem;font-weight:900;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px;border:1.5px solid #0c0a09}
 .top-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.top-btn{aspect-ratio:1/1;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:6px;text-align:center}
+.top-btn{aspect-ratio:1/1;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;padding:4px;text-align:center}
 .top-btn:active{transform:scale(.97)}
-.top-btn .ico{font-size:1.55rem;line-height:1}
-.top-btn .lbl{font-size:.76rem;font-weight:800;line-height:1.15;color:#f5f5f4}
-.top-btn .sub{font-size:.66rem;color:var(--gold);font-weight:800}
+.top-btn .ico{font-size:1.75rem;line-height:1}
+.top-btn .lbl{font-size:.94rem;font-weight:900;line-height:1.1;color:#fff}
+.top-btn .sub{font-size:.82rem;color:var(--gold);font-weight:900;line-height:1.1}
 .fridge-box{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:10px 12px;margin-bottom:12px}
 .fridge-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.fridge-lbl{font-size:.72rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
-.fridge-mng{background:#292524;border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:3px 8px;font-size:.72rem;font-weight:800;cursor:pointer}
-.fridge-sel{width:100%;background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:8px 10px;color:#fff;font-size:.92rem;font-weight:700}
+.fridge-lbl{font-size:.86rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:.4px}
+.fridge-mng{background:#292524;border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:4px 9px;font-size:.82rem;font-weight:900;cursor:pointer}
+.fridge-sel{width:100%;background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:8px 10px;color:#fff;font-size:1.05rem;font-weight:800}
 .mode-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.mode-tile{aspect-ratio:1/1;background:var(--card);border:2px solid transparent;border-radius:12px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;text-align:center}
+.mode-tile{aspect-ratio:1/1;background:var(--card);border:2px solid transparent;border-radius:12px;padding:4px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;text-align:center}
 .mode-tile.active{border-color:var(--gold);background:rgba(234,179,8,.14);box-shadow:0 0 10px rgba(234,179,8,.22)}
 .mode-tile.locked{opacity:.48}
-.m-ico{font-size:1.65rem;line-height:1}
-.m-nm{font-size:.76rem;font-weight:900;color:#fff;line-height:1.1}
-.m-sb{font-size:.62rem;color:var(--muted);line-height:1.1}
+.m-ico{font-size:1.8rem;line-height:1}
+.m-nm{font-size:.92rem;font-weight:900;color:#fff;line-height:1.1}
+.m-sb{font-size:.75rem;color:#d6d3d1;font-weight:700;line-height:1.1}
 .chamber-box{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:10px 12px;margin-bottom:12px}
-.chamber-head{font-size:.75rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.chamber-head{font-size:.88rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px}
 .env-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .env-pill{background:#0c0a09;border:1px solid #292524;border-radius:8px;padding:6px 4px;text-align:center}
-.env-lbl{font-size:.64rem;color:var(--muted);text-transform:uppercase;font-weight:700}
-.env-val{font-size:.88rem;font-weight:900;color:#38bdf8;margin-top:2px}
+.env-lbl{font-size:.76rem;color:#d6d3d1;text-transform:uppercase;font-weight:800}
+.env-val{font-size:1.04rem;font-weight:900;color:#38bdf8;margin-top:2px}
 .sec-bar{display:flex;justify-content:space-between;align-items:center;margin:10px 0 8px}
-.sec-ttl{font-size:.85rem;font-weight:900;color:var(--gold);text-transform:uppercase}
-.arch-btn{background:#1c1917;border:1.5px solid var(--gold);color:#fff;border-radius:8px;padding:5px 10px;font-size:.75rem;font-weight:800;cursor:pointer}
+.sec-ttl{font-size:.98rem;font-weight:900;color:var(--gold);text-transform:uppercase}
+.arch-btn{background:#1c1917;border:1.5px solid var(--gold);color:#fff;border-radius:8px;padding:6px 11px;font-size:.86rem;font-weight:900;cursor:pointer}
 .card{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:12px;margin-bottom:12px}
 .c-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.badge{display:inline-block;background:#292524;color:var(--gold);border:1px solid var(--gold);border-radius:6px;padding:2px 7px;font-size:.7rem;font-weight:800;margin-bottom:4px}
-.c-title{font-size:1.02rem;font-weight:900;color:#fff}
-.c-sub{font-size:.76rem;color:var(--muted);margin-top:2px}
-.del-x{background:var(--red);color:#fff;border:none;width:30px;height:30px;border-radius:7px;font-weight:900;font-size:.95rem;cursor:pointer;flex-shrink:0}
+.badge{display:inline-block;background:#292524;color:var(--gold);border:1px solid var(--gold);border-radius:6px;padding:3px 8px;font-size:.82rem;font-weight:900;margin-bottom:4px}
+.c-title{font-size:1.2rem;font-weight:900;color:#fff;line-height:1.2}
+.c-sub{font-size:.9rem;color:#d6d3d1;margin-top:3px;font-weight:600}
+.del-x{background:var(--red);color:#fff;border:none;width:32px;height:32px;border-radius:7px;font-weight:900;font-size:1.05rem;cursor:pointer;flex-shrink:0}
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#0c0a09;border:1px solid #292524;border-radius:8px;padding:8px;margin:10px 0}
 .st-box{text-align:center}
-.st-l{font-size:.64rem;color:var(--muted);text-transform:uppercase;font-weight:700}
-.st-v{font-size:.95rem;font-weight:900;color:#fff;margin-top:2px}
-.prog-wrap{height:7px;background:#292524;border-radius:4px;overflow:hidden;margin-bottom:8px}
+.st-l{font-size:.76rem;color:#d6d3d1;text-transform:uppercase;font-weight:800}
+.st-v{font-size:1.12rem;font-weight:900;color:#fff;margin-top:2px}
+.prog-wrap{height:8px;background:#292524;border-radius:4px;overflow:hidden;margin-bottom:10px}
 .prog-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--copper))}
+.stage-card{background:rgba(234,179,8,.1);border-left:4px solid var(--gold);border-radius:6px;padding:9px 10px;margin-bottom:10px;font-size:.92rem;line-height:1.4;color:#f5f5f4}
+.stage-card b{color:var(--gold);display:block;font-size:.96rem;margin-bottom:2px}
 .act-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.btn{border:none;border-radius:9px;padding:11px 10px;font-size:.86rem;font-weight:900;cursor:pointer;color:#fff;text-align:center}
+.btn{border:none;border-radius:9px;padding:12px 10px;font-size:.98rem;font-weight:900;cursor:pointer;color:#fff;text-align:center}
 .btn-green{background:var(--green)}
 .btn-red{background:var(--red)}
-.btn-gold{background:var(-- copper,#b45309);border:1.5px solid var(--gold)}
-.fab{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:496px;background:var(--green);color:#fff;border:2px solid var(--gold);border-radius:12px;padding:14px;font-size:1rem;font-weight:900;box-shadow:0 6px 20px rgba(0,0,0,.6);cursor:pointer;z-index:20}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:14px;z-index:50}
+.btn-gold{background:var(--copper);border:1.5px solid var(--gold)}
+.fab{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:496px;background:var(--green);color:#fff;border:2px solid var(--gold);border-radius:12px;padding:14px;font-size:1.1rem;font-weight:900;box-shadow:0 6px 20px rgba(0,0,0,.6);cursor:pointer;z-index:20}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.84);display:none;align-items:center;justify-content:center;padding:14px;z-index:50}
 .modal-in{background:#161412;border:2px solid var(--gold);border-radius:14px;padding:14px;width:100%;max-width:460px;max-height:88vh;overflow-y:auto}
-.m-hdr{font-size:1rem;font-weight:900;color:var(--gold);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.fld{margin-bottom:10px}
-.fld label{display:block;font-size:.74rem;font-weight:800;color:var(--muted);margin-bottom:4px;text-transform:uppercase}
-.fld input,.fld select,.fld textarea{width:100%;background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:9px;color:#fff;font-size:.9rem;font-weight:700}
+.m-hdr{font-size:1.15rem;font-weight:900;color:var(--gold);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.fld{margin-bottom:11px}
+.fld label{display:block;font-size:.86rem;font-weight:900;color:#d6d3d1;margin-bottom:4px;text-transform:uppercase}
+.fld input,.fld select,.fld textarea{width:100%;background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:10px;color:#fff;font-size:1.02rem;font-weight:700}
 .p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
-.p-btn{background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:7px 4px;color:#fff;font-size:.74rem;font-weight:800;cursor:pointer;text-align:center}
-.p-btn.active{border-color:var(--gold);background:rgba(234,179,8,.16);color:var(--gold)}
-.note-box{background:#0c0a09;border-left:3px solid var(--gold);padding:8px;border-radius:6px;font-size:.76rem;color:#e7e5e4;margin-top:6px;line-height:1.35}
-.tag-pre{background:#fff;color:#000;border:2px dashed #000;border-radius:8px;padding:10px;font-family:monospace;font-size:.78rem;line-height:1.35;margin:8px 0;white-space:pre-wrap}
+.p-btn{background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:8px 4px;color:#fff;font-size:.88rem;font-weight:900;cursor:pointer;text-align:center;line-height:1.25}
+.p-btn.active{border-color:var(--gold);background:rgba(234,179,8,.18);color:var(--gold)}
+.note-box{background:#0c0a09;border-left:4px solid var(--gold);padding:10px;border-radius:6px;font-size:.92rem;color:#f5f5f4;margin-top:8px;line-height:1.42}
+.tag-pre{background:#fff;color:#000;border:2px dashed #000;border-radius:8px;padding:10px;font-family:monospace;font-size:.88rem;line-height:1.38;margin:8px 0;white-space:pre-wrap}
 </style>
 </head>
 <body>
@@ -144,9 +146,14 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 <div class="modal" id="addM"><div class="modal-in">
   <div class="m-hdr"><span id="addTtl">New Batch</span><button class="del-x" onclick="closeModal('addM')">✕</button></div>
   <div class="fld"><label>Batch Code</label><input id="bCode"></div>
-  <div class="fld"><label>Select Cut / Item</label><select id="bCut" onchange="onCutChange()"></select></div>
+  <div class="fld"><label>Select Cut / Item (A–Z)</label><select id="bCut" onchange="onCutChange()"></select></div>
   <div class="fld" id="customCutWrap" style="display:none"><label>Custom Item Name</label><input id="bCustom" placeholder="Enter custom name..."></div>
-  <div class="fld"><label>Aging Intensity & Duration</label><div class="p-grid" id="progGrid"></div><div class="note-box" id="cutNote"></div></div>
+  <div class="fld">
+    <label>Select Aging Intensity Stage</label>
+    <div class="p-grid" id="progGrid"></div>
+    <div class="note-box" id="stageDesc"></div>
+    <div class="note-box" id="cutNote" style="border-left-color:#38bdf8;margin-top:6px"></div>
+  </div>
   <div class="fld"><label>Target Days</label><input type="number" id="bDays" value="28"></div>
   <div class="fld"><label id="wInLbl">Starting Weight (g)</label><input type="number" step="0.01" id="bWeight" placeholder="e.g. 4200"></div>
   <div class="fld"><label>Start Date</label><input type="date" id="bDate"></div>
@@ -225,7 +232,7 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 <div class="modal" id="guideM"><div class="modal-in">
   <div class="m-hdr"><span>📋 Guide & Backup</span><button class="del-x" onclick="closeModal('guideM')">✕</button></div>
   <div class="note-box" style="margin-bottom:10px">
-    <b> Chamber Rules:</b> Never mix Red Meat, Fish, Salami, or Cheese in the same chamber at the same time. Keep 8cm air gaps between cuts.
+    <b>Chamber Rules:</b> Never mix Red Meat, Fish, Salami, or Cheese in the same chamber at the same time. Keep 8cm air gaps between cuts.
   </div>
   <div class="act-row" style="margin-bottom:8px">
     <button class="btn btn-green" onclick="exportData()">📤 Backup JSON</button>
@@ -237,52 +244,75 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 
 <div class="modal" id="msgM"><div class="modal-in">
   <div class="m-hdr"><span id="msgTtl">🥩 AgerPro Says</span></div>
-  <div id="msgBody" style="font-size:.9rem;line-height:1.4;margin-bottom:12px"></div>
+  <div id="msgBody" style="font-size:.98rem;line-height:1.45;margin-bottom:12px"></div>
   <div id="msgActs" class="act-row"></div>
 </div></div>
 
 <script>
+const STAGE_INFO={
+  meat:[
+    {l:'Basic',t:'1.5°C',rh:'82% RH',desc:'<b>🟢 BASIC STAGE (1.5°C • 80–82% RH — Gentle & Max Yield):</b><br>Runs cold with higher humidity to slow evaporation. Keeps the outer pellicle crust thin for maximum steak yield while delivering buttery tenderness and mild, clean beefy notes.'},
+    {l:'Intense',t:'2.0°C',rh:'76% RH',desc:'<b>🟡 INTENSE STAGE (1.5–2.0°C • 75–78% RH — Classic Steakhouse):</b><br>Drier air draws out more free water over the run, concentrating roasted-hazelnut, browned-butter, and rich steakhouse umami flavors with a firm mahogany crust.'},
+    {l:'Intense+',t:'2.8°C',rh:'73% RH',desc:'<b>🔴 INTENSE+ STAGE (2.5–3.0°C • 72–75% RH — Accelerated Deep Funk):</b><br>Slightly warmer temp accelerates natural <i>calpain & cathepsin</i> enzyme breakdown while lower humidity speeds desiccation—achieving deep, funky, blue-cheese & charcuterie complexity in the exact same days!'}
+  ],
+  fish:[
+    {l:'Basic',t:'0.8°C',rh:'84% RH',desc:'<b>🟢 BASIC STAGE (0.8°C • 84% RH — Sashimi Firming):</b><br>Light surface moisture draw tightens flesh texture and brightens clean ocean sweetness with minimal trim loss.'},
+    {l:'Intense',t:'0.8°C',rh:'80% RH',desc:'<b>🟡 INTENSE STAGE (0.8°C • 80% RH — Umami Concentration):</b><br>Enzymes break down glycogen into glutamate and inosinate, giving buttery texture and crispy-skin searing performance.'},
+    {l:'Intense+',t:'1.2°C',rh:'76% RH',desc:'<b>🔴 INTENSE+ STAGE (1.2°C • 76% RH — Deep Marine Maturation):</b><br>Maximum moisture reduction and concentrated savory depth for thick tuna, kingfish, or coral trout loins.'}
+  ],
+  salami:[
+    {l:'Basic',t:'13°C',rh:'80% RH',desc:'<b>🟢 BASIC STAGE (13°C • 80% RH — Gentle Cure):</b><br>Slow, even moisture release (~30% weight loss) prevents case hardening. Keep UVC OFF.'},
+    {l:'Intense',t:'13°C',rh:'77% RH',desc:'<b>🟡 INTENSE STAGE (13°C • 77% RH — Classic Artisan Cure):</b><br>Targets 35% weight loss for firm sliceable texture and rich fermented aroma. Keep UVC OFF.'},
+    {l:'Intense+',t:'14°C',rh:'74% RH',desc:'<b>🔴 INTENSE+ STAGE (14°C • 74% RH — Firm Aged Charcuterie):</b><br>Targets 38–40% weight loss for dense, deeply matured salami and whole-muscle cures. Keep UVC OFF.'}
+  ],
+  cheese:[
+    {l:'Basic',t:'11°C',rh:'88% RH',desc:'<b>🟢 BASIC STAGE (11°C • 88% RH — Young Affinage):</b><br>Maintains supple paste and light rind development. Flip wheel every 3 days; keep UVC OFF.'},
+    {l:'Intense',t:'11°C',rh:'85% RH',desc:'<b>🟡 INTENSE STAGE (11°C • 85% RH — Matured Wheel):</b><br>Develops nutty, sharp crystalline structure and firm natural rind. Keep UVC OFF.'},
+    {l:'Intense+',t:'12°C',rh:'82% RH',desc:'<b>🔴 INTENSE+ STAGE (12°C • 82% RH — Vintage Crystallization):</b><br>Long affinage with pronounced tyrosine crunch and deep savory complexity. Keep UVC OFF.'}
+  ]
+};
+
 const MODES={
   meat:{ico:'🥩',name:'Red Meat',sub:'1.5°C • UVC ON',temp:'1.5°C',rh:'75–80% RH',uvc:'UVC ON',cuts:[
-    {n:'Ribeye Bone-In (OP Rib)',p:[{l:'Basic',d:21},{l:'Intense',d:42},{l:'Intense+',d:56}],note:'Age on the bone. Sealed fat layer, wipe bone dust clean, hook through bone never meat.'},
-    {n:'Short Rib (Beef Ribs)',p:[{l:'Basic',d:7},{l:'Intense',d:21},{l:'Intense+',d:28}],note:'Age as whole rib section on shelf. Do not cut into meat while trimming.'},
-    {n:'Short Loin (T-Bone / Porterhouse)',p:[{l:'Basic',d:21},{l:'Intense',d:35},{l:'Intense+',d:45}],note:'Bone and fat cap shield striploin and tenderloin.'},
-    {n:'Striploin (Bone-In / Thick Fat Cap)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:35}],note:'Rest fat-cap UP on wire rack.'},
-    {n:'Rump Cap (Picanha)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:35}],note:'Age whole with silver skin and thick fat layer intact.'},
-    {n:'Tri Tip (Bottom Sirloin)',p:[{l:'Basic',d:28},{l:'Intense',d:42},{l:'Intense+',d:42}],note:'Do not trim beforehand; hang due to uneven shape.'},
-    {n:'Beef Chuck (Shoulder Clod)',p:[{l:'Basic',d:28},{l:'Intense',d:35},{l:'Intense+',d:42}],note:'Pronounced flavor and tenderness for steaks or roast.'},
-    {n:'Flat Iron (Oyster Blade)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Do not remove silver skin before aging; hang to age.'},
-    {n:'The Neck (Whole Chuck Neck)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Dry aging softens connective tissue; hang whole.'},
-    {n:'Neck Steaks (Chuck Eye / Denver)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Age as whole neck then portion into Denver/Chuck Eye.'},
-    {n:'Round (Whole Leg / Topside)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Age whole sub-primal with thick fat layer.'},
-    {n:'Santa Fe Cut (Topside)',p:[{l:'Basic',d:28},{l:'Intense',d:42},{l:'Intense+',d:42}],note:'Age as whole topside then trim gracilis muscle.'},
-    {n:'Shank (Beef Shin)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Rich marrow & gelatin concentration.'},
-    {n:'Pork Rack / Bone-In Loin',p:[{l:'Basic',d:10},{l:'Intense',d:14},{l:'Intense+',d:21}],note:'Keep skin/fat intact; blot dry on Day 0.'},
-    {n:'Fillet (Pork Tenderloin)',p:[{l:'Basic',d:7},{l:'Intense',d:10},{l:'Intense+',d:14}],note:'Short maturation for concentrated tenderness.'},
-    {n:'Haunch (Whole Pork Leg)',p:[{l:'Basic',d:7},{l:'Intense',d:21},{l:'Intense+',d:28}],note:'Hang whole leg with rind intact.'},
-    {n:'Lamb (Whole Carcass)',p:[{l:'Basic',d:7},{l:'Intense',d:14},{l:'Intense+',d:21}],note:'Hang whole carcass; sweet nutty finish.'},
-    {n:'Leg (Hind Shank of Lamb)',p:[{l:'Basic',d:7},{l:'Intense',d:14},{l:'Intense+',d:21}],note:'Keep fell and fat cover intact.'},
-    {n:'Duck (Domestic Whole)',p:[{l:'Basic',d:5},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Hang by neck for paper-thin crispy skin.'},
-    {n:'Pheasant (Wildfowl)',p:[{l:'Basic',d:5},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Eviscerate, wipe cavity dry, hang.'},
-    {n:'+ Custom Item...',p:[{l:'Basic',d:21},{l:'Intense',d:30},{l:'Intense+',d:45}],note:'Enter your custom cut name and target days below.'}
+    {n:'Beef Chuck (Shoulder Clod)',p:[28,35,42],note:'Contains less connective tissue than top blade; pronounced flavor and tenderness for chuck steaks or roast.'},
+    {n:'Duck (Domestic Whole)',p:[5,7,10],note:'Hang by neck; dry-aging draws moisture from skin for paper-thin glass-crispy skin.'},
+    {n:'Fillet (Pork Tenderloin)',p:[7,10,14],note:'Short maturation concentrates sweetness and velvety tenderness.'},
+    {n:'Flat Iron (Oyster Blade)',p:[21,28,28],note:'Do not remove silver skin before aging; ensure even surfaces and hang to age.'},
+    {n:'Haunch (Whole Pork Leg)',p:[7,21,28],note:'Hang whole leg with rind intact to protect muscle from over-drying.'},
+    {n:'Lamb (Whole Carcass)',p:[7,14,21],note:'Hang whole carcass; transforms grassy notes into sweet, nutty tenderness.'},
+    {n:'Leg (Hind Shank of Lamb)',p:[7,14,21],note:'Keep fell and outer fat cover intact during aging.'},
+    {n:'Neck Steaks (Chuck Eye / Sierra / Denver)',p:[21,28,28],note:'Age as whole neck first, then trim connective tissue and portion into Denver, Sierra, or Chuck Eye steaks.'},
+    {n:'Pheasant (Wildfowl)',p:[5,7,10],note:'Eviscerate, wipe cavity bone-dry with paper towel, and hang.'},
+    {n:'Pork Rack / Bone-In Loin',p:[10,14,21],note:'Keep fat cap/rind intact; blot completely dry on Day 0.'},
+    {n:'Ribeye Bone-In (OP Rib)',p:[21,42,42],note:'Age on the bone (Fat UP, Bones DOWN). Sealed fat layer, wipe bone dust clean, hook through bone never meat.'},
+    {n:'Round (Whole Leg / Topside)',p:[21,28,28],note:'Age as whole sub-primal with thick fat layer so steaks do not dry out prematurely.'},
+    {n:'Rump Cap (Picanha)',p:[21,28,35],note:'Age whole with silver skin and thick fat layer 100% intact and zero incisions.'},
+    {n:'Santa Fe Cut (Topside)',p:[28,42,42],note:'Age as whole topside, then trim gracilis muscle into 1.5cm steaks and slice at 45°.'},
+    {n:'Shank (Beef Shin)',p:[21,28,28],note:'Concentrates marrow and collagen for rich braised dishes.'},
+    {n:'Short Loin (T-Bone / Porterhouse)',p:[21,35,42],note:'Bone frame and fat cap shield both striploin and eye fillet. Keep under 42d to protect tenderloin.'},
+    {n:'Short Rib (Beef Ribs)',p:[7,21,28],note:'Age as whole rib plate on rack. Do not cut into meat while trimming.'},
+    {n:'Striploin (Bone-In / Thick Fat Cap)',p:[21,28,35],note:'Rest fat-cap UP on wire rack with 8cm airflow gap around sides.'},
+    {n:'The Neck (Whole Chuck Neck)',p:[21,28,28],note:'Dry aging softens heavy connective tissue; hang whole neck for even airflow.'},
+    {n:'Tri Tip (Bottom Sirloin)',p:[28,42,42],note:'Do not trim beforehand; hang in chamber due to triangular shape.'},
+    {n:'+ Custom Item...',p:[21,30,45],note:'Enter your custom cut name and target days below.'}
   ]},
   fish:{ico:'🐟',name:'Seafood',sub:'0.8°C • UVC ON',temp:'0.5–1.0°C',rh:'80–85% RH',uvc:'UVC ON',cuts:[
-    {n:'Kingfish / Amberjack',p:[{l:'Basic',d:5},{l:'Intense',d:10},{l:'Intense+',d:14}],note:'Scale on, gills & guts removed, scrape kidney line.'},
-    {n:'Bluefin / Yellowfin Tuna Loin',p:[{l:'Basic',d:7},{l:'Intense',d:14},{l:'Intense+',d:21}],note:'Hang or rest on perforated rack.'},
-    {n:'Coral Trout / Snapper',p:[{l:'Basic',d:4},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Blot cavity bone-dry daily.'},
-    {n:'King Salmon Side',p:[{l:'Basic',d:4},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Skin-on, hang from tail.'},
-    {n:'+ Custom Item...',p:[{l:'Basic',d:5},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Custom seafood batch.'}
+    {n:'Bluefin / Yellowfin Tuna Loin',p:[7,14,21],note:'Hang or rest on perforated rack wrapped in dry paper membrane if needed.'},
+    {n:'Coral Trout / Snapper',p:[4,7,10],note:'Scale on, gills & guts removed, blot belly cavity bone-dry daily.'},
+    {n:'King Salmon Side',p:[4,7,10],note:'Skin-on, hang from tail or rest skin-side down on rack.'},
+    {n:'Kingfish / Amberjack',p:[5,10,14],note:'Scale on, gills & guts removed, scrape kidney bloodline completely clean.'},
+    {n:'+ Custom Item...',p:[5,7,10],note:'Custom seafood batch.'}
   ]},
   salami:{ico:'🥓',name:'Salami',sub:'13°C • UVC OFF',temp:'12–14°C',rh:'75–82% RH',uvc:'UVC OFF ⚠️',cuts:[
-    {n:'Pork Salami / Soppressata',p:[{l:'Basic',d:28},{l:'Intense',d:42},{l:'Intense+',d:56}],note:'Target 35–40% weight loss. Keep UVC OFF.'},
-    {n:'Pancetta Tesa / Arrotolata',p:[{l:'Basic',d:21},{l:'Intense',d:35},{l:'Intense+',d:45}],note:'Target 30% weight loss.'},
-    {n:'Guanciale / Coppa',p:[{l:'Basic',d:45},{l:'Intense',d:60},{l:'Intense+',d:90}],note:'Target 35% weight loss.'},
-    {n:'+ Custom Item...',p:[{l:'Basic',d:30},{l:'Intense',d:45},{l:'Intense+',d:60}],note:'Custom charcuterie batch.'}
+    {n:'Guanciale / Coppa',p:[45,60,90],note:'Target 35% weight loss. Keep UVC light strictly OFF.'},
+    {n:'Pancetta Tesa / Arrotolata',p:[21,35,45],note:'Target 30% weight loss. Keep UVC light OFF.'},
+    {n:'Pork Salami / Soppressata',p:[28,42,56],note:'Target 35–40% weight loss. Keep UVC OFF to protect white curing flora.'},
+    {n:'+ Custom Item...',p:[30,45,60],note:'Custom charcuterie batch.'}
   ]},
   cheese:{ico:'🧀',name:'Cheese',sub:'11°C • UVC OFF',temp:'10–12°C',rh:'85–90% RH',uvc:'UVC OFF ⚠️',cuts:[
-    {n:'Clothbound Cheddar Wheel',p:[{l:'Basic',d:60},{l:'Intense',d:120},{l:'Intense+',d:180}],note:'Flip wheel every 3 days. Keep UVC OFF.'},
-    {n:'Gouda / Farmhouse Wheel',p:[{l:'Basic',d:45},{l:'Intense',d:90},{l:'Intense+',d:150}],note:'Flip regularly for even rind.'},
-    {n:'+ Custom Item...',p:[{l:'Basic',d:60},{l:'Intense',d:90},{l:'Intense+',d:120}],note:'Custom cheese affinage.'}
+    {n:'Clothbound Cheddar Wheel',p:[60,120,180],note:'Flip wheel every 3 days. Keep UVC OFF.'},
+    {n:'Gouda / Farmhouse Wheel',p:[45,90,150],note:'Flip regularly for even rind development.'},
+    {n:'+ Custom Item...',p:[60,90,120],note:'Custom cheese affinage.'}
   ]}
 };
 
@@ -294,6 +324,7 @@ let curMode='meat';
 let showArch=false;
 let searchQ='';
 let activeId=null;
+let selProgIdx=0;
 
 function getBatches(){
   let b6=JSON.parse(localStorage.getItem('agerlog_v6')||'[]');
@@ -385,6 +416,7 @@ function openAddM(){
   document.getElementById('bDate').value=new Date().toISOString().split('T')[0];
   document.getElementById('bWeight').value='';
   document.getElementById('wInLbl').textContent='Starting Weight ('+UNITS[unitIdx]+')';
+  selProgIdx=0;
   onCutChange();
   openModal('addM');
 }
@@ -392,16 +424,25 @@ function openAddM(){
 function onCutChange(){
   let m=MODES[curMode], idx=parseInt(document.getElementById('bCut').value)||0;
   let cut=m.cuts[idx];
+  let stgs=STAGE_INFO[curMode]||STAGE_INFO.meat;
   document.getElementById('customCutWrap').style.display=cut.n.includes('Custom')?'block':'none';
-  document.getElementById('cutNote').textContent=cut.note;
+  document.getElementById('cutNote').innerHTML='<b>🔪 Butcher & Prep Note:</b> '+cut.note;
   let pg=document.getElementById('progGrid');
-  pg.innerHTML=cut.p.map((p,i)=>'<button type="button" class="p-btn '+(i===0?'active':'')+'" onclick="pickProg('+i+','+p.d+')">'+p.l+'<br><span style="color:var(--gold)">'+p.d+'d</span></button>').join('');
-  document.getElementById('bDays').value=cut.p[0].d;
+  pg.innerHTML=cut.p.map((days,i)=>{
+    let s=stgs[i];
+    return `<button type="button" class="p-btn ${i===selProgIdx?'active':''}" onclick="pickProg(${i},${days})">
+      ${s.l}<br><span style="color:var(--gold);font-size:.95rem">${days} Days</span><br><span style="font-size:.74rem;color:#38bdf8">${s.t} • ${s.rh}</span>
+    </button>`;
+  }).join('');
+  pickProg(selProgIdx,cut.p[selProgIdx]);
 }
 
 function pickProg(idx,days){
+  selProgIdx=idx;
+  let stgs=STAGE_INFO[curMode]||STAGE_INFO.meat;
   document.querySelectorAll('#progGrid .p-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
   document.getElementById('bDays').value=days;
+  document.getElementById('stageDesc').innerHTML=stgs[idx].desc;
 }
 
 function saveBatch(){
@@ -415,10 +456,12 @@ function saveBatch(){
   let days=parseInt(document.getElementById('bDays').value)||28;
   let startD=document.getElementById('bDate').value||new Date().toISOString().split('T')[0];
   let code=document.getElementById('bCode').value.trim()||('PRO-'+Math.floor(1000+Math.random()*9000));
+  let stgObj=(STAGE_INFO[curMode]||STAGE_INFO.meat)[selProgIdx];
   let all=getBatches();
   all.unshift({
     id:Date.now(),code,name:cutName,cat:curMode,fridge:curFridge,
-    startW:w,days,startD,logs:[{d:startD,w}],archived:false,stage:'Active Aging',notes:''
+    startW:w,days,startD,logs:[{d:startD,w}],archived:false,
+    stage:'Active Aging',prog:stgObj.l,progClimate:stgObj.t+' • '+stgObj.rh,notes:''
   });
   setBatches(all);closeModal('addM');render();
 }
@@ -465,7 +508,7 @@ function buildTagText(){
   else if(stg.includes('45d')) bb.setDate(now.getDate()+45);
   else bb.setFullYear(now.getFullYear()+1);
   let elapsed=Math.max(0,Math.floor((now-new Date(b.startD))/86400000));
-  return `=== AGERPRO BATCH TAG ===\nCODE: ${b.code}\nCUT: ${b.name}\nCHAMBER: ${b.fridge}\nAGED: ${elapsed} Days (Target ${b.days}d)\nFINAL WT: ${toDisp(wIn)} (-${loss}%)\nSTAGE: ${stg}\nHARVESTED: ${now.toISOString().split('T')[0]}\nBEST BEFORE: ${bb.toISOString().split('T')[0]}${notes?'\nNOTES: '+notes:''}`;
+  return `=== AGERPRO BATCH TAG ===\nCODE: ${b.code}\nCUT: ${b.name}\nINTENSITY: ${b.prog||'Standard'} (${b.progClimate||'1.5°C'})\nCHAMBER: ${b.fridge}\nAGED: ${elapsed} Days (Target ${b.days}d)\nFINAL WT: ${toDisp(wIn)} (-${loss}%)\nSTAGE: ${stg}\nHARVESTED: ${now.toISOString().split('T')[0]}\nBEST BEFORE: ${bb.toISOString().split('T')[0]}${notes?'\nNOTES: '+notes:''}`;
 }
 
 function updateTagPreview(){document.getElementById('tagPre').textContent=buildTagText();}
@@ -498,7 +541,7 @@ function delBatch(id){
 
 function openFridgeM(){
   let fl=document.getElementById('fridgeList');
-  fl.innerHTML=fridges.map((f,i)=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #292524"><span>'+f+'</span>'+(fridges.length>1?'<button class="del-x" onclick="delFridge('+i+')">✕</button>':'')+'</div>').join('');
+  fl.innerHTML=fridges.map((f,i)=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #292524;font-size:1rem;font-weight:700"><span>'+f+'</span>'+(fridges.length>1?'<button class="del-x" onclick="delFridge('+i+')">✕</button>':'')+'</div>').join('');
   openModal('fridgeM');
 }
 function addFridge(){
@@ -540,6 +583,24 @@ function getDueAlerts(){
   return out;
 }
 
+function getLiveStageText(b,el){
+  if(b.archived) return `<b>🗄️ POST-AGING STORAGE (${b.stage})</b>Vacuum-sealed cuts keep up to 45 days chilled or 12+ months deep frozen at -18°C with zero drip loss.`;
+  if(b.cat==='fish'){
+    if(el<=3) return `<b>STAGE 1: PELLICLE & SURFACE DRYING (Days 1–3)</b>Skin tightening and surface moisture evaporating. Keep cavity blotted bone-dry.`;
+    return `<b>STAGE 2: ENZYMATIC UMAMI PEAK (Day ${el})</b>Glycogen converting into savory glutamate and tender sashimi texture.`;
+  }
+  if(b.cat==='salami'){
+    return `<b>CURING & FERMENTATION STAGE (Day ${el})</b>Target 35–40% weight loss. Keep UVC OFF so beneficial white flora protects the casing.`;
+  }
+  if(b.cat==='cheese'){
+    return `<b>AFFINAGE RIND MATURATION (Day ${el})</b>Flip wheel every 3 days for even moisture distribution. Keep UVC OFF.`;
+  }
+  if(el<=7) return `<b>STAGE 1: PELLICLE CRUST FORMING (Days 1–7)</b>Surface drying rapidly into a protective dark mahogany rind. Keep door closed and check salt block tray.`;
+  if(el<=28) return `<b>STAGE 2: ENZYMATIC TENDERISATION (Days 8–28)</b>Natural enzymes breaking down muscle fibres; faint roasted-nut and buttery aromas developing.`;
+  if(el<=45) return `<b>STAGE 3: PRIME SWEET SPOT (Days 29–45)</b>Peak hazelnut and steakhouse umami maturity! Ideal window to harvest, trim 1–2mm pellicle, and slice thick 45mm steaks.`;
+  return `<b>STAGE 4: DEEP STEAKHOUSE FUNK (Day 45+)</b>Intense blue-cheese & charcuterie notes. High crust trim yield—harvest when ready!`;
+}
+
 function exportData(){
   let blob=new Blob([JSON.stringify({fridges,batches:getBatches()})],{type:'application/json'});
   let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AgerPro_Backup.json';a.click();
@@ -578,11 +639,18 @@ function render(){
   }).join('');
 
   let cm=MODES[curMode];
+  let activeInFridge=getBatches().filter(b=>!b.archived && b.fridge===curFridge);
+  let dispTemp=cm.temp, dispRh=cm.rh;
+  if(activeInFridge.length && activeInFridge[0].progClimate){
+    let pts=activeInFridge[0].progClimate.split('•');
+    if(pts.length===2){dispTemp=pts[0].trim();dispRh=pts[1].trim();}
+  }
+
   document.getElementById('chamberBox').innerHTML=`
     <div class="chamber-head">⚙️ ${curFridge.toUpperCase()} — ${cm.name.toUpperCase()}</div>
     <div class="env-row">
-      <div class="env-pill"><div class="env-lbl">Temp</div><div class="env-val">${cm.temp}</div></div>
-      <div class="env-pill"><div class="env-lbl">Humidity</div><div class="env-val">${cm.rh}</div></div>
+      <div class="env-pill"><div class="env-lbl">Temp</div><div class="env-val">${dispTemp}</div></div>
+      <div class="env-pill"><div class="env-lbl">Humidity</div><div class="env-val">${dispRh}</div></div>
       <div class="env-pill"><div class="env-lbl">Sterilization</div><div class="env-val" style="color:${cm.uvc.includes('OFF')?'#f59e0b':'#38bdf8'}">${cm.uvc}</div></div>
     </div>`;
 
@@ -603,7 +671,7 @@ function render(){
 
   let bl=document.getElementById('batchList');
   if(!list.length){
-    bl.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px 12px;border:1.5px dashed #292524;border-radius:12px">No batches here yet. Tap the green button below to start aging!</div>';
+    bl.innerHTML='<div style="text-align:center;color:#d6d3d1;font-size:.98rem;font-weight:700;padding:24px 12px;border:1.5px dashed #292524;border-radius:12px">No batches here yet. Tap the green button below to start aging!</div>';
     return;
   }
   bl.innerHTML=list.map(b=>{
@@ -612,12 +680,13 @@ function render(){
     let loss=(((b.startW-curW)/b.startW)*100).toFixed(1);
     let pct=Math.min(100,Math.round((el/b.days)*100));
     let m=MODES[b.cat]||MODES.meat;
+    let progBadge=b.prog?` • ${b.prog} (${b.progClimate||m.temp})`:'';
     return `<div class="card">
       <div class="c-top">
         <div>
-          <span class="badge">🏷️ ${b.code} • ${b.fridge}</span>
+          <span class="badge">🏷️ ${b.code} • ${b.fridge}${progBadge}</span>
           <div class="c-title">${m.ico} ${b.name}</div>
-          <div class="c-sub">Started ${b.startD} • Stage: <b style="color:var(--gold)">${b.stage||'Active Aging'}</b></div>
+          <div class="c-sub">Started ${b.startD} • Status: <b style="color:var(--gold)">${b.stage||'Active Aging'}</b></div>
         </div>
         <button class="del-x" onclick="delBatch(${b.id})">✕</button>
       </div>
@@ -627,6 +696,7 @@ function render(){
         <div class="st-box"><div class="st-l">Weight</div><div class="st-v">${toDisp(curW)}</div></div>
       </div>
       <div class="prog-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+      <div class="stage-card">${getLiveStageText(b,el)}</div>
       ${b.notes?'<div class="note-box" style="margin-bottom:8px">📝 '+b.notes+'</div>':''}
       <div class="act-row">
         <button class="btn btn-green" onclick="openWeigh(${b.id})">⚖️ Weigh In</button>
