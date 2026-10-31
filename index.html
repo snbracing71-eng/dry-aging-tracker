@@ -3,1130 +3,641 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>AgerPro — Dry Aging & Archive Hub</title>
-<link rel="manifest" id="dynManifest" href="manifest.json?v=99">
-<link rel="icon" id="dynFav" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='frame' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2344403c'/%3E%3Cstop offset='50%25' stop-color='%231c1917'/%3E%3Cstop offset='100%25' stop-color='%230c0a09'/%3E%3C/linearGradient%3E%3ClinearGradient id='uv' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%237e22ce'/%3E%3Cstop offset='45%25' stop-color='%233b0764'/%3E%3Cstop offset='100%25' stop-color='%23141210'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fef08a'/%3E%3Cstop offset='50%25' stop-color='%23eab308'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3ClinearGradient id='meat' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23dc2626'/%3E%3Cstop offset='60%25' stop-color='%23991b1b'/%3E%3Cstop offset='100%25' stop-color='%23450a0a'/%3E%3C/linearGradient%3E%3ClinearGradient id='salt' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%23fda4af'/%3E%3Cstop offset='50%25' stop-color='%23fb7185'/%3E%3Cstop offset='100%25' stop-color='%23e11d48'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='105' fill='url(%23frame)' stroke='url(%23gold)' stroke-width='14'/%3E%3Crect x='52' y='46' width='408' height='368' rx='48' fill='url(%23uv)' stroke='%2357534e' stroke-width='8'/%3E%3Ccircle cx='34' cy='46' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='478' cy='46' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='34' cy='456' r='10' fill='url(%23gold)'/%3E%3Ccircle cx='478' cy='456' r='10' fill='url(%23gold)'/%3E%3Crect x='90' y='54' width='332' height='10' rx='5' fill='%23e9d5ff'/%3E%3Cline x1='60' y1='290' x2='452' y2='290' stroke='%23a8a29e' stroke-width='5'/%3E%3Cline x1='60' y1='385' x2='452' y2='385' stroke='%23a8a29e' stroke-width='6'/%3E%3Crect x='146' y='342' width='220' height='40' rx='8' fill='url(%23salt)' stroke='%23fecdd3' stroke-width='3'/%3E%3Cpath d='M256 54 L256 76 C230 76 230 116 258 128 C285 140 285 175 252 182' fill='none' stroke='url(%23gold)' stroke-width='16' stroke-linecap='round'/%3E%3Cpath d='M242 152 C295 148 368 235 362 308 C356 364 300 382 248 378 C182 374 156 328 170 278 C182 238 225 205 242 152 Z' fill='url(%23meat)' stroke='%23fef3c7' stroke-width='12'/%3E%3Cpath d='M195 280 Q255 250 340 285 M205 330 Q265 305 330 340 M250 175 L265 268 M225 230 L285 225' fill='none' stroke='%23fef3c7' stroke-width='9' stroke-linecap='round'/%3E%3Ctext x='256' y='472' font-family='system-ui,sans-serif' font-size='54' font-weight='900' fill='url(%23gold)' text-anchor='middle' letter-spacing='3'%3EAGERPRO%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" id="dynTouch" href="icon.png">
+<title>AgerPro</title>
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0c0a09">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 <style>
-:root{--bg:#0c0a09;--card:#1c1917;--ink:#fafaf9;--muted:#a8a29e;--gold:#eab308;--red:#dc2626;--grn:#16a34a;--blu:#0284c7;--bdr:#44403c}
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif}
-body{background:var(--bg);color:var(--ink);padding-bottom:90px;font-size:16px}
-header{position:sticky;top:0;z-index:50;background:#141210;border-bottom:2px solid var(--gold);padding:8px 10px}
-.h-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:1.15rem;letter-spacing:.5px;white-space:nowrap;cursor:pointer}
-.brand span{color:var(--gold)}
-.s-wrap{position:relative;flex:1;max-width:190px}
-.s-in{width:100%;background:#0c0a09;color:#fff;border:1.5px solid var(--gold);border-radius:8px;padding:6px 26px 6px 8px;font-size:.85rem}
-.s-clr{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;display:none;cursor:pointer}
-.bell-btn{position:relative;background:#292524;border:2px solid var(--red);color:#fff;border-radius:8px;padding:5px 8px;font-size:1rem;cursor:pointer;display:none}
-.bell-dot{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:.7rem;font-weight:900;border-radius:50%;padding:1px 5px}
-.u-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
-.u-btn{background:var(--card);color:#fff;border:2px solid var(--gold);border-radius:8px;padding:8px 4px;font-size:.78rem;font-weight:800;cursor:pointer;text-align:center}
-main{padding:10px;max-width:600px;margin:0 auto}
-.box-gold{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:10px;margin-bottom:10px}
-.f-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px}
-select,input,textarea{width:100%;background:#0c0a09;color:#fff;border:1.5px solid var(--bdr);border-radius:8px;padding:9px;font-size:.95rem}
-.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.m-tile{background:var(--card);border:2px solid transparent;border-radius:10px;padding:10px;display:flex;align-items:center;gap:8px;cursor:pointer}
-.m-tile.active{border-color:var(--gold);box-shadow:0 0 10px rgba(234,179,8,.25)}
-.m-icon{font-size:1.5rem}
-.m-name{font-weight:800;font-size:.92rem;display:block}
-.m-sub{font-size:.72rem;color:var(--muted)}
-.c-ban{font-size:.82rem;line-height:1.4}
-.c-stats{display:flex;justify-content:space-between;background:#0c0a09;padding:6px 8px;border-radius:8px;margin-bottom:6px;font-weight:800}
-.sec-row{display:flex;justify-content:space-between;align-items:center;margin:12px 0 8px}
-.sec-t{font-size:.85rem;font-weight:800;color:var(--gold);text-transform:uppercase}
-.tab-pill{background:#292524;color:#fff;border:2px solid var(--gold);border-radius:8px;padding:5px 10px;font-size:.78rem;font-weight:800;cursor:pointer}
-.tab-pill.active{background:var(--gold);color:#000}
-.b-card{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:12px;margin-bottom:12px;position:relative}
-.al-ban{background:var(--red);color:#fff;padding:8px 10px;border-radius:8px;font-weight:900;font-size:.82rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.al-clr{background:#fff;color:var(--red);border:none;border-radius:6px;padding:4px 8px;font-weight:900;font-size:.75rem;cursor:pointer}
-.tag{display:inline-block;background:#292524;color:var(--gold);border:1px solid var(--gold);font-size:.72rem;font-weight:800;padding:2px 7px;border-radius:6px;margin-bottom:4px}
-.st-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#0c0a09;padding:8px;border-radius:8px;margin:8px 0;text-align:center}
-.st-v{font-size:1.05rem;font-weight:900}
-.st-l{font-size:.68rem;color:var(--muted);text-transform:uppercase}
-.btn{border:none;border-radius:8px;padding:11px 10px;font-weight:800;font-size:.88rem;cursor:pointer;color:#fff;text-align:center;width:100%}
-.b-grn{background:var(--grn)}.b-red{background:var(--red)}.b-blu{background:var(--blu)}.b-gld{background:var(--gold);color:#000}.b-drk{background:#292524;border:1px solid var(--gold)}
-.act-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
-.act-2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
-.log-box{background:#0c0a09;border-radius:8px;padding:8px;margin-top:8px;font-size:.78rem}
-.log-r{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #292524}
-.p-grid{display:flex;gap:6px;overflow-x:auto;margin-top:6px}
-.p-th{width:54px;height:54px;object-fit:cover;border-radius:6px;border:1px solid var(--gold)}
-.b-bar{position:fixed;bottom:0;left:0;right:0;background:#141210;border-top:2px solid var(--gold);padding:10px;z-index:40}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;display:none;align-items:center;justify-content:center;padding:12px}
-.m-cnt{background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:14px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
-.f-grp{margin-bottom:10px}
-.f-grp label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:4px;font-weight:700}
-.p-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
-.p-btn{background:#0c0a09;color:#fff;border:1.5px solid var(--bdr);border-radius:8px;padding:7px 4px;font-size:.74rem;font-weight:800;cursor:pointer;text-align:center}
-.p-btn.active{border-color:var(--gold);background:#292524;color:var(--gold)}
-.tip-box{background:#0c0a09;border-left:3px solid var(--gold);padding:8px;font-size:.78rem;border-radius:4px;margin-bottom:8px;line-height:1.35}
-.tag-prev{background:#fff;color:#000;padding:10px;border-radius:8px;font-family:monospace;font-size:.8rem;margin:8px 0;border:2px dashed #000}
+:root{--bg:#0c0a09;--card:#161412;--border:#292524;--gold:#eab308;--copper:#b45309;--red:#dc2626;--green:#16a34a;--blue:#0284c7;--muted:#a8a29e}
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;margin:0 auto}
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0 12px;border-bottom:1px solid var(--border);margin-bottom:12px}
+.brand{display:flex;align-items:center;gap:8px;white-space:nowrap;flex-shrink:0}
+.brand img,.brand svg{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--gold);flex-shrink:0}
+.brand-txt{font-size:1.3rem;font-weight:900;letter-spacing:.5px;color:#fff;white-space:nowrap}
+.brand-txt span{color:var(--gold)}
+.hdr-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.srch-wrap{position:relative;width:138px}
+.srch{width:100%;background:#1c1917;border:1.5px solid var(--gold);border-radius:8px;padding:6px 24px 6px 8px;color:#fff;font-size:.82rem;font-weight:600}
+.srch-clr{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:var(--red);color:#fff;border:none;border-radius:4px;width:16px;height:16px;font-size:.65rem;font-weight:900;display:none;align-items:center;justify-content:center;cursor:pointer}
+.bell-btn{position:relative;background:#1c1917;border:1.5px solid var(--gold);border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer}
+.bell-cnt{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:.65rem;font-weight:900;min-width:17px;height:17px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px;border:1.5px solid #0c0a09}
+.top-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.top-btn{aspect-ratio:1/1;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:6px;text-align:center}
+.top-btn:active{transform:scale(.97)}
+.top-btn .ico{font-size:1.55rem;line-height:1}
+.top-btn .lbl{font-size:.76rem;font-weight:800;line-height:1.15;color:#f5f5f4}
+.top-btn .sub{font-size:.66rem;color:var(--gold);font-weight:800}
+.fridge-box{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.fridge-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.fridge-lbl{font-size:.72rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.fridge-mng{background:#292524;border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:3px 8px;font-size:.72rem;font-weight:800;cursor:pointer}
+.fridge-sel{width:100%;background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:8px 10px;color:#fff;font-size:.92rem;font-weight:700}
+.mode-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.mode-tile{aspect-ratio:1/1;background:var(--card);border:2px solid transparent;border-radius:12px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;text-align:center}
+.mode-tile.active{border-color:var(--gold);background:rgba(234,179,8,.14);box-shadow:0 0 10px rgba(234,179,8,.22)}
+.mode-tile.locked{opacity:.48}
+.m-ico{font-size:1.65rem;line-height:1}
+.m-nm{font-size:.76rem;font-weight:900;color:#fff;line-height:1.1}
+.m-sb{font-size:.62rem;color:var(--muted);line-height:1.1}
+.chamber-box{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.chamber-head{font-size:.75rem;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.env-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.env-pill{background:#0c0a09;border:1px solid #292524;border-radius:8px;padding:6px 4px;text-align:center}
+.env-lbl{font-size:.64rem;color:var(--muted);text-transform:uppercase;font-weight:700}
+.env-val{font-size:.88rem;font-weight:900;color:#38bdf8;margin-top:2px}
+.sec-bar{display:flex;justify-content:space-between;align-items:center;margin:10px 0 8px}
+.sec-ttl{font-size:.85rem;font-weight:900;color:var(--gold);text-transform:uppercase}
+.arch-btn{background:#1c1917;border:1.5px solid var(--gold);color:#fff;border-radius:8px;padding:5px 10px;font-size:.75rem;font-weight:800;cursor:pointer}
+.card{background:var(--card);border:2px solid var(--gold);border-radius:12px;padding:12px;margin-bottom:12px}
+.c-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.badge{display:inline-block;background:#292524;color:var(--gold);border:1px solid var(--gold);border-radius:6px;padding:2px 7px;font-size:.7rem;font-weight:800;margin-bottom:4px}
+.c-title{font-size:1.02rem;font-weight:900;color:#fff}
+.c-sub{font-size:.76rem;color:var(--muted);margin-top:2px}
+.del-x{background:var(--red);color:#fff;border:none;width:30px;height:30px;border-radius:7px;font-weight:900;font-size:.95rem;cursor:pointer;flex-shrink:0}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#0c0a09;border:1px solid #292524;border-radius:8px;padding:8px;margin:10px 0}
+.st-box{text-align:center}
+.st-l{font-size:.64rem;color:var(--muted);text-transform:uppercase;font-weight:700}
+.st-v{font-size:.95rem;font-weight:900;color:#fff;margin-top:2px}
+.prog-wrap{height:7px;background:#292524;border-radius:4px;overflow:hidden;margin-bottom:8px}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--copper))}
+.act-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.btn{border:none;border-radius:9px;padding:11px 10px;font-size:.86rem;font-weight:900;cursor:pointer;color:#fff;text-align:center}
+.btn-green{background:var(--green)}
+.btn-red{background:var(--red)}
+.btn-gold{background:var(-- copper,#b45309);border:1.5px solid var(--gold)}
+.fab{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:496px;background:var(--green);color:#fff;border:2px solid var(--gold);border-radius:12px;padding:14px;font-size:1rem;font-weight:900;box-shadow:0 6px 20px rgba(0,0,0,.6);cursor:pointer;z-index:20}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:14px;z-index:50}
+.modal-in{background:#161412;border:2px solid var(--gold);border-radius:14px;padding:14px;width:100%;max-width:460px;max-height:88vh;overflow-y:auto}
+.m-hdr{font-size:1rem;font-weight:900;color:var(--gold);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.fld{margin-bottom:10px}
+.fld label{display:block;font-size:.74rem;font-weight:800;color:var(--muted);margin-bottom:4px;text-transform:uppercase}
+.fld input,.fld select,.fld textarea{width:100%;background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:9px;color:#fff;font-size:.9rem;font-weight:700}
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.p-btn{background:#0c0a09;border:1.5px solid #44403c;border-radius:8px;padding:7px 4px;color:#fff;font-size:.74rem;font-weight:800;cursor:pointer;text-align:center}
+.p-btn.active{border-color:var(--gold);background:rgba(234,179,8,.16);color:var(--gold)}
+.note-box{background:#0c0a09;border-left:3px solid var(--gold);padding:8px;border-radius:6px;font-size:.76rem;color:#e7e5e4;margin-top:6px;line-height:1.35}
+.tag-pre{background:#fff;color:#000;border:2px dashed #000;border-radius:8px;padding:10px;font-family:monospace;font-size:.78rem;line-height:1.35;margin:8px 0;white-space:pre-wrap}
 </style>
 </head>
 <body>
-<header>
-  <div class="h-top">
-    <div class="brand" onclick="document.getElementById('iconConvIn').click()" title="Tap to pick custom icon from your phone Gallery">
-      <img id="hdrCustomImg" style="display:none;width:32px;height:32px;border-radius:7px;border:1.5px solid var(--gold);object-fit:cover">
-      <svg id="hdrDefaultSvg" width="32" height="32" viewBox="0 0 512 512" style="border-radius:7px"><defs><linearGradient id="frame" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#44403c"/><stop offset="50%" stop-color="#1c1917"/><stop offset="100%" stop-color="#0c0a09"/></linearGradient><linearGradient id="uv" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7e22ce"/><stop offset="45%" stop-color="#3b0764"/><stop offset="100%" stop-color="#141210"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef08a"/><stop offset="50%" stop-color="#eab308"/><stop offset="100%" stop-color="#a16207"/></linearGradient><linearGradient id="meat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#dc2626"/><stop offset="60%" stop-color="#991b1b"/><stop offset="100%" stop-color="#450a0a"/></linearGradient><linearGradient id="salt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fda4af"/><stop offset="50%" stop-color="#fb7185"/><stop offset="100%" stop-color="#e11d48"/></linearGradient></defs><rect width="512" height="512" rx="105" fill="url(#frame)" stroke="url(#gold)" stroke-width="18"/><rect x="52" y="46" width="408" height="368" rx="48" fill="url(#uv)" stroke="#57534e" stroke-width="8"/><rect x="90" y="54" width="332" height="12" rx="5" fill="#e9d5ff"/><line x1="60" y1="290" x2="452" y2="290" stroke="#a8a29e" stroke-width="6"/><line x1="60" y1="385" x2="452" y2="385" stroke="#a8a29e" stroke-width="8"/><rect x="146" y="342" width="220" height="40" rx="8" fill="url(#salt)" stroke="#fecdd3" stroke-width="4"/><path d="M256 54 L256 76 C230 76 230 116 258 128 C285 140 285 175 252 182" fill="none" stroke="url(#gold)" stroke-width="18" stroke-linecap="round"/><path d="M242 152 C295 148 368 235 362 308 C356 364 300 382 248 378 C182 374 156 328 170 278 C182 238 225 205 242 152 Z" fill="url(#meat)" stroke="#fef3c7" stroke-width="14"/><path d="M195 280 Q255 250 340 285 M205 330 Q265 305 330 340 M250 175 L265 268" fill="none" stroke="#fef3c7" stroke-width="10" stroke-linecap="round"/><text x="256" y="476" font-family="system-ui,sans-serif" font-size="60" font-weight="900" fill="url(#gold)" text-anchor="middle">AGERPRO</text></svg>
-      AGER<span>PRO</span>
+
+<div class="hdr">
+  <div class="brand">
+    <svg viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#1c1917" stroke="#eab308" stroke-width="5"/><path d="M46 18 C40 18 40 30 48 34 C54 38 54 46 46 48" fill="none" stroke="#eab308" stroke-width="5" stroke-linecap="round"/><path d="M44 42 C60 40 74 58 72 74 C70 86 56 88 44 86 C30 84 26 72 30 60 C34 50 40 46 44 42 Z" fill="#991b1b" stroke="#fef3c7" stroke-width="4"/></svg>
+    <div class="brand-txt">AGER<span>PRO</span></div>
+  </div>
+  <div class="hdr-right">
+    <div class="srch-wrap">
+      <input id="srchIn" class="srch" placeholder="🔍 Batch #..." oninput="doSearch()">
+      <button id="srchClr" class="srch-clr" onclick="clrSearch()">✕</button>
     </div>
-    <div class="s-wrap">
-      <input type="text" id="searchIn" class="s-in" placeholder="🔍 Batch # or Cut..." oninput="handleSearch()">
-      <button id="searchClr" class="s-clr" onclick="clearSearch()">✕</button>
-    </div>
-    <button id="bellBtn" class="bell-btn" onclick="jumpToAlert()">🔔<span id="bellDot" class="bell-dot">0</span></button>
+    <button class="bell-btn" onclick="openAlerts()">🔔<span id="bellCnt" class="bell-cnt">0</span></button>
   </div>
-  <div class="u-bar">
-    <button class="u-btn" id="unitBtn" onclick="cycleUnit()">⚖️ g</button>
-    <button class="u-btn" onclick="openModal('safeModal')">🩺 Safe?</button>
-    <button class="u-btn" onclick="openMaintModal()">🔧 Maint.</button>
-    <button class="u-btn" onclick="openModal('guideModal')">📋 Guide</button>
-  </div>
-</header>
-
-<main>
-  <div class="box-gold">
-    <div class="f-row">
-      <span style="font-size:.78rem;font-weight:800;color:var(--gold)">ACTIVE AGING CHAMBER:</span>
-      <button class="u-btn" style="padding:4px 8px;font-size:.72rem" onclick="openFridgeModal()">+ Add / Manage Fridges</button>
-    </div>
-    <select id="fridgeSel" onchange="switchFridge(this.value)"></select>
-  </div>
-
-  <div class="m-grid">
-    <div class="m-tile active" id="tile-meat" onclick="selectCat('meat')"><span class="m-icon">🥩</span><div><span class="m-name">Red Meat</span><span class="m-sub">Beef, Pork, Lamb, Duck</span></div></div>
-    <div class="m-tile" id="tile-fish" onclick="selectCat('fish')"><span class="m-icon">🐟</span><div><span class="m-name">Seafood</span><span class="m-sub">Tuna, Salmon, Cod</span></div></div>
-    <div class="m-tile" id="tile-salami" onclick="selectCat('salami')"><span class="m-icon">🥓</span><div><span class="m-name">Salami</span><span class="m-sub">Charcuterie & Coppa</span></div></div>
-    <div class="m-tile" id="tile-cheese" onclick="selectCat('cheese')"><span class="m-icon">🧀</span><div><span class="m-name">Cheese</span><span class="m-sub">Hard & Alpine Wheels</span></div></div>
-  </div>
-
-  <div id="chamberBox" class="box-gold c-ban"></div>
-
-  <div class="sec-row">
-    <span class="sec-t" id="listHeaderTitle">ACTIVE & STORED BATCHES</span>
-    <button class="tab-pill" id="archiveToggleBtn" onclick="toggleArchiveView()">🗄️ Archive (0)</button>
-  </div>
-
-  <div id="batchList"></div>
-</main>
-
-<div class="b-bar" id="bottomBar">
-  <button class="btn b-grn" onclick="openAddModal()">+ ADD NEW BATCH</button>
 </div>
 
-<!-- ALERT / INFO POPUP -->
-<div class="modal" id="msgModal"><div class="m-cnt"><h3 style="color:var(--gold);margin-bottom:8px">🥩 AgerPro Says</h3><p id="msgText" style="font-size:.9rem;line-height:1.4;margin-bottom:14px"></p><button class="btn b-grn" onclick="closeModal('msgModal')">OK</button></div></div>
+<div class="top-grid">
+  <button class="top-btn" onclick="cycleUnit()">
+    <span class="ico">⚖️</span>
+    <span class="lbl">Unit</span>
+    <span class="sub" id="unitLbl">g</span>
+  </button>
+  <button class="top-btn" onclick="openModal('safeM')">
+    <span class="ico">🩺</span>
+    <span class="lbl">Safe?</span>
+    <span class="sub">Check</span>
+  </button>
+  <button class="top-btn" onclick="openMaint()">
+    <span class="ico">🔧</span>
+    <span class="lbl">Maint.</span>
+    <span class="sub">Chamber</span>
+  </button>
+  <button class="top-btn" onclick="openModal('guideM')">
+    <span class="ico">📋</span>
+    <span class="lbl">Guide</span>
+    <span class="sub">& Backup</span>
+  </button>
+</div>
 
-<!-- DELETE CONFIRM -->
-<div class="modal" id="delModal"><div class="m-cnt"><h3 style="color:var(--red);margin-bottom:8px">🗑️ Delete Batch?</h3><p style="font-size:.88rem;margin-bottom:14px">Permanently delete this batch record?</p><div class="act-2"><button class="btn b-red" onclick="closeModal('delModal')">Cancel</button><button class="btn b-red" onclick="confirmDeleteBatch()">Delete</button></div></div></div>
+<div class="fridge-box">
+  <div class="fridge-top">
+    <span class="fridge-lbl">Active Aging Chamber</span>
+    <button class="fridge-mng" onclick="openFridgeM()">+ Add / Manage</button>
+  </div>
+  <select id="fridgeSel" class="fridge-sel" onchange="changeFridge(this.value)"></select>
+</div>
 
-<!-- ADD BATCH MODAL -->
-<div class="modal" id="addModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:10px" id="addTitle">Add Batch</h3>
-  <div class="f-grp"><label>Batch Tracking Code</label><input type="text" id="inCode"></div>
-  <div class="f-grp"><label>Select Cut (A–Z)</label><select id="cutSel" onchange="onCutChange()"></select></div>
-  <div class="f-grp" id="customGrp" style="display:none"><label>Custom Cut Name</label><input type="text" id="inCustom" placeholder="Enter custom name"></div>
-  <div id="delCustomWrap" style="display:none;margin-bottom:8px"><button class="btn b-red" style="padding:6px;font-size:.75rem" onclick="deleteCustomCut()">🗑️ Delete Selected Custom Cut</button></div>
-  <div id="progBar" class="p-bar"></div>
-  <div id="cutTip" class="tip-box"></div>
-  <div class="act-2">
-    <div class="f-grp"><label id="wLbl">Starting Weight (g)</label><input type="number" step="0.01" id="inW" placeholder="e.g. 4500"></div>
-    <div class="f-grp"><label>Target Aging Days</label><input type="number" id="inDays" value="28"></div>
-  </div>
-  <div class="f-grp"><label>Date Placed in Chamber</label><input type="date" id="inDate"></div>
-  <div class="f-grp"><label>Initial Notes (Optional)</label><textarea id="inNotes" rows="2" placeholder="Supplier, grade, marbling..."></textarea></div>
-  <div class="act-2" style="margin-bottom:8px">
-    <button type="button" class="btn b-drk" onclick="trigPhoto('addCam')">📸 Open Camera</button>
-    <button type="button" class="btn b-drk" onclick="trigPhoto('addGal')">🖼️ From Gallery</button>
-  </div>
-  <input type="file" id="addCam" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this,'addPrev')">
-  <input type="file" id="addGal" accept="image/*" style="display:none" onchange="handlePhoto(this,'addPrev')">
-  <div id="addPrev" class="p-grid"></div>
-  <div class="act-2" style="margin-top:12px">
-    <button class="btn b-red" onclick="closeModal('addModal')">Cancel</button>
-    <button class="btn b-grn" onclick="saveBatch()">Start Aging</button>
+<div class="mode-grid" id="modeGrid"></div>
+
+<div class="chamber-box" id="chamberBox"></div>
+
+<div class="sec-bar">
+  <div class="sec-ttl" id="listTtl">Active Batches</div>
+  <button class="arch-btn" id="archBtn" onclick="toggleArch()">🗄️ Archive (0)</button>
+</div>
+
+<div id="batchList"></div>
+
+<button class="fab" id="addFab" onclick="openAddM()">+ ADD MEAT BATCH</button>
+
+<div class="modal" id="addM"><div class="modal-in">
+  <div class="m-hdr"><span id="addTtl">New Batch</span><button class="del-x" onclick="closeModal('addM')">✕</button></div>
+  <div class="fld"><label>Batch Code</label><input id="bCode"></div>
+  <div class="fld"><label>Select Cut / Item</label><select id="bCut" onchange="onCutChange()"></select></div>
+  <div class="fld" id="customCutWrap" style="display:none"><label>Custom Item Name</label><input id="bCustom" placeholder="Enter custom name..."></div>
+  <div class="fld"><label>Aging Intensity & Duration</label><div class="p-grid" id="progGrid"></div><div class="note-box" id="cutNote"></div></div>
+  <div class="fld"><label>Target Days</label><input type="number" id="bDays" value="28"></div>
+  <div class="fld"><label id="wInLbl">Starting Weight (g)</label><input type="number" step="0.01" id="bWeight" placeholder="e.g. 4200"></div>
+  <div class="fld"><label>Start Date</label><input type="date" id="bDate"></div>
+  <div class="act-row">
+    <button class="btn btn-red" onclick="closeModal('addM')">Cancel</button>
+    <button class="btn btn-green" onclick="saveBatch()">Start Aging</button>
   </div>
 </div></div>
 
-<!-- WEIGH MODAL -->
-<div class="modal" id="weighModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:10px">⚖️ Log Weigh-In</h3>
-  <input type="hidden" id="weighId">
-  <div class="f-grp"><label id="weighWLbl">Current Scale Weight (g)</label><input type="number" step="0.01" id="inNewW"></div>
-  <div class="f-grp"><label>Progress Note (Optional)</label><input type="text" id="inWeighNote" placeholder="Crust firming, nutty aroma..."></div>
-  <div class="act-2" style="margin-bottom:8px">
-    <button type="button" class="btn b-drk" onclick="trigPhoto('wCam')">📸 Open Camera</button>
-    <button type="button" class="btn b-drk" onclick="trigPhoto('wGal')">🖼️ From Gallery</button>
-  </div>
-  <input type="file" id="wCam" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this,'wPrev')">
-  <input type="file" id="wGal" accept="image/*" style="display:none" onchange="handlePhoto(this,'wPrev')">
-  <div id="wPrev" class="p-grid"></div>
-  <div class="act-2" style="margin-top:12px">
-    <button class="btn b-red" onclick="closeModal('weighModal')">Cancel</button>
-    <button class="btn b-grn" onclick="saveWeight()">Save Weight</button>
+<div class="modal" id="weighM"><div class="modal-in">
+  <div class="m-hdr"><span>⚖️ Log Weigh-In</span><button class="del-x" onclick="closeModal('weighM')">✕</button></div>
+  <div class="fld"><label id="wModalLbl">Current Scale Weight</label><input type="number" step="0.01" id="wVal"></div>
+  <div class="act-row">
+    <button class="btn btn-red" onclick="closeModal('weighM')">Cancel</button>
+    <button class="btn btn-green" onclick="saveWeigh()">Save Weight</button>
   </div>
 </div></div>
 
-<!-- PHOTO / NOTE MODAL -->
-<div class="modal" id="noteModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:10px">📷 Add Photo / Note</h3>
-  <input type="hidden" id="noteBatchId">
-  <div class="f-grp"><label>Notes</label><textarea id="inQuickNote" rows="3" placeholder="Add observation..."></textarea></div>
-  <div class="act-2" style="margin-bottom:8px">
-    <button type="button" class="btn b-drk" onclick="trigPhoto('nCam')">📸 Open Camera</button>
-    <button type="button" class="btn b-drk" onclick="trigPhoto('nGal')">🖼️ From Gallery</button>
-  </div>
-  <input type="file" id="nCam" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this,'nPrev')">
-  <input type="file" id="nGal" accept="image/*" style="display:none" onchange="handlePhoto(this,'nPrev')">
-  <div id="nPrev" class="p-grid"></div>
-  <div class="act-2" style="margin-top:12px">
-    <button class="btn b-red" onclick="closeModal('noteModal')">Cancel</button>
-    <button class="btn b-grn" onclick="saveQuickNote()">Save</button>
-  </div>
-</div></div>
-
-<!-- HARVEST MODAL -->
-<div class="modal" id="harvestModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:10px">🔪 Harvest & Storage Stage</h3>
-  <input type="hidden" id="harvId">
-  <div class="f-grp">
-    <label>Select Post-Harvest Destination</label>
-    <select id="harvStage" onchange="updateTagPreview()">
-      <option value="In Fridge (Ready to Eat)">🍽️ In Fridge — Ready to Eat (Not Cryo • Max 8–10d)</option>
-      <option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (Max 45d)</option>
-      <option value="Deep Frozen (-18C)">🧊 Deep Frozen in Vacuum Seal (-18°C • Max 12m)</option>
-      <option value="Archived">🗄️ Consumed / File Directly to Archive</option>
+<div class="modal" id="harvM"><div class="modal-in">
+  <div class="m-hdr"><span>🔪 Harvest & Tag</span><button class="del-x" onclick="closeModal('harvM')">✕</button></div>
+  <div class="fld"><label id="hWeightLbl">Final Trimmed Weight (Optional)</label><input type="number" step="0.01" id="hWeight" oninput="updateTagPreview()"></div>
+  <div class="fld"><label>Post-Aging Storage Stage</label>
+    <select id="hStage" onchange="updateTagPreview()">
+      <option value="Ready-to-Eat Fridge (8-10 Days)">Ready-to-Eat Fridge (8-10 Days)</option>
+      <option value="Vacuum Sealed Chilled (Max 45d)">Vacuum Sealed Chilled (Max 45d)</option>
+      <option value="Deep Frozen -18°C (12 Months)">Deep Frozen -18°C (12 Months)</option>
+      <option value="Consumed / Completed">Consumed / Completed</option>
     </select>
   </div>
-  <div class="f-grp"><label>Date Harvested / Stored</label><input type="date" id="harvDate" onchange="updateTagPreview()"></div>
-  <div class="f-grp"><label>Harvest & Tasting Notes</label><textarea id="harvNotes" rows="2" oninput="updateTagPreview()" placeholder="Trim yield, tenderness, flavor notes..."></textarea></div>
-  <div class="act-2" style="margin-bottom:8px">
-    <button type="button" class="btn b-drk" onclick="trigPhoto('hCam')">📸 Open Camera</button>
-    <button type="button" class="btn b-drk" onclick="trigPhoto('hGal')">🖼️ From Gallery</button>
+  <div class="fld"><label>Tasting & Butcher Notes</label><textarea id="hNotes" rows="2" oninput="updateTagPreview()" placeholder="Tenderness, aroma, trim yield..."></textarea></div>
+  <div class="fld">
+    <label>🏷️ Printable Freezer / Fridge Bag Tag</label>
+    <div class="tag-pre" id="tagPre"></div>
+    <div class="act-row" style="margin-top:6px">
+      <button class="btn btn-gold" onclick="printTag()">🖨️ Print Tag</button>
+      <button class="btn btn-gold" onclick="copyTag()">📋 Copy Tag</button>
+    </div>
   </div>
-  <input type="file" id="hCam" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this,'hPrev')">
-  <input type="file" id="hGal" accept="image/*" style="display:none" onchange="handlePhoto(this,'hPrev')">
-  <div id="hPrev" class="p-grid"></div>
-  <div class="tag-prev" id="tagPreviewBox"></div>
-  <div class="act-2" style="margin-bottom:10px">
-    <button type="button" class="btn b-blu" onclick="printBagTag()">🖨️ Print Tag</button>
-    <button type="button" class="btn b-drk" onclick="copyBagTag()">📋 Copy Tag Text</button>
-  </div>
-  <div class="act-2">
-    <button class="btn b-red" onclick="closeModal('harvestModal')">Cancel</button>
-    <button class="btn b-grn" onclick="saveHarvest()">Confirm Harvest</button>
+  <div class="act-row">
+    <button class="btn btn-red" onclick="closeModal('harvM')">Cancel</button>
+    <button class="btn btn-green" onclick="saveHarvest()">Save Harvest</button>
   </div>
 </div></div>
 
-<!-- ARCHIVE MODAL -->
-<div class="modal" id="archModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:8px">🗄️ Complete & File to Archive</h3>
-  <p style="font-size:.84rem;color:var(--muted);margin-bottom:10px">Once archived, this batch is filed in your permanent Archive Vault and can always be searched or restored later.</p>
-  <input type="hidden" id="archId">
-  <div class="f-grp"><label>Date Consumed / Completed</label><input type="date" id="archDate"></div>
-  <div class="f-grp"><label>Final Tasting & Replication Notes</label><textarea id="archNotes" rows="3" placeholder="How did it cook and taste? Would you repeat this exact cut & program?"></textarea></div>
-  <div class="act-2" style="margin-top:12px">
-    <button class="btn b-red" onclick="closeModal('archModal')">Cancel</button>
-    <button class="btn b-grn" onclick="confirmArchive()">🗄️ File to Archive</button>
-  </div>
-</div></div>
-
-<!-- RESTORE MODAL -->
-<div class="modal" id="restoreModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:8px">↩️ Restore Batch from Archive</h3>
-  <p style="font-size:.84rem;color:var(--muted);margin-bottom:10px">Choose which stage to return this batch to:</p>
-  <input type="hidden" id="restId">
-  <div class="f-grp">
-    <label>Restore Destination</label>
-    <select id="restStage">
-      <option value="In Fridge (Ready to Eat)">🍽️ In Fridge — Ready to Eat (Max 10d)</option>
-      <option value="Vacuum Sealed Chilled">❄️ Vacuum Sealed & Chilled (Max 45d)</option>
-      <option value="Deep Frozen (-18C)">🧊 Deep Frozen (-18°C • Max 12m)</option>
-      <option value="Active in Chamber">🥩 Active in Aging Chamber (Unlocks Weigh/Photo)</option>
-    </select>
-  </div>
-  <div class="f-grp"><label>Storage / Harvest Start Date</label><input type="date" id="restDate"></div>
-  <div class="act-2" style="margin-top:12px">
-    <button class="btn b-red" onclick="closeModal('restoreModal')">Cancel</button>
-    <button class="btn b-grn" onclick="confirmRestore()">↩️ Restore Now</button>
-  </div>
-</div></div>
-
-<!-- FRIDGE MANAGER -->
-<div class="modal" id="fridgeModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:10px">Manage Aging Chambers</h3>
-  <div class="f-grp"><label>New Chamber / Fridge Name</label><input type="text" id="newFridgeIn" placeholder="e.g. Thermaster MA400 #2"></div>
-  <button class="btn b-grn" style="margin-bottom:12px" onclick="addFridge()">+ Add Chamber</button>
+<div class="modal" id="fridgeM"><div class="modal-in">
+  <div class="m-hdr"><span>Manage Chambers</span><button class="del-x" onclick="closeModal('fridgeM')">✕</button></div>
+  <div class="fld"><label>Add New Chamber Name</label><input id="newFridgeNm" placeholder="e.g. Thermaster MA400 #2"></div>
+  <button class="btn btn-green" style="width:100%;margin-bottom:10px" onclick="addFridge()">+ Add Chamber</button>
   <div id="fridgeList"></div>
-  <button class="btn b-red" style="margin-top:12px" onclick="closeModal('fridgeModal')">Close</button>
+  <button class="btn btn-red" style="width:100%;margin-top:8px" onclick="closeModal('fridgeM')">Close</button>
 </div></div>
 
-<!-- SAFE TROUBLESHOOTER -->
-<div class="modal" id="safeModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:10px">🩺 Is This Safe? Troubleshooter</h3>
-  <div class="tip-box"><b>⚪ White chalky specs / light white dust:</b><br>✅ <b>SAFE.</b> Beneficial noble mold or salt crystals. Wipe gently with weak brine or leave until trim.</div>
-  <div class="tip-box"><b>🟢 Green, black, or tall fuzzy mold:</b><br>🚫 <b>DANGER.</b> Spoilage mold. Remove immediately; if superficial, wipe with 75% food-grade alcohol and trim deeply; if pervasive, discard.</div>
-  <div class="tip-box"><b>💧 Sticky, slimy, or clammy surface:</b><br>⚠️ <b>HUMIDITY TOO HIGH (>82% RH) or poor airflow.</b> Blot dry with paper towel, ensure 8cm spacing, and check fan/RH.</div>
-  <div class="tip-box"><b>🪨 Thick rock-hard outer ring, wet raw center:</b><br>⚠️ <b>CASE HARDENING (RH <70%).</b> Raise humidity to 78–80% RH to let internal moisture equalize.</div>
-  <div class="tip-box"><b>👃 Nutty / buttery / blue-cheese vs. Sour / putrid:</b><br>✅ Roasted hazelnut, buttered popcorn, or earthy funk is normal. 🚫 Sharp sour, ammonia, or rotting odor means spoilage.</div>
-  <button class="btn b-red" onclick="closeModal('safeModal')">Close Troubleshooter</button>
-</div></div>
-
-<!-- MAINTENANCE MODAL -->
-<div class="modal" id="maintModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:10px">🔧 Chamber Maintenance</h3>
-  <div id="maintContent"></div>
-  <button class="btn b-red" style="margin-top:12px" onclick="closeModal('maintModal')">Close</button>
-</div></div>
-
-<!-- GUIDE, CUSTOM ICON SETTER & BACKUP MODAL -->
-<div class="modal" id="guideModal"><div class="m-cnt">
-  <h3 style="color:var(--gold);margin-bottom:10px">📋 Master Butcher's Field Guide</h3>
-  <div class="tip-box"><b>1. Cabinet Prep & Hygiene:</b> Sanitize shelves & walls with 70% food-grade ethanol before loading. Keep UVC ON for Meat & Fish, OFF for Salami & Cheese.</div>
-  <div class="tip-box"><b>2. Buying Rules:</b> Buy fresh bone-in sub-primals (5–10d post-slaughter) with intact fat caps. Avoid old cryovac meat sitting in blood purge.</div>
-  <div class="tip-box"><b>3. Loading Orientation:</b> Blot meat bone-dry with paper towels (never rinse with water). Place Fat Side UP, Bone DOWN with 8cm airflow clearance.</div>
-  <div class="tip-box"><b>4. Post-Harvest Lifecycle:</b> Once harvested, weighing and photo buttons lock automatically. Track Ready-to-Eat Fridge (8–10d), Vacuum Chilled (45d), or Deep Frozen (12m), then file to your Archive Vault when consumed!</div>
-  <h4 style="color:var(--gold);margin:12px 0 6px">🎨 Use Your Saved Photo as App Icon</h4>
-  <button class="btn b-gld" style="margin-bottom:10px" onclick="document.getElementById('iconConvIn').click()">🖼️ Pick Saved Photo from Phone Gallery</button>
-  <input type="file" id="iconConvIn" accept="image/*" style="display:none" onchange="applyCustomIconFromGallery(this)">
-  <h4 style="color:var(--gold);margin:10px 0 6px">💾 Data Backup & Restore</h4>
-  <div class="act-2" style="margin-bottom:12px">
-    <button class="btn b-blu" onclick="exportBackup()">📤 Export Backup</button>
-    <button class="btn b-drk" onclick="document.getElementById('impFile').click()">📥 Restore Backup</button>
+<div class="modal" id="maintM"><div class="modal-in">
+  <div class="m-hdr"><span>🔧 Chamber Maintenance</span><button class="del-x" onclick="closeModal('maintM')">✕</button></div>
+  <div class="note-box" style="margin-bottom:10px">
+    <b>• Pink Salt Block:</b> Wash & dry between runs.<br>
+    <b>• Carbon Filter:</b> Replace every 6 months.<br>
+    <b>• UVC Bulb:</b> Replace every 12 months.
   </div>
-  <input type="file" id="impFile" accept=".json" style="display:none" onchange="importBackup(this)">
-  <button class="btn b-red" onclick="closeModal('guideModal')">Close Guide</button>
+  <div class="fld"><label>Last Sanitized / Checked Date</label><input type="date" id="mDate"></div>
+  <div class="act-row">
+    <button class="btn btn-red" onclick="closeModal('maintM')">Cancel</button>
+    <button class="btn btn-green" onclick="saveMaint()">Save Record</button>
+  </div>
+</div></div>
+
+<div class="modal" id="safeM"><div class="modal-in">
+  <div class="m-hdr"><span>🩺 Safety Check</span><button class="del-x" onclick="closeModal('safeM')">✕</button></div>
+  <div class="note-box">
+    <b>✅ Good Signs:</b> Deep mahogany crust, nutty/buttery/earthy aroma, firm dry pellicle.<br><br>
+    <b>⚠️ Warning Signs:</b> Green/black fuzzy mould, slimy/sticky surface, sour or ammonia smell (check 1.5°C setpoint & airflow immediately).
+  </div>
+  <button class="btn btn-red" style="width:100%;margin-top:10px" onclick="closeModal('safeM')">Close</button>
+</div></div>
+
+<div class="modal" id="guideM"><div class="modal-in">
+  <div class="m-hdr"><span>📋 Guide & Backup</span><button class="del-x" onclick="closeModal('guideM')">✕</button></div>
+  <div class="note-box" style="margin-bottom:10px">
+    <b> Chamber Rules:</b> Never mix Red Meat, Fish, Salami, or Cheese in the same chamber at the same time. Keep 8cm air gaps between cuts.
+  </div>
+  <div class="act-row" style="margin-bottom:8px">
+    <button class="btn btn-green" onclick="exportData()">📤 Backup JSON</button>
+    <button class="btn btn-gold" onclick="document.getElementById('impFile').click()">📥 Restore JSON</button>
+    <input type="file" id="impFile" style="display:none" onchange="importData(event)">
+  </div>
+  <button class="btn btn-red" style="width:100%" onclick="closeModal('guideM')">Close</button>
+</div></div>
+
+<div class="modal" id="msgM"><div class="modal-in">
+  <div class="m-hdr"><span id="msgTtl">🥩 AgerPro Says</span></div>
+  <div id="msgBody" style="font-size:.9rem;line-height:1.4;margin-bottom:12px"></div>
+  <div id="msgActs" class="act-row"></div>
 </div></div>
 
 <script>
-const CUT_LIB = {
-  meat: [
-    {name:"Beef Chuck (Shoulder Clod)",tip:"Less connective tissue than top blade; rich flavor. Great for chuck roast or pan-seared teres major.",progs:[{l:"Basic",d:28,t:"1.5°C",rh:"82%"},{l:"Intense",d:28,t:"2.0°C",rh:"76%"},{l:"Intense+",d:42,t:"2.8°C",rh:"73%"}]},
-    {name:"Chuck Eye / Sierra / Denver (Neck Steaks)",tip:"Chuck Eye: trim connective tissue before serving. Sierra: slice at 45°. Denver: nutty flavor, great seared.",progs:[{l:"Basic",d:21,t:"1.5°C",rh:"82%"},{l:"Intense",d:28,t:"2.0°C",rh:"76%"},{l:"Intense+",d:28,t:"2.8°C",rh:"73%"}]},
-    {name:"Duck (Domestic Duck)",tip:"Age whole carcass hanging by the neck so skin dries paper-thin and crisps like glass when roasted.",progs:[{l:"Basic",d:5,t:"1.5°C",rh:"78%"},{l:"Intense",d:10,t:"1.5°C",rh:"75%"}]},
-    {name:"Fillet (Pork Tenderloin)",tip:"Gentle short maturation concentrates sweetness while keeping the lean fillet velvety.",progs:[{l:"Basic",d:7,t:"1.5°C",rh:"80%"},{l:"Intense",d:10,t:"2.0°C",rh:"76%"}]},
-    {name:"Flat Iron Steak (Oyster Blade)",tip:"Keep silver skin intact during aging; hang or rack evenly, then seam out central sinew after harvest.",progs:[{l:"Basic",d:21,t:"1.5°C",rh:"82%"},{l:"Intense",d:28,t:"2.0°C",rh:"76%"},{l:"Intense+",d:28,t:"2.8°C",rh:"73%"}]},
-    {name:"Haunch (Whole Pork Leg)",tip:"Age bone-in with rind on to protect the sweet leg muscle.",progs:[{l:"Basic",d:7,t:"1.5°C",rh:"82%"},{l:"Intense",d:21,t:"2.0°C",rh:"76%"}]},
-    {name:"Lamb (Whole Carcass)",tip:"Hang whole carcass for silky tenderness and mild pasture aromatics.",progs:[{l:"Basic",d:7,t:"1.5°C",rh:"82%"},{l:"Intense",d:14,t:"2.0°C",rh:"76%"},{l:"Intense+",d:21,t:"2.5°C",rh:"74%"}]},
-    {name:"Lamb Leg (Hind Shank)",tip:"Age bone-in with external fat cover intact; roast whole on the bone.",progs:[{l:"Basic",d:7,t:"1.5°C",rh:"82%"},{l:"Intense",d:14,t:"2.0°C",rh:"76%"},{l:"Intense+",d:21,t:"2.5°C",rh:"74%"}]},
-    {name:"Lamb Rack / Saddle",tip:"Keep fat cap intact over the eye muscle; trim pellicle lightly before Frenching.",progs:[{l:"Basic",d:10,t:"1.5°C",rh:"80%"},{l:"Intense",d:14,t:"2.0°C",rh:"76%"},{l:"Intense+",d:21,t:"2.5°C",rh:"74%"}]},
-    {name:"Neck (Whole Beef Chuck)",tip:"Dry aging softens heavy collagen so neck cuts can be grilled or pan-roasted.",progs:[{l:"Basic",d:21,t:"1.5°C",rh:"82%"},{l:"Intense",d:28,t:"2.0°C",rh:"76%"},{l:"Intense+",d:28,t:"2.8°C",rh:"73%"}]},
-    {name:"Pheasant (Wildfowl)",tip:"Hang in plumage or plucked whole bird to develop classic game aroma and tender breast meat.",progs:[{l:"Basic",d:5,t:"1.5°C",rh:"78%"},{l:"Intense",d:9,t:"2.0°C",rh:"75%"}]},
-    {name:"Pork Rack / Bone-In Loin",tip:"Score and crisp the aged crackling rind after trimming the face cuts.",progs:[{l:"Basic",d:14,t:"1.5°C",rh:"80%"},{l:"Intense",d:21,t:"2.0°C",rh:"76%"},{l:"Intense+",d:28,t:"2.5°C",rh:"74%"}]},
-    {name:"Ribeye Bone-In (OP Rib / Standing Rib)",tip:"Age on the bone. Sealed fat layer with no air pockets; wipe bone dust clean; hook through bone, never meat.",progs:[{l:"Basic",d:21,t:"1.5°C",rh:"82%"},{l:"Intense",d:42,t:"2.0°C",rh:"76%"},{l:"Intense+",d:42,t:"2.8°C",rh:"73%"}]},
-    {name:"Round (Whole Leg of Beef)",tip:"Age as whole leg or topside/silverside with thick fat layer. Yields Tucson & Santa Fe steaks.",progs:[{l:"Basic",d:21,t:"1.5°C",rh:"82%"},{l:"Intense",d:28,t:"2.0°C",rh:"76%"},{l:"Intense+",d:28,t:"2.8°C",rh:"73%"}]},
-    {name:"Rump Cap (Picanha / Top Butt Cap)",tip:"Age whole and hanging with silver skin and thick fat cap intact and zero incisions.",progs:[{l:"Basic",d:21,t:"1.5°C",rh:"82%"},{l:"Intense",d:28,t:"2.0°C",rh:"76%"},{l:"Intense+",d:28,t:"2.8°C",rh:"73%"}]},
-    {name:"Santa Fe Cut (Topside Connoisseur)",tip:"Aged as whole topside, then trimmed to slice upper gracilis into 1.5cm steaks.",progs:[{l:"Basic",d:28,t:"1.5°C",rh:"82%"},{l:"Intense",d:42,t:"2.0°C",rh:"76%"},{l:"Intense+",d:42,t:"2.8°C",rh:"73%"}]},
-    {name:"Shank (Beef Shin)",tip:"Concentrates marrow and gelatin for rich osso buco and slow braises.",progs:[{l:"Basic",d:14,t:"1.5°C",rh:"80%"},{l:"Intense",d:21,t:"2.0°C",rh:"76%"}]},
-    {name:"Short Loin (Bone-In T-Bone / Porterhouse)",tip:"Protects both striploin and eye fillet inside the saddle.",progs:[{l:"Basic",d:21,t:"1.5°C",rh:"82%"},{l:"Intense",d:35,t:"2.0°C",rh:"76%"},{l:"Intense+",d:45,t:"2.8°C",rh:"73%"}]},
-    {name:"Short Rib (Bone-In Beef Plate)",tip:"Age as whole rib plate resting bone-down on the shelf; do not cut into meat when trimming.",progs:[{l:"Basic",d:7,t:"1.5°C",rh:"82%"},{l:"Intense",d:21,t:"2.0°C",rh:"76%"},{l:"Intense+",d:21,t:"2.8°C",rh:"73%"}]},
-    {name:"Striploin (Bone-In or Thick Fat Cap)",tip:"Ensure thick dorsal fat cap is unpeeled; place fat side UP.",progs:[{l:"Basic",d:21,t:"1.5°C",rh:"82%"},{l:"Intense",d:35,t:"2.0°C",rh:"76%"},{l:"Intense+",d:42,t:"2.8°C",rh:"73%"}]},
-    {name:"Tri Tip (Bottom Sirloin Roast)",tip:"Do not trim beforehand; hang in the ager due to triangular shape and check regularly.",progs:[{l:"Basic",d:28,t:"1.5°C",rh:"82%"},{l:"Intense",d:42,t:"2.0°C",rh:"76%"},{l:"Intense+",d:42,t:"2.8°C",rh:"73%"}]}
-  ],
-  fish: [
-    {name:"Atlantic Salmon (Salmo salar)",tip:"Can be matured whole or as gravlax-cured fillets (150g salt, 100g brown sugar, 35g vodka, 10g juniper, 5g pepper, citrus zest; cure 2d in fridge, rinse, then dry age 5d).",progs:[{l:"Fillets / Gravlax",d:5,t:"1.0°C",rh:"80%"},{l:"Whole Fish",d:7,t:"0.8°C",rh:"82%"}]},
-    {name:"Cod / Skrei (Gadus morhua)",tip:"Suitable for raw dry aging without salt cure. Acquires a fresh, slightly salty tang after 3 days.",progs:[{l:"Raw Dry Aged",d:3,t:"1.0°C",rh:"82%"},{l:"Extended Cure",d:5,t:"1.0°C",rh:"78%"}]},
-    {name:"Common Sole / Dover Sole (Solea solea)",tip:"Use specimens 0.8kg+ for 3 days. Poach briefly in butter while center remains slightly translucent.",progs:[{l:"Whole Flatfish",d:3,t:"1.0°C",rh:"82%"}]},
-    {name:"Coral Trout / Snapper (Whole)",tip:"Scale-on, gills & guts removed, cavity wiped bone dry with paper towel.",progs:[{l:"Basic",d:5,t:"0.8°C",rh:"82%"},{l:"Intense",d:7,t:"0.8°C",rh:"80%"}]},
-    {name:"Kingfish / Amberjack (Whole)",tip:"Hang from tail or rack on perforated tray; buttery sashimi texture by Day 7–10.",progs:[{l:"Basic",d:7,t:"0.8°C",rh:"82%"},{l:"Intense",d:10,t:"0.8°C",rh:"80%"}]},
-    {name:"Real Tuna (Thunnus Loin)",tip:"Cuts up to 10kg aged 5 days. Must be frozen at -20°C for 24h prior to aging if serving as raw sashimi.",progs:[{l:"Loin Cut",d:5,t:"0.8°C",rh:"80%"},{l:"Intense Loin",d:7,t:"0.8°C",rh:"78%"}]}
-  ],
-  salami: [
-    {name:"Coppa / Capocollo (Whole Muscle)",tip:"UVC MUST BE OFF. Target 32–35% total weight loss.",progs:[{l:"Standard Cure",d:60,t:"13°C",rh:"78%"}]},
-    {name:"Pancetta Arrotolata (Rolled Belly)",tip:"UVC MUST BE OFF. Hang in cool humid flow.",progs:[{l:"Standard Cure",d:45,t:"13°C",rh:"78%"}]},
-    {name:"Salami / Soppressata",tip:"UVC MUST BE OFF so beneficial white Penicillium mold thrives. Target 35–40% weight loss.",progs:[{l:"Standard Cure",d:42,t:"13°C",rh:"80%"},{l:"Extended Cure",d:56,t:"12°C",rh:"76%"}]}
-  ],
-  cheese: [
-    {name:"Alpine / Gruyere Style Wheel",tip:"UVC MUST BE OFF. Brush and flip every 3 days.",progs:[{l:"Affinage",d:60,t:"11°C",rh:"88%"}]},
-    {name:"Gouda / Edam Wheel",tip:"UVC MUST BE OFF. Flip every 3 days for even rind development.",progs:[{l:"Affinage",d:45,t:"11°C",rh:"86%"}]},
-    {name:"Hard Cheddar Wheel",tip:"UVC MUST BE OFF. Flip every 3 days.",progs:[{l:"Standard",d:60,t:"11°C",rh:"88%"},{l:"Vintage",d:90,t:"10°C",rh:"85%"}]}
-  ]
+const MODES={
+  meat:{ico:'🥩',name:'Red Meat',sub:'1.5°C • UVC ON',temp:'1.5°C',rh:'75–80% RH',uvc:'UVC ON',cuts:[
+    {n:'Ribeye Bone-In (OP Rib)',p:[{l:'Basic',d:21},{l:'Intense',d:42},{l:'Intense+',d:56}],note:'Age on the bone. Sealed fat layer, wipe bone dust clean, hook through bone never meat.'},
+    {n:'Short Rib (Beef Ribs)',p:[{l:'Basic',d:7},{l:'Intense',d:21},{l:'Intense+',d:28}],note:'Age as whole rib section on shelf. Do not cut into meat while trimming.'},
+    {n:'Short Loin (T-Bone / Porterhouse)',p:[{l:'Basic',d:21},{l:'Intense',d:35},{l:'Intense+',d:45}],note:'Bone and fat cap shield striploin and tenderloin.'},
+    {n:'Striploin (Bone-In / Thick Fat Cap)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:35}],note:'Rest fat-cap UP on wire rack.'},
+    {n:'Rump Cap (Picanha)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:35}],note:'Age whole with silver skin and thick fat layer intact.'},
+    {n:'Tri Tip (Bottom Sirloin)',p:[{l:'Basic',d:28},{l:'Intense',d:42},{l:'Intense+',d:42}],note:'Do not trim beforehand; hang due to uneven shape.'},
+    {n:'Beef Chuck (Shoulder Clod)',p:[{l:'Basic',d:28},{l:'Intense',d:35},{l:'Intense+',d:42}],note:'Pronounced flavor and tenderness for steaks or roast.'},
+    {n:'Flat Iron (Oyster Blade)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Do not remove silver skin before aging; hang to age.'},
+    {n:'The Neck (Whole Chuck Neck)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Dry aging softens connective tissue; hang whole.'},
+    {n:'Neck Steaks (Chuck Eye / Denver)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Age as whole neck then portion into Denver/Chuck Eye.'},
+    {n:'Round (Whole Leg / Topside)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Age whole sub-primal with thick fat layer.'},
+    {n:'Santa Fe Cut (Topside)',p:[{l:'Basic',d:28},{l:'Intense',d:42},{l:'Intense+',d:42}],note:'Age as whole topside then trim gracilis muscle.'},
+    {n:'Shank (Beef Shin)',p:[{l:'Basic',d:21},{l:'Intense',d:28},{l:'Intense+',d:28}],note:'Rich marrow & gelatin concentration.'},
+    {n:'Pork Rack / Bone-In Loin',p:[{l:'Basic',d:10},{l:'Intense',d:14},{l:'Intense+',d:21}],note:'Keep skin/fat intact; blot dry on Day 0.'},
+    {n:'Fillet (Pork Tenderloin)',p:[{l:'Basic',d:7},{l:'Intense',d:10},{l:'Intense+',d:14}],note:'Short maturation for concentrated tenderness.'},
+    {n:'Haunch (Whole Pork Leg)',p:[{l:'Basic',d:7},{l:'Intense',d:21},{l:'Intense+',d:28}],note:'Hang whole leg with rind intact.'},
+    {n:'Lamb (Whole Carcass)',p:[{l:'Basic',d:7},{l:'Intense',d:14},{l:'Intense+',d:21}],note:'Hang whole carcass; sweet nutty finish.'},
+    {n:'Leg (Hind Shank of Lamb)',p:[{l:'Basic',d:7},{l:'Intense',d:14},{l:'Intense+',d:21}],note:'Keep fell and fat cover intact.'},
+    {n:'Duck (Domestic Whole)',p:[{l:'Basic',d:5},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Hang by neck for paper-thin crispy skin.'},
+    {n:'Pheasant (Wildfowl)',p:[{l:'Basic',d:5},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Eviscerate, wipe cavity dry, hang.'},
+    {n:'+ Custom Item...',p:[{l:'Basic',d:21},{l:'Intense',d:30},{l:'Intense+',d:45}],note:'Enter your custom cut name and target days below.'}
+  ]},
+  fish:{ico:'🐟',name:'Seafood',sub:'0.8°C • UVC ON',temp:'0.5–1.0°C',rh:'80–85% RH',uvc:'UVC ON',cuts:[
+    {n:'Kingfish / Amberjack',p:[{l:'Basic',d:5},{l:'Intense',d:10},{l:'Intense+',d:14}],note:'Scale on, gills & guts removed, scrape kidney line.'},
+    {n:'Bluefin / Yellowfin Tuna Loin',p:[{l:'Basic',d:7},{l:'Intense',d:14},{l:'Intense+',d:21}],note:'Hang or rest on perforated rack.'},
+    {n:'Coral Trout / Snapper',p:[{l:'Basic',d:4},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Blot cavity bone-dry daily.'},
+    {n:'King Salmon Side',p:[{l:'Basic',d:4},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Skin-on, hang from tail.'},
+    {n:'+ Custom Item...',p:[{l:'Basic',d:5},{l:'Intense',d:7},{l:'Intense+',d:10}],note:'Custom seafood batch.'}
+  ]},
+  salami:{ico:'🥓',name:'Salami',sub:'13°C • UVC OFF',temp:'12–14°C',rh:'75–82% RH',uvc:'UVC OFF ⚠️',cuts:[
+    {n:'Pork Salami / Soppressata',p:[{l:'Basic',d:28},{l:'Intense',d:42},{l:'Intense+',d:56}],note:'Target 35–40% weight loss. Keep UVC OFF.'},
+    {n:'Pancetta Tesa / Arrotolata',p:[{l:'Basic',d:21},{l:'Intense',d:35},{l:'Intense+',d:45}],note:'Target 30% weight loss.'},
+    {n:'Guanciale / Coppa',p:[{l:'Basic',d:45},{l:'Intense',d:60},{l:'Intense+',d:90}],note:'Target 35% weight loss.'},
+    {n:'+ Custom Item...',p:[{l:'Basic',d:30},{l:'Intense',d:45},{l:'Intense+',d:60}],note:'Custom charcuterie batch.'}
+  ]},
+  cheese:{ico:'🧀',name:'Cheese',sub:'11°C • UVC OFF',temp:'10–12°C',rh:'85–90% RH',uvc:'UVC OFF ⚠️',cuts:[
+    {n:'Clothbound Cheddar Wheel',p:[{l:'Basic',d:60},{l:'Intense',d:120},{l:'Intense+',d:180}],note:'Flip wheel every 3 days. Keep UVC OFF.'},
+    {n:'Gouda / Farmhouse Wheel',p:[{l:'Basic',d:45},{l:'Intense',d:90},{l:'Intense+',d:150}],note:'Flip regularly for even rind.'},
+    {n:'+ Custom Item...',p:[{l:'Basic',d:60},{l:'Intense',d:90},{l:'Intense+',d:120}],note:'Custom cheese affinage.'}
+  ]}
 };
 
-const CAT_META = {
-  meat:{name:"Red Meat, Pork & Poultry",icon:"🥩",t:"1.5°C – 2.0°C",rh:"75% – 82%",uvc:"ON"},
-  fish:{name:"Seafood & Whole Fish",icon:"🐟",t:"0.5°C – 1.0°C",rh:"80% – 85%",uvc:"ON"},
-  salami:{name:"Salami & Charcuterie",icon:"🥓",t:"12°C – 14°C",rh:"75% – 82%",uvc:"OFF ⚠️"},
-  cheese:{name:"Cheese Affinage",icon:"🧀",t:"10°C – 12°C",rh:"85% – 90%",uvc:"OFF ⚠️"}
-};
+const UNITS=['g','kg','oz','lb'];
+let unitIdx=parseInt(localStorage.getItem('ap_unit')||'0')||0;
+let fridges=JSON.parse(localStorage.getItem('ap_fridges')||'["Thermaster MA400 #1","Thermaster MA400 #2"]');
+let curFridge=localStorage.getItem('ap_cur_fridge')||fridges[0];
+let curMode='meat';
+let showArch=false;
+let searchQ='';
+let activeId=null;
 
-let fridges = JSON.parse(localStorage.getItem('dryAgeFridges') || '["Thermaster MA400 #1"]');
-let curFridge = localStorage.getItem('dryAgeCurrentFridge') || fridges[0];
-let batches = JSON.parse(localStorage.getItem('agerProBatchesV6') || localStorage.getItem('dryAgeItemsV5') || '[]');
-let customCuts = JSON.parse(localStorage.getItem('agerProCustomV6') || '{"meat":[],"fish":[],"salami":[],"cheese":[]}');
-let maintData = JSON.parse(localStorage.getItem('agerProMaintV6') || '{}');
-let units = ['g','kg','oz','lb'];
-let curUnit = localStorage.getItem('agerProUnit') || 'g';
-let curCat = 'meat';
-let showArchive = false;
-let selProgIdx = 0;
-let tempPhotos = [];
-let pendingDelId = null;
-
-batches = batches.map(b => ({
-  id: String(b.id || Date.now()),
-  code: b.code || ('PRO-' + String(b.id).slice(-4)),
-  fridge: b.fridge || fridges[0],
-  cat: b.cat || b.mode || 'meat',
-  cut: b.cut || b.name || 'Custom Cut',
-  prog: b.prog || 'Standard',
-  temp: b.temp || '1.5°C',
-  rh: b.rh || '78%',
-  startW: parseFloat(b.startW || b.startWeight || 1000),
-  startD: b.startD || b.startDate || new Date().toISOString().split('T')[0],
-  targetDays: parseInt(b.targetDays || b.days || 28, 10),
-  status: b.status === 'Consumed / Enjoyed' || b.status === 'Consumed / Archived' ? 'Archived' : (b.status || 'Active in Chamber'),
-  prevStatus: b.prevStatus || 'In Fridge (Ready to Eat)',
-  statusDate: b.statusDate || b.startD || new Date().toISOString().split('T')[0],
-  notes: b.notes || '',
-  logs: b.logs || b.history || [{date: b.startD || new Date().toISOString().split('T')[0], weight: parseFloat(b.startW || 1000), note:'Day 0 Start'}],
-  photos: b.photos || [],
-  clearedAlerts: b.clearedAlerts || []
-}));
-
-function saveAll(){
-  localStorage.setItem('dryAgeFridges', JSON.stringify(fridges));
-  localStorage.setItem('dryAgeCurrentFridge', curFridge);
-  localStorage.setItem('agerProBatchesV6', JSON.stringify(batches));
-  localStorage.setItem('dryAgeItemsV5', JSON.stringify(batches));
-  localStorage.setItem('agerProCustomV6', JSON.stringify(customCuts));
-  localStorage.setItem('agerProMaintV6', JSON.stringify(maintData));
-  localStorage.setItem('agerProUnit', curUnit);
+function getBatches(){
+  let b6=JSON.parse(localStorage.getItem('agerlog_v6')||'[]');
+  let b5=JSON.parse(localStorage.getItem('agerlog_v5')||'[]');
+  if(!b6.length && b5.length){localStorage.setItem('agerlog_v6',JSON.stringify(b5));return b5;}
+  return b6;
 }
+function setBatches(arr){localStorage.setItem('agerlog_v6',JSON.stringify(arr));localStorage.setItem('agerlog_v5',JSON.stringify(arr));}
 
-function loadSavedIcon(){
-  let saved = localStorage.getItem('agerProCustomIcon');
-  if(saved){
-    let img = document.getElementById('hdrCustomImg');
-    let svg = document.getElementById('hdrDefaultSvg');
-    if(img && svg){ img.src = saved; img.style.display = 'inline-block'; svg.style.display = 'none'; }
-    document.getElementById('dynFav').type = 'image/png';
-    document.getElementById('dynFav').href = saved;
-    document.getElementById('dynTouch').href = saved;
-    let mObj = {
-      name: "AgerPro",
-      short_name: "AgerPro",
-      start_url: location.href,
-      display: "standalone",
-      background_color: "#0c0a09",
-      theme_color: "#0c0a09",
-      icons: [{src: saved, sizes: "512x512", type: "image/png", purpose: "any maskable"}]
-    };
-    let blob = new Blob([JSON.stringify(mObj)], {type:'application/json'});
-    document.getElementById('dynManifest').href = URL.createObjectURL(blob);
-  }
+function toDisp(g){
+  let u=UNITS[unitIdx];
+  if(u==='kg') return (g/1000).toFixed(2)+'kg';
+  if(u==='oz') return (g/28.3495).toFixed(1)+'oz';
+  if(u==='lb') return (g/453.592).toFixed(2)+'lb';
+  return Math.round(g)+'g';
 }
-
-function applyCustomIconFromGallery(input){
-  if(!input.files || !input.files[0]) return;
-  let r = new FileReader();
-  r.onload = function(e){
-    let img = new Image();
-    img.onload = function(){
-      let c = document.createElement('canvas');
-      c.width = 512; c.height = 512;
-      c.getContext('2d').drawImage(img, 0, 0, 512, 512);
-      let dataUrl = c.toDataURL('image/png');
-      localStorage.setItem('agerProCustomIcon', dataUrl);
-      loadSavedIcon();
-      closeModal('guideModal');
-      showMsg('✅ Your custom 3D Hanging Meat photo is now set! You can see it at the top-left of your screen right now.');
-    };
-    img.src = e.target.result;
-  };
-  r.readAsDataURL(input.files[0]);
-}
-
-function fmtW(g){
-  let v = parseFloat(g)||0;
-  if(curUnit==='kg') return (v/1000).toFixed(2)+' kg';
-  if(curUnit==='oz') return (v/28.3495).toFixed(1)+' oz';
-  if(curUnit==='lb') return (v/453.592).toFixed(2)+' lb';
-  return Math.round(v)+' g';
-}
-function toGrams(val){
-  let v = parseFloat(val)||0;
-  if(curUnit==='kg') return v*1000;
-  if(curUnit==='oz') return v*28.3495;
-  if(curUnit==='lb') return v*453.592;
-  return v;
+function fromDisp(v){
+  let n=parseFloat(v)||0, u=UNITS[unitIdx];
+  if(u==='kg') return n*1000;
+  if(u==='oz') return n*28.3495;
+  if(u==='lb') return n*453.592;
+  return n;
 }
 function cycleUnit(){
-  curUnit = units[(units.indexOf(curUnit)+1)%units.length];
-  saveAll();
-  refreshUI();
+  unitIdx=(unitIdx+1)%UNITS.length;
+  localStorage.setItem('ap_unit',unitIdx);
+  document.getElementById('unitLbl').textContent=UNITS[unitIdx];
+  render();
 }
 
-function showMsg(txt){
-  document.getElementById('msgText').innerText = txt;
-  openModal('msgModal');
-}
-function openModal(id){ document.getElementById(id).style.display='flex'; }
-function closeModal(id){ document.getElementById(id).style.display='none'; tempPhotos=[]; }
-
-function isChamberActive(b){
-  return b.status === 'Active in Chamber' || b.status === 'Active in Agers';
-}
-function isArchived(b){
-  return b.status === 'Archived';
-}
-function isStoredPostHarvest(b){
-  return !isChamberActive(b) && !isArchived(b);
+function say(msg,ttl='🥩 AgerPro Says',onYes=null){
+  document.getElementById('msgTtl').textContent=ttl;
+  document.getElementById('msgBody').innerHTML=msg;
+  let acts=document.getElementById('msgActs');
+  if(onYes){
+    acts.innerHTML='<button class="btn btn-red" onclick="closeModal(\'msgM\')">Cancel</button><button class="btn btn-green" id="yesBtn">Confirm</button>';
+    document.getElementById('yesBtn').onclick=()=>{closeModal('msgM');onYes();};
+  }else{
+    acts.innerHTML='<button class="btn btn-green" style="grid-column:span 2" onclick="closeModal(\'msgM\')">OK</button>';
+  }
+  openModal('msgM');
 }
 
-function getActiveCatForFridge(fName){
-  let found = batches.find(b => b.fridge === fName && isChamberActive(b));
-  return found ? found.cat : null;
+function openModal(id){document.getElementById(id).style.display='flex';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+
+function activeCatForFridge(f){
+  let all=getBatches().filter(b=>!b.archived && b.fridge===f);
+  return all.length?all[0].cat:null;
 }
 
-function selectCat(c){
-  let lockedCat = getActiveCatForFridge(curFridge);
-  if(lockedCat && lockedCat !== c && !showArchive){
-    showMsg('⚠️ Chamber "' + curFridge + '" is currently running ' + CAT_META[lockedCat].name + '. You can only age 1 category at a time per fridge to prevent cross-contamination.');
+function changeFridge(f){
+  curFridge=f;localStorage.setItem('ap_cur_fridge',f);
+  let locked=activeCatForFridge(f);
+  if(locked) curMode=locked;
+  render();
+}
+
+function selectMode(m){
+  let locked=activeCatForFridge(curFridge);
+  if(locked && locked!==m){
+    say('<b>'+curFridge+'</b> currently has active <b>'+MODES[locked].name+'</b> batches.<br><br>To prevent cross-contamination and temperature/UVC conflicts, finish or archive current batches or switch chambers first.');
     return;
   }
-  curCat = c;
-  refreshUI();
+  curMode=m;render();
 }
 
-function switchFridge(val){
-  curFridge = val;
-  let locked = getActiveCatForFridge(curFridge);
-  if(locked) curCat = locked;
-  saveAll();
-  refreshUI();
+function doSearch(){
+  searchQ=document.getElementById('srchIn').value.trim().toLowerCase();
+  document.getElementById('srchClr').style.display=searchQ?'flex':'none';
+  render();
+}
+function clrSearch(){
+  document.getElementById('srchIn').value='';searchQ='';
+  document.getElementById('srchClr').style.display='none';
+  render();
 }
 
-function toggleArchiveView(){
-  showArchive = !showArchive;
-  refreshUI();
-}
+function toggleArch(){showArch=!showArch;render();}
 
-function getBatchAlert(b){
-  if(isArchived(b)) return null;
-  let now = new Date();
-  if(isChamberActive(b)){
-    let el = Math.max(0, Math.floor((now - new Date(b.startD))/(86400000)));
-    if(el >= b.targetDays && !(b.clearedAlerts||[]).includes('harv_due')){
-      return {key:'harv_due', text:"🔪 IT'S HARVEST DAY! (" + b.code + ")"};
-    }
-    if(el === b.targetDays - 1 && !(b.clearedAlerts||[]).includes('harv_tom')){
-      return {key:'harv_tom', text:"🚨 GET READY TO HARVEST TOMORROW! (" + b.code + ")"};
-    }
-  } else if(isStoredPostHarvest(b)){
-    let stDays = Math.max(0, Math.floor((now - new Date(b.statusDate || b.startD))/(86400000)));
-    if(b.status.includes('In Fridge') && stDays >= 8 && !(b.clearedAlerts||[]).includes('fr_end')){
-      return {key:'fr_end', text:"⏰ FRIDGE READY-TO-EAT TIME ENDING (Day " + stDays + "/10) — Cook, Freeze, or Archive!"};
-    }
-    if(b.status.includes('Vacuum') && stDays >= 40 && !(b.clearedAlerts||[]).includes('vac_end')){
-      return {key:'vac_end', text:"⏰ VACUUM CHILLED TIME ENDING (Day " + stDays + "/45) — Cook, Freeze, or Archive!"};
-    }
-    if(b.status.includes('Frozen') && stDays >= 350 && !(b.clearedAlerts||[]).includes('frz_end')){
-      return {key:'frz_end', text:"❄️ FREEZER STORAGE LIMIT ENDING (Day " + stDays + "/365) — Consume & Archive!"};
-    }
-  }
-  return null;
-}
-
-function clearAlert(id, key){
-  let b = batches.find(x => String(x.id) === String(id));
-  if(b){
-    if(!b.clearedAlerts) b.clearedAlerts = [];
-    if(!b.clearedAlerts.includes(key)) b.clearedAlerts.push(key);
-    saveAll();
-    refreshUI();
-  }
-}
-
-function updateBell(){
-  let alerts = [];
-  batches.forEach(b => {
-    let al = getBatchAlert(b);
-    if(al) alerts.push({batch:b, alert:al});
-  });
-  let btn = document.getElementById('bellBtn');
-  let dot = document.getElementById('bellDot');
-  if(alerts.length > 0){
-    btn.style.display = 'inline-block';
-    dot.innerText = alerts.length;
-  } else {
-    btn.style.display = 'none';
-  }
-  return alerts;
-}
-
-function jumpToAlert(){
-  let alerts = updateBell();
-  if(!alerts.length) return;
-  let target = alerts[0].batch;
-  showArchive = false;
-  curFridge = target.fridge;
-  curCat = target.cat;
-  clearSearch();
-  saveAll();
-  refreshUI();
-  setTimeout(()=>{
-    let el = document.getElementById('card-' + target.id);
-    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
-  },100);
-}
-
-function handleSearch(){
-  let q = document.getElementById('searchIn').value.trim();
-  document.getElementById('searchClr').style.display = q ? 'block' : 'none';
-  renderBatches();
-}
-function clearSearch(){
-  document.getElementById('searchIn').value = '';
-  document.getElementById('searchClr').style.display = 'none';
-  renderBatches();
-}
-
-function renderChamberBanner(){
-  let m = CAT_META[curCat];
-  let activeInFridge = batches.filter(b => b.fridge === curFridge && isChamberActive(b));
-  let t = m.t, rh = m.rh;
-  if(activeInFridge.length > 0){
-    t = activeInFridge[0].temp || m.t;
-    rh = activeInFridge[0].rh || m.rh;
-  }
-  document.getElementById('chamberBox').innerHTML = `
-    <div style="font-weight:900;color:var(--gold);margin-bottom:4px">⚙️ ${curFridge} — ${m.icon} ${m.name}</div>
-    <div class="c-stats">
-      <span>🌡️ Temp: ${t}</span>
-      <span>💧 RH: ${rh}</span>
-      <span>💡 UVC: ${m.uvc}</span>
-    </div>
-  `;
-}
-
-function renderBatches(){
-  let box = document.getElementById('batchList');
-  let q = document.getElementById('searchIn').value.trim().toLowerCase();
-  let archCount = batches.filter(b => isArchived(b)).length;
-  let archBtn = document.getElementById('archiveToggleBtn');
-  archBtn.innerText = showArchive ? '⬅️ Back to Active' : `🗄️ Archive (${archCount})`;
-  archBtn.classList.toggle('active', showArchive);
-  document.getElementById('listHeaderTitle').innerText = q ? `🔍 SEARCH RESULTS (ALL & ARCHIVE)` : (showArchive ? `🗄️ ARCHIVE VAULT (${archCount})` : `ACTIVE & STORED IN ${curFridge}`);
-  document.getElementById('bottomBar').style.display = showArchive ? 'none' : 'block';
-
-  let list = [];
-  if(q){
-    list = batches.filter(b =>
-      (b.code||'').toLowerCase().includes(q) ||
-      (b.cut||'').toLowerCase().includes(q) ||
-      (b.status||'').toLowerCase().includes(q) ||
-      (b.notes||'').toLowerCase().includes(q)
-    );
-  } else if(showArchive){
-    list = batches.filter(b => isArchived(b));
-  } else {
-    list = batches.filter(b => b.fridge === curFridge && b.cat === curCat && !isArchived(b));
-  }
-
-  if(!list.length){
-    box.innerHTML = `<div class="box-gold" style="text-align:center;color:var(--muted)">${showArchive ? 'No archived batches yet. Once a harvested batch finishes its Fridge/Freezer time or is consumed, file it here!' : 'No active or stored batches in this chamber. Tap + ADD NEW BATCH below.'}</div>`;
-    return;
-  }
-
-  let now = new Date();
-  box.innerHTML = list.map(b => {
-    let icon = (CAT_META[b.cat]||CAT_META.meat).icon;
-    let lastW = (b.logs && b.logs.length) ? b.logs[b.logs.length-1].weight : b.startW;
-    let loss = (((b.startW - lastW)/b.startW)*100).toFixed(1);
-    let al = getBatchAlert(b);
-    let activeAging = isChamberActive(b);
-    let stored = isStoredPostHarvest(b);
-    let archived = isArchived(b);
-
-    let ageDays = Math.max(0, Math.floor(( (activeAging ? now : new Date(b.statusDate||now)) - new Date(b.startD) )/86400000));
-    let storageInfo = '';
-    if(stored){
-      let stDays = Math.max(0, Math.floor((now - new Date(b.statusDate||b.startD))/86400000));
-      let maxD = b.status.includes('In Fridge') ? 10 : (b.status.includes('Vacuum') ? 45 : 365);
-      let remD = Math.max(0, maxD - stDays);
-      storageInfo = `<div style="background:#0c0a09;border:1px solid var(--gold);padding:7px;border-radius:8px;margin-top:6px;font-size:.8rem;font-weight:800;color:var(--gold)">⏳ ${b.status}: Day ${stDays} of ${maxD} (${remD}d left until alert) • Locked Post-Harvest</div>`;
-    } else if(archived){
-      storageInfo = `<div style="background:#0c0a09;border:1px solid var(--grn);padding:7px;border-radius:8px;margin-top:6px;font-size:.8rem;font-weight:800;color:var(--grn)">🗄️ ARCHIVED / CONSUMED ON ${b.statusDate} • Chamber: ${b.fridge}</div>`;
-    }
-
-    let logsHtml = (b.logs||[]).map(l => {
-      let lLoss = (((b.startW - l.weight)/b.startW)*100).toFixed(1);
-      return `<div class="log-r"><span>📅 ${l.date} ${l.note ? '• '+l.note : ''}</span><span><b>${fmtW(l.weight)}</b> (-${lLoss}%)</span></div>`;
-    }).join('');
-
-    let photosHtml = (b.photos && b.photos.length) ? `<div class="p-grid">${b.photos.map(p=>`<img src="${p}" class="p-th">`).join('')}</div>` : '';
-
-    let actionsHtml = '';
-    if(activeAging){
-      actionsHtml = `
-        <div class="act-3">
-          <button class="btn b-grn" onclick="openWeigh('${b.id}')">⚖️ Weigh</button>
-          <button class="btn b-blu" onclick="openQuickNote('${b.id}')">📷 Photo/Note</button>
-          <button class="btn b-red" onclick="openHarvest('${b.id}')">🔪 Harvest</button>
-        </div>`;
-    } else if(stored){
-      actionsHtml = `
-        <div class="act-2">
-          <button class="btn b-drk" onclick="openTagView('${b.id}')">🏷️ View / Print Tag</button>
-          <button class="btn b-grn" onclick="openArchiveModal('${b.id}')">🍽️ Consumed / Archive</button>
-        </div>`;
-    } else {
-      actionsHtml = `
-        <div class="act-2">
-          <button class="btn b-drk" onclick="openTagView('${b.id}')">🏷️ Print Summary</button>
-          <button class="btn b-blu" onclick="openRestoreModal('${b.id}')">↩️ Restore Batch</button>
-        </div>`;
-    }
-
-    return `
-      <div class="b-card" id="card-${b.id}">
-        ${al ? `<div class="al-ban"><span>${al.text}</span><button class="al-clr" onclick="clearAlert('${b.id}','${al.key}')">✓ CLEAR</button></div>` : ''}
-        <div style="display:flex;justify-content:space-between;align-items:flex-start">
-          <div>
-            <span class="tag">🏷️ ${b.code} • ${b.prog||'Standard'} (${b.temp||'1.5°C'} | ${b.rh||'78%'})</span>
-            <h3 style="font-size:1.05rem;margin:2px 0">${icon} ${b.cut}</h3>
-            <div style="font-size:.76rem;color:var(--muted)">Started: ${b.startD} • Target: ${b.targetDays}d</div>
-          </div>
-          <button onclick="askDeleteBatch('${b.id}')" style="background:var(--red);color:#fff;border:none;border-radius:8px;width:30px;height:30px;font-weight:900;cursor:pointer">✕</button>
-        </div>
-        ${storageInfo}
-        <div class="st-grid">
-          <div><div class="st-l">Aged Days</div><div class="st-v">${ageDays}/${b.targetDays}</div></div>
-          <div><div class="st-l">Weight Loss</div><div class="st-v" style="color:var(--gold)">-${loss}%</div></div>
-          <div><div class="st-l">${activeAging ? 'Current Wt' : 'Harvest Wt'}</div><div class="st-v">${fmtW(lastW)}</div></div>
-        </div>
-        ${b.notes ? `<div class="tip-box" style="margin:6px 0"><b>📝 Notes:</b> ${b.notes}</div>` : ''}
-        ${photosHtml}
-        <details class="log-box"><summary style="cursor:pointer;font-weight:800;color:var(--gold)">📊 Weigh-In & History Log (${(b.logs||[]).length})</summary><div style="margin-top:6px">${logsHtml}</div></details>
-        ${actionsHtml}
-      </div>`;
-  }).join('');
-}
-
-function getSortedCuts(cat){
-  let base = (CUT_LIB[cat]||[]).slice();
-  let cust = (customCuts[cat]||[]).map(n => ({name:n, isCustom:true, tip:"Custom user entry.", progs:[{l:"Standard",d:28,t:"1.5°C",rh:"78%"}]}));
-  let all = base.concat(cust).sort((a,b)=>a.name.localeCompare(b.name));
-  all.push({name:"+ Other / Custom Item...", isOther:true, tip:"Enter your own custom cut name and target days.", progs:[{l:"Custom",d:28,t:"1.5°C",rh:"78%"}]});
-  return all;
-}
-
-function openAddModal(){
-  let locked = getActiveCatForFridge(curFridge);
-  if(locked) curCat = locked;
-  document.getElementById('addTitle').innerText = `Add ${CAT_META[curCat].icon} Batch to ${curFridge}`;
-  document.getElementById('inCode').value = 'PRO-' + Math.floor(1000 + Math.random()*9000);
-  document.getElementById('inW').value = '';
-  document.getElementById('inNotes').value = '';
-  document.getElementById('inDate').value = new Date().toISOString().split('T')[0];
-  document.getElementById('wLbl').innerText = `Starting Weight (${curUnit})`;
-  document.getElementById('addPrev').innerHTML = '';
-  tempPhotos = [];
-
-  let sel = document.getElementById('cutSel');
-  let cuts = getSortedCuts(curCat);
-  sel.innerHTML = cuts.map((c,i)=>`<option value="${i}">${c.name}</option>`).join('');
-  selProgIdx = 0;
+function openAddM(){
+  let locked=activeCatForFridge(curFridge);
+  if(locked) curMode=locked;
+  let m=MODES[curMode];
+  document.getElementById('addTtl').textContent=m.ico+' New '+m.name+' Batch';
+  document.getElementById('bCode').value='PRO-'+Math.floor(1000+Math.random()*9000);
+  let sel=document.getElementById('bCut');
+  sel.innerHTML=m.cuts.map((c,i)=>'<option value="'+i+'">'+c.n+'</option>').join('');
+  document.getElementById('bDate').value=new Date().toISOString().split('T')[0];
+  document.getElementById('bWeight').value='';
+  document.getElementById('wInLbl').textContent='Starting Weight ('+UNITS[unitIdx]+')';
   onCutChange();
-  openModal('addModal');
+  openModal('addM');
 }
 
 function onCutChange(){
-  let cuts = getSortedCuts(curCat);
-  let idx = parseInt(document.getElementById('cutSel').value,10)||0;
-  let c = cuts[idx];
-  document.getElementById('customGrp').style.display = c.isOther ? 'block' : 'none';
-  document.getElementById('delCustomWrap').style.display = c.isCustom ? 'block' : 'none';
-  selProgIdx = 0;
-  renderProgButtons(c);
+  let m=MODES[curMode], idx=parseInt(document.getElementById('bCut').value)||0;
+  let cut=m.cuts[idx];
+  document.getElementById('customCutWrap').style.display=cut.n.includes('Custom')?'block':'none';
+  document.getElementById('cutNote').textContent=cut.note;
+  let pg=document.getElementById('progGrid');
+  pg.innerHTML=cut.p.map((p,i)=>'<button type="button" class="p-btn '+(i===0?'active':'')+'" onclick="pickProg('+i+','+p.d+')">'+p.l+'<br><span style="color:var(--gold)">'+p.d+'d</span></button>').join('');
+  document.getElementById('bDays').value=cut.p[0].d;
 }
 
-function renderProgButtons(c){
-  let pBar = document.getElementById('progBar');
-  let progs = c.progs || [{l:"Standard",d:28,t:"1.5°C",rh:"78%"}];
-  if(selProgIdx >= progs.length) selProgIdx = 0;
-  pBar.innerHTML = progs.map((p,i)=>`
-    <button type="button" class="p-btn ${i===selProgIdx?'active':''}" onclick="pickProg(${i})">
-      <div>${p.l}</div>
-      <div style="font-size:.68rem;color:var(--gold)">${p.d}d • ${p.t} | ${p.rh}</div>
-    </button>
-  `).join('');
-  let activeP = progs[selProgIdx];
-  document.getElementById('inDays').value = activeP.d;
-  document.getElementById('cutTip').innerHTML = `<b>🔪 Butcher's Note:</b> ${c.tip}`;
-}
-
-function pickProg(i){
-  let cuts = getSortedCuts(curCat);
-  let idx = parseInt(document.getElementById('cutSel').value,10)||0;
-  selProgIdx = i;
-  renderProgButtons(cuts[idx]);
-}
-
-function deleteCustomCut(){
-  let cuts = getSortedCuts(curCat);
-  let c = cuts[parseInt(document.getElementById('cutSel').value,10)||0];
-  if(c && c.isCustom){
-    customCuts[curCat] = (customCuts[curCat]||[]).filter(x => x !== c.name);
-    saveAll();
-    openAddModal();
-  }
+function pickProg(idx,days){
+  document.querySelectorAll('#progGrid .p-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  document.getElementById('bDays').value=days;
 }
 
 function saveBatch(){
-  let cuts = getSortedCuts(curCat);
-  let c = cuts[parseInt(document.getElementById('cutSel').value,10)||0];
-  let cutName = c.name;
-  if(c.isOther){
-    cutName = document.getElementById('inCustom').value.trim();
-    if(!cutName){ showMsg('Please enter a custom cut name.'); return; }
-    if(!customCuts[curCat].includes(cutName)) customCuts[curCat].push(cutName);
+  let m=MODES[curMode], idx=parseInt(document.getElementById('bCut').value)||0;
+  let cutName=m.cuts[idx].n;
+  if(cutName.includes('Custom')){
+    cutName=document.getElementById('bCustom').value.trim()||'Custom Batch';
   }
-  let rawW = parseFloat(document.getElementById('inW').value);
-  if(!rawW){ showMsg('Please enter the starting weight.'); return; }
-  let gW = toGrams(rawW);
-  let d = document.getElementById('inDate').value || new Date().toISOString().split('T')[0];
-  let tDays = parseInt(document.getElementById('inDays').value,10)||28;
-  let p = (c.progs||[])[selProgIdx] || {l:'Standard',t:'1.5°C',rh:'78%'};
-  let code = document.getElementById('inCode').value.trim() || ('PRO-'+Date.now().toString().slice(-4));
-  let notes = document.getElementById('inNotes').value.trim();
-
-  batches.unshift({
-    id: String(Date.now()),
-    code: code,
-    fridge: curFridge,
-    cat: curCat,
-    cut: cutName,
-    prog: p.l,
-    temp: p.t,
-    rh: p.rh,
-    startW: gW,
-    startD: d,
-    targetDays: tDays,
-    status: 'Active in Chamber',
-    prevStatus: 'In Fridge (Ready to Eat)',
-    statusDate: d,
-    notes: notes,
-    logs: [{date:d, weight:gW, note:'Day 0 Start'}],
-    photos: tempPhotos.slice(),
-    clearedAlerts: []
+  let w=fromDisp(document.getElementById('bWeight').value);
+  if(!w||w<=0){say('Please enter a valid starting weight.');return;}
+  let days=parseInt(document.getElementById('bDays').value)||28;
+  let startD=document.getElementById('bDate').value||new Date().toISOString().split('T')[0];
+  let code=document.getElementById('bCode').value.trim()||('PRO-'+Math.floor(1000+Math.random()*9000));
+  let all=getBatches();
+  all.unshift({
+    id:Date.now(),code,name:cutName,cat:curMode,fridge:curFridge,
+    startW:w,days,startD,logs:[{d:startD,w}],archived:false,stage:'Active Aging',notes:''
   });
-  saveAll();
-  closeModal('addModal');
-  refreshUI();
+  setBatches(all);closeModal('addM');render();
 }
 
 function openWeigh(id){
-  let b = batches.find(x => String(x.id)===String(id));
-  if(!b || !isChamberActive(b)) return;
-  document.getElementById('weighId').value = b.id;
-  document.getElementById('weighWLbl').innerText = `Current Scale Weight (${curUnit})`;
-  document.getElementById('inNewW').value = '';
-  document.getElementById('inWeighNote').value = '';
-  document.getElementById('wPrev').innerHTML = '';
-  tempPhotos = [];
-  openModal('weighModal');
+  activeId=id;
+  document.getElementById('wModalLbl').textContent='Current Weight ('+UNITS[unitIdx]+')';
+  document.getElementById('wVal').value='';
+  openModal('weighM');
 }
 
-function saveWeight(){
-  let id = document.getElementById('weighId').value;
-  let rawW = parseFloat(document.getElementById('inNewW').value);
-  if(!rawW){ showMsg('Please enter scale weight.'); return; }
-  let gW = toGrams(rawW);
-  let note = document.getElementById('inWeighNote').value.trim();
-  let b = batches.find(x => String(x.id)===String(id));
+function saveWeigh(){
+  let w=fromDisp(document.getElementById('wVal').value);
+  if(!w||w<=0){say('Enter a valid weight.');return;}
+  let all=getBatches(), b=all.find(x=>x.id===activeId);
   if(b){
-    b.logs.push({date:new Date().toISOString().split('T')[0], weight:gW, note:note});
-    if(tempPhotos.length) b.photos = (b.photos||[]).concat(tempPhotos);
-    saveAll();
+    b.logs.push({d:new Date().toISOString().split('T')[0],w});
+    setBatches(all);
   }
-  closeModal('weighModal');
-  refreshUI();
+  closeModal('weighM');render();
 }
 
-function openQuickNote(id){
-  let b = batches.find(x => String(x.id)===String(id));
-  if(!b || !isChamberActive(b)) return;
-  document.getElementById('noteBatchId').value = b.id;
-  document.getElementById('inQuickNote').value = b.notes || '';
-  document.getElementById('nPrev').innerHTML = '';
-  tempPhotos = [];
-  openModal('noteModal');
-}
-
-function saveQuickNote(){
-  let id = document.getElementById('noteBatchId').value;
-  let b = batches.find(x => String(x.id)===String(id));
-  if(b){
-    b.notes = document.getElementById('inQuickNote').value.trim();
-    if(tempPhotos.length) b.photos = (b.photos||[]).concat(tempPhotos);
-    saveAll();
-  }
-  closeModal('noteModal');
-  refreshUI();
-}
-
-function openHarvest(id){
-  let b = batches.find(x => String(x.id)===String(id));
+function openHarv(id){
+  activeId=id;
+  let b=getBatches().find(x=>x.id===id);
   if(!b) return;
-  document.getElementById('harvId').value = b.id;
-  document.getElementById('harvStage').value = 'In Fridge (Ready to Eat)';
-  document.getElementById('harvDate').value = new Date().toISOString().split('T')[0];
-  document.getElementById('harvNotes').value = b.notes || '';
-  document.getElementById('hPrev').innerHTML = '';
-  tempPhotos = [];
+  let latestW=b.logs[b.logs.length-1].w;
+  document.getElementById('hWeightLbl').textContent='Final Trimmed Weight ('+UNITS[unitIdx]+')';
+  document.getElementById('hWeight').value=(UNITS[unitIdx]==='g'?Math.round(latestW):parseFloat(toDisp(latestW)));
+  document.getElementById('hNotes').value=b.notes||'';
   updateTagPreview();
-  openModal('harvestModal');
+  openModal('harvM');
 }
 
-function openTagView(id){
-  let b = batches.find(x => String(x.id)===String(id));
-  if(!b) return;
-  document.getElementById('harvId').value = b.id;
-  document.getElementById('harvStage').value = b.status;
-  document.getElementById('harvDate').value = b.statusDate || new Date().toISOString().split('T')[0];
-  document.getElementById('harvNotes').value = b.notes || '';
-  updateTagPreview();
-  printBagTag();
+function buildTagText(){
+  let b=getBatches().find(x=>x.id===activeId);
+  if(!b) return '';
+  let wIn=fromDisp(document.getElementById('hWeight').value)||b.logs[b.logs.length-1].w;
+  let loss=(((b.startW-wIn)/b.startW)*100).toFixed(1);
+  let stg=document.getElementById('hStage').value;
+  let notes=document.getElementById('hNotes').value.trim();
+  let now=new Date(), bb=new Date();
+  if(stg.includes('8-10')) bb.setDate(now.getDate()+10);
+  else if(stg.includes('45d')) bb.setDate(now.getDate()+45);
+  else bb.setFullYear(now.getFullYear()+1);
+  let elapsed=Math.max(0,Math.floor((now-new Date(b.startD))/86400000));
+  return `=== AGERPRO BATCH TAG ===\nCODE: ${b.code}\nCUT: ${b.name}\nCHAMBER: ${b.fridge}\nAGED: ${elapsed} Days (Target ${b.days}d)\nFINAL WT: ${toDisp(wIn)} (-${loss}%)\nSTAGE: ${stg}\nHARVESTED: ${now.toISOString().split('T')[0]}\nBEST BEFORE: ${bb.toISOString().split('T')[0]}${notes?'\nNOTES: '+notes:''}`;
 }
 
-function buildTagText(b, stage, actDate, notes){
-  let lastW = (b.logs && b.logs.length) ? b.logs[b.logs.length-1].weight : b.startW;
-  let loss = (((b.startW - lastW)/b.startW)*100).toFixed(1);
-  let dObj = new Date(actDate || new Date());
-  let addDays = stage.includes('In Fridge') ? 10 : (stage.includes('Vacuum') ? 45 : 365);
-  dObj.setDate(dObj.getDate() + addDays);
-  let bestBy = dObj.toISOString().split('T')[0];
-  return `=== AGERPRO BATCH TAG ===\nCODE: ${b.code}\nCUT: ${b.cut} (${b.prog})\nSTARTED: ${b.startD} | TARGET: ${b.targetDays}d\nFINAL WT: ${fmtW(lastW)} (-${loss}% loss)\nSTAGE: ${stage}\nDATE: ${actDate}\nBEST BEFORE: ${bestBy}\nNOTES: ${notes||'None'}`;
-}
-
-function updateTagPreview(){
-  let id = document.getElementById('harvId').value;
-  let b = batches.find(x => String(x.id)===String(id));
-  if(!b) return;
-  let st = document.getElementById('harvStage').value;
-  let dt = document.getElementById('harvDate').value;
-  let nt = document.getElementById('harvNotes').value;
-  document.getElementById('tagPreviewBox').innerText = buildTagText(b, st, dt, nt);
-}
-
-function copyBagTag(){
-  let txt = document.getElementById('tagPreviewBox').innerText;
-  navigator.clipboard.writeText(txt).then(()=>showMsg('🏷️ Bag tag copied to clipboard!'));
-}
-
-function printBagTag(){
-  let txt = document.getElementById('tagPreviewBox').innerText;
-  let w = window.open('','_blank','width=400,height=400');
-  if(w){
-    w.document.write(`<pre style="font-family:monospace;font-size:14px;padding:16px;border:2px dashed #000">${txt}</pre><script>window.print();<\/script>`);
-    w.document.close();
-  } else {
-    copyBagTag();
-  }
+function updateTagPreview(){document.getElementById('tagPre').textContent=buildTagText();}
+function copyTag(){navigator.clipboard.writeText(buildTagText());say('Tag copied to clipboard!');}
+function printTag(){
+  let w=window.open('','_blank');
+  w.document.write('<pre style="font-family:monospace;font-size:16px;padding:20px;border:2px dashed #000;display:inline-block">'+buildTagText()+'</pre><script>window.print();<\/script>');
+  w.document.close();
 }
 
 function saveHarvest(){
-  let id = document.getElementById('harvId').value;
-  let b = batches.find(x => String(x.id)===String(id));
+  let all=getBatches(), b=all.find(x=>x.id===activeId);
   if(b){
-    let chosen = document.getElementById('harvStage').value;
-    if(chosen !== 'Archived') b.prevStatus = chosen;
-    b.status = chosen;
-    b.statusDate = document.getElementById('harvDate').value || new Date().toISOString().split('T')[0];
-    b.notes = document.getElementById('harvNotes').value.trim();
-    if(tempPhotos.length) b.photos = (b.photos||[]).concat(tempPhotos);
-    saveAll();
+    let w=fromDisp(document.getElementById('hWeight').value);
+    if(w>0) b.logs.push({d:new Date().toISOString().split('T')[0],w});
+    b.stage=document.getElementById('hStage').value;
+    b.notes=document.getElementById('hNotes').value.trim();
+    b.archived=true;
+    setBatches(all);
   }
-  closeModal('harvestModal');
-  refreshUI();
+  closeModal('harvM');render();
 }
 
-function openArchiveModal(id){
-  let b = batches.find(x => String(x.id)===String(id));
-  if(!b) return;
-  document.getElementById('archId').value = b.id;
-  document.getElementById('archDate').value = new Date().toISOString().split('T')[0];
-  document.getElementById('archNotes').value = b.notes || '';
-  openModal('archModal');
+function delBatch(id){
+  say('Permanently delete this batch record?','🗑️ Delete Batch?',()=>{
+    let all=getBatches().filter(x=>x.id!==id);
+    setBatches(all);render();
+  });
 }
 
-function confirmArchive(){
-  let id = document.getElementById('archId').value;
-  let b = batches.find(x => String(x.id)===String(id));
-  if(b){
-    if(b.status !== 'Archived') b.prevStatus = b.status;
-    b.status = 'Archived';
-    b.statusDate = document.getElementById('archDate').value || new Date().toISOString().split('T')[0];
-    b.notes = document.getElementById('archNotes').value.trim();
-    saveAll();
-  }
-  closeModal('archModal');
-  refreshUI();
-}
-
-function openRestoreModal(id){
-  let b = batches.find(x => String(x.id)===String(id));
-  if(!b) return;
-  document.getElementById('restId').value = b.id;
-  document.getElementById('restStage').value = b.prevStatus || 'In Fridge (Ready to Eat)';
-  document.getElementById('restDate').value = b.statusDate || new Date().toISOString().split('T')[0];
-  openModal('restoreModal');
-}
-
-function confirmRestore(){
-  let id = document.getElementById('restId').value;
-  let b = batches.find(x => String(x.id)===String(id));
-  if(b){
-    b.status = document.getElementById('restStage').value;
-    b.statusDate = document.getElementById('restDate').value || new Date().toISOString().split('T')[0];
-    curFridge = b.fridge;
-    curCat = b.cat;
-    showArchive = false;
-    saveAll();
-  }
-  closeModal('restoreModal');
-  refreshUI();
-}
-
-function askDeleteBatch(id){
-  pendingDelId = String(id);
-  openModal('delModal');
-}
-function confirmDeleteBatch(){
-  if(pendingDelId){
-    batches = batches.filter(x => String(x.id) !== String(pendingDelId));
-    pendingDelId = null;
-    saveAll();
-    closeModal('delModal');
-    refreshUI();
-  }
-}
-
-function trigPhoto(inId){ document.getElementById(inId).click(); }
-function handlePhoto(input, prevId){
-  if(!input.files || !input.files[0]) return;
-  let reader = new FileReader();
-  reader.onload = function(e){
-    let img = new Image();
-    img.onload = function(){
-      let c = document.createElement('canvas');
-      let max = 480, w = img.width, h = img.height;
-      if(w>h && w>max){ h*=max/w; w=max; } else if(h>max){ w*=max/h; h=max; }
-      c.width = w; c.height = h;
-      c.getContext('2d').drawImage(img,0,0,w,h);
-      let dataUrl = c.toDataURL('image/jpeg',0.72);
-      tempPhotos.push(dataUrl);
-      let pBox = document.getElementById(prevId);
-      if(pBox) pBox.innerHTML = tempPhotos.map(p=>`<img src="${p}" class="p-th">`).join('');
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(input.files[0]);
-}
-
-function openFridgeModal(){
-  let box = document.getElementById('fridgeList');
-  box.innerHTML = fridges.map(f=>`
-    <div style="display:flex;justify-content:space-between;align-items:center;background:#0c0a09;padding:8px;border-radius:8px;margin-bottom:6px;border:1px solid var(--bdr)">
-      <b>${f}</b>
-      ${fridges.length>1 ? `<button class="btn b-red" style="width:auto;padding:5px 10px;font-size:.75rem" onclick="delFridge('${f}')">Delete</button>` : `<span style="font-size:.75rem;color:var(--muted)">Default</span>`}
-    </div>`).join('');
-  openModal('fridgeModal');
+function openFridgeM(){
+  let fl=document.getElementById('fridgeList');
+  fl.innerHTML=fridges.map((f,i)=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #292524"><span>'+f+'</span>'+(fridges.length>1?'<button class="del-x" onclick="delFridge('+i+')">✕</button>':'')+'</div>').join('');
+  openModal('fridgeM');
 }
 function addFridge(){
-  let n = document.getElementById('newFridgeIn').value.trim();
-  if(!n) return;
-  if(!fridges.includes(n)){ fridges.push(n); curFridge = n; saveAll(); }
-  document.getElementById('newFridgeIn').value = '';
-  openFridgeModal();
-  refreshUI();
+  let nm=document.getElementById('newFridgeNm').value.trim();
+  if(!nm) return;
+  fridges.push(nm);localStorage.setItem('ap_fridges',JSON.stringify(fridges));
+  curFridge=nm;localStorage.setItem('ap_cur_fridge',nm);
+  document.getElementById('newFridgeNm').value='';
+  openFridgeM();render();
 }
-function delFridge(f){
-  fridges = fridges.filter(x=>x!==f);
-  curFridge = fridges[0];
-  saveAll();
-  openFridgeModal();
-  refreshUI();
+function delFridge(i){
+  fridges.splice(i,1);localStorage.setItem('ap_fridges',JSON.stringify(fridges));
+  curFridge=fridges[0];localStorage.setItem('ap_cur_fridge',curFridge);
+  openFridgeM();render();
 }
 
-function openMaintModal(){
-  if(!maintData[curFridge]){
-    let today = new Date().toISOString().split('T')[0];
-    maintData[curFridge] = {salt:today, filter:today, uvc:today};
-    saveAll();
-  }
-  let m = maintData[curFridge];
-  let now = new Date();
-  let items = [
-    {k:'salt', name:'🧂 Himalayan Salt Block Wash', max:45},
-    {k:'filter', name:'🌬️ Active Carbon Air Filter', max:180},
-    {k:'uvc', name:'💡 UVC Sterilization Bulb', max:365}
-  ];
-  document.getElementById('maintContent').innerHTML = `<div style="font-size:.82rem;color:var(--gold);margin-bottom:8px;font-weight:800">Chamber: ${curFridge}</div>` + items.map(it=>{
-    let el = Math.max(0, Math.floor((now - new Date(m[it.k]))/86400000));
-    let rem = Math.max(0, it.max - el);
-    return `<div class="tip-box" style="display:flex;justify-content:space-between;align-items:center">
-      <div><b>${it.name}</b><br><span style="color:var(--muted)">Last reset: ${m[it.k]} (${rem}d remaining)</span></div>
-      <button class="btn b-grn" style="width:auto;padding:6px 10px;font-size:.75rem" onclick="resetMaint('${it.k}')">Reset Today</button>
+function openMaint(){
+  document.getElementById('mDate').value=localStorage.getItem('ap_maint_'+curFridge)||new Date().toISOString().split('T')[0];
+  openModal('maintM');
+}
+function saveMaint(){
+  localStorage.setItem('ap_maint_'+curFridge,document.getElementById('mDate').value);
+  closeModal('maintM');say('Maintenance date saved for <b>'+curFridge+'</b>.');
+}
+
+function openAlerts(){
+  let alerts=getDueAlerts();
+  if(!alerts.length){say('All active batches are on track. Zero harvest alerts due today.');return;}
+  say(alerts.map(a=>'• <b>'+a.code+' ('+a.name+')</b>: '+a.msg).join('<br><br>'),'🔔 Harvest Alerts');
+}
+
+function getDueAlerts(){
+  let out=[];
+  getBatches().filter(b=>!b.archived).forEach(b=>{
+    let el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/86400000));
+    let rem=b.days-el;
+    if(rem<=1) out.push({code:b.code,name:b.name,msg:rem<=0?'HARVEST DUE NOW ('+el+'/'+b.days+'d)':'1 Day Until Harvest'});
+  });
+  return out;
+}
+
+function exportData(){
+  let blob=new Blob([JSON.stringify({fridges,batches:getBatches()})],{type:'application/json'});
+  let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AgerPro_Backup.json';a.click();
+}
+function importData(e){
+  let f=e.target.files[0];if(!f) return;
+  let r=new FileReader();
+  r.onload=ev=>{
+    try{
+      let d=JSON.parse(ev.target.result);
+      if(d.fridges){fridges=d.fridges;localStorage.setItem('ap_fridges',JSON.stringify(fridges));}
+      if(d.batches) setBatches(d.batches);
+      closeModal('guideM');render();say('Backup restored!');
+    }catch(err){say('Invalid backup file.');}
+  };
+  r.readAsText(f);
+}
+
+function render(){
+  document.getElementById('unitLbl').textContent=UNITS[unitIdx];
+  let fs=document.getElementById('fridgeSel');
+  if(!fridges.includes(curFridge)) curFridge=fridges[0];
+  fs.innerHTML=fridges.map(f=>'<option value="'+f+'" '+(f===curFridge?'selected':'')+'>'+f+'</option>').join('');
+
+  let locked=activeCatForFridge(curFridge);
+  if(locked) curMode=locked;
+
+  let mg=document.getElementById('modeGrid');
+  mg.innerHTML=Object.keys(MODES).map(k=>{
+    let m=MODES[k], isAct=(k===curMode), isLck=(locked && locked!==k);
+    return `<div class="mode-tile ${isAct?'active':''} ${isLck?'locked':''}" onclick="selectMode('${k}')">
+      <div class="m-ico">${m.ico}</div>
+      <div class="m-nm">${m.name}</div>
+      <div class="m-sb">${m.sub}</div>
     </div>`;
   }).join('');
-  openModal('maintModal');
-}
-function resetMaint(k){
-  if(!maintData[curFridge]) maintData[curFridge]={};
-  maintData[curFridge][k] = new Date().toISOString().split('T')[0];
-  saveAll();
-  openMaintModal();
+
+  let cm=MODES[curMode];
+  document.getElementById('chamberBox').innerHTML=`
+    <div class="chamber-head">⚙️ ${curFridge.toUpperCase()} — ${cm.name.toUpperCase()}</div>
+    <div class="env-row">
+      <div class="env-pill"><div class="env-lbl">Temp</div><div class="env-val">${cm.temp}</div></div>
+      <div class="env-pill"><div class="env-lbl">Humidity</div><div class="env-val">${cm.rh}</div></div>
+      <div class="env-pill"><div class="env-lbl">Sterilization</div><div class="env-val" style="color:${cm.uvc.includes('OFF')?'#f59e0b':'#38bdf8'}">${cm.uvc}</div></div>
+    </div>`;
+
+  document.getElementById('addFab').textContent='+ ADD '+cm.name.toUpperCase()+' BATCH';
+
+  let all=getBatches();
+  let archCnt=all.filter(b=>b.archived).length;
+  document.getElementById('archBtn').textContent=showArch?'⬅️ Active Batches':'🗄️ Archive ('+archCnt+')';
+  document.getElementById('listTtl').textContent=showArch?'Archived / Harvested':'Active Batches ('+curFridge+')';
+
+  let alerts=getDueAlerts();
+  let bc=document.getElementById('bellCnt');
+  bc.style.display=alerts.length?'flex':'none';
+  bc.textContent=alerts.length;
+
+  let list=all.filter(b=>Boolean(b.archived)===showArch && (showArch || searchQ || b.fridge===curFridge));
+  if(searchQ) list=all.filter(b=>(b.code+' '+b.name+' '+b.fridge).toLowerCase().includes(searchQ));
+
+  let bl=document.getElementById('batchList');
+  if(!list.length){
+    bl.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px 12px;border:1.5px dashed #292524;border-radius:12px">No batches here yet. Tap the green button below to start aging!</div>';
+    return;
+  }
+  bl.innerHTML=list.map(b=>{
+    let el=Math.max(0,Math.floor((new Date()-new Date(b.startD))/86400000));
+    let curW=b.logs[b.logs.length-1].w;
+    let loss=(((b.startW-curW)/b.startW)*100).toFixed(1);
+    let pct=Math.min(100,Math.round((el/b.days)*100));
+    let m=MODES[b.cat]||MODES.meat;
+    return `<div class="card">
+      <div class="c-top">
+        <div>
+          <span class="badge">🏷️ ${b.code} • ${b.fridge}</span>
+          <div class="c-title">${m.ico} ${b.name}</div>
+          <div class="c-sub">Started ${b.startD} • Stage: <b style="color:var(--gold)">${b.stage||'Active Aging'}</b></div>
+        </div>
+        <button class="del-x" onclick="delBatch(${b.id})">✕</button>
+      </div>
+      <div class="stat-grid">
+        <div class="st-box"><div class="st-l">Days</div><div class="st-v">${el} / ${b.days}</div></div>
+        <div class="st-box"><div class="st-l">Loss</div><div class="st-v" style="color:var(--gold)">-${loss}%</div></div>
+        <div class="st-box"><div class="st-l">Weight</div><div class="st-v">${toDisp(curW)}</div></div>
+      </div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+      ${b.notes?'<div class="note-box" style="margin-bottom:8px">📝 '+b.notes+'</div>':''}
+      <div class="act-row">
+        <button class="btn btn-green" onclick="openWeigh(${b.id})">⚖️ Weigh In</button>
+        <button class="btn btn-red" onclick="openHarv(${b.id})">🔪 Harvest</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function exportBackup(){
-  let data = {fridges, batches, customCuts, maintData};
-  let blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  let a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'agerpro-backup-' + new Date().toISOString().split('T')[0] + '.json';
-  a.click();
-}
-function importBackup(input){
-  if(!input.files || !input.files[0]) return;
-  let r = new FileReader();
-  r.onload = function(e){
-    try{
-      let d = JSON.parse(e.target.result);
-      if(d.fridges) fridges = d.fridges;
-      if(d.batches) batches = d.batches;
-      if(d.customCuts) customCuts = d.customCuts;
-      if(d.maintData) maintData = d.maintData;
-      saveAll();
-      closeModal('guideModal');
-      refreshUI();
-      showMsg('✅ Backup restored successfully!');
-    }catch(err){ showMsg('Invalid backup file.'); }
-  };
-  r.readAsText(input.files[0]);
-}
-
-function refreshUI(){
-  document.getElementById('unitBtn').innerText = '⚖️ ' + curUnit;
-  let fSel = document.getElementById('fridgeSel');
-  fSel.innerHTML = fridges.map(f=>`<option value="${f}" ${f===curFridge?'selected':''}>${f}</option>`).join('');
-  let locked = getActiveCatForFridge(curFridge);
-  if(locked && !showArchive) curCat = locked;
-  document.querySelectorAll('.m-tile').forEach(el=>el.classList.remove('active'));
-  let tEl = document.getElementById('tile-'+curCat);
-  if(tEl) tEl.classList.add('active');
-  renderChamberBanner();
-  updateBell();
-  renderBatches();
-}
-
-loadSavedIcon();
-refreshUI();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
+render();
 </script>
+</body>
 <!-- END_OF_FILE_OK --></html>
