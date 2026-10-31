@@ -127,7 +127,7 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
   <button class="top-btn" onclick="openModal('guideM')">
     <span class="ico">📋</span>
     <span class="lbl">Guide</span>
-    <span class="sub">& Bible</span>
+    <span class="sub">& Backup</span>
   </button>
 </div>
 
@@ -158,10 +158,10 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
   <div class="fld"><label>1. Select Primal Cut / Item</label><select id="bCut" onchange="onCutChange()"></select></div>
   <div class="fld" id="customCutWrap" style="display:none"><label>Custom Item Name</label><input id="bCustom" placeholder="Enter custom name..."></div>
   <div class="fld" id="mgWrap">
-    <label>2. Select Marbling Class (BMS Grade)</label>
+    <label>2. Select Marbling Class</label>
     <div class="p-grid" style="grid-template-columns:repeat(3,1fr)" id="mgGrid">
       <button type="button" class="p-btn" onclick="pickMg(1)">MG1 Light<br><span style="font-size:.75rem;color:#d6d3d1">BMS 2</span></button>
-      <button type="button" class="p-btn active" onclick="pickMg(2)">MG2 Medium<br><span style="font-size:.75rem;color:var(--gold)">BMS 4 (Std)</span></button>
+      <button type="button" class="p-btn active" onclick="pickMg(2)">MG2 Medium<br><span style="font-size:.75rem;color:var(--gold)">BMS 4</span></button>
       <button type="button" class="p-btn" onclick="pickMg(3)">MG3 Heavy<br><span style="font-size:.75rem;color:#38bdf8">BMS 6+</span></button>
     </div>
   </div>
@@ -203,7 +203,7 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 <div class="modal" id="harvM"><div class="modal-in">
   <div class="m-hdr"><span>🔪 Harvest & Tag</span><button class="del-x" onclick="closeModal('harvM')">✕</button></div>
   <div class="fld"><label id="hWeightLbl">Final Trimmed Weight (Optional)</label><input type="number" step="0.01" id="hWeight" oninput="updateTagPreview()"></div>
-  <div class="fld"><label>Post-Aging Storage Stage (Dry Aging Bible)</label>
+  <div class="fld"><label>Post-Aging Storage Stage</label>
     <select id="hStage" onchange="updateTagPreview()">
       <option value="Presentation in Ager (5-7 Days Max)">Presentation in Ager Unwrapped (5-7 Days Max)</option>
       <option value="Ready-to-Eat Fridge (8-10 Days)">Ready-to-Eat Regular Fridge (8-10 Days)</option>
@@ -216,7 +216,7 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
   <div class="fld"><label>Action Date</label><input type="date" id="hDate" onchange="updateTagPreview()"></div>
   <div class="fld"><label>Tasting & Butcher Notes</label><textarea id="hNotes" rows="2" oninput="updateTagPreview()" placeholder="Tenderness, aroma, trim yield..."></textarea></div>
   <div class="note-box" style="margin-bottom:8px;border-left-color:#38bdf8">
-    <b>📦 Vacuum Sealing Tips (Book pp. 059–060):</b> Fold the bag opening cuff over before inserting meat so the weld seam stays 100% grease-free. Cover sharp protruding bones (rib/lamb racks) with a canvas bone-guard strip so they don't pierce the bag!
+    <b>📦 Vacuum Sealing Tips:</b> Fold the bag opening cuff over before inserting meat so the weld seam stays 100% grease-free. Cover sharp protruding bones (rib or lamb racks) with a canvas bone-guard strip so they don't pierce the bag!
   </div>
   <div class="fld">
     <label>🏷️ Printable Freezer / Fridge Bag Tag</label>
@@ -259,7 +259,7 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 <div class="modal" id="maintM"><div class="modal-in">
   <div class="m-hdr"><span>🔧 Chamber Maintenance</span><button class="del-x" onclick="closeModal('maintM')">✕</button></div>
   <div class="note-box" style="margin-bottom:10px">
-    <b>• 2-Hour Pre-Cleaning Cycle (Book p. 083):</b> Run a 2-hour defrost & dry pre-cleaning cycle after each full run before wiping down with cleaner (dries the interior completely and reduces power consumption!).<br>
+    <b>• 2-Hour Pre-Cleaning Cycle:</b> Run a 2-hour defrost & dry pre-cleaning cycle after each full run before wiping down with cleaner (dries the interior completely and reduces power consumption!).<br>
     <b>• Pink Salt Block:</b> Position under hanging meat to stabilize humidity; wash & dry between runs.<br>
     <b>• Carbon Filter & UVC Bulb:</b> Replace carbon filter every 6 months and UVC bulb every 12 months.
   </div>
@@ -273,36 +273,36 @@ body{background:var(--bg);color:#f5f5f4;padding:12px 12px 92px;max-width:520px;m
 <div class="modal" id="safeM"><div class="modal-in">
   <div class="m-hdr"><span>🩺 Spore Alert & Safety Check</span><button class="del-x" onclick="closeModal('safeM')">✕</button></div>
   <div class="note-box">
-    <b>🚨 SPORE ALERT — ZERO MOLD ON RAW MEAT (Book pp. 028–029):</b><br>
+    <b>🚨 SPORE ALERT — ZERO MOLD ON RAW MEAT:</b><br>
     • While noble mold belongs on specific salami or cheese, <b>mold has NO business on raw dry-aged meat!</b> Over 250 fungal species produce 300+ poisonous mycotoxins.<br>
     • <b>NEVER JUST TRIM MOLD OFF RAW MEAT:</b> Visible white or black furry mold is only the tip of the iceberg—by then, the <b>mycelia (fungal roots) have already permeated deep into the meat tissue</b>. If white or black furry mold appears on raw meat, <b>the entire cut must be disposed of!</b><br><br>
     <b>✅ Good Signs on Meat:</b> Deep mahogany dry crust, nutty/buttery/earthy aroma, firm dry pellicle.<br><br>
-    <b>🧀 Cheese Rule (Book p. 224):</b> Cheese varieties that normally age without mold (Gouda, Cheddar, Pecorino, Manchego) must be discarded if blue or black mold appears. Brush normal surface rind weekly with a soft bristle brush inside a plastic tub.
+    <b>🧀 Cheese Rule:</b> Cheese varieties that normally age without mold (Gouda, Cheddar, Pecorino, Manchego) must be discarded if blue or black mold appears. Brush normal surface rind weekly with a soft bristle brush inside a plastic tub.
   </div>
   <button class="btn btn-red" style="width:100%;margin-top:10px" onclick="closeModal('safeM')">Close</button>
 </div></div>
 
 <div class="modal" id="guideM"><div class="modal-in">
-  <div class="m-hdr"><span>📋 Dry Aging Bible Master Guide</span><button class="del-x" onclick="closeModal('guideM')">✕</button></div>
+  <div class="m-hdr"><span>📋 Master Guide & Data Backup</span><button class="del-x" onclick="closeModal('guideM')">✕</button></div>
   <div class="note-box" style="margin-bottom:10px">
-    <b>⏱️ When to Load Post-Slaughter (Book p. 033):</b><br>
+    <b>⏱️ When to Load Post-Slaughter:</b><br>
     • Load right after rigor mortis subsides (6–8h pork, 36–40h beef): <b>1–2 days after slaughter</b> for Pork, Lamb & Poultry; <b>2–3 days after slaughter</b> for Beef.<br><br>
-    <b>🐂 Best Cattle & Butcher's 10 Questions (pp. 036, 046–047):</b><br>
+    <b>🐂 Best Cattle & Butcher's 10 Questions:</b><br>
     • <b>Heifer (18–22m, 400–500kg):</b> Very Good (Top Pick).<br>
     • <b>Ox (24m+, up to 1,200kg) & 10+ Year Old Cattle:</b> Good / Very Good.<br>
     • Ask for <b>Tenderstretch / Pelvic suspension</b> (stretches steak muscles during rigor mortis) and stress-free slaughter (up to 75% of quality; stress depletes glycogen/ATP and causes dark, firm, dry DFD meat that cannot dry-age).<br><br>
-    <b>🧪 Dry Aging (pH 6.0) vs. Wet Aging (pH 5.5) (pp. 025–031):</b><br>
+    <b>🧪 Dry Aging (pH 6.0) vs. Wet Aging (pH 5.5):</b><br>
     • Dry aging raises pH to <b>6.0</b> (nutty, meaty, retains juices when sliced, unlocks raw umami/MSG/IMP & kokumi even in carpaccio/tartare; 8–12% bone-in weight loss).<br>
     • Wet aging in a bag drops pH to <b>5.5</b> (sour, metallic, bloody; turns mushy after 3 weeks).<br>
     • <b>Tenderness Peak (80%):</b> 21d beef, 12–16d game, 10d veal, 3d poultry. Flavor shoots straight up from Week 3 to Week 5 (Intense) and plateaus at Week 8 (Intense+).<br><br>
-    <b>🪝 Stocking & Drilling Spine Bone (pp. 048, 052–053):</b><br>
+    <b>🪝 Stocking & Drilling Spine Bone:</b><br>
     • Wear fresh single-use gloves; wipe away all bone sawdust.<br>
     • Use a <b>disinfected drill</b> to bore through the <b>vertebral body (spine bone)</b> and hang with a swivel hook so the meat is never punctured! Whole backs weigh 25kg+.<br>
     • <b>Co-Aging Rules:</b> Fresh beef, pork, lamb & poultry can share a basic run. Hams and raw sausages can share ONLY if no sausages have noble mold.
   </div>
   <div class="act-row" style="margin-bottom:8px">
-    <button class="btn btn-green" onclick="exportData()">📤 Backup JSON</button>
-    <button class="btn btn-gold" onclick="document.getElementById('impFile').click()">📥 Restore JSON</button>
+    <button class="btn btn-green" onclick="exportData()">📤 Save Backup File</button>
+    <button class="btn btn-gold" onclick="document.getElementById('impFile').click()">📥 Load Backup File</button>
     <input type="file" id="impFile" style="display:none" onchange="importData(event)">
   </div>
   <button class="btn btn-red" style="width:100%" onclick="closeModal('guideM')">Close</button>
@@ -320,84 +320,84 @@ const STAGE_DESCS={
   Intense:'<b>🟡 INTENSE STAGE (1.8°C–2.0°C • 75% RH — Steep Flavor Curve):</b><br>Lower 75% humidity draws out more free water between Weeks 3 and 6 as pH rises to 6.0, shooting the flavor curve straight up with roasted-hazelnut, browned-butter, and rich umami/kokumi notes.',
   'Intense+':'<b>🔴 INTENSE+ STAGE (2.5°C • 73% RH — Peak Enzyme & Deep Funk):</b><br>Accelerates natural <i>calpain & cathepsin</i> enzymatic breakdown and oxy-lipin development for connoisseur-level steakhouse funk (up to 8 weeks / 56 days on MG3 bone-in beef!). Locked out on lean MG1 cuts to prevent over-drying.',
   WetRegen:'<b>💧 WET-AGED REGENERATION & MATURATION (1.5°C • 80% RH):</b><br>Pat vacuum-bagged meat bone-dry before loading. For meat wet-aged >3 weeks, the 3-day Regeneration cycle reduces sour-metallic pH 5.5 notes into a clean, natural beef taste.',
-  CureDry:'<b>🔥 CURED & DRIED SPECIALTY (1.5°C–2.0°C • 75% RH — Post-Cure Maturation):</b><br>After vacuum-curing or marinating in the fridge, hang or rest on shelves in the Dry Ager until the target moisture loss and firmness are reached.',
-  FishStd:'<b>🐟 DRY AGING BIBLE SEAFOOD CLIMATE (0.8°C • 82% RH • UVC ON):</b><br>Ultra-cold temperature halts bacterial spoilage while controlled airflow firms the flesh, tightens the skin for glass-crunchy searing, and concentrates sweet marine umami.',
+  CureDry:'<b>🔥 CURED & DRIED SPECIALTY (1.5°C–2.0°C • 75% RH — Post-Cure Maturation):</b><br>After vacuum-curing or marinating in the fridge, hang or rest on shelves in the chamber until the target moisture loss and firmness are reached.',
+  FishStd:'<b>🐟 SEAFOOD MATURATION CLIMATE (0.8°C • 82% RH • UVC ON):</b><br>Ultra-cold temperature halts bacterial spoilage while controlled airflow firms the flesh, tightens the skin for glass-crunchy searing, and concentrates sweet marine umami.',
   SalamiStd:'<b>🥓 CHARCUTERIE CURING CLIMATE (13°C • 78% RH • UVC OFF):</b><br>Moderate cellar temperature and humidity allow slow moisture release (25–40% weight loss) without case-hardening. Keep UVC OFF to protect curing flora.',
   CheeseStd:'<b>🧀 DRY AFFINAGE CLIMATE (11°C • 86% RH • UVC OFF):</b><br>Acts as a humid cellar to inhibit drying-out while maturing from the outside in. Turn wheel regularly and brush off surface mold weekly with a soft bristle brush inside a plastic tub.'
 };
 
 const MODES={
   meat:{ico:'🥩',name:'Red Meat',sub:'1.5°C • UVC ON',temp:'1.5°C',rh:'75–82% RH',uvc:'UVC ON',cuts:[
-    {g:'🐂 BEEF (BONE-IN)',n:'Whole Back',mg:{1:[21,42,0],2:[21,42,42],3:[21,42,56]},note:'[Compass Chart A] Bone-in whole saddle/back with or without fillet (25kg+). Negligible drying loss (8–12%) due to double protection of bone and fat. Drill vertebral spine bone to hang with swivel hook.'},
-    {g:'🐂 BEEF (BONE-IN)',n:'Prime Rib',mg:{1:[21,42,0],2:[21,42,42],3:[21,42,56]},note:'[Compass Chart A] Age on the bone (hanging or resting fat-up, bones-down). Sealed fat layer with no air pockets; wipe bone dust clean; hook through bone, never meat. Unlocks 56d Intense+ on MG3!'},
-    {g:'🐂 BEEF (BONE-IN)',n:'Rib',mg:{1:[21,42,0],2:[21,42,42],3:[21,42,56]},note:'[Compass Chart A] Whole bone-in beef rib section. Wipe bone sawdust clean and age whole before slicing into bone-in ribeyes or Côte de Boeuf.'},
-    {g:'🐂 BEEF (BONE-IN)',n:'Sirloin',mg:{1:[21,42,0],2:[21,42,42],3:[21,42,56]},note:'[Compass Chart A] Bone-in sirloin / striploin / short loin saddle. Slice into T-Bone, Porterhouse, or bone-in sirloin steaks only after aging.'},
-    {g:'🐂 BEEF (BONE-IN)',n:'Chuck Eye Roll',mg:{1:[21,28,0],2:[21,28,28],3:[21,28,42]},note:'[Compass Chart A] Whole bone-in chuck / neck (Location D). Softens heavy connective tissue; after aging, portion into Chuck Eye (Delmonico), Sierra (slice at 45°), or Denver steaks.'},
-    {g:'🐂 BEEF (BONE-IN)',n:'Leg',mg:{1:[21,28,0],2:[21,28,28],3:[21,28,28]},note:'[Compass Chart A] Whole bone-in beef leg / round (Locations E/M/F/O/R/S). Age whole with thick fat layer; carve into Tucson, Santa Fe, or coulotte steaks after aging.'},
-    {g:'🐂 BEEF (BONE-IN)',n:'Shank',mg:{1:[14,21,0],2:[7,21,21],3:[7,21,21]},note:'[Compass Chart A & p. 119] Remove all bone sawdust and splinters before hanging, and keep silver skin intact. After maturing, individual muscles can be cut lengthwise and quickly pan-seared as steak medallions, or braised for Fiaker Gulasch / Boeuf Bourguignon.'},
-    {g:'🐂 BEEF (BONE-IN)',n:'Short Rib',mg:{1:[7,21,0],2:[7,21,21],3:[7,21,21]},note:'[Compass Chart A] Whole bone-in beef plate ribs (Location G). Ensure evenly cut surfaces and do not cut into meat while trimming.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Tenderloin',mg:{1:[7,14,0],2:[7,14,28],3:[7,14,28]},note:'[Compass Chart A] Deboned beef fillet (Location N). Keep protective fat/silver skin intact during maturation.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Rib Deboned',mg:{1:[21,21,0],2:[21,28,28],3:[21,28,28]},note:'[Compass Chart A] Deboned ribeye sub-primal (Location B) with full fat cap intact.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Sirloin Deboned',mg:{1:[14,21,0],2:[21,21,28],3:[21,21,28]},note:'[Compass Chart A] Deboned striploin sub-primal (Location C) resting fat-cap UP on shelf.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Rump Cap',mg:{1:[14,21,0],2:[21,28,28],3:[21,28,28]},note:'[Compass Chart A] Whole Picanha / top butt cap (Location S). Hang whole with silver skin and thick fat layer 100% intact and zero incisions.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Topside',mg:{1:[14,21,0],2:[28,42,42],3:[28,42,42]},note:'[Compass Chart A] Whole deboned topside / inside round (Location E). For Santa Fe cut: after aging 4–6 weeks, trim outer crust and slice upper gracilis muscle into 1.5 cm steaks; cook to medium-rare and slice at 45°.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Flat Iron',mg:{1:[14,21,0],2:[21,28,28],3:[21,28,28]},note:'[Compass Chart A] Whole top blade / oyster blade roast (Location J). Do NOT remove silver skin before aging; hang to age, then remove central sinew to yield two flat steaks.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Shoulder Clod',mg:{1:[14,21,0],2:[28,42,42],3:[28,42,42]},note:'[Compass Chart A] Whole beef chuck shoulder clod (Location K). Contains less connective tissue than top blade; yields tender chuck steaks, roast, or pan-seared teres major.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Tri Tip',mg:{1:[14,21,0],2:[28,42,42],3:[28,42,42]},note:'[Compass Chart A] Whole triangular bottom sirloin (Location R). Do NOT trim beforehand; hang in the ager due to its uneven shape.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Tongue',mg:{1:[21,42,0],2:[21,42,0],3:[21,42,0]},note:'[Compass Chart A & p. 035] Striated skeletal muscle offal (Location Q); benefits massively from 21–42 days dry aging, taking on a delicate ham-like flavor.'},
-    {g:'🐂 BEEF (DEBONED)',n:'Heart',mg:{1:[14,21,0],2:[14,21,0],3:[14,21,0]},note:'[Compass Chart A & p. 035] Active striated skeletal muscle; matures for 14–21 days into a tender, ham-like delicacy.'},
-    {g:'🐂 BEEF (CURED & WET-AGED)',n:'Pastrami',p:[{l:'Cure + Mature',w:'14d Cure + 5–21d',d:28,t:'1.5°C',rh:'75% RH',k:'CureDry'}],note:'[Book p. 180] 2.5–5 kg beef brisket (75% yield). Rub per kg: 38g nitrite salt, 20g black pepper, 20g cane sugar, 15g mild paprika, 10g coriander, 5g spicy paprika, 5g garlic, 2g ginger. Vacuum-cure 14d. Rinse, coat with mustard & Tellicherry pepper/coriander/cardamom/thyme rub, sous-vide at 72°C (or smoke at 110°C to 72°C core), then mature in Dry Ager 5–21 days!'},
-    {g:'🐂 BEEF (CURED & WET-AGED)',n:'Biltong',p:[{l:'Marinate + Hang',w:'6–8 Days',d:7,t:'1.8°C',rh:'72% RH',k:'CureDry'}],note:'[Book p. 178] Beef sirloin trimmed of fat/tendons (50% yield), sliced 2 cm x 5 cm. Per kg: 40g brown sugar, 10g sea salt, 6g baking powder, 30g roasted coriander, 20g black pepper; spray with 15ml white balsamic, 35ml malt vinegar, 25ml Worcestershire & 25ml red wine. Marinate 24h, pat dry, hang on strings (NOT metal hooks!) 5–7 days.'},
-    {g:'🐂 BEEF (CURED & WET-AGED)',n:'Beef Jerky',p:[{l:'Marinate + Dry',w:'3–5 Days',d:5,t:'1.8°C',rh:'72% RH',k:'CureDry'}],note:'[Book p. 177] Beef outside round (40% yield), sliced 3–5 mm thick against grain, 2–3 cm wide along grain. Marinate per kg in 100ml soy sauce, 75ml Worcestershire, 1/2 lime juice, 1 garlic clove, 1 tsp honey, 1/2 tbsp pepper, 1/2 tsp onion & 1/2 tsp chili flakes in vacuum bag for 2 days. Pat dry and rest on shelves 3–5 days.'},
-    {g:'🐂 BEEF (CURED & WET-AGED)',n:'Wet-Aged Regeneration',p:[{l:'Regenerate (>21d Bag)',w:'3 Days',d:3,t:'1.5°C',rh:'80% RH',k:'WetRegen'},{l:'Bone-In (<10d Bag)',w:'14 Days',d:14,t:'1.5°C',rh:'80% RH',k:'WetRegen'},{l:'Deboned (<21d Bag)',w:'14 Days',d:14,t:'1.5°C',rh:'80% RH',k:'WetRegen'}],note:'[Book pp. 080–081 & Chart F] Pat vacuum-packed meat completely dry and place on shelves with spacing. The 3-day Regeneration cycle eliminates the sour-metallic low-pH (5.5) bag taste on meat wet-aged over 3 weeks!'},
-    {g:'🐖 PORK',n:'Pork Whole Back',mg:{1:[7,14,0],2:[14,21,28],3:[14,21,28]},note:'[Compass Chart B] Bone-in whole saddle/back of pork with or without fillet (Location A). Keep rind and fat layer intact; remains juicier than normal when seared or braised.'},
-    {g:'🐖 PORK',n:'Pork Leg',mg:{1:[7,14,0],2:[7,21,0],3:[7,21,28]},note:'[Compass Chart B] Whole bone-in pork haunch/leg (Location B). Check outer side for any deep incisions before hanging; tenderizes all leg muscles for quick pan-searing.'},
-    {g:'🐖 PORK',n:'Pork Head',mg:{1:[14,21,21],2:[14,21,21],3:[14,21,21]},note:'[Compass Chart B] Whole bone-in pig head / jowl (Location C, p. 134). Matures 14–21 days for rich guanciale/head cuts.'},
-    {g:'🐖 PORK',n:'Pork Tenderloin',mg:{1:[7,7,0],2:[7,7,0],3:[7,14,0]},note:'[Compass Chart B] Deboned pork fillet (Location D). Leave silver skin and surrounding fat intact, remove horizontal wing before hanging.'},
-    {g:'🐑 LAMB & KID GOAT',n:'Whole Lamb or Kid Goat',mg:{1:[14,21,0],2:[14,21,0],3:[14,21,0]},note:'[Compass Chart C] Hang whole young lamb or kid goat carcass without head (prop abdominal cavity open). Transforms pasture notes into haute-cuisine tenderness over 14–21 days.'},
-    {g:'🐑 LAMB & KID GOAT',n:'Saddle of Lamb or Kid Goat',mg:{1:[7,21,0],2:[7,21,0],3:[7,21,0]},note:'[Compass Chart C] Bone-in saddle / crown rack of lamb or kid goat (p. 159). Keep outer fat cover intact.'},
-    {g:'🐑 LAMB & KID GOAT',n:'Leg of Lamb or Kid Goat',mg:{1:[7,21,0],2:[7,21,0],3:[7,21,0]},note:'[Compass Chart C] Bone-in hind leg of lamb or kid goat (p. 157). Keep outer fell and fat intact for 7–21 days.'},
-    {g:'🦌 GAME (BOAR & DEER)',n:'Saddle of Boar',mg:{1:[7,21,0],2:[14,21,0],3:[14,21,0]},note:'[Compass Chart C] Bone-in wild boar saddle (p. 143).'},
-    {g:'🦌 GAME (BOAR & DEER)',n:'Leg of Boar',mg:{1:[7,14,0],2:[14,21,0],3:[14,21,0]},note:'[Compass Chart C] Bone-in wild boar haunch/leg.'},
-    {g:'🦌 GAME (BOAR & DEER)',n:'Chuck of Deer',mg:{1:[14,21,0],2:[14,21,0],3:[14,21,0]},note:'[Compass Chart C] Bone-in venison neck/chuck (p. 141).'},
-    {g:'🦌 GAME (BOAR & DEER)',n:'Saddle of Deer',mg:{1:[7,21,0],2:[7,21,0],3:[7,21,0]},note:'[Compass Chart C & p. 035] Bone-in venison saddle (p. 139). Enclosure-raised deer with fat cover becomes ultra-tender with a slightly nutty aroma.'},
-    {g:'🦌 GAME (BOAR & DEER)',n:'Leg of Deer',mg:{1:[7,21,0],2:[7,21,0],3:[7,21,0]},note:'[Compass Chart C] Bone-in venison haunch/leg (p. 137).'},
-    {g:'🦆 POULTRY',n:'Duck',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'},{l:'Extended',w:'10 Days Max',d:10,t:'1.5°C',rh:'78% RH',k:'Intense'}],note:'[Compass Chart D & p. 148] Pluck, eviscerate, clean, and hang upright by neck with abdominal cavity open for 5 days (top-quality domestic ducks up to 10 days) for crispy skin and juicy breast.'},
-    {g:'🦆 POULTRY',n:'Duck Breast Ham',p:[{l:'Cure + Mature',w:'7d Cure + 14–21d',d:21,t:'1.8°C',rh:'75% RH',k:'CureDry'}],note:'[Book p. 176] ~0.4 kg per breast (70% yield). Rub per kg: 18g nitrite salt, 5g sea salt, 5g black pepper, 3g juniper berries, 2g coriander, 2g cinnamon, 1g cardamom, 2g cane sugar. Vacuum-cure 7 days, rinse & drip dry, then hang in Dry Ager 2–3 weeks.'},
-    {g:'🦆 POULTRY',n:'Chicken',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'}],note:'[Compass Chart D & p. 144] Whole free-range chicken hung for 5 days; skin becomes extra-crispy when roasted while breast stays juicy.'},
-    {g:'🦆 POULTRY',n:'Pheasant',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'}],note:'[Compass Chart D & p. 150] Whole wildfowl hung for 5 days maximum for wild dark meat (7–8 days if lighter farmed bird).'},
-    {g:'🦆 POULTRY',n:'Goose',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'}],note:'[Compass Chart D] Whole goose matured 5 days for crisp skin and concentrated depth of flavor.'},
-    {g:'🦆 POULTRY',n:'Quail',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'}],note:'[Compass Chart D] Whole quail matured 5 days.'},
+    {g:'🐂 BEEF — BONE-IN',n:'Whole Back',mg:{1:[21,42,0],2:[21,42,42],3:[21,42,56]},note:'Bone-in whole saddle/back with or without fillet (25kg+). Negligible drying loss (8–12%) due to double protection of bone and fat. Drill vertebral spine bone to hang with swivel hook.'},
+    {g:'🐂 BEEF — BONE-IN',n:'Prime Rib',mg:{1:[21,42,0],2:[21,42,42],3:[21,42,56]},note:'Age on the bone (hanging or resting fat-up, bones-down). Sealed fat layer with no air pockets; wipe bone dust clean; hook through bone, never meat. Unlocks 56d Intense+ on MG3!'},
+    {g:'🐂 BEEF — BONE-IN',n:'Rib',mg:{1:[21,42,0],2:[21,42,42],3:[21,42,56]},note:'Whole bone-in beef rib section. Wipe bone sawdust clean and age whole before slicing into bone-in ribeyes or Côte de Boeuf.'},
+    {g:'🐂 BEEF — BONE-IN',n:'Sirloin',mg:{1:[21,42,0],2:[21,42,42],3:[21,42,56]},note:'Bone-in sirloin / striploin / short loin saddle. Slice into T-Bone, Porterhouse, or bone-in sirloin steaks only after aging.'},
+    {g:'🐂 BEEF — BONE-IN',n:'Chuck Eye Roll',mg:{1:[21,28,0],2:[21,28,28],3:[21,28,42]},note:'Whole bone-in chuck / neck. Softens heavy connective tissue; after aging, portion into Chuck Eye (Delmonico), Sierra (slice at 45°), or Denver steaks.'},
+    {g:'🐂 BEEF — BONE-IN',n:'Leg',mg:{1:[21,28,0],2:[21,28,28],3:[21,28,28]},note:'Whole bone-in beef leg / round. Age whole with thick fat layer; carve into Tucson, Santa Fe, or coulotte steaks after aging.'},
+    {g:'🐂 BEEF — BONE-IN',n:'Shank',mg:{1:[14,21,0],2:[7,21,21],3:[7,21,21]},note:'Remove all bone sawdust and splinters before hanging, and keep silver skin intact. After maturing, individual muscles can be cut lengthwise and quickly pan-seared as steak medallions, or braised for Fiaker Gulasch / Boeuf Bourguignon.'},
+    {g:'🐂 BEEF — BONE-IN',n:'Short Rib',mg:{1:[7,21,0],2:[7,21,21],3:[7,21,21]},note:'Whole bone-in beef plate ribs. Ensure evenly cut surfaces and do not cut into meat while trimming.'},
+    {g:'🐂 BEEF — DEBONED',n:'Tenderloin',mg:{1:[7,14,0],2:[7,14,28],3:[7,14,28]},note:'Deboned beef fillet. Keep protective fat/silver skin intact during maturation.'},
+    {g:'🐂 BEEF — DEBONED',n:'Rib Deboned',mg:{1:[21,21,0],2:[21,28,28],3:[21,28,28]},note:'Deboned ribeye sub-primal with full fat cap intact.'},
+    {g:'🐂 BEEF — DEBONED',n:'Sirloin Deboned',mg:{1:[14,21,0],2:[21,21,28],3:[21,21,28]},note:'Deboned striploin sub-primal resting fat-cap UP on shelf.'},
+    {g:'🐂 BEEF — DEBONED',n:'Rump Cap',mg:{1:[14,21,0],2:[21,28,28],3:[21,28,28]},note:'Whole Picanha / top butt cap. Hang whole with silver skin and thick fat layer 100% intact and zero incisions.'},
+    {g:'🐂 BEEF — DEBONED',n:'Topside',mg:{1:[14,21,0],2:[28,42,42],3:[28,42,42]},note:'Whole deboned topside / inside round. For Santa Fe cut: after aging 4–6 weeks, trim outer crust and slice upper gracilis muscle into 1.5 cm steaks; cook to medium-rare and slice at 45°.'},
+    {g:'🐂 BEEF — DEBONED',n:'Flat Iron',mg:{1:[14,21,0],2:[21,28,28],3:[21,28,28]},note:'Whole top blade / oyster blade roast. Do NOT remove silver skin before aging; hang to age, then remove central sinew to yield two flat steaks.'},
+    {g:'🐂 BEEF — DEBONED',n:'Shoulder Clod',mg:{1:[14,21,0],2:[28,42,42],3:[28,42,42]},note:'Whole beef chuck shoulder clod. Contains less connective tissue than top blade; yields tender chuck steaks, roast, or pan-seared teres major.'},
+    {g:'🐂 BEEF — DEBONED',n:'Tri Tip',mg:{1:[14,21,0],2:[28,42,42],3:[28,42,42]},note:'Whole triangular bottom sirloin. Do NOT trim beforehand; hang in the chamber due to its uneven shape.'},
+    {g:'🐂 BEEF — DEBONED',n:'Tongue',mg:{1:[21,42,0],2:[21,42,0],3:[21,42,0]},note:'Striated skeletal muscle offal; benefits massively from 21–42 days dry aging, taking on a delicate ham-like flavor.'},
+    {g:'🐂 BEEF — DEBONED',n:'Heart',mg:{1:[14,21,0],2:[14,21,0],3:[14,21,0]},note:'Active striated skeletal muscle; matures for 14–21 days into a tender, ham-like delicacy.'},
+    {g:'🐂 BEEF — CURED & WET-AGED',n:'Pastrami',p:[{l:'Cure + Mature',w:'14d Cure + 5–21d',d:28,t:'1.5°C',rh:'75% RH',k:'CureDry'}],note:'2.5–5 kg beef brisket (75% yield). Rub per kg: 38g nitrite salt, 20g black pepper, 20g cane sugar, 15g mild paprika, 10g coriander, 5g spicy paprika, 5g garlic, 2g ginger. Vacuum-cure 14d. Rinse, coat with mustard & Tellicherry pepper/coriander/cardamom/thyme rub, sous-vide at 72°C (or smoke at 110°C to 72°C core), then mature in chamber 5–21 days!'},
+    {g:'🐂 BEEF — CURED & WET-AGED',n:'Biltong',p:[{l:'Marinate + Hang',w:'6–8 Days',d:7,t:'1.8°C',rh:'72% RH',k:'CureDry'}],note:'Beef sirloin trimmed of fat/tendons (50% yield), sliced 2 cm x 5 cm. Per kg: 40g brown sugar, 10g sea salt, 6g baking powder, 30g roasted coriander, 20g black pepper; spray with 15ml white balsamic, 35ml malt vinegar, 25ml Worcestershire & 25ml red wine. Marinate 24h, pat dry, hang on strings (NOT metal hooks!) 5–7 days.'},
+    {g:'🐂 BEEF — CURED & WET-AGED',n:'Beef Jerky',p:[{l:'Marinate + Dry',w:'3–5 Days',d:5,t:'1.8°C',rh:'72% RH',k:'CureDry'}],note:'Beef outside round (40% yield), sliced 3–5 mm thick against grain, 2–3 cm wide along grain. Marinate per kg in 100ml soy sauce, 75ml Worcestershire, 1/2 lime juice, 1 garlic clove, 1 tsp honey, 1/2 tbsp pepper, 1/2 tsp onion & 1/2 tsp chili flakes in vacuum bag for 2 days. Pat dry and rest on shelves 3–5 days.'},
+    {g:'🐂 BEEF — CURED & WET-AGED',n:'Wet-Aged Regeneration',p:[{l:'Regenerate (>21d Bag)',w:'3 Days',d:3,t:'1.5°C',rh:'80% RH',k:'WetRegen'},{l:'Bone-In (<10d Bag)',w:'14 Days',d:14,t:'1.5°C',rh:'80% RH',k:'WetRegen'},{l:'Deboned (<21d Bag)',w:'14 Days',d:14,t:'1.5°C',rh:'80% RH',k:'WetRegen'}],note:'Pat vacuum-packed meat completely dry and place on shelves with spacing. The 3-day Regeneration cycle eliminates the sour-metallic low-pH (5.5) bag taste on meat wet-aged over 3 weeks!'},
+    {g:'🐖 PORK',n:'Pork Whole Back',mg:{1:[7,14,0],2:[14,21,28],3:[14,21,28]},note:'Bone-in whole saddle/back of pork with or without fillet. Keep rind and fat layer intact; remains juicier than normal when seared or braised.'},
+    {g:'🐖 PORK',n:'Pork Leg',mg:{1:[7,14,0],2:[7,21,0],3:[7,21,28]},note:'Whole bone-in pork haunch/leg. Check outer side for any deep incisions before hanging; tenderizes all leg muscles for quick pan-searing.'},
+    {g:'🐖 PORK',n:'Pork Head',mg:{1:[14,21,21],2:[14,21,21],3:[14,21,21]},note:'Whole bone-in pig head / jowl. Matures 14–21 days for rich guanciale/head cuts.'},
+    {g:'🐖 PORK',n:'Pork Tenderloin',mg:{1:[7,7,0],2:[7,7,0],3:[7,14,0]},note:'Deboned pork fillet. Leave silver skin and surrounding fat intact, remove horizontal wing before hanging.'},
+    {g:'🐑 LAMB & KID GOAT',n:'Whole Lamb or Kid Goat',mg:{1:[14,21,0],2:[14,21,0],3:[14,21,0]},note:'Hang whole young lamb or kid goat carcass without head (prop abdominal cavity open). Transforms pasture notes into haute-cuisine tenderness over 14–21 days.'},
+    {g:'🐑 LAMB & KID GOAT',n:'Saddle of Lamb or Kid Goat',mg:{1:[7,21,0],2:[7,21,0],3:[7,21,0]},note:'Bone-in saddle / crown rack of lamb or kid goat. Keep outer fat cover intact.'},
+    {g:'🐑 LAMB & KID GOAT',n:'Leg of Lamb or Kid Goat',mg:{1:[7,21,0],2:[7,21,0],3:[7,21,0]},note:'Bone-in hind leg of lamb or kid goat. Keep outer fell and fat intact for 7–21 days.'},
+    {g:'🦌 GAME — BOAR & DEER',n:'Saddle of Boar',mg:{1:[7,21,0],2:[14,21,0],3:[14,21,0]},note:'Bone-in wild boar saddle.'},
+    {g:'🦌 GAME — BOAR & DEER',n:'Leg of Boar',mg:{1:[7,14,0],2:[14,21,0],3:[14,21,0]},note:'Bone-in wild boar haunch/leg.'},
+    {g:'🦌 GAME — BOAR & DEER',n:'Chuck of Deer',mg:{1:[14,21,0],2:[14,21,0],3:[14,21,0]},note:'Bone-in venison neck/chuck.'},
+    {g:'🦌 GAME — BOAR & DEER',n:'Saddle of Deer',mg:{1:[7,21,0],2:[7,21,0],3:[7,21,0]},note:'Bone-in venison saddle. Enclosure-raised deer with fat cover becomes ultra-tender with a slightly nutty aroma.'},
+    {g:'🦌 GAME — BOAR & DEER',n:'Leg of Deer',mg:{1:[7,21,0],2:[7,21,0],3:[7,21,0]},note:'Bone-in venison haunch/leg.'},
+    {g:'🦆 POULTRY',n:'Duck',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'},{l:'Extended',w:'10 Days Max',d:10,t:'1.5°C',rh:'78% RH',k:'Intense'}],note:'Pluck, eviscerate, clean, and hang upright by neck with abdominal cavity open for 5 days (top-quality domestic ducks up to 10 days) for crispy skin and juicy breast.'},
+    {g:'🦆 POULTRY',n:'Duck Breast Ham',p:[{l:'Cure + Mature',w:'7d Cure + 14–21d',d:21,t:'1.8°C',rh:'75% RH',k:'CureDry'}],note:'~0.4 kg per breast (70% yield). Rub per kg: 18g nitrite salt, 5g sea salt, 5g black pepper, 3g juniper berries, 2g coriander, 2g cinnamon, 1g cardamom, 2g cane sugar. Vacuum-cure 7 days, rinse & drip dry, then hang in chamber 2–3 weeks.'},
+    {g:'🦆 POULTRY',n:'Chicken',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'}],note:'Whole free-range chicken hung for 5 days; skin becomes extra-crispy when roasted while breast stays juicy.'},
+    {g:'🦆 POULTRY',n:'Pheasant',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'}],note:'Whole wildfowl hung for 5 days maximum for wild dark meat (7–8 days if lighter farmed bird).'},
+    {g:'🦆 POULTRY',n:'Goose',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'}],note:'Whole goose matured 5 days for crisp skin and concentrated depth of flavor.'},
+    {g:'🦆 POULTRY',n:'Quail',p:[{l:'Basic',w:'5 Days',d:5,t:'1.5°C',rh:'80% RH',k:'Basic'}],note:'Whole quail matured 5 days.'},
     {g:'➕ CUSTOM',n:'+ Custom Item...',mg:{1:[21,28,0],2:[21,28,42],3:[21,42,56]},note:'Enter your custom primal cut name and target days below.'}
   ]},
   fish:{ico:'🐟',name:'Seafood',sub:'0.8°C • UVC ON',temp:'0.5–1.0°C',rh:'80–85% RH',uvc:'UVC ON',cuts:[
-    {g:'🐟 SEAFOOD (DRY AGING BIBLE)',n:'Atlantic Salmon',p:[{l:'Gravlax / Whole',w:'5 Days',d:5,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Book p. 213] Mature whole or as fillets for 5 days. For Gravlax Fillets: rub with 150g salt, 100g brown sugar, 35g vodka, 10g ground juniper, 5g pepper, 10g grapefruit zest & 2.5g lime zest; marinate 2 days in fridge, rinse off, then dry age 5 days!'},
-    {g:'🐟 SEAFOOD (DRY AGING BIBLE)',n:'Andrew Cold-Smoked Salmon',p:[{l:'Cure + Smoke + Age',w:'7–10 Days',d:10,t:'0.8°C',rh:'80% RH',k:'FishStd'}],note:'[Book p. 083 & Chart F] Place 1.2 kg salmon side skin-down in plastic container, press coarse salt all over, leave 18–20h at 4–5°C. Rinse, pat dry, cold-smoke 24h over beech/oak, then mature 7–10 days in Dry Ager for a marzipan-like texture!'},
-    {g:'🐟 SEAFOOD (DRY AGING BIBLE)',n:'Cod',p:[{l:'Raw Dry Aged',w:'3 Days',d:3,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Book p. 212] Suitable for dry aging in its raw state even without an overnight salt cure. Fragile muscle segments acquire a fresh, slightly salty tang after 3 days.'},
-    {g:'🐟 SEAFOOD (DRY AGING BIBLE)',n:'Common Sole',p:[{l:'Whole Flatfish',w:'3 Days',d:3,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Book p. 210] Use larger specimens of 0.8 kg (1.8 lbs) and up for 3 days to bring out its nutty aroma. Best poached briefly in plenty of butter while inside remains slightly translucent.'},
-    {g:'🐟 SEAFOOD (DRY AGING BIBLE)',n:'Real Tuna',p:[{l:'Whole Loin',w:'5 Days',d:5,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Book p. 214] Buy loins up to 10 kg (22 lbs) and mature 5 days hanging or resting on shelf. MUST be frozen at -20°C (-4°F) for 24 hours prior to dry aging to kill potential nematodes when serving as sashimi.'},
-    {g:'🐟 SEAFOOD (DRY AGING BIBLE)',n:'Stockfish',p:[{l:'40-Day Coastal Dry',w:'40 Days',d:40,t:'1.0°C',rh:'75% RH',k:'FishStd'}],note:'[Book p. 083 & Chart F] Brine headless whole fish in a 10% salt solution for 24 hours, then place in the Dry Ager (still wet, but not dripping) and dry age for 40 days.'},
-    {g:'🐟 SEAFOOD (DRY AGING BIBLE)',n:'Whole Fish',p:[{l:'Standard Whole',w:'3–5 Days',d:4,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'[Compass Chart E] Whole gutted & cleaned fish matured for intense, well-rounded, clean flavor without any fishy odor.'},
-    {g:'🐟 SEAFOOD (DRY AGING BIBLE)',n:'Fish Fillet',p:[{l:'Standard Fillet',w:'3–5 Days',d:4,t:'0.8°C',rh:'80% RH',k:'FishStd'}],note:'[Compass Chart E & p. 083] Fillets take on a meaty, marzipan-like consistency, and the skin becomes extra-crunchy like chips when pan-fried!'},
+    {g:'🐟 SEAFOOD',n:'Atlantic Salmon',p:[{l:'Gravlax / Whole',w:'5 Days',d:5,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'Mature whole or as fillets for 5 days. For Gravlax Fillets: rub with 150g salt, 100g brown sugar, 35g vodka, 10g ground juniper, 5g pepper, 10g grapefruit zest & 2.5g lime zest; marinate 2 days in fridge, rinse off, then dry age 5 days!'},
+    {g:'🐟 SEAFOOD',n:'Andrew Cold-Smoked Salmon',p:[{l:'Cure + Smoke + Age',w:'7–10 Days',d:10,t:'0.8°C',rh:'80% RH',k:'FishStd'}],note:'Place 1.2 kg salmon side skin-down in plastic container, press coarse salt all over, leave 18–20h at 4–5°C. Rinse, pat dry, cold-smoke 24h over beech/oak, then mature 7–10 days in chamber for a marzipan-like texture!'},
+    {g:'🐟 SEAFOOD',n:'Cod',p:[{l:'Raw Dry Aged',w:'3 Days',d:3,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'Suitable for dry aging in its raw state even without an overnight salt cure. Fragile muscle segments acquire a fresh, slightly salty tang after 3 days.'},
+    {g:'🐟 SEAFOOD',n:'Common Sole',p:[{l:'Whole Flatfish',w:'3 Days',d:3,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'Use larger specimens of 0.8 kg (1.8 lbs) and up for 3 days to bring out its nutty aroma. Best poached briefly in plenty of butter while inside remains slightly translucent.'},
+    {g:'🐟 SEAFOOD',n:'Real Tuna',p:[{l:'Whole Loin',w:'5 Days',d:5,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'Buy loins up to 10 kg (22 lbs) and mature 5 days hanging or resting on shelf. MUST be frozen at -20°C (-4°F) for 24 hours prior to dry aging to kill potential nematodes when serving as sashimi.'},
+    {g:'🐟 SEAFOOD',n:'Stockfish',p:[{l:'40-Day Coastal Dry',w:'40 Days',d:40,t:'1.0°C',rh:'75% RH',k:'FishStd'}],note:'Brine headless whole fish in a 10% salt solution for 24 hours, then place in the chamber (still wet, but not dripping) and dry age for 40 days.'},
+    {g:'🐟 SEAFOOD',n:'Whole Fish',p:[{l:'Standard Whole',w:'3–5 Days',d:4,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'Whole gutted & cleaned fish matured for intense, well-rounded, clean flavor without any fishy odor.'},
+    {g:'🐟 SEAFOOD',n:'Fish Fillet',p:[{l:'Standard Fillet',w:'3–5 Days',d:4,t:'0.8°C',rh:'80% RH',k:'FishStd'}],note:'Fillets take on a meaty, marzipan-like consistency, and the skin becomes extra-crunchy like chips when pan-fried!'},
     {g:'➕ CUSTOM',n:'+ Custom Seafood...',p:[{l:'Standard',w:'5 Days',d:5,t:'0.8°C',rh:'82% RH',k:'FishStd'}],note:'Custom seafood batch.'}
   ]},
   salami:{ico:'🥓',name:'Salami',sub:'13°C • UVC OFF',temp:'12–14°C',rh:'75–82% RH',uvc:'UVC OFF ⚠️',cuts:[
-    {g:'🥓 SAUSAGES (DRY AGING BIBLE)',n:'Beef Salami',p:[{l:'Artificial Casing',w:'3–6 Weeks',d:28,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'[Book p. 194] 50% beef shoulder, 20% beef neck, 20% pig jowl, 10% fatback (60% yield). Per kg: 20g nitrite salt, 2g pepper, 1g corn sugar, 3g cane sugar, 2g crushed mustard seeds, 1g garlic powder, 0.8g cardamom, 0.5g mild paprika, 0.5g nutmeg, 0.5g mace, 5ml sweet dessert wine. Stuff into 55/25 artificial casings; mature 3–6 weeks.'},
-    {g:'🥓 SAUSAGES (DRY AGING BIBLE)',n:'Raw Sausages in Sheep Casing',p:[{l:'Sheep Casing Cure',w:'1–3 Weeks',d:14,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'[Book pp. 082, 192] Small-caliber snack/lunch sausages (e.g. Droëwors, Mettwurst, Lap Cheong) in sheep casings 24/26; matures slowly without dry-edge faults.'},
-    {g:'🥓 SAUSAGES (DRY AGING BIBLE)',n:'Raw Sausages in Pig Casing',p:[{l:'Pig Casing Cure',w:'5–21 Days',d:14,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'[Book pp. 082, 198] Sausages in pig casings 26/28 or 28/30 (e.g. Salsiccia, Bratwurst styles).'},
-    {g:'🥓 SAUSAGES (DRY AGING BIBLE)',n:'Raw Sausages in Artificial Casing',p:[{l:'Large Casing Cure',w:'4–8 Weeks',d:42,t:'12°C',rh:'77% RH',k:'SalamiStd'}],note:'[Book pp. 082, 194] Large-diameter salamis (Salame Milanese, Hungarian Salami, Chorizo) in caliber 43/25 or 55/25 casings; target 35–40% weight loss.'},
-    {g:'🍖 HAMS (DRY AGING BIBLE)',n:'Smoked Ham',p:[{l:'7d Saturate + Mature',w:'3–6 Weeks',d:28,t:'12°C',rh:'76% RH',k:'SalamiStd'}],note:'[Book pp. 082, 166] After vacuum-curing (14d+) and 7-day salt saturation phase, cold-smoke and mature for several weeks or months.'},
-    {g:'🍖 HAMS (DRY AGING BIBLE)',n:'Unsmoked Ham',p:[{l:'Saturate + Mature',w:'3–6 Weeks',d:28,t:'12°C',rh:'76% RH',k:'SalamiStd'}],note:'[Book pp. 082, 166] Air-dried ham, Coppa, Pancetta, or Guanciale matured without smoking after vacuum curing.'},
-    {g:'🍖 HAMS (DRY AGING BIBLE)',n:'After-Ripening Ham or Salami',p:[{l:'After-Ripening',w:'1–3 Weeks',d:14,t:'12°C',rh:'76% RH',k:'SalamiStd'}],note:'[Book p. 081] Further matures store-bought or finished hams/salami; protect exposed cut surfaces with a thin coat of lard.'},
+    {g:'🥓 SAUSAGES',n:'Beef Salami',p:[{l:'Artificial Casing',w:'3–6 Weeks',d:28,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'50% beef shoulder, 20% beef neck, 20% pig jowl, 10% fatback (60% yield). Per kg: 20g nitrite salt, 2g pepper, 1g corn sugar, 3g cane sugar, 2g crushed mustard seeds, 1g garlic powder, 0.8g cardamom, 0.5g mild paprika, 0.5g nutmeg, 0.5g mace, 5ml sweet dessert wine. Stuff into 55/25 artificial casings; mature 3–6 weeks.'},
+    {g:'🥓 SAUSAGES',n:'Raw Sausages in Sheep Casing',p:[{l:'Sheep Casing Cure',w:'1–3 Weeks',d:14,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'Small-caliber snack/lunch sausages (e.g. Droëwors, Mettwurst, Lap Cheong) in sheep casings 24/26; matures slowly without dry-edge faults.'},
+    {g:'🥓 SAUSAGES',n:'Raw Sausages in Pig Casing',p:[{l:'Pig Casing Cure',w:'5–21 Days',d:14,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'Sausages in pig casings 26/28 or 28/30 (e.g. Salsiccia, Bratwurst styles).'},
+    {g:'🥓 SAUSAGES',n:'Raw Sausages in Artificial Casing',p:[{l:'Large Casing Cure',w:'4–8 Weeks',d:42,t:'12°C',rh:'77% RH',k:'SalamiStd'}],note:'Large-diameter salamis (Salame Milanese, Hungarian Salami, Chorizo) in caliber 43/25 or 55/25 casings; target 35–40% weight loss.'},
+    {g:'🍖 HAMS',n:'Smoked Ham',p:[{l:'7d Saturate + Mature',w:'3–6 Weeks',d:28,t:'12°C',rh:'76% RH',k:'SalamiStd'}],note:'After vacuum-curing (14d+) and 7-day salt saturation phase, cold-smoke and mature for several weeks or months.'},
+    {g:'🍖 HAMS',n:'Unsmoked Ham',p:[{l:'Saturate + Mature',w:'3–6 Weeks',d:28,t:'12°C',rh:'76% RH',k:'SalamiStd'}],note:'Air-dried ham, Coppa, Pancetta, or Guanciale matured without smoking after vacuum curing.'},
+    {g:'🍖 HAMS',n:'After-Ripening Ham or Salami',p:[{l:'After-Ripening',w:'1–3 Weeks',d:14,t:'12°C',rh:'76% RH',k:'SalamiStd'}],note:'Further matures store-bought or finished hams/salami; protect exposed cut surfaces with a thin coat of lard.'},
     {g:'➕ CUSTOM',n:'+ Custom Charcuterie...',p:[{l:'Standard Cure',w:'30 Days',d:30,t:'13°C',rh:'78% RH',k:'SalamiStd'}],note:'Custom charcuterie batch.'}
   ]},
   cheese:{ico:'🧀',name:'Cheese',sub:'11°C • UVC OFF',temp:'10–12°C',rh:'85–90% RH',uvc:'UVC OFF ⚠️',cuts:[
-    {g:'🧀 SEMI-HARD & HARD WHEELS',n:'Cheddar',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'[Book pp. 082, 224] Start with a young whole wheel on wooden shelves. Turn regularly and brush off any surface mold weekly with a soft bristle brush inside a plastic tub.'},
-    {g:'🧀 SEMI-HARD & HARD WHEELS',n:'Gouda',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'[Book p. 224] Whole young round; matures from the outside in after 3–4 weeks. Benefits from an occasional salt-water wash and weekly soft-bristle brushing.'},
-    {g:'🧀 SEMI-HARD & HARD WHEELS',n:'Manchego',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'[Book p. 224] Spanish sheep-milk wheel; reaches peak flavor after 3–4 weeks in the Dry Ager. Turn regularly and brush rind weekly.'},
-    {g:'🧀 SEMI-HARD & HARD WHEELS',n:'Pecorino',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'[Book p. 224] Italian hard wheel (Pecorino / Parmesan); benefits from an occasional olive oil wash for rind conservation. Turn regularly over 3–4 weeks.'},
-    {g:'🧀 BLUE & NOBLE MOLD',n:'Gorgonzola',p:[{l:'Soft Affinage',w:'3–4 Weeks',d:24,t:'10°C',rh:'88% RH',k:'CheeseStd'}],note:'[Book p. 224] Recommended starter blue cheese for Dry Ager affinage; creates optimum conditions for internal microorganisms.'},
-    {g:'🧀 BLUE & NOBLE MOLD',n:'Roquefort',p:[{l:'Soft Affinage',w:'3–4 Weeks',d:24,t:'10°C',rh:'88% RH',k:'CheeseStd'}],note:'[Book p. 224] Classic French sheep-milk blue cheese; matures smoothly over 3–4 weeks in the Dry Ager.'},
+    {g:'🧀 SEMI-HARD & HARD WHEELS',n:'Cheddar',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'Start with a young whole wheel on wooden shelves. Turn regularly and brush off any surface mold weekly with a soft bristle brush inside a plastic tub.'},
+    {g:'🧀 SEMI-HARD & HARD WHEELS',n:'Gouda',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'Whole young round; matures from the outside in after 3–4 weeks. Benefits from an occasional salt-water wash and weekly soft-bristle brushing.'},
+    {g:'🧀 SEMI-HARD & HARD WHEELS',n:'Manchego',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'Spanish sheep-milk wheel; reaches peak flavor after 3–4 weeks in the chamber. Turn regularly and brush rind weekly.'},
+    {g:'🧀 SEMI-HARD & HARD WHEELS',n:'Pecorino',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'Italian hard wheel (Pecorino / Parmesan); benefits from an occasional olive oil wash for rind conservation. Turn regularly over 3–4 weeks.'},
+    {g:'🧀 BLUE & NOBLE MOLD',n:'Gorgonzola',p:[{l:'Soft Affinage',w:'3–4 Weeks',d:24,t:'10°C',rh:'88% RH',k:'CheeseStd'}],note:'Recommended starter blue cheese for chamber affinage; creates optimum conditions for internal microorganisms.'},
+    {g:'🧀 BLUE & NOBLE MOLD',n:'Roquefort',p:[{l:'Soft Affinage',w:'3–4 Weeks',d:24,t:'10°C',rh:'88% RH',k:'CheeseStd'}],note:'Classic French sheep-milk blue cheese; matures smoothly over 3–4 weeks in the chamber.'},
     {g:'➕ CUSTOM',n:'+ Custom Cheese...',p:[{l:'Dry Affinage',w:'3–4 Weeks',d:28,t:'11°C',rh:'86% RH',k:'CheeseStd'}],note:'Custom cheese affinage.'}
   ]}
 };
@@ -567,7 +567,7 @@ function onCutChange(){
   selProgIdx=0;
   document.getElementById('customCutWrap').style.display=cut.n.includes('Custom')?'block':'none';
   document.getElementById('mgWrap').style.display=cut.mg?'block':'none';
-  document.getElementById('cutNote').innerHTML='<b>📖 Good to Know & Prep:</b> '+cut.note;
+  document.getElementById('cutNote').innerHTML='<b>🔪 Prep & Butcher Note:</b> '+cut.note;
   renderCutProgs();
 }
 
@@ -794,7 +794,7 @@ function openAlerts(){
 }
 
 function getLiveStageText(b,el){
-  if(b.archived) return `<b>🗄️ POST-AGING STORAGE (${b.stage} • Since ${b.stageDate||b.startD})</b>Vacuum-sealed dry-aged cuts keep 14d in ager, 45d chilled (0–2°C), or up to 3 years deep frozen at -18°C with zero juice leakage.`;
+  if(b.archived) return `<b>🗄️ POST-AGING STORAGE (${b.stage} • Since ${b.stageDate||b.startD})</b>Vacuum-sealed dry-aged cuts keep 14d in chamber, 45d chilled (0–2°C), or up to 3 years deep frozen at -18°C with zero juice leakage.`;
   if(b.cat==='fish'){
     if(el<=2) return `<b>STAGE 1: PELLICLE & SURFACE DRYING (Days 1–2)</b>Skin tightening and surface moisture evaporating. Keep cavity blotted bone-dry.`;
     return `<b>STAGE 2: ENZYMATIC UMAMI MATURATION (Day ${el} of ${b.days})</b>Muscle enzymes concentrating savory amino acids and marzipan-tender sashimi/roasting texture.`;
@@ -808,7 +808,7 @@ function getLiveStageText(b,el){
   if(el<=7) return `<b>STAGE 1: PELLICLE CRUST & pH DROP (Days 1–7)</b>Surface drying into a protective dark mahogany rind as glycogen converts to lactic acid. Keep door closed.`;
   if(el<=21) return `<b>STAGE 2: 80% TENDERNESS MILESTONE (Days 8–21)</b>Calpain & cathepsin enzymes relaxing muscle fibres; by Day 21 beef reaches 80% of maximum tenderness.`;
   if(el<=35) return `<b>STAGE 3: STEEP FLAVOR & UMAMI CURVE (Days 22–35)</b>pH rising back toward 6.0; free glutamic acid (MSG), IMP, and nutty oxy-lipin kokumi aromas shooting straight up!`;
-  return `<b>STAGE 4: PEAK CONNOISSEUR MATURITY (Day ${el})</b>Full 6 to 8-week Dry Aging Bible maturation—rich hazelnut, cheese & musk complexity. Trim pellicle cleanly before slicing steaks!`;
+  return `<b>STAGE 4: PEAK CONNOISSEUR MATURITY (Day ${el})</b>Full 6 to 8-week maturation—rich hazelnut, cheese & musk complexity. Trim pellicle cleanly before slicing steaks!`;
 }
 
 function exportData(){
