@@ -19,9 +19,8 @@
       --gold-soft: rgba(212, 175, 55, 0.16);
       --text: #f7f3eb;
       --muted: #b8ab96;
-      --green: #1f6f43;
-      --green-bright: #2ea043;
-      --red: #c93b3b;
+      --green: #16a34a;
+      --red: #dc2626;
       --amber: #e09f3e;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
@@ -64,7 +63,7 @@
     }
     .search-box {
       flex: 1;
-      max-width: 190px;
+      max-width: 165px;
       background: #14110d;
       border: 1.5px solid var(--border);
       border-radius: 10px;
@@ -116,7 +115,7 @@
       border-radius: 99px;
     }
 
-    /* Aging Chamber Bar */
+    /* Aging Fridge Bar */
     .chamber-bar {
       background: var(--card);
       border: 2px solid var(--gold);
@@ -146,6 +145,16 @@
       border-radius: 8px;
       font-size: 0.85rem;
       font-weight: 800;
+      cursor: pointer;
+    }
+    .mini-btn-red {
+      background: var(--red);
+      border: 1.5px solid #ff6b6b;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 900;
       cursor: pointer;
     }
     .chamber-select {
@@ -194,7 +203,7 @@
     .cat-tile {
       aspect-ratio: 1 / 1;
       background: var(--card);
-      border: 2px solid var(--border);
+      border: 2px solid transparent;
       border-radius: 14px;
       display: flex;
       flex-direction: column;
@@ -300,12 +309,36 @@
       background: var(--card2);
       border: 1.5px solid var(--gold);
       color: #fff;
-      padding: 10px 6px;
+      padding: 12px 6px;
       border-radius: 10px;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 800;
       cursor: pointer;
       text-align: center;
+    }
+    .btn-green {
+      background: var(--green);
+      border: 2px solid var(--gold);
+      color: #fff;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+    .btn-red {
+      background: var(--red);
+      border: 2px solid #ff7b7b;
+      color: #fff;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
     }
     .bottom-bar {
       position: fixed;
@@ -492,11 +525,11 @@
       </button>
     </div>
 
-    <!-- Active Aging Chamber Bar -->
+    <!-- Active Aging Fridge Bar -->
     <div class="chamber-bar">
       <div class="chamber-top">
-        <span class="chamber-lbl">🏛️ Active Aging Chamber</span>
-        <button class="mini-btn" onclick="openModal('fridgeModal')">⚙️ Chambers</button>
+        <span class="chamber-lbl">🧊 Active Aging Fridge</span>
+        <button class="mini-btn" onclick="openModal('fridgeModal')">⚙️ Fridges</button>
       </div>
       <select id="fridgeSelect" class="chamber-select" onchange="changeFridge(this.value)"></select>
       <div class="climate-pills" id="chamberPills"></div>
@@ -630,8 +663,8 @@
       </div>
 
       <div class="two-col" style="margin-top:14px;">
-        <button class="act-btn" onclick="closeModal('addModal')">Cancel</button>
-        <button class="btn-main" onclick="saveNewBatch()">Save Batch</button>
+        <button class="btn-red" onclick="closeModal('addModal')">Cancel</button>
+        <button class="btn-green" onclick="saveNewBatch()">Start Aging</button>
       </div>
     </div>
   </div>
@@ -661,8 +694,8 @@
         <textarea id="weighNotes" class="f-area" rows="2" placeholder="Crust color, aroma, rotation notes..." style="margin-top:8px;"></textarea>
       </div>
       <div class="two-col">
-        <button class="act-btn" onclick="closeModal('weighModal')">Cancel</button>
-        <button class="btn-main" onclick="saveWeighIn()">Save Log</button>
+        <button class="btn-red" onclick="closeModal('weighModal')">Cancel</button>
+        <button class="btn-green" onclick="saveWeighIn()">Save Weight</button>
       </div>
     </div>
   </div>
@@ -700,10 +733,10 @@
       <div class="f-group">
         <label class="f-label">Post-Aging Storage Mode</label>
         <select id="harvStorage" class="f-select">
+          <option value="In Fridge — Ready to Eat (Max 8-10d)">🍽️ In Fridge — Ready to Eat (Max 8–10d)</option>
           <option value="Chilled Vacuum (0-2°C • Up to 14-30d)">❄️ Chilled Vacuum Bag (0–2°C)</option>
-          <option value="Presentation Mode (1.5°C • Up to 7d)">✨ Cabinet Presentation Mode (Up to 7d)</option>
           <option value="Frozen (-18°C • Up to 12 Months)">🧊 Deep Freeze (-18°C Vacuum Sealed)</option>
-          <option value="Consumed Immediately">🍽️ Cooked & Consumed Fresh</option>
+          <option value="Consumed Immediately">🔥 Cooked & Consumed Fresh</option>
         </select>
       </div>
 
@@ -714,9 +747,9 @@
 
       <div class="two-col" style="margin-bottom:10px;">
         <button class="act-btn" onclick="printBagTag()">🖨️ Print Bag Tag</button>
-        <button class="btn-main" onclick="completeHarvest()">Archive to Vault</button>
+        <button class="btn-green" onclick="completeHarvest()">Archive to Vault</button>
       </div>
-      <button class="act-btn" style="width:100%;" onclick="closeModal('harvestModal')">Close</button>
+      <button class="btn-red" onclick="closeModal('harvestModal')">Cancel</button>
     </div>
   </div>
 
@@ -728,7 +761,7 @@
         <strong style="color:#ff6b6b;">🚨 THE "SPORE ALERT" MOLD RULE (Dry Aging Bible p. 112)</strong>
         • <b>ANY White, Green, or Black Furry Mold on Raw Beef/Pork/Lamb = DISPOSE OF THE WHOLE CUT IMMEDIATELY!</b><br>
         • Unlike salami, mold on raw meat sends invisible toxic root threads (<i>mycelia</i>) deep into the muscle that trimming cannot remove.<br>
-        • Clean and sanitize the entire cabinet with 70% ethanol before starting a new batch.
+        • Clean and sanitize the entire fridge with 70% ethanol before starting a new batch.
       </div>
       <div class="guide-card">
         <strong>✅ Normal & Safe Signs</strong>
@@ -741,25 +774,25 @@
         • <b>Putrid / Rotten Egg / Ammonia smell:</b> Spoiled—discard.<br>
         • <b>Sour / Metallic smell right out of a vacuum bag:</b> Normal lactic acid buildup (pH ~5.5). Run the <b>3-Day Wet-Aged Regeneration</b> cycle to restore a clean beef aroma!
       </div>
-      <button class="btn-main" style="width:100%;" onclick="closeModal('safeModal')">Got It</button>
+      <button class="btn-red" onclick="closeModal('safeModal')">Close</button>
     </div>
   </div>
 
-  <!-- MAINTENANCE MODAL -->
+  <!-- FRIDGE MAINTENANCE MODAL -->
   <div class="modal" id="maintModal">
     <div class="modal-box">
-      <h2 class="modal-title">🔧 Chamber Maintenance</h2>
+      <h2 class="modal-title">🔧 Fridge Maintenance</h2>
       <div class="guide-card">
         <strong>🧼 2-Hour Pre-Cleaning Cycle (12°C • 85% RH)</strong>
-        Run the empty cabinet at 12°C and 85% RH for 2 hours to soften dried fat/proteins before wiping down with 70% food-grade ethanol. Remove pink salt blocks before cleaning!
+        Run the empty fridge at 12°C and 85% RH for 2 hours to soften dried fat/proteins before wiping down with 70% food-grade ethanol. Remove pink salt blocks before cleaning!
       </div>
       <div class="guide-card">
         <strong>💡 UVC Sterilization Bulb & Salt Check</strong>
         • Replace UVC bulb every 12 months.<br>
         • Empty any liquid pooling in the stainless salt tray so humidity stays rock solid.
       </div>
-      <button class="btn-main" style="width:100%; margin-bottom:8px;" onclick="logMaintenance()">✅ Mark Chamber Cleaned Today</button>
-      <button class="act-btn" style="width:100%;" onclick="closeModal('maintModal')">Close</button>
+      <button class="btn-green" style="margin-bottom:10px;" onclick="logMaintenance()">✅ Mark Fridge Cleaned Today</button>
+      <button class="btn-red" onclick="closeModal('maintModal')">Close</button>
     </div>
   </div>
 
@@ -776,34 +809,34 @@
       <div class="guide-card">
         <strong>🐄 Best Cattle & Slaughter Freshness Rule</strong>
         • <b>Heifer (Young Female) & Ox:</b> Top choice for tender, heavily marbled beef.<br>
-        • <b>Slaughter Window:</b> Put Pork/Lamb/Poultry in the ager <b>1–2 days</b> post-slaughter, and Beef <b>2–5 days</b> post-slaughter (or wet-aged &lt;10d bone-in / &lt;21d deboned).
+        • <b>Slaughter Window:</b> Put Pork/Lamb/Poultry in the fridge <b>1–2 days</b> post-slaughter, and Beef <b>2–5 days</b> post-slaughter (or wet-aged &lt;10d bone-in / &lt;21d deboned).
       </div>
       <div class="guide-card">
         <strong>🧪 pH Value & 3-Day Wet-Aged Regeneration</strong>
         • Dry aging keeps meat around <b>pH 6.0</b> (buttery, nutty). Wet-aging in cryovac drops pH to <b>5.5</b> (sour/metallic).<br>
-        • Putting wet-aged meat (&gt;3 weeks in bag) into the dry ager for <b>3 Days</b> evaporates the sour bag juice and forms a crisp crust!
+        • Putting wet-aged meat (&gt;3 weeks in bag) into the dry aging fridge for <b>3 Days</b> evaporates the sour bag juice and forms a crisp crust!
       </div>
       <div class="guide-card">
         <strong>🦴 Butcher Prep Tricks</strong>
         • <b>Never dry-age individual steaks</b>—always age the whole primal and slice steaks after.<br>
         • Cover sharp spine bones with a strip of food-safe vacuum bag before sealing finished steaks so bones don't puncture the bag.
       </div>
-      <button class="btn-main" style="width:100%;" onclick="closeModal('guideModal')">Close Guide</button>
+      <button class="btn-red" onclick="closeModal('guideModal')">Close Guide</button>
     </div>
   </div>
 
-  <!-- CHAMBERS MANAGER MODAL -->
+  <!-- FRIDGES MANAGER MODAL -->
   <div class="modal" id="fridgeModal">
     <div class="modal-box">
-      <h2 class="modal-title">🏛️ Manage Aging Chambers</h2>
+      <h2 class="modal-title">🧊 Manage Aging Fridges</h2>
       <div id="fridgeListBox" style="margin-bottom:12px;"></div>
       <div class="f-group">
-        <label class="f-label">Add New Chamber / Fridge Name</label>
-        <input type="text" id="newFridgeName" class="f-input" placeholder="e.g. Garage Salami Cabinet">
+        <label class="f-label">Add New Fridge Name</label>
+        <input type="text" id="newFridgeName" class="f-input" placeholder="e.g. Garage Salami Fridge">
       </div>
       <div class="two-col">
-        <button class="act-btn" onclick="closeModal('fridgeModal')">Close</button>
-        <button class="btn-main" onclick="addFridge()">+ Add Chamber</button>
+        <button class="btn-red" onclick="closeModal('fridgeModal')">Close</button>
+        <button class="btn-green" onclick="addFridge()">+ Add Fridge</button>
       </div>
     </div>
   </div>
@@ -813,7 +846,7 @@
     <div class="modal-box">
       <h2 class="modal-title">🗄️ Completed Archive Vault</h2>
       <div id="vaultListBox"></div>
-      <button class="act-btn" style="width:100%; margin-top:10px;" onclick="closeModal('vaultModal')">Close Vault</button>
+      <button class="btn-red" style="margin-top:10px;" onclick="closeModal('vaultModal')">Close Vault</button>
     </div>
   </div>
 
@@ -844,15 +877,15 @@
         { group: "🐂 BEEF (Deboned)", name: "Tri Tip", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,21], 3:[14,21,21] }, note: "Bottom sirloin triangle cut. Age with fat cap on before slicing across the grain." },
 
         // 🐂 BEEF (Cured & Dried)
-        { group: "🐂 BEEF (Cured & Dried)", name: "Beef Jerky", useMarbling: false, days: { 3:[3,4,5] }, note: "Marinate thin strips 2 days in soy/lime/honey, then dry 3–5 days in the cabinet." },
+        { group: "🐂 BEEF (Cured & Dried)", name: "Beef Jerky", useMarbling: false, days: { 3:[3,4,5] }, note: "Marinate thin strips 2 days in soy/lime/honey, then dry 3–5 days in the fridge." },
         { group: "🐂 BEEF (Cured & Dried)", name: "Biltong", useMarbling: false, days: { 3:[5,6,7] }, note: "Vinegar, coriander & black pepper rub for 24h, then hang on strings for 5–7 days." },
-        { group: "🐂 BEEF (Cured & Dried)", name: "Pastrami", useMarbling: false, days: { 3:[7,14,21] }, note: "Cure brisket 14 days, smoke, then mature 5–21 days in the cabinet for silky slicing." },
+        { group: "🐂 BEEF (Cured & Dried)", name: "Pastrami", useMarbling: false, days: { 3:[7,14,21] }, note: "Cure brisket 14 days, smoke, then mature 5–21 days in the fridge for silky slicing." },
         { group: "🐂 BEEF (Cured & Dried)", name: "Wet-Aged Regeneration", useMarbling: false, days: { 3:[3,3,4] }, note: "3-Day Regeneration cycle for cryovac meat aged >21 days. Eliminates sour/metallic bag taste and dries surface for searing." },
 
         // 🐑 LAMB & KID GOAT
         { group: "🐑 LAMB & KID GOAT", name: "Leg of Lamb or Kid Goat", useMarbling: false, days: { 3:[7,21,0] }, note: "Bone-in hind leg. Basic 7 days or Intense 21 days for sweet, nutty pasture aroma." },
         { group: "🐑 LAMB & KID GOAT", name: "Saddle of Lamb or Kid Goat", useMarbling: false, days: { 3:[7,21,0] }, note: "Double bone-in loin saddle with fat cap intact. Basic 7d | Intense 21d." },
-        { group: "🐑 LAMB & KID GOAT", name: "Whole Lamb or Kid Goat", useMarbling: false, days: { 3:[14,21,0] }, note: "Hung whole carcass. Put into cabinet 1–2 days post-slaughter. Basic 14d | Intense 21d." },
+        { group: "🐑 LAMB & KID GOAT", name: "Whole Lamb or Kid Goat", useMarbling: false, days: { 3:[14,21,0] }, note: "Hung whole carcass. Put into fridge 1–2 days post-slaughter. Basic 14d | Intense 21d." },
 
         // 🐖 PORK
         { group: "🐖 PORK", name: "Pork Head", useMarbling: false, days: { 3:[14,21,21] }, note: "Bone-in pig head for crispy jowl/guanciale roasts. Basic 14d | Intense 21d." },
@@ -871,7 +904,7 @@
         { group: "🦆 POULTRY", name: "Chicken", useMarbling: false, days: { 3:[5,0,0] }, note: "Whole eviscerated chicken hung by neck/wings. 5 Days Basic gives paper-thin, ultra-crispy skin." },
         { group: "🦆 POULTRY", name: "Duck", useMarbling: false, days: { 3:[5,10,0] }, note: "Whole domestic duck. 5 Days standard (up to 10 days for top-grade fatty duck)." },
         { group: "🦆 POULTRY", name: "Duck Breast Ham", useMarbling: false, days: { 3:[14,21,21] }, note: "Cure duck breast 7 days in salt/juniper/cinnamon/cardamom, then mature 14–21 days." },
-        { group: "🦆 POULTRY", name: "Goose", useMarbling: false, days: { 3:[5,0,0] }, note: "Whole goose hung in cabinet for 5 Days Basic." },
+        { group: "🦆 POULTRY", name: "Goose", useMarbling: false, days: { 3:[5,0,0] }, note: "Whole goose hung in fridge for 5 Days Basic." },
         { group: "🦆 POULTRY", name: "Pheasant", useMarbling: false, days: { 3:[5,0,0] }, note: "Whole pheasant matured 5 Days Basic for tender, aromatic game meat." },
         { group: "🦆 POULTRY", name: "Quail", useMarbling: false, days: { 3:[5,0,0] }, note: "Whole quail matured 5 Days Basic." }
       ],
@@ -890,7 +923,7 @@
         { group: "🥓 SALAMI & HAMS", name: "Beef Salami", useMarbling: false, days: { 3:[21,35,42] }, note: "50% beef shoulder, 20% beef neck, 20% pig jowl, 10% fatback. Cure 3–6 weeks (UVC OFF)." },
         { group: "🥓 SALAMI & HAMS", name: "Coppa", useMarbling: false, days: { 3:[45,60,75] }, note: "Cured whole pork neck. Ready at 30–35% weight loss (UVC OFF)." },
         { group: "🥓 SALAMI & HAMS", name: "Guanciale", useMarbling: false, days: { 3:[35,45,60] }, note: "Cured pork jowl with black pepper & thyme. Target 30% weight loss." },
-        { group: "🥓 SALAMI & HAMS", name: "Pancetta", useMarbling: false, days: { 3:[28,35,45] }, note: "Cured pork belly hung in cabinet with UVC light OFF." },
+        { group: "🥓 SALAMI & HAMS", name: "Pancetta", useMarbling: false, days: { 3:[28,35,45] }, note: "Cured pork belly hung in fridge with UVC light OFF." },
         { group: "🥓 SALAMI & HAMS", name: "Raw Sausage Artificial Casing", useMarbling: false, days: { 3:[28,42,56] }, note: "Salame Milanese / Hungarian styles in breathable casing (UVC OFF)." },
         { group: "🥓 SALAMI & HAMS", name: "Raw Sausage Pig Casing", useMarbling: false, days: { 3:[14,21,28] }, note: "Natural hog casing sausages matured until 35% weight loss (UVC OFF)." },
         { group: "🥓 SALAMI & HAMS", name: "Raw Sausage Sheep Casing", useMarbling: false, days: { 3:[7,10,14] }, note: "Thin snack sausages in sheep casing—dries fast in 7–14 days." },
@@ -935,7 +968,7 @@
     };
 
     let unit = localStorage.getItem('agerUnit') || 'metric';
-    let fridges = JSON.parse(localStorage.getItem('agerFridgesPro') || '["MA400 Main Cabinet"]');
+    let fridges = JSON.parse(localStorage.getItem('agerFridgesPro') || '["MA400 Main Fridge"]');
     let currentFridge = localStorage.getItem('agerCurrentFridge') || fridges[0];
     let currentCat = localStorage.getItem('agerCurrentCat') || 'meat';
     let batches = JSON.parse(localStorage.getItem('agerBatchesPro') || '[]');
@@ -990,7 +1023,7 @@
     }
 
     function deleteFridge(idx) {
-      if (fridges.length <= 1) return alert('At least one chamber is required.');
+      if (fridges.length <= 1) return alert('At least one fridge is required.');
       fridges.splice(idx, 1);
       localStorage.setItem('agerFridgesPro', JSON.stringify(fridges));
       currentFridge = fridges[0];
@@ -1002,8 +1035,8 @@
       const box = document.getElementById('fridgeListBox');
       box.innerHTML = fridges.map((f, i) => `
         <div style="display:flex; justify-content:space-between; align-items:center; background:#100d0a; padding:10px; border-radius:8px; margin-bottom:6px; border:1px solid var(--border);">
-          <span style="font-weight:800;">🏛️ ${f}</span>
-          <button class="mini-btn" onclick="deleteFridge(${i})">✕</button>
+          <span style="font-weight:800;">🧊 ${f}</span>
+          <button class="mini-btn-red" onclick="deleteFridge(${i})">✕</button>
         </div>
       `).join('');
     }
@@ -1199,7 +1232,7 @@
       if (!wInput) return alert('Enter current weight.');
       const wGrams = unit === 'imperial' ? Math.round(wInput * 453.592) : wInput;
       const note = document.getElementById('weighNotes').value.trim();
-      const b = batches.find(x => x.id === id);
+      const b = batches.find(x => String(x.id) === String(id));
       if (b) {
         b.history.push({
           date: new Date().toISOString().split('T')[0],
@@ -1214,7 +1247,7 @@
     }
 
     function openHarvestModal(id) {
-      const b = batches.find(x => x.id === id);
+      const b = batches.find(x => String(x.id) === String(id));
       if (!b) return;
       document.getElementById('harvestBatchId').value = id;
       const latestWt = b.history[b.history.length - 1].weight;
@@ -1228,8 +1261,8 @@
     }
 
     function calcHarvestYield() {
-      const id = parseInt(document.getElementById('harvestBatchId').value);
-      const b = batches.find(x => x.id === id);
+      const id = document.getElementById('harvestBatchId').value;
+      const b = batches.find(x => String(x.id) === String(id));
       if (!b) return;
       let agedIn = parseFloat(document.getElementById('harvAgedWt').value) || 0;
       let trimIn = parseFloat(document.getElementById('harvTrimWt').value) || 0;
@@ -1254,8 +1287,8 @@
     }
 
     function printBagTag() {
-      const id = parseInt(document.getElementById('harvestBatchId').value);
-      const b = batches.find(x => x.id === id);
+      const id = document.getElementById('harvestBatchId').value;
+      const b = batches.find(x => String(x.id) === String(id));
       if (!b) return;
       const storage = document.getElementById('harvStorage').value;
       const steaks = document.getElementById('harvSteaks').value;
@@ -1268,6 +1301,7 @@
         </head><body onload="window.print()">
         <div class="tag">
           <h2 style="margin:0 0 6px 0;">🥩 AGERPRO • ${b.code}</h2>
+          <div><b>Fridge:</b> ${b.fridge}</div>
           <div><b>Cut:</b> ${b.cut} ${b.marbling ? '(' + b.marbling + ')' : ''}</div>
           <div><b>Program:</b> ${b.intensity} (${b.temp} / ${b.rh})</div>
           <div><b>Started:</b> ${b.startDate} • <b>Target:</b> ${b.targetDays} Days</div>
@@ -1279,8 +1313,8 @@
     }
 
     function completeHarvest() {
-      const id = parseInt(document.getElementById('harvestBatchId').value);
-      const idx = batches.findIndex(x => x.id === id);
+      const id = document.getElementById('harvestBatchId').value;
+      const idx = batches.findIndex(x => String(x.id) === String(id));
       if (idx === -1) return;
       const b = batches[idx];
       b.harvestDate = new Date().toISOString().split('T')[0];
@@ -1296,7 +1330,7 @@
     }
 
     function restoreBatch(id) {
-      const idx = vault.findIndex(x => x.id === id);
+      const idx = vault.findIndex(x => String(x.id) === String(id));
       if (idx === -1) return;
       batches.unshift(vault[idx]);
       vault.splice(idx, 1);
@@ -1308,7 +1342,7 @@
 
     function deleteActiveBatch(id) {
       if (!confirm('Delete this active batch?')) return;
-      batches = batches.filter(x => x.id !== id);
+      batches = batches.filter(x => String(x.id) !== String(id));
       localStorage.setItem('agerBatchesPro', JSON.stringify(batches));
       render();
     }
@@ -1332,14 +1366,14 @@
             <strong>${v.code} • ${v.cut}</strong>
             <div style="font-size:0.84rem; color:var(--muted);">Harvested ${v.harvestDate || ''} • ${v.storage || ''}</div>
           </div>
-          <button class="mini-btn" onclick="restoreBatch(${v.id})">↩️ Restore</button>
+          <button class="mini-btn" onclick="restoreBatch('${v.id}')">↩️ Restore</button>
         </div>
       `).join('');
     }
 
     function getLiveStage(cat, days) {
       if (cat === 'meat') {
-        if (days <= 7) return ["STAGE 1: PELLICLE FORMING (Days 1–7)", "Surface is drying into a protective mahogany crust. Keep cabinet door closed."];
+        if (days <= 7) return ["STAGE 1: PELLICLE FORMING (Days 1–7)", "Surface is drying into a protective mahogany crust. Keep fridge door closed."];
         if (days <= 21) return ["STAGE 2: ENZYMATIC TENDERISATION (Days 8–21)", "Natural calpain & cathepsin enzymes are breaking down muscle fibers for butter-soft tenderness."];
         if (days <= 42) return ["STAGE 3: PRIME SWEET SPOT (Days 22–42)", "Peak roasted-hazelnut and buttery steakhouse umami flavor window."];
         return ["STAGE 4: DEEP STEAKHOUSE FUNK (Days 43+)", "Intense aged cheese and rich prosciutto aroma. Trim pellicle carefully before carving steaks."];
@@ -1409,7 +1443,7 @@
                   ${b.marbling ? `${b.marbling} • ` : ''}${b.intensity || 'Basic'} (${b.temp || '1.5°C'} • ${b.rh || '80% RH'})
                 </div>
               </div>
-              <button class="mini-btn" onclick="deleteActiveBatch(${b.id})">✕</button>
+              <button class="mini-btn-red" onclick="deleteActiveBatch('${b.id}')">✕</button>
             </div>
 
             <div class="stat-grid">
@@ -1435,9 +1469,9 @@
             ${(b.photos && b.photos.length) ? `<div class="photo-strip">${b.photos.map(p => `<img src="${p}">`).join('')}</div>` : ''}
 
             <div class="card-actions">
-              <button class="act-btn" onclick="openWeighModal(${b.id})">⚖️ Weigh / Photo</button>
-              <button class="act-btn" onclick="openHarvestModal(${b.id})">🔪 Harvest & Cost</button>
-              <button class="act-btn" onclick="openHarvestModal(${b.id})">🏷️ Bag Tag</button>
+              <button class="act-btn" style="background:var(--green); border-color:var(--gold);" onclick="openWeighModal('${b.id}')">⚖️ Weigh / Photo</button>
+              <button class="act-btn" style="background:var(--red); border-color:#ff7b7b;" onclick="openHarvestModal('${b.id}')">🔪 Harvest & Cost</button>
+              <button class="act-btn" onclick="openHarvestModal('${b.id}')">🏷️ Bag Tag</button>
             </div>
           </div>
         `;
