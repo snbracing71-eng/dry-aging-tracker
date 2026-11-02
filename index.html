@@ -12,55 +12,64 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;padding:0 0 95px 0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px}
 header{background:#14110f;border-bottom:2px solid var(--gold);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40;gap:8px}
-.brand{display:flex;align-items:center;gap:8px;font-size:1.45rem;font-weight:900;letter-spacing:.5px;color:#fff;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:6px;font-size:1.4rem;font-weight:900;letter-spacing:.5px;color:#fff;white-space:nowrap}
 .brand span{color:var(--gold)}
-.search-wrap{position:relative;width:145px;flex-shrink:0}
+.hdr-right{display:flex;align-items:center;gap:6px}
+.bell-btn{position:relative;background:#261212;border:2px solid var(--crimson);color:#fff;border-radius:10px;padding:6px 9px;font-size:1rem;font-weight:900;cursor:pointer;display:none;align-items:center;gap:4px}
+.bell-cnt{background:var(--crimson);color:#fff;border-radius:50%;padding:1px 6px;font-size:.75rem;font-weight:900}
+.search-wrap{position:relative;width:140px;flex-shrink:0}
 .search-in{width:100%;background:#0c0a09;border:1.5px solid var(--gold);color:#fff;padding:7px 26px 7px 9px;border-radius:8px;font-size:.88rem;font-weight:700}
 .search-clr{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:var(--crimson);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:.7rem;font-weight:900;cursor:pointer;display:none;align-items:center;justify-content:center;padding:0}
 main{padding:12px;max-width:600px;margin:0 auto}
 .top-grid,.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.sq-btn{aspect-ratio:1/1;background:var(--card);border:2px solid var(--gold);border-radius:14px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-weight:800;font-size:.82rem;cursor:pointer;padding:6px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.4)}
-.sq-btn .ico{font-size:1.55rem}
-.cat-tile{aspect-ratio:1/1;background:var(--card);border:2px solid transparent;border-radius:14px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-weight:800;font-size:.82rem;cursor:pointer;padding:6px;text-align:center}
-.cat-tile .ico{font-size:1.6rem}
+.sq-btn{aspect-ratio:1/1;background:var(--card);border:2px solid var(--gold);border-radius:14px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-weight:900;font-size:.88rem;cursor:pointer;padding:6px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.sq-btn .ico{font-size:1.6rem}
+.cat-tile{aspect-ratio:1/1;background:var(--card);border:2px solid transparent;border-radius:14px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-weight:900;font-size:.88rem;cursor:pointer;padding:6px;text-align:center}
+.cat-tile .ico{font-size:1.65rem}
 .cat-tile.active{border:2px solid var(--gold);box-shadow:0 0 14px var(--gold-glow);background:#221d17}
 .chamber-box{background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:12px;margin-bottom:12px}
-.chamber-row{display:flex;gap:8px;align-items:center}
 select,input,textarea{width:100%;background:#0c0a09;border:1.5px solid var(--border);color:#fff;padding:10px;border-radius:10px;font-size:1rem;font-weight:700}
-.target-bar{background:#12100e;border:2px solid var(--gold);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-weight:900;font-size:.92rem;color:var(--gold);text-align:center;letter-spacing:.3px}
+.target-bar{background:#12100e;border:2px solid var(--gold);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-weight:900;font-size:.95rem;color:var(--gold);text-align:center;letter-spacing:.3px}
 .tabs-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.tab-btn{padding:11px;border-radius:10px;border:2px solid var(--border);background:var(--card);color:var(--muted);font-weight:900;font-size:.95rem;cursor:pointer}
+.tab-btn{padding:11px;border-radius:10px;border:2px solid var(--border);background:var(--card);color:var(--muted);font-weight:900;font-size:.98rem;cursor:pointer}
 .tab-btn.active{border-color:var(--gold);color:#fff;background:#221d17}
 .batch-card{background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:14px;margin-bottom:14px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
-.tag-pill{display:inline-block;background:#26211b;border:1px solid var(--gold);color:var(--gold);font-size:.78rem;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:4px}
+.tag-pill{display:inline-block;background:#26211b;border:1px solid var(--gold);color:var(--gold);font-size:.82rem;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:4px}
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#110f0d;border:1px solid var(--border);border-radius:12px;padding:10px;margin:10px 0;text-align:center}
-.stat-lbl{font-size:.75rem;color:var(--muted);font-weight:700;text-transform:uppercase}
-.stat-val{font-size:1.15rem;font-weight:900;color:#fff;margin-top:2px}
-.btn{border:none;border-radius:10px;padding:12px;font-size:.95rem;font-weight:900;cursor:pointer;color:#fff;text-align:center;width:100%}
+.stat-lbl{font-size:.78rem;color:var(--muted);font-weight:800;text-transform:uppercase}
+.stat-val{font-size:1.18rem;font-weight:900;color:#fff;margin-top:2px}
+.stage-box{background:#14110e;border:1.5px solid var(--gold);border-radius:10px;padding:9px 10px;margin:8px 0;font-size:.9rem;line-height:1.35}
+.cost-box{background:#101912;border:1.5px solid var(--green);border-radius:10px;padding:9px 10px;margin:8px 0;font-size:.9rem;line-height:1.4}
+.btn{border:none;border-radius:10px;padding:12px;font-size:.98rem;font-weight:900;cursor:pointer;color:#fff;text-align:center;width:100%}
 .btn-green{background:var(--green)}
 .btn-red{background:var(--crimson)}
 .btn-blue{background:var(--blue)}
 .btn-gold{background:var(--gold);color:#14110f}
 .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(12,10,9,.96);border-top:2px solid var(--gold);padding:12px;max-width:600px;margin:0 auto;z-index:35}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:14px;z-index:100}
-.modal-box{background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:16px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
-.modal-title{margin:0 0 12px 0;font-size:1.2rem;font-weight:900;color:var(--gold)}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.84);display:none;align-items:center;justify-content:center;padding:14px;z-index:100}
+.modal-box{background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:16px;width:100%;max-width:490px;max-height:91vh;overflow-y:auto}
+.modal-title{margin:0 0 12px 0;font-size:1.22rem;font-weight:900;color:var(--gold)}
 .opt-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
-.opt-btn{padding:10px 6px;border-radius:8px;border:2px solid var(--border);background:#0c0a09;color:#fff;font-weight:800;font-size:.82rem;cursor:pointer;text-align:center}
+.opt-btn{padding:10px 5px;border-radius:8px;border:2px solid var(--border);background:#0c0a09;color:#fff;font-weight:800;font-size:.84rem;cursor:pointer;text-align:center;line-height:1.25}
 .opt-btn.active{border-color:var(--gold);background:#262015;color:var(--gold)}
-.opt-btn:disabled{opacity:.35;cursor:not-allowed}
-.log-box{background:#110f0d;border:1px solid var(--border);border-radius:8px;padding:8px;font-size:.85rem;margin-top:8px}
-.tag-preview{background:#fff;color:#000;border:2px dashed #000;border-radius:10px;padding:12px;margin:10px 0;font-family:monospace;font-size:.85rem;line-height:1.4}
-.alert-banner{background:var(--crimson);color:#fff;border:2px solid #fff;border-radius:10px;padding:10px;margin-bottom:10px;font-weight:900;display:flex;justify-content:space-between;align-items:center}
-label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10px 0 4px 0}
+.opt-btn:disabled{opacity:.32;cursor:not-allowed}
+.log-box{background:#110f0d;border:1px solid var(--border);border-radius:8px;padding:9px;font-size:.9rem;margin-top:8px;line-height:1.4}
+.tag-preview{background:#fff;color:#000;border:2px dashed #000;border-radius:10px;padding:12px;margin:10px 0;font-family:monospace;font-size:.86rem;line-height:1.4;white-space:pre-wrap}
+.alert-banner{background:var(--crimson);color:#fff;border:2px solid #fff;border-radius:10px;padding:10px;margin-bottom:10px;font-weight:900;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.photo-grid{display:flex;gap:8px;overflow-x:auto;padding:6px 0}
+.photo-thumb{width:68px;height:68px;object-fit:cover;border-radius:8px;border:1.5px solid var(--gold);flex-shrink:0;cursor:pointer}
+label{display:block;font-size:.86rem;font-weight:800;color:var(--gold);margin:10px 0 4px 0}
 </style>
 </head>
 <body>
 <header>
   <div class="brand">🥩 AGER<span>PRO</span></div>
-  <div class="search-wrap">
-    <input id="searchIn" class="search-in" placeholder="🔍 Batch #..." oninput="onSearch()">
-    <button id="searchClr" class="search-clr" onclick="clearSearch()">✕</button>
+  <div class="hdr-right">
+    <button id="bellBtn" class="bell-btn" onclick="jumpToAlert()">🔔<span id="bellCnt" class="bell-cnt">0</span></button>
+    <div class="search-wrap">
+      <input id="searchIn" class="search-in" placeholder="🔍 Batch #..." oninput="onSearch()">
+      <button id="searchClr" class="search-clr" onclick="clearSearch()">✕</button>
+    </div>
   </div>
 </header>
 
@@ -74,10 +83,10 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
 
   <div class="chamber-box">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <span style="font-weight:900;color:var(--gold);font-size:.9rem">🏛️ ACTIVE AGING CHAMBER</span>
+      <span style="font-weight:900;color:var(--gold);font-size:.95rem">🏛️ ACTIVE AGING CHAMBER</span>
       <div style="display:flex;gap:6px">
-        <button class="btn btn-gold" style="padding:5px 10px;font-size:.78rem;width:auto" onclick="addFridge()">+ Fridge</button>
-        <button class="btn btn-red" style="padding:5px 10px;font-size:.78rem;width:auto" onclick="delFridge()">🗑️ Del</button>
+        <button class="btn btn-gold" style="padding:5px 10px;font-size:.8rem;width:auto" onclick="addFridge()">+ Fridge</button>
+        <button class="btn btn-red" style="padding:5px 10px;font-size:.8rem;width:auto" onclick="delFridge()">🗑️ Del</button>
       </div>
     </div>
     <select id="fridgeSel" onchange="changeFridge()"></select>
@@ -101,7 +110,7 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
 </main>
 
 <div class="bottom-bar">
-  <button id="addBtn" class="btn btn-green" onclick="openAddModal()">+ ADD NEW BATCH</button>
+  <button id="addBtn" class="btn btn-green" onclick="openAddModal()">+ ADD MEAT & POULTRY BATCH</button>
 </div>
 
 <!-- MESSAGE MODAL -->
@@ -142,13 +151,26 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
     <button type="button" id="iIntense" class="opt-btn" onclick="setInt('Intense')">Intense</button>
     <button type="button" id="iPlus" class="opt-btn" onclick="setInt('Intense+')">Intense+</button>
   </div>
-  <div id="cutNote" style="background:#110f0d;border-left:3px solid var(--gold);padding:8px;font-size:.84rem;margin:8px 0;color:#e7e5e4"></div>
+  <div id="cutNote" class="log-box" style="border-left:3px solid var(--gold)"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
     <div><label>Target Days</label><input id="inDays" type="number"></div>
-    <div><label id="inWLabel">Start Weight (g)</label><input id="inWeight" type="number" step="0.01" placeholder="e.g. 4500"></div>
+    <div><label id="inWLabel">Start Weight (g)</label><input id="inWeight" type="number" step="0.01" placeholder="e.g. 4500" oninput="updateStartCostPreview()"></div>
   </div>
-  <label>Start Date</label>
-  <input id="inDate" type="date">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div><label>💰 Purchase Cost ($)</label><input id="inCost" type="number" step="0.01" placeholder="e.g. 180.00" oninput="updateStartCostPreview()"></div>
+    <div><label>Start Date</label><input id="inDate" type="date"></div>
+  </div>
+  <div id="startCostPrev" style="font-size:.85rem;color:#4ade80;font-weight:800;margin-top:6px"></div>
+  <label>📝 Initial Batch Notes (Optional)</label>
+  <textarea id="inNotes" rows="2" placeholder="Butcher source, marble score, bone-in prep..."></textarea>
+  <label>📷 Day 0 Photo (Optional)</label>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <button type="button" class="btn btn-blue" style="padding:9px;font-size:.85rem" onclick="document.getElementById('addCam').click()">📸 Open Camera</button>
+    <button type="button" class="btn btn-gold" style="padding:9px;font-size:.85rem" onclick="document.getElementById('addGal').click()">🖼️ From Gallery</button>
+    <input id="addCam" type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event,'add')">
+    <input id="addGal" type="file" accept="image/*" style="display:none" onchange="handlePhoto(event,'add')">
+  </div>
+  <div id="addPhotoPrev" style="margin-top:6px;font-size:.82rem;color:var(--gold);font-weight:800"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
     <button class="btn btn-red" onclick="closeModal('addM')">Cancel</button>
     <button class="btn btn-green" onclick="saveBatch()">Start Aging</button>
@@ -157,28 +179,71 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
 
 <!-- WEIGH MODAL -->
 <div id="weighM" class="modal-bg"><div class="modal-box">
-  <h3 class="modal-title">⚖️ Log Batch Weight</h3>
+  <h3 class="modal-title">⚖️ Log Batch Weight & Progress</h3>
   <label id="wModalLbl">Current Weight (g)</label>
   <input id="wIn" type="number" step="0.01">
   <label>Weigh Date</label>
   <input id="wDate" type="date">
+  <label>📝 Progress Note (Optional)</label>
+  <input id="wNote" placeholder="Crust firming, nutty aroma...">
+  <label>📷 Progress Photo (Optional)</label>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <button type="button" class="btn btn-blue" style="padding:9px;font-size:.85rem" onclick="document.getElementById('wCam').click()">📸 Open Camera</button>
+    <button type="button" class="btn btn-gold" style="padding:9px;font-size:.85rem" onclick="document.getElementById('wGal').click()">🖼️ From Gallery</button>
+    <input id="wCam" type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event,'weigh')">
+    <input id="wGal" type="file" accept="image/*" style="display:none" onchange="handlePhoto(event,'weigh')">
+  </div>
+  <div id="wPhotoPrev" style="margin-top:6px;font-size:.82rem;color:var(--gold);font-weight:800"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
     <button class="btn btn-red" onclick="closeModal('weighM')">Cancel</button>
     <button class="btn btn-green" onclick="saveWeigh()">Save Weight</button>
   </div>
 </div></div>
 
-<!-- HARVEST & TAG MODAL -->
+<!-- PHOTO & NOTE MODAL -->
+<div id="noteM" class="modal-bg"><div class="modal-box">
+  <h3 class="modal-title">📷 Batch Photos & Notes</h3>
+  <div id="noteGallery" class="photo-grid"></div>
+  <label>Add / Update Batch Notes</label>
+  <textarea id="nTxt" rows="3" placeholder="Aroma, crust color, butcher notes..."></textarea>
+  <label>Snap or Add Photo</label>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <button type="button" class="btn btn-blue" style="padding:9px;font-size:.85rem" onclick="document.getElementById('nCam').click()">📸 Open Camera</button>
+    <button type="button" class="btn btn-gold" style="padding:9px;font-size:.85rem" onclick="document.getElementById('nGal').click()">🖼️ From Gallery</button>
+    <input id="nCam" type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event,'note')">
+    <input id="nGal" type="file" accept="image/*" style="display:none" onchange="handlePhoto(event,'note')">
+  </div>
+  <div id="nPhotoPrev" style="margin-top:6px;font-size:.82rem;color:var(--gold);font-weight:800"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
+    <button class="btn btn-red" onclick="closeModal('noteM')">Cancel</button>
+    <button class="btn btn-green" onclick="saveQuickNote()">Save Note & Photo</button>
+  </div>
+</div></div>
+
+<!-- HARVEST, $$ YIELD & TAG MODAL -->
 <div id="harvM" class="modal-bg"><div class="modal-box">
-  <h3 class="modal-title">🔪 Harvest, Lifecycle & Printable Tag</h3>
+  <h3 class="modal-title">🔪 Harvest, $$ Yield & Printable Tag</h3>
   <label>Current Storage / Lifecycle Stage</label>
   <select id="hStage" onchange="updateTagPreview()">
     <option value="Active in Chamber">🥩 Active in Chamber</option>
+    <option value="Presentation Mode in Ager (Max 5-7d)">✨ Presentation Mode in Ager (Unpackaged • Max 5–7d)</option>
     <option value="In Fridge — Ready to Eat (Max 8-10d)">🍽️ In Fridge — Ready to Eat (Not Cryo • Max 8–10d)</option>
+    <option value="Vacuum Sealed in Ager (Max 14d)">🔒 Vacuum Sealed Stored in Ager (Max 14d)</option>
     <option value="Vacuum Sealed & Chilled (+45d)">❄️ Vacuum Sealed & Chilled (0–2°C • Max 45d)</option>
-    <option value="Deep Frozen (-18°C • +12m)">🧊 Deep Frozen (-18°C • Max 12 Months)</option>
+    <option value="Deep Frozen (-18°C • Up to 3 Years)">🧊 Deep Frozen (-18°C • Up to 3 Years)</option>
     <option value="Consumed / Archived">✅ Consumed / File to Archive Vault</option>
   </select>
+
+  <div class="cost-box" style="margin-top:10px">
+    <div style="font-weight:900;color:#4ade80;margin-bottom:6px">💰 TRUE YIELD & COST CALCULATOR ($$)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+      <div><label style="margin-top:0">Cost ($)</label><input id="hCost" type="number" step="0.01" placeholder="180" oninput="updateTagPreview()"></div>
+      <div><label id="hTrimLbl" style="margin-top:0">Trimmed (g)</label><input id="hTrimW" type="number" step="0.01" placeholder="2800" oninput="updateTagPreview()"></div>
+      <div><label style="margin-top:0"># Steaks</label><input id="hSteaks" type="number" step="1" placeholder="6" oninput="updateTagPreview()"></div>
+    </div>
+    <div id="hCostSummary" style="margin-top:8px;font-size:.86rem;color:#fff;font-weight:800"></div>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
     <div><label>Vac Date</label><input id="hVacD" type="date" onchange="updateTagPreview()"></div>
     <div><label>Freeze Date</label><input id="hFrzD" type="date" onchange="updateTagPreview()"></div>
@@ -186,6 +251,7 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
   </div>
   <label>Tasting & Butcher Replication Notes</label>
   <textarea id="hNotes" rows="2" oninput="updateTagPreview()" placeholder="Trim yield, steak count, flavor profile..."></textarea>
+  <div class="log-box" style="font-size:.8rem;color:var(--muted)"><b>💡 Vacuum Tip:</b> Fold bag cuff over before inserting meat so the seal seam stays grease-free, and cover sharp bones with a canvas bone-guard strip.</div>
   <label>🏷️ Printable Freezer / Fridge Bag Tag</label>
   <div id="tagPrev" class="tag-preview"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
@@ -194,7 +260,7 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
     <button class="btn btn-red" onclick="closeModal('harvM')">Cancel</button>
-    <button class="btn btn-green" onclick="saveHarvest()">Save Lifecycle</button>
+    <button class="btn btn-green" onclick="saveHarvest()">Save Record</button>
   </div>
 </div></div>
 
@@ -205,7 +271,7 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
   <select id="rStage">
     <option value="In Fridge — Ready to Eat (Max 8-10d)">🍽️ In Fridge (Ready to Eat)</option>
     <option value="Vacuum Sealed & Chilled (+45d)">❄️ Vacuum Sealed & Chilled</option>
-    <option value="Deep Frozen (-18°C • +12m)">🧊 Deep Frozen (-18°C)</option>
+    <option value="Deep Frozen (-18°C • Up to 3 Years)">🧊 Deep Frozen (-18°C)</option>
     <option value="Active in Chamber">🥩 Active in Chamber</option>
   </select>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
@@ -216,18 +282,20 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
 
 <!-- SAFE TROUBLESHOOTER MODAL -->
 <div id="safeM" class="modal-bg"><div class="modal-box">
-  <h3 class="modal-title">🩺 "Is This Safe?" Mold & Spoilage Guide</h3>
-  <div class="log-box"><b>⚪ White Chalky / Powdery Coat:</b> Beneficial <i>Thamnidium / Penicillium</i> mold. Enhances tenderness & nutty aroma. Safe—wipe with brine or trim pellicle before cooking.</div>
-  <div class="log-box"><b>🟢🔴 Green, Black or Fuzzy Tall Mold:</b> Undesirable surface mold. Remove batch immediately, trim 1.5cm below affected spot, and sanitize chamber with UVC + vinegar/alcohol wipe.</div>
-  <div class="log-box"><b>💧 Slimy / Sticky Surface:</b> Humidity too high or airflow blocked. Pat dry, verify fan circulation, and check RH is not exceeding target.</div>
-  <div class="log-box"><b>🧱 Thick Hard Outer Ring (Case Hardening):</b> RH too low or fan blowing directly on lean muscle. Raise RH by 3–5%.</div>
-  <div class="log-box"><b>👃 Smell Check:</b> Earthy, nutty, buttery, blue-cheese = GOOD. Sour, ammonia, putrid = SPOILED (discard immediately).</div>
+  <h3 class="modal-title">🩺 "Is This Safe?" Spore Alert & Guide</h3>
+  <div class="log-box" style="border-left:3px solid var(--crimson)"><b>🚨 SPORE ALERT — White, Black or Green Furry Mold on Raw Meat:</b> Mold has NO business on raw dry-aged meat (over 250 fungal species produce 300+ mycotoxins). Visible mold is only the tip of the iceberg—the mycelia (fungal roots) have already spread deep into the meat tissue. <b>Do NOT just trim the crust—dispose of the entire cut immediately</b> and sterilize the chamber.</div>
+  <div class="log-box" style="border-left:3px solid var(--gold)"><b>🧂 White Crystalline Salt / Tyrosine Flecks:</b> Hard, flat, non-fuzzy crystal specs on dry fat or lean muscle are harmless salt/amino-acid crystals—not mold.</div>
+  <div class="log-box"><b>🥓 Noble White Mold (Salami / Specific Hams Only):</b> Powdery white <i>Penicillium nalgiovense</i> belongs ONLY on inoculated salami/charcuterie runs—never co-age noble-mold sausages with raw meat.</div>
+  <div class="log-box"><b>💧 Slimy / Sticky Surface:</b> Humidity too high (>85% RH) or airflow blocked. Pat dry, ensure pieces aren't touching, and verify fan circulation.</div>
+  <div class="log-box"><b>🧱 Thick Hard Outer Ring (Case Hardening):</b> Humidity too low (<70% RH). Raise RH by 3–5% so interior moisture can escape evenly.</div>
+  <div class="log-box"><b>👃 Smell Check:</b> Roasted hazelnut, browned butter, earthy, mild blue-cheese = GOOD. Sour, ammonia, putrid = SPOILED.</div>
   <button class="btn btn-red" style="margin-top:12px" onclick="closeModal('safeM')">Close Troubleshooter</button>
 </div></div>
 
 <!-- MAINTENANCE MODAL -->
 <div id="maintM" class="modal-bg"><div class="modal-box">
-  <h3 class="modal-title">🔧 Chamber Maintenance Tracker</h3>
+  <h3 class="modal-title">🔧 Chamber Maintenance & Pre-Clean</h3>
+  <div class="log-box" style="border-left:3px solid var(--gold);margin-bottom:10px"><b>🧼 2-Hour Pre-Cleaning Cycle (P16):</b> Before wiping down your cabinet between batches, run a 2-hour defrost & dry pre-cleaning cycle. This dries the interior completely and reduces power consumption afterward.</div>
   <div id="maintList"></div>
   <button class="btn btn-red" style="margin-top:12px" onclick="closeModal('maintM')">Close</button>
 </div></div>
@@ -235,92 +303,96 @@ label{display:block;font-size:.82rem;font-weight:800;color:var(--gold);margin:10
 <!-- GUIDE & BACKUP MODAL -->
 <div id="guideM" class="modal-bg"><div class="modal-box">
   <h3 class="modal-title">📋 Master Butcher's Field Guide & Backup</h3>
-  <div class="log-box"><b>🥩 Beef & Game:</b> 1.5°C • 78–82% RH • Always age on the bone with fat cap intact where possible for 35–56 days.</div>
-  <div class="log-box"><b>🐖 Pork & 🐑 Lamb:</b> 1.5°C • 78–80% RH • Shorter 14–28 day cycles protect delicate fat from oxidation.</div>
-  <div class="log-box"><b>🐟 Seafood:</b> 1.0°C • 75% RH • Scale, gut, scrape bloodline from spine, hang 5–14 days.</div>
-  <div class="log-box"><b>🥓 Salami & Charcuterie:</b> 12.0°C • 75% RH • Ferment first, then hang for slow moisture loss (30–38% total loss).</div>
-  <div class="log-box"><b>🧀 Cheese Cave:</b> 11.0°C • 85% RH • Turn wheels every 3–5 days.</div>
+  <div class="log-box"><b>⏱️ Best Time to Load Post-Slaughter:</b> Load Pork, Lamb & Poultry <b>1–2 days</b> after slaughter, and Beef <b>2–3 days</b> after slaughter (right after rigor mortis subsides).</div>
+  <div class="log-box"><b>🧬 Dry (pH 6.0) vs. Wet Aging (pH 5.5):</b> Dry-aged beef rises to pH 6.0 (nutty, buttery, enhanced Maillard crust, zero juice loss). Wet-aged bag meat stays acidic at pH 5.5 (sour/metallic). Run a <b>3-Day Wet-Aged Regeneration</b> cycle in the ager to remove bag sourness!</div>
+  <div class="log-box"><b>🪝 Drilling & Hanging Tip:</b> Use a disinfected drill to bore through the <b>vertebral spine bone</b> and hang with a swivel S-hook so zero meat is punctured.</div>
+  <div class="log-box"><b>🐄 10 Butcher Questions ("Do The Grilling"):</b> Ask for Heifer (18–22m) or Ox (24m+), stress-free slaughter (prevents DFD high-pH meat), Tenderstretch/pelvic suspension, and grass-fed with grain finish.</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
     <button class="btn btn-gold" onclick="exportData()">📤 Export Backup</button>
     <button class="btn btn-blue" onclick="document.getElementById('impFile').click()">📥 Restore Backup</button>
     <input id="impFile" type="file" accept=".json" style="display:none" onchange="importData(event)">
   </div>
-  <button class="btn btn-gold" style="margin-top:8px" onclick="downloadIcon()">📥 Download icon.png for GitHub</button>
   <button class="btn btn-red" style="margin-top:10px" onclick="closeModal('guideM')">Close Guide</button>
 </div></div>
 
 <script>
+var INTENSITY_INFO = {
+  'Basic': {temp:'1.5°C • 82% RH', desc:'Gentle standard climate. Slows surface evaporation, keeps outer pellicle crust thin for maximum edible yield and clean, buttery tenderness.'},
+  'Intense': {temp:'2.0°C • 76% RH', desc:'Classic steakhouse climate. Draws out more free water to concentrate roasted-hazelnut and deep buttery umami notes.'},
+  'Intense+': {temp:'2.8°C • 73% RH', desc:'Accelerated enzyme & deep-funk climate. Slightly warmer temp speeds up natural calpain/cathepsin enzymes for maximum steakhouse complexity in the same timeframe.'}
+};
+
 var CUTS = {
   meat: [
-    {g:"🐂 BEEF (Bone-In)",n:"Prime Rib",d:[28,42,56],m:1,note:"Gold-standard bone-in rib primal. Fat cap + chine bone protect eye muscle up to 56 days on Grade 3."},
-    {g:"🐂 BEEF (Bone-In)",n:"Rib",d:[28,42,56],m:1,note:"Full bone-in rib section. Rich buttery flavor development."},
-    {g:"🐂 BEEF (Bone-In)",n:"Sirloin",d:[28,42,56],m:1,note:"Bone-in striploin/shortloin. Classic steakhouse cut."},
-    {g:"🐂 BEEF (Bone-In)",n:"Whole Back",d:[28,42,56],m:1,note:"Full bone-in saddle/back primal."},
-    {g:"🐂 BEEF (Bone-In)",n:"Chuck Eye Roll",d:[21,35,45],m:1,note:"Heavy intramuscular fat; turns chuck into prime steak texture."},
-    {g:"🐂 BEEF (Bone-In)",n:"Short Rib",d:[21,28,35],m:1,note:"Bone-in plate short ribs; intense beefy concentration."},
-    {g:"🐂 BEEF (Bone-In)",n:"Leg",d:[21,28,35],m:1,note:"Whole bone-in hind leg section."},
-    {g:"🐂 BEEF (Bone-In)",n:"Shank",d:[14,21,28],m:1,note:"Bone-in foreshank/hindshank for rich osso buco."},
-    {g:"🐂 BEEF (Deboned)",n:"Rib Deboned",d:[21,28,35],m:1,note:"Boneless ribeye roll; higher trim loss than bone-in."},
-    {g:"🐂 BEEF (Deboned)",n:"Sirloin Deboned",d:[21,28,35],m:1,note:"Boneless striploin; keep thick top fat cover intact."},
-    {g:"🐂 BEEF (Deboned)",n:"Rump Cap",d:[14,21,28],m:1,note:"Picanha—never trim the thick fat cap prior to aging."},
-    {g:"🐂 BEEF (Deboned)",n:"Tri Tip",d:[14,21,28],m:1,note:"Bottom sirloin triangle; age with fat cap on."},
-    {g:"🐂 BEEF (Deboned)",n:"Shoulder Clod",d:[14,21,28],m:1,note:"Large boneless shoulder primal."},
-    {g:"🐂 BEEF (Deboned)",n:"Topside",d:[14,21,28],m:1,note:"Lean hindquarter primal; best with medium/heavy marbling."},
-    {g:"🐂 BEEF (Deboned)",n:"Flat Iron",d:[10,14,21],m:1,note:"Top blade; tenderizes rapidly."},
-    {g:"🐂 BEEF (Deboned)",n:"Tenderloin",d:[7,10,14],m:1,note:"Very lean muscle; short maturation for crust & flavor only."},
-    {g:"🐂 BEEF (Deboned)",n:"Heart",d:[7,10,14],m:0,note:"Clean chambers thoroughly before hanging."},
+    {g:"🐂 BEEF (Bone-In)",n:"Chuck Eye Roll",d:[[14,21,0],[14,28,35],[14,28,42]],m:1,note:"Heavy intramuscular fat; turns chuck into prime steak texture. Carve Chuck Eye, Sierra & Denver steaks."},
+    {g:"🐂 BEEF (Bone-In)",n:"Leg",d:[[14,21,0],[21,28,35],[21,28,42]],m:1,note:"Whole bone-in hind leg section."},
+    {g:"🐂 BEEF (Bone-In)",n:"Prime Rib",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Gold-standard bone-in rib primal. Fat cap + chine bone protect eye muscle up to 56 days on Grade 3."},
+    {g:"🐂 BEEF (Bone-In)",n:"Rib",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Full bone-in rib section. Rich buttery flavor development."},
+    {g:"🐂 BEEF (Bone-In)",n:"Shank",d:[[14,21,0],[7,21,21],[7,21,21]],m:1,note:"Bone-in foreshank/hindshank for rich osso buco."},
+    {g:"🐂 BEEF (Bone-In)",n:"Short Rib",d:[[14,21,0],[21,28,28],[21,28,35]],m:1,note:"Bone-in plate short ribs; intense beefy concentration."},
+    {g:"🐂 BEEF (Bone-In)",n:"Sirloin",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Bone-in striploin/shortloin. Classic steakhouse cut."},
+    {g:"🐂 BEEF (Bone-In)",n:"Whole Back",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Full bone-in saddle/back primal (25kg+); minimum drying loss."},
+    {g:"🐂 BEEF (Deboned)",n:"Flat Iron",d:[[7,14,0],[10,14,21],[10,14,21]],m:1,note:"Top blade; tenderizes rapidly."},
+    {g:"🐂 BEEF (Deboned)",n:"Heart",d:[7,10,14],m:0,note:"Striated skeletal muscle; dry-ages into a tender ham-like delicacy."},
+    {g:"🐂 BEEF (Deboned)",n:"Rib Deboned",d:[[14,21,0],[21,28,35],[21,28,35]],m:1,note:"Boneless ribeye roll; higher trim loss than bone-in."},
+    {g:"🐂 BEEF (Deboned)",n:"Rump Cap",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Picanha—never trim the thick fat cap prior to aging."},
+    {g:"🐂 BEEF (Deboned)",n:"Shoulder Clod",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Large boneless shoulder primal."},
+    {g:"🐂 BEEF (Deboned)",n:"Sirloin Deboned",d:[[14,21,0],[21,28,35],[21,28,35]],m:1,note:"Boneless striploin; keep thick top fat cover intact."},
+    {g:"🐂 BEEF (Deboned)",n:"Tenderloin",d:[[7,7,0],[7,14,14],[7,14,14]],m:1,note:"Very lean fillet; short maturation for crust & buttery tenderness."},
     {g:"🐂 BEEF (Deboned)",n:"Tongue",d:[7,10,14],m:0,note:"Dry age prior to simmering & peeling."},
+    {g:"🐂 BEEF (Deboned)",n:"Topside",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Lean hindquarter primal; can be carved into Santa Fe cut."},
+    {g:"🐂 BEEF (Deboned)",n:"Tri Tip",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Bottom sirloin triangle; age with fat cap on."},
     {g:"🐂 BEEF (Cured & Dried)",n:"Beef Jerky",d:[3,5,7],m:0,note:"Sliced marinated lean beef dried till leathery."},
     {g:"🐂 BEEF (Cured & Dried)",n:"Biltong",d:[5,10,14],m:0,note:"Vinegar & coriander cured Silverside strips."},
-    {g:"🐂 BEEF (Cured & Dried)",n:"Pastrami",d:[7,14,21],m:0,note:"Brined & spiced naval/brisket matured before smoking."},
-    {g:"🐂 BEEF (Cured & Dried)",n:"Wet-Aged Regeneration",d:[5,10,14],m:0,note:"Unpack cryovac beef, pat dry, hang to remove metallic lactic sourness & build dry crust."},
-    {g:"🐑 LAMB & KID GOAT",n:"Saddle of Lamb or Kid Goat",d:[10,14,21],m:0,note:"Bone-in loin saddle; sweet nutty aroma."},
-    {g:"🐑 LAMB & KID GOAT",n:"Leg of Lamb or Kid Goat",d:[14,21,28],m:0,note:"Bone-in hind leg; buttery texture."},
-    {g:"🐑 LAMB & KID GOAT",n:"Whole Lamb or Kid Goat",d:[14,21,28],m:0,note:"Whole hanging carcass."},
-    {g:"🐖 PORK",n:"Pork Whole Back",d:[14,21,28],m:0,note:"Bone-in pork rack/loin with skin & fat back intact."},
-    {g:"🐖 PORK",n:"Pork Leg",d:[14,21,28],m:0,note:"Whole bone-in fresh ham leg."},
-    {g:"🐖 PORK",n:"Pork Tenderloin",d:[5,7,10],m:0,note:"Brief maturation only."},
-    {g:"🐖 PORK",n:"Pork Head",d:[7,10,14],m:0,note:"Split or whole cleaned head for guanciale/terrine."},
-    {g:"🦌 GAME",n:"Saddle of Deer",d:[10,14,21],m:0,note:"Bone-in venison saddle."},
-    {g:"🦌 GAME",n:"Leg of Deer",d:[10,14,21],m:0,note:"Bone-in venison haunch."},
-    {g:"🦌 GAME",n:"Chuck of Deer",d:[10,14,18],m:0,note:"Venison shoulder/neck."},
-    {g:"🦌 GAME",n:"Saddle of Boar",d:[10,14,21],m:0,note:"Wild boar bone-in back."},
-    {g:"🦌 GAME",n:"Leg of Boar",d:[14,21,28],m:0,note:"Wild boar haunch."},
-    {g:"🦆 POULTRY",n:"Duck",d:[7,10,14],m:0,note:"Whole eviscerated duck hung by neck; paper-thin crispy skin."},
+    {g:"🐂 BEEF (Cured & Dried)",n:"Pastrami",d:[7,14,21],m:0,note:"Brined & spiced brisket matured before smoking."},
+    {g:"🐂 BEEF (Cured & Dried)",n:"Wet-Aged Regeneration",d:[3,5,7],m:0,note:"Unpack cryovac beef (>21d in bag), pat dry, hang 3 days to remove sour-metallic low-pH bag taste."},
+    {g:"🐑 LAMB & KID GOAT",n:"Leg of Lamb or Kid Goat",d:[7,21,21],m:0,note:"Bone-in hind leg; sweet nutty aroma at 21 days Intense."},
+    {g:"🐑 LAMB & KID GOAT",n:"Saddle of Lamb or Kid Goat",d:[7,21,21],m:0,note:"Bone-in loin saddle; 7d Basic or 21d Intense."},
+    {g:"🐑 LAMB & KID GOAT",n:"Whole Lamb or Kid Goat",d:[14,21,21],m:0,note:"Whole hanging carcass; 14d Basic or 21d Intense."},
+    {g:"🐖 PORK",n:"Pork Head",d:[[14,21,21],[14,21,21],[14,21,21]],m:1,note:"Split or whole cleaned head for guanciale/terrine."},
+    {g:"🐖 PORK",n:"Pork Leg",d:[[7,14,0],[7,21,0],[7,21,28]],m:1,note:"Whole bone-in fresh ham leg."},
+    {g:"🐖 PORK",n:"Pork Tenderloin",d:[[7,7,0],[7,7,0],[7,14,0]],m:1,note:"Brief maturation only."},
+    {g:"🐖 PORK",n:"Pork Whole Back",d:[[7,14,0],[14,21,28],[14,21,28]],m:1,note:"Bone-in pork saddle/loin with skin & fat back intact."},
+    {g:"🦌 GAME",n:"Chuck of Deer",d:[14,21,21],m:0,note:"Venison shoulder/neck; 14d Basic or 21d Intense."},
+    {g:"🦌 GAME",n:"Leg of Boar",d:[[7,14,0],[14,21,0],[14,21,0]],m:1,note:"Wild boar haunch."},
+    {g:"🦌 GAME",n:"Leg of Deer",d:[7,21,21],m:0,note:"Bone-in venison haunch; 7d Basic or 21d Intense."},
+    {g:"🦌 GAME",n:"Saddle of Boar",d:[[7,21,0],[14,21,0],[14,21,0]],m:1,note:"Wild boar bone-in back."},
+    {g:"🦌 GAME",n:"Saddle of Deer",d:[7,21,21],m:0,note:"Bone-in venison saddle; ultra-tender with nutty aroma."},
+    {g:"🦆 POULTRY",n:"Chicken",d:[5,0,0],m:0,note:"Whole air-chilled bird; 5 days Basic (1.5°C)."},
+    {g:"🦆 POULTRY",n:"Duck",d:[5,10,0],m:0,note:"Whole eviscerated duck hung by neck; 5d Basic (up to 10d for top-grade duck)."},
     {g:"🦆 POULTRY",n:"Duck Breast Ham",d:[14,21,28],m:0,note:"Salt-cured duck magret prosciutto."},
-    {g:"🦆 POULTRY",n:"Chicken",d:[5,7,10],m:0,note:"Whole air-chilled bird; wash cavity clean."},
-    {g:"🦆 POULTRY",n:"Goose",d:[7,10,14],m:0,note:"Whole goose; concentrates skin & fat."},
-    {g:"🦆 POULTRY",n:"Pheasant",d:[5,8,12],m:0,note:"Whole feathered or dressed game bird."},
-    {g:"🦆 POULTRY",n:"Quail",d:[3,5,7],m:0,note:"Small bird; rapid skin desiccation."}
+    {g:"🦆 POULTRY",n:"Goose",d:[5,0,0],m:0,note:"Whole goose; 5 days Basic concentrates skin & fat."},
+    {g:"🦆 POULTRY",n:"Pheasant",d:[5,0,0],m:0,note:"Whole game bird; 5 days Basic."},
+    {g:"🦆 POULTRY",n:"Quail",d:[5,0,0],m:0,note:"Whole small bird; 5 days Basic."}
   ],
   fish: [
-    {g:"🐟 SEAFOOD",n:"Atlantic Salmon",d:[5,10,14],m:0,note:"Gut, gill, scrape spine kidney bloodline thoroughly; never touch flesh with fresh tap water."},
-    {g:"🐟 SEAFOOD",n:"Real Tuna",d:[7,14,21],m:0,note:"Large loin block; develops rich umami sushi texture."},
-    {g:"🐟 SEAFOOD",n:"Cod",d:[4,7,10],m:0,note:"Firms flaky white flesh."},
-    {g:"🐟 SEAFOOD",n:"Common Sole",d:[3,5,7],m:0,note:"Whole flatfish hung by tail."},
-    {g:"🐟 SEAFOOD",n:"Whole Fish",d:[5,9,14],m:0,note:"Kingfish, Snapper, Coral Trout, or Grouper hung on hook."},
-    {g:"🐟 SEAFOOD",n:"Fish Fillet",d:[3,5,7],m:0,note:"Skin-on fillet on rack."},
-    {g:"🐟 SEAFOOD",n:"Cold-Smoked Salmon",d:[3,7,10],m:0,note:"Post-smoke maturation in chamber."},
-    {g:"🐟 SEAFOOD",n:"Stockfish",d:[21,35,50],m:0,note:"Traditional air-dried unsalted fish."}
+    {g:"🐟 SEAFOOD",n:"Atlantic Salmon",d:[5,7,0],m:0,note:"Cure fillets as gravlax (150g salt, 100g brown sugar, 35g vodka, 10g juniper, 5g pepper, citrus zest) 2d in fridge, rinse & dry age 5 days."},
+    {g:"🐟 SEAFOOD",n:"Cod",d:[3,5,0],m:0,note:"Raw dry-aged 3 days without salt cure; fragile segments gain a fresh, slightly salty tang."},
+    {g:"🐟 SEAFOOD",n:"Cold-Smoked Salmon",d:[7,10,0],m:0,note:"Andrew's Recipe: 1.2kg side cured 18-20h in coarse salt, cold-smoked 24h over beech/oak, then aged 7-10d for marzipan texture."},
+    {g:"🐟 SEAFOOD",n:"Common Sole",d:[3,0,0],m:0,note:"Use whole fish 0.8kg+ for 3 days; poach briefly in butter."},
+    {g:"🐟 SEAFOOD",n:"Fish Fillet",d:[3,5,7],m:0,note:"Skin-on fillet on rack; skin turns crispy like chips when fried."},
+    {g:"🐟 SEAFOOD",n:"Real Tuna",d:[5,7,0],m:0,note:"Cuts up to 10kg for 5 days. Freeze at -20°C for 24h prior to kill nematodes for sashimi."},
+    {g:"🐟 SEAFOOD",n:"Stockfish",d:[40,40,50],m:0,note:"Whole headless fish brined 24h in 10% salt solution, then dry-aged 40 days."},
+    {g:"🐟 SEAFOOD",n:"Whole Fish",d:[5,9,14],m:0,note:"Kingfish, Snapper, or Coral Trout; scale, gut & scrape spine kidney bloodline thoroughly."}
   ],
   salami: [
+    {g:"🥓 SALAMI & HAMS",n:"After-Ripening Ham or Salami",d:[14,28,45],m:0,note:"Secondary maturation of store-bought charcuterie; coat cut surfaces with lard."},
+    {g:"🥓 SALAMI & HAMS",n:"Beef Salami",d:[28,42,56],m:0,note:"All-beef fermented salami."},
     {g:"🥓 SALAMI & HAMS",n:"Coppa",d:[45,60,90],m:0,note:"Cured pork neck collar; target 32–35% weight loss."},
     {g:"🥓 SALAMI & HAMS",n:"Guanciale",d:[35,45,60],m:0,note:"Cured pork jowl; target 30% weight loss."},
     {g:"🥓 SALAMI & HAMS",n:"Pancetta",d:[28,42,60],m:0,note:"Flat or rolled cured pork belly."},
-    {g:"🥓 SALAMI & HAMS",n:"Beef Salami",d:[28,42,56],m:0,note:"All-beef fermented salami."},
-    {g:"🥓 SALAMI & HAMS",n:"Raw Sausage Sheep Casing",d:[14,21,28],m:0,note:"Thin 20–24mm snack sticks/landjäger."},
+    {g:"🥓 SALAMI & HAMS",n:"Raw Sausage Artificial Casing",d:[35,50,70],m:0,note:"Large 50–65mm fibrous casing salami (Milanese/Hungarian)."},
     {g:"🥓 SALAMI & HAMS",n:"Raw Sausage Pig Casing",d:[28,35,45],m:0,note:"Medium 32–40mm traditional salami."},
-    {g:"🥓 SALAMI & HAMS",n:"Raw Sausage Artificial Casing",d:[35,50,70],m:0,note:"Large 50–65mm fibrous casing salami."},
+    {g:"🥓 SALAMI & HAMS",n:"Raw Sausage Sheep Casing",d:[14,21,28],m:0,note:"Thin 20–24mm snack sausages."},
     {g:"🥓 SALAMI & HAMS",n:"Smoked Ham",d:[60,90,120],m:0,note:"Cold-smoked whole/boneless ham maturation."},
-    {g:"🥓 SALAMI & HAMS",n:"Unsmoked Ham",d:[90,140,180],m:0,note:"Prosciutto-style air-dried ham."},
-    {g:"🥓 SALAMI & HAMS",n:"After-Ripening Ham or Salami",d:[14,28,45],m:0,note:"Secondary maturation of purchased charcuterie."}
+    {g:"🥓 SALAMI & HAMS",n:"Unsmoked Ham",d:[90,140,180],m:0,note:"Prosciutto-style air-dried ham."}
   ],
   cheese: [
     {g:"🧀 CHEESE",n:"Cheddar",d:[30,60,90],m:0,note:"Clothbound or waxed wheel; turn twice weekly."},
+    {g:"🧀 CHEESE",n:"Gorgonzola",d:[21,35,50],m:0,note:"Blue-veined cheese; keep isolated from fresh meat."},
     {g:"🧀 CHEESE",n:"Gouda",d:[30,60,90],m:0,note:"Develops caramel crystals with extended cave aging."},
     {g:"🧀 CHEESE",n:"Manchego",d:[30,60,90],m:0,note:"Sheep milk wheel; brush olive oil on rind."},
     {g:"🧀 CHEESE",n:"Pecorino",d:[30,60,90],m:0,note:"Firm sheep cheese."},
-    {g:"🧀 CHEESE",n:"Gorgonzola",d:[21,35,50],m:0,note:"Blue-veined cheese; keep isolated from fresh meat."},
     {g:"🧀 CHEESE",n:"Roquefort",d:[21,35,50],m:0,note:"Sheep blue cheese maturation."}
   ]
 };
@@ -342,6 +414,9 @@ var curMarb = 2;
 var curInt = 'Basic';
 var activeBatchId = null;
 var delBatchId = null;
+var pendingPhotoAdd = '';
+var pendingPhotoWeigh = '';
+var pendingPhotoNote = '';
 var maintData = JSON.parse(localStorage.getItem('ap_maint')||'{}');
 
 function loadBatches(){
@@ -358,17 +433,22 @@ function loadBatches(){
       startWeight: Number(b.startWeight || b.startW || 1000),
       startDate: b.startDate || b.startD || new Date().toISOString().slice(0,10),
       targetDays: Number(b.targetDays || b.days || 28),
+      cost: Number(b.cost || 0),
+      trimmedWeight: Number(b.trimmedWeight || 0),
+      steakCount: Number(b.steakCount || 0),
       stage: b.stage || b.status || 'Active in Chamber',
       vacDate: b.vacDate || '',
       frzDate: b.frzDate || '',
       eatDate: b.eatDate || '',
       notes: b.notes || '',
+      photos: Array.isArray(b.photos) ? b.photos : [],
       alertCleared: !!b.alertCleared,
-      logs: Array.isArray(b.logs) ? b.logs : (Array.isArray(b.history) ? b.history.map(function(h){return {d:h.d||h.date,w:Number(h.w||h.weight)};}) : [{d:b.startDate||new Date().toISOString().slice(0,10),w:Number(b.startWeight||b.startW||1000)}])
+      logs: Array.isArray(b.logs) ? b.logs : (Array.isArray(b.history) ? b.history.map(function(h){return {d:h.d||h.date,w:Number(h.w||h.weight),note:h.note||''};}) : [{d:b.startDate||new Date().toISOString().slice(0,10),w:Number(b.startWeight||b.startW||1000),note:'Day 0 Start'}])
     };
   });
 }
 var batches = loadBatches();
+
 function saveAll(){
   localStorage.setItem('ap_batches', JSON.stringify(batches));
   localStorage.setItem('ap_fridges', JSON.stringify(fridges));
@@ -405,10 +485,51 @@ function fromGrams(g){
   if(u==='oz') return Number((g/28.3495).toFixed(1));
   return Number((g/453.592).toFixed(2));
 }
+function fmtCostPerUnit(cost, grams){
+  if(!cost || !grams || grams<=0) return '';
+  var u = UNITS[unitIdx];
+  if(u==='lb' || u==='oz'){
+    var lbs = grams / 453.592;
+    return '$' + (cost / lbs).toFixed(2) + '/lb';
+  }
+  var kgs = grams / 1000;
+  return '$' + (cost / kgs).toFixed(2) + '/kg';
+}
 function cycleUnit(){
   unitIdx = (unitIdx + 1) % 4;
   saveAll();
   renderAll();
+}
+
+function handlePhoto(ev, mode){
+  var f = ev.target.files && ev.target.files[0];
+  if(!f) return;
+  var r = new FileReader();
+  r.onload = function(e){
+    var img = new Image();
+    img.onload = function(){
+      var c = document.createElement('canvas');
+      var max = 650;
+      var w = img.width, h = img.height;
+      if(w>h && w>max){h = Math.round(h*(max/w)); w = max;}
+      else if(h>max){w = Math.round(w*(max/h)); h = max;}
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      var dataUrl = c.toDataURL('image/jpeg',0.72);
+      if(mode==='add'){
+        pendingPhotoAdd = dataUrl;
+        document.getElementById('addPhotoPrev').innerText = '✅ Photo attached!';
+      } else if(mode==='weigh'){
+        pendingPhotoWeigh = dataUrl;
+        document.getElementById('wPhotoPrev').innerText = '✅ Progress photo attached!';
+      } else if(mode==='note'){
+        pendingPhotoNote = dataUrl;
+        document.getElementById('nPhotoPrev').innerText = '✅ New photo ready to save!';
+      }
+    };
+    img.src = e.target.result;
+  };
+  r.readAsDataURL(f);
 }
 
 function getLockedCat(fName){
@@ -465,12 +586,22 @@ function clearSearch(){
   renderAll();
 }
 
+function getCutDaysRow(cut, marb){
+  if(Array.isArray(cut.d[0])) return cut.d[(marb||2)-1] || cut.d[1];
+  return cut.d;
+}
+
 function openAddModal(){
   var locked = getLockedCat(curFridge);
   if(locked) curCat = locked;
+  pendingPhotoAdd = '';
+  document.getElementById('addPhotoPrev').innerText = '';
   document.getElementById('inCode').value = 'PRO-' + Math.floor(1000 + Math.random()*9000);
   document.getElementById('inDate').value = new Date().toISOString().slice(0,10);
   document.getElementById('inWeight').value = '';
+  document.getElementById('inCost').value = '';
+  document.getElementById('inNotes').value = '';
+  document.getElementById('startCostPrev').innerText = '';
   document.getElementById('inWLabel').innerText = 'Start Weight (' + UNITS[unitIdx] + ')';
   var sel = document.getElementById('inCut');
   var list = CUTS[curCat] || CUTS.meat;
@@ -494,6 +625,18 @@ function openAddModal(){
   openModal('addM');
 }
 
+function updateStartCostPreview(){
+  var wVal = Number(document.getElementById('inWeight').value || 0);
+  var cVal = Number(document.getElementById('inCost').value || 0);
+  var el = document.getElementById('startCostPrev');
+  if(wVal>0 && cVal>0){
+    var g = toGrams(wVal);
+    el.innerText = '💵 Raw Purchase Rate: ' + fmtCostPerUnit(cVal, g) + ' (before aging & trim)';
+  } else {
+    el.innerText = '';
+  }
+}
+
 function setMarb(m){curMarb=m;onCutChange();}
 function setInt(intName){curInt=intName;onCutChange();}
 
@@ -505,25 +648,34 @@ function onCutChange(){
   ['m1','m2','m3'].forEach(function(id,i){
     document.getElementById(id).className = 'opt-btn' + (curMarb===(i+1)?' active':'');
   });
-  var plusBtn = document.getElementById('iPlus');
-  if(cut.m && curMarb===1){
-    plusBtn.disabled = true;
-    if(curInt==='Intense+') curInt = 'Intense';
-  } else {
-    plusBtn.disabled = false;
-  }
+
+  var row = getCutDaysRow(cut, curMarb);
+  var bBtn = document.getElementById('iBasic');
+  var iBtn = document.getElementById('iIntense');
+  var pBtn = document.getElementById('iPlus');
+
+  bBtn.innerHTML = 'Basic<br><small>' + (row[0]?row[0]+'d • 1.5°C/82%':'N/A') + '</small>';
+  iBtn.innerHTML = 'Intense<br><small>' + (row[1]?row[1]+'d • 2.0°C/76%':'Not possible') + '</small>';
+  pBtn.innerHTML = 'Intense+<br><small>' + (row[2]?row[2]+'d • 2.8°C/73%':'Not possible') + '</small>';
+
+  iBtn.disabled = !row[1];
+  pBtn.disabled = !row[2];
+
+  if(curInt==='Intense+' && !row[2]) curInt = row[1] ? 'Intense' : 'Basic';
+  if(curInt==='Intense' && !row[1]) curInt = 'Basic';
+
   ['Basic','Intense','Intense+'].forEach(function(k){
     var id = k==='Basic'?'iBasic':(k==='Intense'?'iIntense':'iPlus');
     document.getElementById(id).className = 'opt-btn' + (curInt===k?' active':'');
   });
+
   var iIdx = curInt==='Basic'?0:(curInt==='Intense'?1:2);
-  var baseDays = cut.d[iIdx];
-  if(cut.m){
-    if(curMarb===1) baseDays = Math.max(7, Math.round(baseDays*0.8));
-    if(curMarb===3 && curInt==='Intense+' && cut.d[2]>=45) baseDays = 56;
-  }
+  var baseDays = row[iIdx] || row[0] || 14;
   document.getElementById('inDays').value = baseDays;
-  document.getElementById('cutNote').innerHTML = '<b>📖 Butcher Note:</b> ' + cut.note + ' <i>(' + CAT_META[curCat].target + ')</i>';
+  var inf = INTENSITY_INFO[curInt] || INTENSITY_INFO['Basic'];
+  document.getElementById('cutNote').innerHTML =
+    '<b>📖 Butcher Note:</b> ' + cut.note +
+    '<br><span style="color:var(--gold);font-weight:800">🌡️ ' + curInt + ' Climate (' + inf.temp + '):</span> ' + inf.desc;
 }
 
 function saveBatch(){
@@ -532,7 +684,10 @@ function saveBatch(){
   var wVal = Number(document.getElementById('inWeight').value);
   if(!wVal || wVal<=0){showMsg('Please enter a valid starting weight.');return;}
   var gWeight = Math.round(toGrams(wVal));
+  var costVal = Number(document.getElementById('inCost').value || 0);
   var sDate = document.getElementById('inDate').value || new Date().toISOString().slice(0,10);
+  var initNote = (document.getElementById('inNotes').value || '').trim();
+  var photosArr = pendingPhotoAdd ? [{d:sDate, url:pendingPhotoAdd, caption:'Day 0 Start'}] : [];
   batches.unshift({
     id: String(Date.now()),
     code: (document.getElementById('inCode').value || 'PRO-1000').trim(),
@@ -544,13 +699,17 @@ function saveBatch(){
     startWeight: gWeight,
     startDate: sDate,
     targetDays: Number(document.getElementById('inDays').value || 28),
+    cost: costVal,
+    trimmedWeight: 0,
+    steakCount: 0,
     stage: 'Active in Chamber',
     vacDate: '',
     frzDate: '',
     eatDate: '',
-    notes: '',
+    notes: initNote,
+    photos: photosArr,
     alertCleared: false,
-    logs: [{d:sDate, w:gWeight}]
+    logs: [{d:sDate, w:gWeight, note:initNote||'Day 0 Start'}]
   });
   saveAll();
   closeModal('addM');
@@ -561,6 +720,9 @@ function openWeigh(id){
   activeBatchId = String(id);
   var b = batches.find(function(x){return String(x.id)===activeBatchId;});
   if(!b) return;
+  pendingPhotoWeigh = '';
+  document.getElementById('wPhotoPrev').innerText = '';
+  document.getElementById('wNote').value = '';
   var latest = b.logs.length ? b.logs[b.logs.length-1].w : b.startWeight;
   document.getElementById('wModalLbl').innerText = 'Current Weight (' + UNITS[unitIdx] + ')';
   document.getElementById('wIn').value = fromGrams(latest);
@@ -572,9 +734,46 @@ function saveWeigh(){
   if(!b) return;
   var val = Number(document.getElementById('wIn').value);
   if(!val || val<=0){showMsg('Please enter a valid weight.');return;}
-  b.logs.push({d:document.getElementById('wDate').value || new Date().toISOString().slice(0,10), w:Math.round(toGrams(val))});
+  var wDate = document.getElementById('wDate').value || new Date().toISOString().slice(0,10);
+  var wNote = (document.getElementById('wNote').value || '').trim();
+  b.logs.push({d:wDate, w:Math.round(toGrams(val)), note:wNote});
+  if(wNote) b.notes = b.notes ? (b.notes + ' | ' + wDate + ': ' + wNote) : (wDate + ': ' + wNote);
+  if(pendingPhotoWeigh){
+    if(!Array.isArray(b.photos)) b.photos = [];
+    b.photos.push({d:wDate, url:pendingPhotoWeigh, caption:wNote||'Weigh-In'});
+  }
   saveAll();
   closeModal('weighM');
+  renderAll();
+}
+
+function openNoteModal(id){
+  activeBatchId = String(id);
+  var b = batches.find(function(x){return String(x.id)===activeBatchId;});
+  if(!b) return;
+  pendingPhotoNote = '';
+  document.getElementById('nPhotoPrev').innerText = '';
+  document.getElementById('nTxt').value = b.notes || '';
+  var gal = document.getElementById('noteGallery');
+  if(b.photos && b.photos.length){
+    gal.innerHTML = b.photos.map(function(p){
+      return '<img class="photo-thumb" src="'+p.url+'" title="'+(p.d||'')+'" onclick="window.open(this.src)">';
+    }).join('');
+  } else {
+    gal.innerHTML = '<div style="font-size:.82rem;color:var(--muted)">No photos logged for this batch yet.</div>';
+  }
+  openModal('noteM');
+}
+function saveQuickNote(){
+  var b = batches.find(function(x){return String(x.id)===activeBatchId;});
+  if(!b) return;
+  b.notes = (document.getElementById('nTxt').value || '').trim();
+  if(pendingPhotoNote){
+    if(!Array.isArray(b.photos)) b.photos = [];
+    b.photos.push({d:new Date().toISOString().slice(0,10), url:pendingPhotoNote, caption:b.notes||'Photo'});
+  }
+  saveAll();
+  closeModal('noteM');
   renderAll();
 }
 
@@ -583,6 +782,10 @@ function openHarvest(id){
   var b = batches.find(function(x){return String(x.id)===activeBatchId;});
   if(!b) return;
   document.getElementById('hStage').value = b.stage || 'Active in Chamber';
+  document.getElementById('hCost').value = b.cost ? b.cost : '';
+  document.getElementById('hTrimLbl').innerText = 'Trimmed (' + UNITS[unitIdx] + ')';
+  document.getElementById('hTrimW').value = b.trimmedWeight ? fromGrams(b.trimmedWeight) : '';
+  document.getElementById('hSteaks').value = b.steakCount ? b.steakCount : '';
   document.getElementById('hVacD').value = b.vacDate || '';
   document.getElementById('hFrzD').value = b.frzDate || '';
   document.getElementById('hEatD').value = b.eatDate || '';
@@ -591,22 +794,36 @@ function openHarvest(id){
   openModal('harvM');
 }
 
-function buildTagText(b, stage, vacD, frzD, eatD, notes){
+function buildTagText(b, stage, vacD, frzD, eatD, notes, costVal, trimGrams, steaksVal){
   var latestW = b.logs.length ? b.logs[b.logs.length-1].w : b.startWeight;
   var loss = b.startWeight>0 ? (((b.startWeight - latestW)/b.startWeight)*100).toFixed(1) : '0.0';
   var elapsed = Math.max(0, Math.floor((Date.now() - new Date(b.startDate).getTime())/86400000));
   var actionD = frzD || vacD || eatD || new Date().toISOString().slice(0,10);
   var bb = new Date(actionD);
-  if(stage.indexOf('Ready to Eat')>-1) bb.setDate(bb.getDate()+10);
+  if(stage.indexOf('Presentation')>-1) bb.setDate(bb.getDate()+7);
+  else if(stage.indexOf('Ready to Eat')>-1) bb.setDate(bb.getDate()+10);
+  else if(stage.indexOf('in Ager')>-1) bb.setDate(bb.getDate()+14);
   else if(stage.indexOf('Vacuum')>-1) bb.setDate(bb.getDate()+45);
-  else if(stage.indexOf('Frozen')>-1) bb.setMonth(bb.getMonth()+12);
+  else if(stage.indexOf('Frozen')>-1) bb.setFullYear(bb.getFullYear()+3);
   else bb.setDate(bb.getDate()+b.targetDays);
   var bbStr = bb.toISOString().slice(0,10);
+
+  var costLines = '';
+  if(costVal > 0){
+    var refW = trimGrams > 0 ? trimGrams : latestW;
+    var yieldPct = b.startWeight > 0 ? ((refW / b.startWeight)*100).toFixed(1) : '100.0';
+    costLines = 'COST: $' + costVal.toFixed(2) + ' | EDIBLE RATE: ' + fmtCostPerUnit(costVal, refW) + ' (' + yieldPct + '% Yield)\n';
+    if(steaksVal > 0){
+      costLines += 'PORTIONS: ' + steaksVal + ' Steaks @ $' + (costVal / steaksVal).toFixed(2) + ' / steak\n';
+    }
+  }
+
   return '=== AGERPRO MASTER TAG ===\n' +
     'BATCH: ' + b.code + '\n' +
     'CUT: ' + b.cut + ' (' + b.intensity + (b.marb?' • Grade '+b.marb:'') + ')\n' +
     'AGED: ' + elapsed + ' Days (Started ' + b.startDate + ')\n' +
-    'WEIGHT: ' + fmtW(latestW) + ' (-' + loss + '% Loss)\n' +
+    'WEIGHT: ' + fmtW(latestW) + ' (-' + loss + '% Dry Loss)' + (trimGrams>0 ? ' | Trimmed: ' + fmtW(trimGrams) : '') + '\n' +
+    costLines +
     'STAGE: ' + stage + '\n' +
     'ACTION DATE: ' + actionD + ' | BEST BEFORE: ' + bbStr + '\n' +
     (notes ? 'NOTES: ' + notes : '');
@@ -615,13 +832,37 @@ function buildTagText(b, stage, vacD, frzD, eatD, notes){
 function updateTagPreview(){
   var b = batches.find(function(x){return String(x.id)===activeBatchId;});
   if(!b) return;
+  var costVal = Number(document.getElementById('hCost').value || 0);
+  var trimInput = Number(document.getElementById('hTrimW').value || 0);
+  var trimGrams = trimInput > 0 ? Math.round(toGrams(trimInput)) : 0;
+  var steaksVal = Number(document.getElementById('hSteaks').value || 0);
+  var latestW = b.logs.length ? b.logs[b.logs.length-1].w : b.startWeight;
+
+  var sumEl = document.getElementById('hCostSummary');
+  if(costVal > 0 || trimGrams > 0){
+    var refW = trimGrams > 0 ? trimGrams : latestW;
+    var yieldPct = b.startWeight > 0 ? ((refW / b.startWeight)*100).toFixed(1) : '100.0';
+    var pellicleG = Math.max(0, latestW - (trimGrams || latestW));
+    var parts = [];
+    parts.push('Edible Yield: ' + yieldPct + '% (' + fmtW(refW) + ')');
+    if(trimGrams > 0) parts.push('Pellicle/Bone Trim: ' + fmtW(pellicleG));
+    if(costVal > 0) parts.push('True Rate: ' + fmtCostPerUnit(costVal, refW));
+    if(costVal > 0 && steaksVal > 0) parts.push('Cost/Steak: $' + (costVal/steaksVal).toFixed(2) + ' ea');
+    sumEl.innerHTML = '📊 ' + parts.join(' • ');
+  } else {
+    sumEl.innerHTML = 'Enter Purchase Cost ($), Trimmed Weight, or # of Steaks above to calculate true $$ yield.';
+  }
+
   var txt = buildTagText(
     b,
     document.getElementById('hStage').value,
     document.getElementById('hVacD').value,
     document.getElementById('hFrzD').value,
     document.getElementById('hEatD').value,
-    document.getElementById('hNotes').value
+    document.getElementById('hNotes').value,
+    costVal,
+    trimGrams,
+    steaksVal
   );
   document.getElementById('tagPrev').innerText = txt;
 }
@@ -633,9 +874,9 @@ function copyTag(){
 }
 function printTag(){
   var txt = document.getElementById('tagPrev').innerText;
-  var w = window.open('','_blank','width=400,height=400');
+  var w = window.open('','_blank','width=420,height=440');
   if(w){
-    w.document.write('<pre style="font-family:monospace;font-size:14px;border:2px dashed #000;padding:16px">'+txt+'</pre><script>window.print();<\/script>');
+    w.document.write('<pre style="font-family:monospace;font-size:14px;border:2px dashed #000;padding:16px;white-space:pre-wrap">'+txt+'</pre><script>window.print();<\/script>');
     w.document.close();
   }
 }
@@ -644,10 +885,17 @@ function saveHarvest(){
   var b = batches.find(function(x){return String(x.id)===activeBatchId;});
   if(!b) return;
   b.stage = document.getElementById('hStage').value;
+  b.cost = Number(document.getElementById('hCost').value || 0);
+  var trimIn = Number(document.getElementById('hTrimW').value || 0);
+  b.trimmedWeight = trimIn > 0 ? Math.round(toGrams(trimIn)) : 0;
+  b.steakCount = Number(document.getElementById('hSteaks').value || 0);
   b.vacDate = document.getElementById('hVacD').value;
   b.frzDate = document.getElementById('hFrzD').value;
   b.eatDate = document.getElementById('hEatD').value;
   b.notes = document.getElementById('hNotes').value;
+  if(b.stage.indexOf('Ready to Eat')>-1 && !b.vacDate){
+    b.vacDate = new Date().toISOString().slice(0,10);
+  }
   saveAll();
   closeModal('harvM');
   renderAll();
@@ -683,6 +931,48 @@ function clearAlert(id){
   if(b){b.alertCleared = true; saveAll(); renderAll();}
 }
 
+function getBatchAlertState(b){
+  if(b.stage === 'Consumed / Archived' || b.alertCleared) return null;
+  var elapsed = Math.max(0, Math.floor((Date.now() - new Date(b.startDate).getTime())/86400000));
+  if(b.stage === 'Active in Chamber'){
+    if(elapsed >= b.targetDays) return {type:'harvest', msg:"🔪 IT'S HARVEST DAY! ("+elapsed+"/"+b.targetDays+"d)"};
+    if(elapsed === b.targetDays - 1) return {type:'tomorrow', msg:"🚨 GET READY TO HARVEST TOMORROW!"};
+  }
+  if(b.stage.indexOf('Ready to Eat')>-1){
+    var refD = b.vacDate || b.startDate;
+    var fDays = Math.max(0, Math.floor((Date.now() - new Date(refD).getTime())/86400000));
+    if(fDays >= 8) return {type:'fridge', msg:"🍽️ READY-TO-EAT FRIDGE DAY "+fDays+" OF 10 — COOK OR VAC SEAL!"};
+  }
+  return null;
+}
+
+function jumpToAlert(){
+  for(var i=0;i<batches.length;i++){
+    var b = batches[i];
+    if(getBatchAlertState(b)){
+      curFridge = b.fridge;
+      curCat = b.cat || 'meat';
+      curTab = 'active';
+      saveAll();
+      renderAll();
+      var el = document.getElementById('card-'+b.id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+      return;
+    }
+  }
+}
+
+function getLiveStageInfo(b, elapsed){
+  var inf = INTENSITY_INFO[b.intensity] || INTENSITY_INFO['Basic'];
+  if(b.stage !== 'Active in Chamber'){
+    return '<b>📦 Storage Stage:</b> ' + b.stage;
+  }
+  if(elapsed <= 7) return '<b>🥩 Stage 1 (Days 1–7 — Pellicle Forming):</b> Outer surface drying into protective mahogany crust • <i>Target: ' + inf.temp + '</i>';
+  if(elapsed <= 21) return '<b>🧬 Stage 2 (Days 8–21 — Enzymatic Tenderisation):</b> Natural calpain enzymes breaking down muscle fibers (80% tenderness milestone at Day 21) • <i>Target: ' + inf.temp + '</i>';
+  if(elapsed <= 35) return '<b>🔥 Stage 3 (Days 22–35 — Prime Sweet Spot):</b> Nutty, browned-butter aroma & free amino acids surging • <i>Target: ' + inf.temp + '</i>';
+  return '<b>👑 Stage 4 (Day 36+ — Deep Steakhouse Funk):</b> Maximum umami/kokumi concentration & pH 6.0 maturity • <i>Target: ' + inf.temp + '</i>';
+}
+
 function openMaint(){
   if(!maintData[curFridge]){
     var today = new Date().toISOString().slice(0,10);
@@ -702,7 +992,7 @@ function openMaint(){
     var rem = it.max - days;
     html += '<div class="log-box" style="display:flex;justify-content:space-between;align-items:center">' +
       '<div><b>'+it.name+'</b><br><span style="color:'+(rem<=0?'#ef4444':'#a8a29e')+'">Last: '+last+' • '+(rem<=0?'OVERDUE!':rem+'d remaining')+'</span></div>' +
-      '<button class="btn btn-green" style="width:auto;padding:6px 10px;font-size:.78rem" onclick="resetMaint(\''+it.k+'\')">Reset Today</button>' +
+      '<button class="btn btn-green" style="width:auto;padding:6px 10px;font-size:.8rem" onclick="resetMaint(\''+it.k+'\')">Reset Today</button>' +
     '</div>';
   });
   document.getElementById('maintList').innerHTML = html;
@@ -741,35 +1031,22 @@ function importData(e){
   r.readAsText(f);
 }
 
-function downloadIcon(){
-  var c = document.createElement('canvas');
-  c.width = 512; c.height = 512;
-  var ctx = c.getContext('2d');
-  ctx.fillStyle = '#14110f';
-  ctx.fillRect(0,0,512,512);
-  ctx.strokeStyle = '#d4af37';
-  ctx.lineWidth = 22;
-  ctx.strokeRect(20,20,472,472);
-  ctx.fillStyle = '#dc2626';
-  ctx.beginPath();
-  ctx.arc(256,240,120,0,Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = '#fafaf9';
-  ctx.font = 'bold 64px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('AGERPRO',256,435);
-  var a = document.createElement('a');
-  a.href = c.toDataURL('image/png');
-  a.download = 'icon.png';
-  a.click();
-}
-
 function renderAll(){
   document.getElementById('unitLbl').innerText = 'Unit: ' + UNITS[unitIdx];
   var sel = document.getElementById('fridgeSel');
   sel.innerHTML = fridges.map(function(f){
     return '<option value="'+f+'" '+(f===curFridge?'selected':'')+'>'+f+'</option>';
   }).join('');
+
+  var alertCount = 0;
+  batches.forEach(function(b){if(getBatchAlertState(b)) alertCount++;});
+  var bellBtn = document.getElementById('bellBtn');
+  if(alertCount > 0){
+    bellBtn.style.display = 'flex';
+    document.getElementById('bellCnt').innerText = String(alertCount);
+  } else {
+    bellBtn.style.display = 'none';
+  }
 
   var locked = getLockedCat(curFridge);
   if(locked) curCat = locked;
@@ -791,14 +1068,14 @@ function renderAll(){
     if(curTab==='active' && isArch) return false;
     if(curTab==='archive' && !isArch) return false;
     if(q){
-      return (b.code.toLowerCase().indexOf(q)>-1 || b.cut.toLowerCase().indexOf(q)>-1);
+      return (b.code.toLowerCase().indexOf(q)>-1 || b.cut.toLowerCase().indexOf(q)>-1 || (b.notes&&b.notes.toLowerCase().indexOf(q)>-1));
     }
     return b.fridge === curFridge;
   });
 
   var box = document.getElementById('batchList');
   if(!filtered.length){
-    box.innerHTML = '<div class="batch-card" style="text-align:center;color:var(--muted);font-weight:700">No batches in this view yet. Tap the green button below to start aging!</div>';
+    box.innerHTML = '<div class="batch-card" style="text-align:center;color:var(--muted);font-weight:800">No batches in this view yet. Tap the green button below to start aging!</div>';
     return;
   }
 
@@ -806,43 +1083,67 @@ function renderAll(){
     var latestW = b.logs.length ? b.logs[b.logs.length-1].w : b.startWeight;
     var loss = b.startWeight>0 ? (((b.startWeight - latestW)/b.startWeight)*100).toFixed(1) : '0.0';
     var elapsed = Math.max(0, Math.floor((Date.now() - new Date(b.startDate).getTime())/86400000));
-    var readyAlert = (b.stage==='Active in Chamber' && elapsed>=b.targetDays && !b.alertCleared);
+    var al = getBatchAlertState(b);
+
     var logsHtml = b.logs.map(function(l){
       var lLoss = b.startWeight>0 ? (((b.startWeight - l.w)/b.startWeight)*100).toFixed(1) : '0.0';
-      return '<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #26211b"><span>📅 '+l.d+'</span><span>'+fmtW(l.w)+' (-'+lLoss+'%)</span></div>';
+      return '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #26211b"><span>📅 '+l.d+(l.note?' • <i>'+l.note+'</i>':'')+'</span><span>'+fmtW(l.w)+' (-'+lLoss+'%)</span></div>';
     }).join('');
+
     var datesLine = [];
-    if(b.vacDate) datesLine.push('❄️ Vac: '+b.vacDate);
+    if(b.vacDate) datesLine.push('❄️ Vac/Fridge: '+b.vacDate);
     if(b.frzDate) datesLine.push('🧊 Frozen: '+b.frzDate);
     if(b.eatDate) datesLine.push('🍽️ Eaten: '+b.eatDate);
 
-    return '<div class="batch-card">' +
-      (readyAlert ? '<div class="alert-banner"><span>🔔 TARGET AGING REACHED ('+b.targetDays+'d)!</span><button class="btn" style="width:auto;padding:4px 8px;background:#fff;color:#dc2626;font-size:.75rem" onclick="clearAlert(\''+b.id+'\')">Clear</button></div>' : '') +
+    var costHtml = '';
+    if(b.cost > 0 || b.trimmedWeight > 0){
+      var refW = b.trimmedWeight > 0 ? b.trimmedWeight : latestW;
+      var yieldPct = b.startWeight > 0 ? ((refW / b.startWeight)*100).toFixed(1) : '100.0';
+      var cParts = [];
+      if(b.cost > 0) cParts.push('Paid: <b>$' + Number(b.cost).toFixed(2) + '</b>');
+      if(b.cost > 0) cParts.push('Value Now: <b>' + fmtCostPerUnit(b.cost, refW) + '</b>');
+      if(b.trimmedWeight > 0) cParts.push('Trimmed Yield: <b>' + fmtW(b.trimmedWeight) + ' (' + yieldPct + '%)</b>');
+      if(b.cost > 0 && b.steakCount > 0) cParts.push('<b>' + b.steakCount + ' Steaks @ $' + (b.cost/b.steakCount).toFixed(2) + '/ea</b>');
+      costHtml = '<div class="cost-box">💰 ' + cParts.join(' • ') + '</div>';
+    }
+
+    var photosHtml = '';
+    if(b.photos && b.photos.length){
+      photosHtml = '<div class="photo-grid">' + b.photos.map(function(p){
+        return '<img class="photo-thumb" src="'+p.url+'" onclick="window.open(this.src)">';
+      }).join('') + '</div>';
+    }
+
+    return '<div id="card-'+b.id+'" class="batch-card">' +
+      (al ? '<div class="alert-banner"><span>'+al.msg+'</span><button class="btn" style="width:auto;padding:5px 10px;background:#fff;color:#dc2626;font-size:.78rem" onclick="clearAlert(\''+b.id+'\')">✓ CLEAR</button></div>' : '') +
       '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
         '<div>' +
-          '<span class="tag-pill">🏷️ '+b.code+' • '+b.intensity+(b.marb?' • G'+b.marb:'')+'</span>' +
-          '<h3 style="margin:4px 0;font-size:1.2rem;color:#fff">'+(CAT_META[b.cat]?CAT_META[b.cat].icon:'🥩')+' '+b.cut+'</h3>' +
-          '<div style="font-size:.85rem;color:var(--muted);font-weight:700">Started: '+b.startDate+' • Day '+elapsed+' of '+b.targetDays+'</div>' +
-          '<div style="font-size:.85rem;color:var(--gold);font-weight:800;margin-top:3px">Stage: '+b.stage+'</div>' +
-          (datesLine.length ? '<div style="font-size:.8rem;color:#38bdf8;font-weight:700;margin-top:2px">'+datesLine.join(' | ')+'</div>' : '') +
+          '<span class="tag-pill">🏷️ '+b.code+' • '+b.intensity+(b.marb?' • G'+b.marb:'')+(q?' • '+b.fridge:'')+'</span>' +
+          '<h3 style="margin:4px 0;font-size:1.25rem;color:#fff">'+(CAT_META[b.cat]?CAT_META[b.cat].icon:'🥩')+' '+b.cut+'</h3>' +
+          '<div style="font-size:.88rem;color:var(--muted);font-weight:800">Started: '+b.startDate+' • Day '+elapsed+' of '+b.targetDays+'</div>' +
+          (datesLine.length ? '<div style="font-size:.82rem;color:#38bdf8;font-weight:800;margin-top:3px">'+datesLine.join(' | ')+'</div>' : '') +
         '</div>' +
         '<button class="btn btn-red" style="width:36px;height:36px;padding:0;font-size:1rem" onclick="askDelete(\''+b.id+'\')">✕</button>' +
       '</div>' +
+      '<div class="stage-box">' + getLiveStageInfo(b, elapsed) + '</div>' +
       '<div class="stat-grid">' +
         '<div><div class="stat-lbl">Days</div><div class="stat-val">'+elapsed+'/'+b.targetDays+'</div></div>' +
         '<div><div class="stat-lbl">Loss</div><div class="stat-val" style="color:var(--gold)">-'+loss+'%</div></div>' +
         '<div><div class="stat-lbl">Weight</div><div class="stat-val">'+fmtW(latestW)+'</div></div>' +
       '</div>' +
+      costHtml +
+      photosHtml +
       (b.notes ? '<div class="log-box" style="border-left:3px solid var(--gold)"><b>📝 Notes:</b> '+b.notes+'</div>' : '') +
-      '<div class="log-box"><div style="font-weight:800;color:var(--gold);margin-bottom:4px">📊 Weigh-In Log (Start: '+fmtW(b.startWeight)+')</div>'+logsHtml+'</div>' +
+      '<div class="log-box"><div style="font-weight:800;color:var(--gold);margin-bottom:4px">📊 Weigh-In Journey Log (Start: '+fmtW(b.startWeight)+')</div>'+logsHtml+'</div>' +
       (curTab==='archive' ?
         '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">' +
           '<button class="btn btn-gold" onclick="openHarvest(\''+b.id+'\')">🏷️ Print Summary</button>' +
           '<button class="btn btn-green" onclick="openRestore(\''+b.id+'\')">↩️ Restore Batch</button>' +
         '</div>' :
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">' +
-          '<button class="btn btn-green" onclick="openWeigh(\''+b.id+'\')">⚖️ Log Weight</button>' +
-          '<button class="btn btn-red" onclick="openHarvest(\''+b.id+'\')">🔪 Harvest & Tag</button>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px">' +
+          '<button class="btn btn-green" style="padding:11px 6px;font-size:.88rem" onclick="openWeigh(\''+b.id+'\')">⚖️ Weigh</button>' +
+          '<button class="btn btn-blue" style="padding:11px 6px;font-size:.88rem" onclick="openNoteModal(\''+b.id+'\')">📷 Photo/Note</button>' +
+          '<button class="btn btn-red" style="padding:11px 6px;font-size:.88rem" onclick="openHarvest(\''+b.id+'\')">🔪 Harvest $$</button>' +
         '</div>'
       ) +
     '</div>';
