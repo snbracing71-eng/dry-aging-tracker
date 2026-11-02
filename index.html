@@ -193,7 +193,7 @@
       margin-top: 2px;
     }
 
-    /* 4 Square 1/1 Category Mode Tiles (Enlarged Icons Only) */
+    /* 4 Square 1/1 Category Mode Tiles (Enlarged Icons Only + Lock State) */
     .cat-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -213,11 +213,30 @@
       padding: 6px;
       cursor: pointer;
       text-align: center;
+      position: relative;
+      transition: opacity 0.2s;
     }
     .cat-tile.active {
       border-color: var(--gold);
       background: var(--gold-soft);
       box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+    }
+    .cat-tile.locked {
+      opacity: 0.42;
+    }
+    .lock-badge {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 0.78rem;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1px 4px;
+      display: none;
+    }
+    .cat-tile.locked .lock-badge {
+      display: inline-block;
     }
     .cat-ico { font-size: 2.55rem; line-height: 1; margin-bottom: 2px; }
     .cat-name { font-size: 0.92rem; font-weight: 900; color: #fff; }
@@ -535,24 +554,28 @@
       <div class="climate-pills" id="chamberPills"></div>
     </div>
 
-    <!-- 4 Square 1/1 Category Mode Tiles -->
+    <!-- 4 Square 1/1 Category Mode Tiles (Strictly 1 Active Category Allowed Per Fridge) -->
     <div class="cat-grid">
       <div class="cat-tile active" id="cat-meat" onclick="setCategory('meat')">
+        <span class="lock-badge">🔒</span>
         <span class="cat-ico">🥩</span>
         <span class="cat-name">Meat</span>
         <span class="cat-sub">Beef/Pork/Lamb</span>
       </div>
       <div class="cat-tile" id="cat-fish" onclick="setCategory('fish')">
+        <span class="lock-badge">🔒</span>
         <span class="cat-ico">🐟</span>
         <span class="cat-name">Seafood</span>
         <span class="cat-sub">Whole/Fillets</span>
       </div>
       <div class="cat-tile" id="cat-salami" onclick="setCategory('salami')">
+        <span class="lock-badge">🔒</span>
         <span class="cat-ico">🥓</span>
         <span class="cat-name">Salami</span>
         <span class="cat-sub">Hams/Sausage</span>
       </div>
       <div class="cat-tile" id="cat-cheese" onclick="setCategory('cheese')">
+        <span class="lock-badge">🔒</span>
         <span class="cat-ico">🧀</span>
         <span class="cat-name">Cheese</span>
         <span class="cat-sub">Hard/Soft</span>
@@ -566,6 +589,15 @@
   <div class="bottom-bar">
     <button class="btn-main" onclick="openAddBatch()">+ Start New Aging Batch</button>
     <button class="btn-vault" onclick="openModal('vaultModal')">🗄️ Vault</button>
+  </div>
+
+  <!-- CATEGORY LOCK WARNING MODAL -->
+  <div class="modal" id="lockModal">
+    <div class="modal-box" style="text-align:center;">
+      <h2 class="modal-title">🔒 Fridge Category Locked</h2>
+      <div class="guide-card" id="lockModalText" style="font-size:1rem; line-height:1.5;"></div>
+      <button class="btn-red" onclick="closeModal('lockModal')">Close</button>
+    </div>
   </div>
 
   <!-- ADD NEW BATCH MODAL -->
@@ -758,7 +790,7 @@
     <div class="modal-box">
       <h2 class="modal-title">🩺 Safety & Spore Alert Guide</h2>
       <div class="guide-card" style="border-color:var(--red);">
-        <strong style="color:#ff6b6b;">🚨 THE "SPORE ALERT" MOLD RULE (Dry Aging Bible p. 112)</strong>
+        <strong style="color:#ff6b6b;">🚨 THE "SPORE ALERT" MOLD RULE</strong>
         • <b>ANY White, Green, or Black Furry Mold on Raw Beef/Pork/Lamb = DISPOSE OF THE WHOLE CUT IMMEDIATELY!</b><br>
         • Unlike salami, mold on raw meat sends invisible toxic root threads (<i>mycelia</i>) deep into the muscle that trimming cannot remove.<br>
         • Clean and sanitize the entire fridge with 70% ethanol before starting a new batch.
@@ -796,10 +828,14 @@
     </div>
   </div>
 
-  <!-- DRY AGING BIBLE GUIDE MODAL -->
+  <!-- MASTER DRY AGING GUIDE MODAL -->
   <div class="modal" id="guideModal">
     <div class="modal-box">
-      <h2 class="modal-title">📋 The Dry Aging Bible Guide</h2>
+      <h2 class="modal-title">📋 Master Dry Aging Guide</h2>
+      <div class="guide-card">
+        <strong>🔒 Strict 1-Category Rule Per Fridge</strong>
+        • Never mix categories in the same fridge. Meat (1.5°C), Seafood (0.5°C), Salami (12°C, UVC OFF), and Cheese (11°C, UVC OFF) require completely different climates and hygiene rules.
+      </div>
       <div class="guide-card">
         <strong>🥩 Simple Fat / Marbling Guide (Why It Matters)</strong>
         • <b>Lean (MB 0–1):</b> Little/no white fat flecks inside the red meat. Ages fast (7–28d). Do NOT use Intense+ or it will dry into jerky.<br>
@@ -815,11 +851,6 @@
         <strong>🧪 pH Value & 3-Day Wet-Aged Regeneration</strong>
         • Dry aging keeps meat around <b>pH 6.0</b> (buttery, nutty). Wet-aging in cryovac drops pH to <b>5.5</b> (sour/metallic).<br>
         • Putting wet-aged meat (&gt;3 weeks in bag) into the dry aging fridge for <b>3 Days</b> evaporates the sour bag juice and forms a crisp crust!
-      </div>
-      <div class="guide-card">
-        <strong>🦴 Butcher Prep Tricks</strong>
-        • <b>Never dry-age individual steaks</b>—always age the whole primal and slice steaks after.<br>
-        • Cover sharp spine bones with a strip of food-safe vacuum bag before sealing finished steaks so bones don't puncture the bag.
       </div>
       <button class="btn-red" onclick="closeModal('guideModal')">Close Guide</button>
     </div>
@@ -851,36 +882,43 @@
   </div>
 
   <script>
-    // MASTER PRIMAL CUT LIBRARY (40-Page Dry Aging Bible — Grouped by Animal, Clean Names)
+    const CAT_NAMES = {
+      meat: "Meat (Beef/Pork/Lamb)",
+      fish: "Seafood (Whole/Fillets)",
+      salami: "Salami (Hams/Sausage)",
+      cheese: "Cheese (Hard/Soft)"
+    };
+
+    // MASTER PRIMAL CUT LIBRARY (Grouped by Animal, Clean Names)
     const CUT_LIBRARY = {
       meat: [
-        // 🐂 BEEF (Bone-In)
-        { group: "🐂 BEEF (Bone-In)", name: "Chuck Eye Roll", useMarbling: true, days: { 1:[14,21,0], 2:[14,28,35], 3:[14,28,42] }, note: "Heavy intramuscular fat; turns chuck into prime steak texture. Carve Chuck Eye, Sierra & Denver steaks after aging." },
-        { group: "🐂 BEEF (Bone-In)", name: "Leg", useMarbling: true, days: { 1:[14,21,0], 2:[14,28,35], 3:[14,28,42] }, note: "Whole hind leg on the bone. Hang from Achilles tendon hook. Carve Santa Fe steaks & roasts after aging." },
-        { group: "🐂 BEEF (Bone-In)", name: "Prime Rib", useMarbling: true, days: { 1:[14,28,0], 2:[21,28,42], 3:[21,35,56] }, note: "King of bone-in cuts. Place Fat Cap UP, Bones DOWN. Unlocks up to 56 days (8 weeks) with Wagyu/Heavy marbling." },
-        { group: "🐂 BEEF (Bone-In)", name: "Rib", useMarbling: true, days: { 1:[14,28,0], 2:[21,28,42], 3:[21,35,56] }, note: "Standing rib roast on the bone. Thick fat cap and rib bones shield the eye muscle for long aging." },
-        { group: "🐂 BEEF (Bone-In)", name: "Shank", useMarbling: true, days: { 1:[14,21,0], 2:[7,21,21], 3:[7,21,21] }, note: "Bone-in beef shin. Dry aging concentrates collagen for rich Osso Buco and braised beef." },
-        { group: "🐂 BEEF (Bone-In)", name: "Short Rib", useMarbling: true, days: { 1:[14,21,0], 2:[14,28,28], 3:[14,28,28] }, note: "Bone-in Jacob's Ladder plate ribs. Keep membrane intact on bone side." },
-        { group: "🐂 BEEF (Bone-In)", name: "Sirloin", useMarbling: true, days: { 1:[14,28,0], 2:[21,28,42], 3:[21,35,56] }, note: "Bone-in striploin/short loin saddle. If tenderloin fillet is attached inside, harvest by Day 28–35." },
-        { group: "🐂 BEEF (Bone-In)", name: "Whole Back", useMarbling: true, days: { 1:[14,28,0], 2:[21,35,42], 3:[21,35,56] }, note: "Full bone-in saddle. Minimum drying loss thanks to double bone and fat protection." },
+        // 🐂 BEEF — BONE-IN
+        { group: "🐂 BEEF — BONE-IN", name: "Chuck Eye Roll", useMarbling: true, days: { 1:[14,21,0], 2:[14,28,35], 3:[14,28,42] }, note: "Heavy intramuscular fat; turns chuck into prime steak texture. Carve Chuck Eye, Sierra & Denver steaks after aging." },
+        { group: "🐂 BEEF — BONE-IN", name: "Leg", useMarbling: true, days: { 1:[14,21,0], 2:[14,28,35], 3:[14,28,42] }, note: "Whole hind leg on the bone. Hang from Achilles tendon hook. Carve Santa Fe steaks & roasts after aging." },
+        { group: "🐂 BEEF — BONE-IN", name: "Prime Rib", useMarbling: true, days: { 1:[14,28,0], 2:[21,28,42], 3:[21,35,56] }, note: "King of bone-in cuts. Place Fat Cap UP, Bones DOWN. Unlocks up to 56 days (8 weeks) with Wagyu/Heavy marbling." },
+        { group: "🐂 BEEF — BONE-IN", name: "Rib", useMarbling: true, days: { 1:[14,28,0], 2:[21,28,42], 3:[21,35,56] }, note: "Standing rib roast on the bone. Thick fat cap and rib bones shield the eye muscle for long aging." },
+        { group: "🐂 BEEF — BONE-IN", name: "Shank", useMarbling: true, days: { 1:[14,21,0], 2:[7,21,21], 3:[7,21,21] }, note: "Bone-in beef shin. Dry aging concentrates collagen for rich Osso Buco and braised beef." },
+        { group: "🐂 BEEF — BONE-IN", name: "Short Rib", useMarbling: true, days: { 1:[14,21,0], 2:[14,28,28], 3:[14,28,28] }, note: "Bone-in Jacob's Ladder plate ribs. Keep membrane intact on bone side." },
+        { group: "🐂 BEEF — BONE-IN", name: "Sirloin", useMarbling: true, days: { 1:[14,28,0], 2:[21,28,42], 3:[21,35,56] }, note: "Bone-in striploin/short loin saddle. If tenderloin fillet is attached inside, harvest by Day 28–35." },
+        { group: "🐂 BEEF — BONE-IN", name: "Whole Back", useMarbling: true, days: { 1:[14,28,0], 2:[21,35,42], 3:[21,35,56] }, note: "Full bone-in saddle. Minimum drying loss thanks to double bone and fat protection." },
 
-        // 🐂 BEEF (Deboned)
-        { group: "🐂 BEEF (Deboned)", name: "Flat Iron", useMarbling: true, days: { 1:[7,14,0], 2:[7,14,21], 3:[14,21,21] }, note: "Top blade shoulder cut. Age whole featherblade muscle before removing the center tendon." },
-        { group: "🐂 BEEF (Deboned)", name: "Heart", useMarbling: false, days: { 3:[7,10,14] }, note: "Striated skeletal muscle offal. Ages into a firm, ham-like delicacy for thin shaving." },
-        { group: "🐂 BEEF (Deboned)", name: "Rib Deboned", useMarbling: true, days: { 1:[14,21,0], 2:[14,21,28], 3:[14,28,28] }, note: "Boneless ribeye roll. Leave 100% of surface fat cap intact to reduce trim loss." },
-        { group: "🐂 BEEF (Deboned)", name: "Rump Cap", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,21], 3:[14,21,28] }, note: "Picanha with thick top fat cap. Place fat side UP on shelf." },
-        { group: "🐂 BEEF (Deboned)", name: "Shoulder Clod", useMarbling: true, days: { 1:[14,21,0], 2:[14,21,28], 3:[14,28,28] }, note: "Thick beef chuck clod. Enzymes transform tough shoulder fibers into tender steak." },
-        { group: "🐂 BEEF (Deboned)", name: "Sirloin Deboned", useMarbling: true, days: { 1:[14,21,0], 2:[14,21,28], 3:[14,28,28] }, note: "Boneless striploin with fat cap left completely untrimmed." },
-        { group: "🐂 BEEF (Deboned)", name: "Tenderloin", useMarbling: true, days: { 1:[7,7,0], 2:[7,14,14], 3:[7,14,14] }, note: "Deboned eye fillet. Lean and delicate—use short 7 to 14 day maturation only." },
-        { group: "🐂 BEEF (Deboned)", name: "Tongue", useMarbling: false, days: { 3:[7,10,14] }, note: "Peeled beef tongue. Dry-ages into a rich, velvety charcuterie-style cut." },
-        { group: "🐂 BEEF (Deboned)", name: "Topside", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,21], 3:[14,21,28] }, note: "Inside round roast. Leave outer fat layer intact." },
-        { group: "🐂 BEEF (Deboned)", name: "Tri Tip", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,21], 3:[14,21,21] }, note: "Bottom sirloin triangle cut. Age with fat cap on before slicing across the grain." },
+        // 🐂 BEEF — DEBONED
+        { group: "🐂 BEEF — DEBONED", name: "Flat Iron", useMarbling: true, days: { 1:[7,14,0], 2:[7,14,21], 3:[14,21,21] }, note: "Top blade shoulder cut. Age whole featherblade muscle before removing the center tendon." },
+        { group: "🐂 BEEF — DEBONED", name: "Heart", useMarbling: false, days: { 3:[7,10,14] }, note: "Striated skeletal muscle offal. Ages into a firm, ham-like delicacy for thin shaving." },
+        { group: "🐂 BEEF — DEBONED", name: "Rib Deboned", useMarbling: true, days: { 1:[14,21,0], 2:[14,21,28], 3:[14,28,28] }, note: "Boneless ribeye roll. Leave 100% of surface fat cap intact to reduce trim loss." },
+        { group: "🐂 BEEF — DEBONED", name: "Rump Cap", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,21], 3:[14,21,28] }, note: "Picanha with thick top fat cap. Place fat side UP on shelf." },
+        { group: "🐂 BEEF — DEBONED", name: "Shoulder Clod", useMarbling: true, days: { 1:[14,21,0], 2:[14,21,28], 3:[14,28,28] }, note: "Thick beef chuck clod. Enzymes transform tough shoulder fibers into tender steak." },
+        { group: "🐂 BEEF — DEBONED", name: "Sirloin Deboned", useMarbling: true, days: { 1:[14,21,0], 2:[14,21,28], 3:[14,28,28] }, note: "Boneless striploin with fat cap left completely untrimmed." },
+        { group: "🐂 BEEF — DEBONED", name: "Tenderloin", useMarbling: true, days: { 1:[7,7,0], 2:[7,14,14], 3:[7,14,14] }, note: "Deboned eye fillet. Lean and delicate—use short 7 to 14 day maturation only." },
+        { group: "🐂 BEEF — DEBONED", name: "Tongue", useMarbling: false, days: { 3:[7,10,14] }, note: "Peeled beef tongue. Dry-ages into a rich, velvety charcuterie-style cut." },
+        { group: "🐂 BEEF — DEBONED", name: "Topside", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,21], 3:[14,21,28] }, note: "Inside round roast. Leave outer fat layer intact." },
+        { group: "🐂 BEEF — DEBONED", name: "Tri Tip", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,21], 3:[14,21,21] }, note: "Bottom sirloin triangle cut. Age with fat cap on before slicing across the grain." },
 
-        // 🐂 BEEF (Cured & Dried)
-        { group: "🐂 BEEF (Cured & Dried)", name: "Beef Jerky", useMarbling: false, days: { 3:[3,4,5] }, note: "Marinate thin strips 2 days in soy/lime/honey, then dry 3–5 days in the fridge." },
-        { group: "🐂 BEEF (Cured & Dried)", name: "Biltong", useMarbling: false, days: { 3:[5,6,7] }, note: "Vinegar, coriander & black pepper rub for 24h, then hang on strings for 5–7 days." },
-        { group: "🐂 BEEF (Cured & Dried)", name: "Pastrami", useMarbling: false, days: { 3:[7,14,21] }, note: "Cure brisket 14 days, smoke, then mature 5–21 days in the fridge for silky slicing." },
-        { group: "🐂 BEEF (Cured & Dried)", name: "Wet-Aged Regeneration", useMarbling: false, days: { 3:[3,3,4] }, note: "3-Day Regeneration cycle for cryovac meat aged >21 days. Eliminates sour/metallic bag taste and dries surface for searing." },
+        // 🐂 BEEF — CURED & DRIED
+        { group: "🐂 BEEF — CURED & DRIED", name: "Beef Jerky", useMarbling: false, days: { 3:[3,4,5] }, note: "Marinate thin strips 2 days in soy/lime/honey, then dry 3–5 days in the fridge." },
+        { group: "🐂 BEEF — CURED & DRIED", name: "Biltong", useMarbling: false, days: { 3:[5,6,7] }, note: "Vinegar, coriander & black pepper rub for 24h, then hang on strings for 5–7 days." },
+        { group: "🐂 BEEF — CURED & DRIED", name: "Pastrami", useMarbling: false, days: { 3:[7,14,21] }, note: "Cure brisket 14 days, smoke, then mature 5–21 days in the fridge for silky slicing." },
+        { group: "🐂 BEEF — CURED & DRIED", name: "Wet-Aged Regeneration", useMarbling: false, days: { 3:[3,3,4] }, note: "3-Day Regeneration cycle for cryovac meat aged >21 days. Eliminates sour/metallic bag taste and dries surface for searing." },
 
         // 🐑 LAMB & KID GOAT
         { group: "🐑 LAMB & KID GOAT", name: "Leg of Lamb or Kid Goat", useMarbling: false, days: { 3:[7,21,0] }, note: "Bone-in hind leg. Basic 7 days or Intense 21 days for sweet, nutty pasture aroma." },
@@ -894,11 +932,11 @@
         { group: "🐖 PORK", name: "Pork Whole Back", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,28], 3:[14,21,28] }, note: "Bone-in pork saddle/rack with thick fat cap for ultimate crackling." },
 
         // 🦌 GAME
-        { group: "🦌 GAME (BOAR & DEER)", name: "Chuck of Deer", useMarbling: false, days: { 3:[14,21,0] }, note: "Bone-in venison neck/shoulder. Basic 14d | Intense 21d." },
-        { group: "🦌 GAME (BOAR & DEER)", name: "Leg of Boar", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,0], 3:[14,21,0] }, note: "Bone-in wild boar haunch. Check marbling fat cover before selecting 14d vs 21d." },
-        { group: "🦌 GAME (BOAR & DEER)", name: "Leg of Deer", useMarbling: false, days: { 3:[7,21,0] }, note: "Bone-in venison haunch with silverskin intact. Basic 7d | Intense 21d." },
-        { group: "🦌 GAME (BOAR & DEER)", name: "Saddle of Boar", useMarbling: true, days: { 1:[7,21,0], 2:[14,21,0], 3:[14,21,0] }, note: "Bone-in wild boar back. Matures ultra-tender with nutty aroma." },
-        { group: "🦌 GAME (BOAR & DEER)", name: "Saddle of Deer", useMarbling: false, days: { 3:[7,21,0] }, note: "Bone-in venison saddle. Leave silverskin on to prevent drying." },
+        { group: "🦌 GAME — BOAR & DEER", name: "Chuck of Deer", useMarbling: false, days: { 3:[14,21,0] }, note: "Bone-in venison neck/shoulder. Basic 14d | Intense 21d." },
+        { group: "🦌 GAME — BOAR & DEER", name: "Leg of Boar", useMarbling: true, days: { 1:[7,14,0], 2:[14,21,0], 3:[14,21,0] }, note: "Bone-in wild boar haunch. Check marbling fat cover before selecting 14d vs 21d." },
+        { group: "🦌 GAME — BOAR & DEER", name: "Leg of Deer", useMarbling: false, days: { 3:[7,21,0] }, note: "Bone-in venison haunch with silverskin intact. Basic 7d | Intense 21d." },
+        { group: "🦌 GAME — BOAR & DEER", name: "Saddle of Boar", useMarbling: true, days: { 1:[7,21,0], 2:[14,21,0], 3:[14,21,0] }, note: "Bone-in wild boar back. Matures ultra-tender with nutty aroma." },
+        { group: "🦌 GAME — BOAR & DEER", name: "Saddle of Deer", useMarbling: false, days: { 3:[7,21,0] }, note: "Bone-in venison saddle. Leave silverskin on to prevent drying." },
 
         // 🦆 POULTRY
         { group: "🦆 POULTRY", name: "Chicken", useMarbling: false, days: { 3:[5,0,0] }, note: "Whole eviscerated chicken hung by neck/wings. 5 Days Basic gives paper-thin, ultra-crispy skin." },
@@ -911,7 +949,7 @@
       fish: [
         { group: "🐟 SEAFOOD", name: "Atlantic Salmon", useMarbling: false, days: { 3:[4,7,10] }, note: "1.0°C • 80% RH. Hang whole gutted salmon or lay skin-up on rack for buttery flesh and crisp skin." },
         { group: "🐟 SEAFOOD", name: "Cod", useMarbling: false, days: { 3:[3,5,7] }, note: "1.0°C • 80% RH. Firms flaky white flesh and intensifies sweet ocean umami." },
-        { group: "🐟 SEAFOOD", name: "Cold-Smoked Salmon", useMarbling: false, days: { 3:[7,10,10] }, note: "Andrew Gillespie recipe: Cure 18–20h in coarse salt, cold-smoke 24h, then mature 7–10 days for marzipan texture." },
+        { group: "🐟 SEAFOOD", name: "Cold-Smoked Salmon", useMarbling: false, days: { 3:[7,10,10] }, note: "Cure 18–20h in coarse salt, cold-smoke 24h, then mature 7–10 days for marzipan texture." },
         { group: "🐟 SEAFOOD", name: "Common Sole", useMarbling: false, days: { 3:[3,4,5] }, note: "Whole gutted flatfish dried 3–5 days so skin fries crisp like chips." },
         { group: "🐟 SEAFOOD", name: "Fish Fillet", useMarbling: false, days: { 3:[3,5,7] }, note: "Skin-on fillets patted bone dry (zero tap water)." },
         { group: "🐟 SEAFOOD", name: "Real Tuna", useMarbling: false, days: { 3:[5,10,14] }, note: "Tuna loin aged for deep sushi-grade umami and velvety sashimi texture." },
@@ -994,18 +1032,36 @@
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
+    // Checks if current fridge has an active batch and returns its locked category
+    function getLockedCatForFridge(fridgeName) {
+      const activeInFridge = batches.filter(b => b.fridge === fridgeName);
+      return activeInFridge.length > 0 ? activeInFridge[0].cat : null;
+    }
+
     function setCategory(cat) {
+      const lockedCat = getLockedCatForFridge(currentFridge);
+      if (lockedCat && lockedCat !== cat) {
+        document.getElementById('lockModalText').innerHTML = `
+          <b>${currentFridge}</b> is currently running an active batch of <b>${CAT_NAMES[lockedCat]}</b>.<br><br>
+          You can only run <b>one category at a time</b> in the same fridge so temperatures, humidity, and UVC settings never clash.<br><br>
+          To start a different category, switch to another fridge above or harvest/remove the active batch first.
+        `;
+        openModal('lockModal');
+        return;
+      }
       currentCat = cat;
       localStorage.setItem('agerCurrentCat', cat);
-      document.querySelectorAll('.cat-tile').forEach(el => el.classList.remove('active'));
-      const activeTile = document.getElementById('cat-' + cat);
-      if (activeTile) activeTile.classList.add('active');
       render();
     }
 
     function changeFridge(val) {
       currentFridge = val;
       localStorage.setItem('agerCurrentFridge', val);
+      const lockedCat = getLockedCatForFridge(currentFridge);
+      if (lockedCat) {
+        currentCat = lockedCat;
+        localStorage.setItem('agerCurrentCat', lockedCat);
+      }
       render();
     }
 
@@ -1042,6 +1098,12 @@
     }
 
     function openAddBatch() {
+      const lockedCat = getLockedCatForFridge(currentFridge);
+      if (lockedCat) {
+        currentCat = lockedCat;
+        localStorage.setItem('agerCurrentCat', lockedCat);
+      }
+
       tempAddPhotos = [];
       document.getElementById('addPhotoPreview').innerHTML = '';
       document.getElementById('startNotes').value = '';
@@ -1332,7 +1394,13 @@
     function restoreBatch(id) {
       const idx = vault.findIndex(x => String(x.id) === String(id));
       if (idx === -1) return;
-      batches.unshift(vault[idx]);
+      const item = vault[idx];
+      const lockedCat = getLockedCatForFridge(item.fridge);
+      if (lockedCat && lockedCat !== item.cat) {
+        alert(`Cannot restore to ${item.fridge} while it is actively running ${CAT_NAMES[lockedCat]}.`);
+        return;
+      }
+      batches.unshift(item);
       vault.splice(idx, 1);
       localStorage.setItem('agerBatchesPro', JSON.stringify(batches));
       localStorage.setItem('agerVaultPro', JSON.stringify(vault));
@@ -1385,6 +1453,21 @@
 
     function render() {
       document.getElementById('unitBtnLbl').innerText = unit === 'imperial' ? 'Unit: lb' : 'Unit: g/kg';
+
+      // Enforce 1-Category Lock if current fridge has an active batch
+      const lockedCat = getLockedCatForFridge(currentFridge);
+      if (lockedCat && currentCat !== lockedCat) {
+        currentCat = lockedCat;
+        localStorage.setItem('agerCurrentCat', currentCat);
+      }
+
+      // Update Category Tile Active & Locked Visual States
+      ['meat', 'fish', 'salami', 'cheese'].forEach(c => {
+        const tile = document.getElementById('cat-' + c);
+        if (!tile) return;
+        tile.classList.toggle('active', c === currentCat);
+        tile.classList.toggle('locked', Boolean(lockedCat && lockedCat !== c));
+      });
 
       // Maintenance badge check (every 30 days)
       const maintDays = Math.floor((new Date() - new Date(lastMaint)) / 86400000);
@@ -1478,7 +1561,7 @@
       }).join('');
     }
 
-    setCategory(currentCat);
+    render();
   </script>
 </body>
 <!-- END_OF_FILE_OK --></html>
