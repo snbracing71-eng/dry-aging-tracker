@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>AgerPro</title>
 <link rel="manifest" href="manifest.json">
+<link id="favIco" rel="icon" type="image/png" href="icon.png">
+<link id="appIco" rel="apple-touch-icon" href="icon.png">
 <meta name="theme-color" content="#0c0a09">
 <meta name="mobile-web-app-capable" content="yes">
 <style>
@@ -138,7 +140,7 @@ label{display:block;font-size:.86rem;font-weight:800;color:var(--gold);margin:10
   <label>Select Primal Cut (Grouped by Animal)</label>
   <select id="inCut" onchange="onCutChange()"></select>
   <div id="marbWrap">
-    <label>Marbling Class (Dry Aging Bible Table)</label>
+    <label>Marbling Class</label>
     <div class="opt-row">
       <button type="button" id="m1" class="opt-btn" onclick="setMarb(1)">Grade 1<br><small>Light</small></button>
       <button type="button" id="m2" class="opt-btn active" onclick="setMarb(2)">Grade 2<br><small>Medium</small></button>
@@ -295,7 +297,7 @@ label{display:block;font-size:.86rem;font-weight:800;color:var(--gold);margin:10
 <!-- MAINTENANCE MODAL -->
 <div id="maintM" class="modal-bg"><div class="modal-box">
   <h3 class="modal-title">🔧 Chamber Maintenance & Pre-Clean</h3>
-  <div class="log-box" style="border-left:3px solid var(--gold);margin-bottom:10px"><b>🧼 2-Hour Pre-Cleaning Cycle (P16):</b> Before wiping down your cabinet between batches, run a 2-hour defrost & dry pre-cleaning cycle. This dries the interior completely and reduces power consumption afterward.</div>
+  <div class="log-box" style="border-left:3px solid var(--gold);margin-bottom:10px"><b>🧼 2-Hour Pre-Cleaning Cycle:</b> Before wiping down your cabinet between batches, run a 2-hour defrost & dry pre-cleaning cycle. This dries the interior completely and reduces power consumption afterward.</div>
   <div id="maintList"></div>
   <button class="btn btn-red" style="margin-top:12px" onclick="closeModal('maintM')">Close</button>
 </div></div>
@@ -308,10 +310,12 @@ label{display:block;font-size:.86rem;font-weight:800;color:var(--gold);margin:10
   <div class="log-box"><b>🪝 Drilling & Hanging Tip:</b> Use a disinfected drill to bore through the <b>vertebral spine bone</b> and hang with a swivel S-hook so zero meat is punctured.</div>
   <div class="log-box"><b>🐄 10 Butcher Questions ("Do The Grilling"):</b> Ask for Heifer (18–22m) or Ox (24m+), stress-free slaughter (prevents DFD high-pH meat), Tenderstretch/pelvic suspension, and grass-fed with grain finish.</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-    <button class="btn btn-gold" onclick="exportData()">📤 Export Backup</button>
-    <button class="btn btn-blue" onclick="document.getElementById('impFile').click()">📥 Restore Backup</button>
+    <button class="btn btn-gold" onclick="exportData()">📤 Save Backup File</button>
+    <button class="btn btn-blue" onclick="document.getElementById('impFile').click()">📥 Load Backup File</button>
     <input id="impFile" type="file" accept=".json" style="display:none" onchange="importData(event)">
   </div>
+  <button class="btn btn-gold" style="margin-top:8px" onclick="document.getElementById('icoPicker').click()">🖼️ Pick Steak Image -> Auto-Download icon.png</button>
+  <input id="icoPicker" type="file" accept="image/*" style="display:none" onchange="convertImgToIcon(event)">
   <button class="btn btn-red" style="margin-top:10px" onclick="closeModal('guideM')">Close Guide</button>
 </div></div>
 
@@ -324,28 +328,28 @@ var INTENSITY_INFO = {
 
 var CUTS = {
   meat: [
-    {g:"🐂 BEEF (Bone-In)",n:"Chuck Eye Roll",d:[[14,21,0],[14,28,35],[14,28,42]],m:1,note:"Heavy intramuscular fat; turns chuck into prime steak texture. Carve Chuck Eye, Sierra & Denver steaks."},
-    {g:"🐂 BEEF (Bone-In)",n:"Leg",d:[[14,21,0],[21,28,35],[21,28,42]],m:1,note:"Whole bone-in hind leg section."},
-    {g:"🐂 BEEF (Bone-In)",n:"Prime Rib",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Gold-standard bone-in rib primal. Fat cap + chine bone protect eye muscle up to 56 days on Grade 3."},
-    {g:"🐂 BEEF (Bone-In)",n:"Rib",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Full bone-in rib section. Rich buttery flavor development."},
-    {g:"🐂 BEEF (Bone-In)",n:"Shank",d:[[14,21,0],[7,21,21],[7,21,21]],m:1,note:"Bone-in foreshank/hindshank for rich osso buco."},
-    {g:"🐂 BEEF (Bone-In)",n:"Short Rib",d:[[14,21,0],[21,28,28],[21,28,35]],m:1,note:"Bone-in plate short ribs; intense beefy concentration."},
-    {g:"🐂 BEEF (Bone-In)",n:"Sirloin",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Bone-in striploin/shortloin. Classic steakhouse cut."},
-    {g:"🐂 BEEF (Bone-In)",n:"Whole Back",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Full bone-in saddle/back primal (25kg+); minimum drying loss."},
-    {g:"🐂 BEEF (Deboned)",n:"Flat Iron",d:[[7,14,0],[10,14,21],[10,14,21]],m:1,note:"Top blade; tenderizes rapidly."},
-    {g:"🐂 BEEF (Deboned)",n:"Heart",d:[7,10,14],m:0,note:"Striated skeletal muscle; dry-ages into a tender ham-like delicacy."},
-    {g:"🐂 BEEF (Deboned)",n:"Rib Deboned",d:[[14,21,0],[21,28,35],[21,28,35]],m:1,note:"Boneless ribeye roll; higher trim loss than bone-in."},
-    {g:"🐂 BEEF (Deboned)",n:"Rump Cap",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Picanha—never trim the thick fat cap prior to aging."},
-    {g:"🐂 BEEF (Deboned)",n:"Shoulder Clod",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Large boneless shoulder primal."},
-    {g:"🐂 BEEF (Deboned)",n:"Sirloin Deboned",d:[[14,21,0],[21,28,35],[21,28,35]],m:1,note:"Boneless striploin; keep thick top fat cover intact."},
-    {g:"🐂 BEEF (Deboned)",n:"Tenderloin",d:[[7,7,0],[7,14,14],[7,14,14]],m:1,note:"Very lean fillet; short maturation for crust & buttery tenderness."},
-    {g:"🐂 BEEF (Deboned)",n:"Tongue",d:[7,10,14],m:0,note:"Dry age prior to simmering & peeling."},
-    {g:"🐂 BEEF (Deboned)",n:"Topside",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Lean hindquarter primal; can be carved into Santa Fe cut."},
-    {g:"🐂 BEEF (Deboned)",n:"Tri Tip",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Bottom sirloin triangle; age with fat cap on."},
-    {g:"🐂 BEEF (Cured & Dried)",n:"Beef Jerky",d:[3,5,7],m:0,note:"Sliced marinated lean beef dried till leathery."},
-    {g:"🐂 BEEF (Cured & Dried)",n:"Biltong",d:[5,10,14],m:0,note:"Vinegar & coriander cured Silverside strips."},
-    {g:"🐂 BEEF (Cured & Dried)",n:"Pastrami",d:[7,14,21],m:0,note:"Brined & spiced brisket matured before smoking."},
-    {g:"🐂 BEEF (Cured & Dried)",n:"Wet-Aged Regeneration",d:[3,5,7],m:0,note:"Unpack cryovac beef (>21d in bag), pat dry, hang 3 days to remove sour-metallic low-pH bag taste."},
+    {g:"🐂 BEEF — BONE-IN",n:"Chuck Eye Roll",d:[[14,21,0],[14,28,35],[14,28,42]],m:1,note:"Heavy intramuscular fat; turns chuck into prime steak texture. Carve Chuck Eye, Sierra & Denver steaks."},
+    {g:"🐂 BEEF — BONE-IN",n:"Leg",d:[[14,21,0],[21,28,35],[21,28,42]],m:1,note:"Whole bone-in hind leg section."},
+    {g:"🐂 BEEF — BONE-IN",n:"Prime Rib",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Gold-standard bone-in rib primal. Fat cap + chine bone protect eye muscle up to 56 days on Grade 3."},
+    {g:"🐂 BEEF — BONE-IN",n:"Rib",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Full bone-in rib section. Rich buttery flavor development."},
+    {g:"🐂 BEEF — BONE-IN",n:"Shank",d:[[14,21,0],[7,21,21],[7,21,21]],m:1,note:"Bone-in foreshank/hindshank for rich osso buco."},
+    {g:"🐂 BEEF — BONE-IN",n:"Short Rib",d:[[14,21,0],[21,28,28],[21,28,35]],m:1,note:"Bone-in plate short ribs; intense beefy concentration."},
+    {g:"🐂 BEEF — BONE-IN",n:"Sirloin",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Bone-in striploin/shortloin. Classic steakhouse cut."},
+    {g:"🐂 BEEF — BONE-IN",n:"Whole Back",d:[[21,28,0],[28,42,42],[28,42,56]],m:1,note:"Full bone-in saddle/back primal (25kg+); minimum drying loss."},
+    {g:"🐂 BEEF — DEBONED",n:"Flat Iron",d:[[7,14,0],[10,14,21],[10,14,21]],m:1,note:"Top blade; tenderizes rapidly."},
+    {g:"🐂 BEEF — DEBONED",n:"Heart",d:[7,10,14],m:0,note:"Striated skeletal muscle; dry-ages into a tender ham-like delicacy."},
+    {g:"🐂 BEEF — DEBONED",n:"Rib Deboned",d:[[14,21,0],[21,28,35],[21,28,35]],m:1,note:"Boneless ribeye roll; higher trim loss than bone-in."},
+    {g:"🐂 BEEF — DEBONED",n:"Rump Cap",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Picanha—never trim the thick fat cap prior to aging."},
+    {g:"🐂 BEEF — DEBONED",n:"Shoulder Clod",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Large boneless shoulder primal."},
+    {g:"🐂 BEEF — DEBONED",n:"Sirloin Deboned",d:[[14,21,0],[21,28,35],[21,28,35]],m:1,note:"Boneless striploin; keep thick top fat cover intact."},
+    {g:"🐂 BEEF — DEBONED",n:"Tenderloin",d:[[7,7,0],[7,14,14],[7,14,14]],m:1,note:"Very lean fillet; short maturation for crust & buttery tenderness."},
+    {g:"🐂 BEEF — DEBONED",n:"Tongue",d:[7,10,14],m:0,note:"Dry age prior to simmering & peeling."},
+    {g:"🐂 BEEF — DEBONED",n:"Topside",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Lean hindquarter primal; can be carved into Santa Fe cut."},
+    {g:"🐂 BEEF — DEBONED",n:"Tri Tip",d:[[14,21,0],[14,21,28],[14,21,28]],m:1,note:"Bottom sirloin triangle; age with fat cap on."},
+    {g:"🐂 BEEF — CURED & WET-AGED",n:"Beef Jerky",d:[3,5,7],m:0,note:"Sliced marinated lean beef dried till leathery."},
+    {g:"🐂 BEEF — CURED & WET-AGED",n:"Biltong",d:[5,10,14],m:0,note:"Vinegar & coriander cured Silverside strips."},
+    {g:"🐂 BEEF — CURED & WET-AGED",n:"Pastrami",d:[7,14,21],m:0,note:"Brined & spiced brisket matured before smoking."},
+    {g:"🐂 BEEF — CURED & WET-AGED",n:"Wet-Aged Regeneration",d:[3,5,7],m:0,note:"Unpack cryovac beef (>21d in bag), pat dry, hang 3 days to remove sour-metallic low-pH bag taste."},
     {g:"🐑 LAMB & KID GOAT",n:"Leg of Lamb or Kid Goat",d:[7,21,21],m:0,note:"Bone-in hind leg; sweet nutty aroma at 21 days Intense."},
     {g:"🐑 LAMB & KID GOAT",n:"Saddle of Lamb or Kid Goat",d:[7,21,21],m:0,note:"Bone-in loin saddle; 7d Basic or 21d Intense."},
     {g:"🐑 LAMB & KID GOAT",n:"Whole Lamb or Kid Goat",d:[14,21,21],m:0,note:"Whole hanging carcass; 14d Basic or 21d Intense."},
@@ -368,7 +372,7 @@ var CUTS = {
   fish: [
     {g:"🐟 SEAFOOD",n:"Atlantic Salmon",d:[5,7,0],m:0,note:"Cure fillets as gravlax (150g salt, 100g brown sugar, 35g vodka, 10g juniper, 5g pepper, citrus zest) 2d in fridge, rinse & dry age 5 days."},
     {g:"🐟 SEAFOOD",n:"Cod",d:[3,5,0],m:0,note:"Raw dry-aged 3 days without salt cure; fragile segments gain a fresh, slightly salty tang."},
-    {g:"🐟 SEAFOOD",n:"Cold-Smoked Salmon",d:[7,10,0],m:0,note:"Andrew's Recipe: 1.2kg side cured 18-20h in coarse salt, cold-smoked 24h over beech/oak, then aged 7-10d for marzipan texture."},
+    {g:"🐟 SEAFOOD",n:"Cold-Smoked Salmon",d:[7,10,0],m:0,note:"1.2kg side cured 18-20h in coarse salt, cold-smoked 24h over beech/oak, then aged 7-10d for marzipan texture."},
     {g:"🐟 SEAFOOD",n:"Common Sole",d:[3,0,0],m:0,note:"Use whole fish 0.8kg+ for 3 days; poach briefly in butter."},
     {g:"🐟 SEAFOOD",n:"Fish Fillet",d:[3,5,7],m:0,note:"Skin-on fillet on rack; skin turns crispy like chips when fried."},
     {g:"🐟 SEAFOOD",n:"Real Tuna",d:[5,7,0],m:0,note:"Cuts up to 10kg for 5 days. Freeze at -20°C for 24h prior to kill nematodes for sashimi."},
@@ -499,6 +503,34 @@ function cycleUnit(){
   unitIdx = (unitIdx + 1) % 4;
   saveAll();
   renderAll();
+}
+
+function convertImgToIcon(ev){
+  var f = ev.target.files && ev.target.files[0];
+  if(!f) return;
+  var r = new FileReader();
+  r.onload = function(e){
+    var img = new Image();
+    img.onload = function(){
+      var c = document.createElement('canvas');
+      c.width = 512; c.height = 512;
+      var ctx = c.getContext('2d');
+      ctx.fillStyle = '#facc15';
+      ctx.fillRect(0,0,512,512);
+      ctx.drawImage(img,0,0,512,512);
+      var pngUrl = c.toDataURL('image/png');
+      localStorage.setItem('ap_custom_icon', pngUrl);
+      document.getElementById('favIco').href = pngUrl;
+      document.getElementById('appIco').href = pngUrl;
+      var a = document.createElement('a');
+      a.href = pngUrl;
+      a.download = 'icon.png';
+      a.click();
+      showMsg('Saved as icon.png to your Downloads folder! You can now upload icon.png directly to GitHub.');
+    };
+    img.src = e.target.result;
+  };
+  r.readAsDataURL(f);
 }
 
 function handlePhoto(ev, mode){
@@ -1032,6 +1064,11 @@ function importData(e){
 }
 
 function renderAll(){
+  var savedIco = localStorage.getItem('ap_custom_icon');
+  if(savedIco){
+    document.getElementById('favIco').href = savedIco;
+    document.getElementById('appIco').href = savedIco;
+  }
   document.getElementById('unitLbl').innerText = 'Unit: ' + UNITS[unitIdx];
   var sel = document.getElementById('fridgeSel');
   sel.innerHTML = fridges.map(function(f){
