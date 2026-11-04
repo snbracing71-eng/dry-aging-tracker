@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#07090e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.json?v=26">
+<link rel="manifest" href="manifest.json?v=30">
 <link rel="icon" type="image/png" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <style>
@@ -262,7 +262,7 @@ select,input,textarea{width:100%;background:var(--in);border:1.5px solid var(--b
   </div>
 </div>
 
-<!-- GUIDE & BACKUP MODAL -->
+<!-- GUIDE & BACKUP MODAL (NO COUNTERS VISIBLE TO USERS) -->
 <div class="modal" id="gM">
   <div class="m-c">
     <h3 style="margin-top:0;color:var(--gold-glow)">📋 AgerPro Guide & Backup</h3>
@@ -272,7 +272,7 @@ select,input,textarea{width:100%;background:var(--in);border:1.5px solid var(--b
     </div>
     <div style="font-size:.82rem;background:var(--in);padding:10px;border-radius:9px;margin-bottom:10px">
       • <b>Prep:</b> Never wash meat with water. Blot bone-dry. Fat cap UP, Bones DOWN.<br>
-      • <b>Install App:</b> Tap Chrome's <b>⋮</b> menu $\rightarrow$ <b>Install app / Add to Home screen</b>.<br>
+      • <b>Install App:</b> Tap Chrome's <b>⋮</b> menu &rarr; <b>Install app / Add to Home screen</b>.<br>
       • <b>Backup:</b> Save a backup file before switching phones.
     </div>
     <div class="grid2" style="margin-bottom:10px">
@@ -280,6 +280,7 @@ select,input,textarea{width:100%;background:var(--in);border:1.5px solid var(--b
       <button class="btn btn-cy" onclick="document.getElementById('impFile').click()">📂 Load Backup File</button>
       <input type="file" id="impFile" style="display:none" accept=".json" onchange="importData(event)">
     </div>
+    <button class="btn btn-gold" style="margin-bottom:10px" onclick="forceRefreshApp()">🔄 Force Update App (Clear Cache)</button>
     <button class="btn btn-red" onclick="closeM('gM')">Close Guide</button>
   </div>
 </div>
@@ -611,6 +612,17 @@ function submitSilentVote(){
   }
   closeM('fbM');
   msg('✅ Thank you! Your vote and setup have been recorded.');
+}
+
+function forceRefreshApp(){
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistrations().then(function(regs){
+      regs.forEach(function(r){r.unregister();});
+      window.location.href=window.location.pathname+'?v='+Date.now();
+    });
+  }else{
+    window.location.href=window.location.pathname+'?v='+Date.now();
+  }
 }
 
 function msg(t){document.getElementById('msgTxt').innerText=t;openM('msgM')}
@@ -1099,7 +1111,7 @@ function rf(){
         '<div class="m-b"><div class="lbl">Start</div><div class="val">'+fW(b.startW)+'</div></div>'+
         '<div class="m-b"><div class="lbl">Current</div><div class="val">'+fW(lw)+'</div></div>'+
         '<div class="m-b"><div class="lbl">Water Lost</div><div class="val" style="color:var(--gold-glow)">-'+fW(Math.max(0,b.startW-lw))+'</div></div>'+
-      </div>'+
+      '</div>'+
       costBadge+
       '<div style="font-size:.8rem;margin:6px 0;color:var(--gold-glow)">📍 '+(b.status||'Active in Agers')+' ('+(b.statusDate||b.startD)+')</div>'+
       (b.notes?'<div style="font-size:.8rem;background:var(--in);padding:6px;border-left:3px solid var(--gold);margin-bottom:6px">📝 '+b.notes+'</div>':'')+
