@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#07090e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.json?v=25">
+<link rel="manifest" href="manifest.json?v=26">
 <link rel="icon" type="image/png" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <style>
@@ -19,7 +19,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;padding:0 0 110px;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.4}
 header{background:var(--cd);border-bottom:2px solid var(--gold);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40;gap:8px}
-.brand{display:flex;align-items:center;gap:8px;min-width:0}
+.brand{display:flex;align-items:center;gap:8px;min-width:0;cursor:pointer;user-select:none}
 .logo{width:38px;height:38px;border-radius:9px;flex-shrink:0;border:1.5px solid var(--gold);object-fit:cover;background:#090c14}
 .b-t{font-size:1.35rem;font-weight:900;letter-spacing:0.5px;margin:0;color:var(--gold-glow)}
 .hdr-right{display:flex;align-items:center;gap:6px}
@@ -29,12 +29,6 @@ header{background:var(--cd);border-bottom:2px solid var(--gold);padding:10px 12p
 .bell-btn{background:var(--in);border:1.5px solid var(--gold);color:var(--gold-glow);border-radius:8px;padding:6px 8px;font-size:1rem;cursor:pointer;position:relative;font-weight:900}
 .bell-dot{position:absolute;top:-4px;right:-4px;background:var(--rd);color:#fff;font-size:.65rem;font-weight:900;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center}
 main{padding:12px;max-width:600px;margin:0 auto}
-.pulse-bar{background:var(--cd);border:2px solid var(--gold);border-radius:12px;padding:8px 10px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
-.pulse-stat{font-size:.78rem;font-weight:800;color:var(--tx)}
-.pulse-stat b{color:var(--cg);font-family:monospace;font-size:.9rem}
-.pulse-btns{display:flex;gap:6px}
-.p-btn{background:linear-gradient(135deg,#fbbf24,#d4af37);color:#000;border:none;border-radius:8px;padding:6px 10px;font-size:.76rem;font-weight:900;cursor:pointer}
-.p-btn-cy{background:var(--cg);color:#000;border:none;border-radius:8px;padding:6px 9px;font-size:.76rem;font-weight:900;cursor:pointer}
 .sq-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
 .sq-btn{aspect-ratio:1/1;background:var(--cd);border:2px solid var(--gold);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;padding:6px;text-align:center;color:var(--tx)}
 .sq-ic{font-size:2.55rem;line-height:1}
@@ -81,7 +75,7 @@ select,input,textarea{width:100%;background:var(--in);border:1.5px solid var(--b
 </head>
 <body>
 <header>
-  <div class="brand">
+  <div class="brand" onclick="secretOwnerTap()">
     <img class="logo" src="icon.png" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 rx=%2240%22 fill=%22%23eab308%22 stroke=%22%2378350f%22 stroke-width=%2212%22/%3E%3Cpath d=%22M95 25 C85 10 115 10 105 28 C98 42 82 48 98 64%22 fill=%22none%22 stroke=%22%23451a03%22 stroke-width=%2210%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M92 58 C125 56 156 96 156 135 C156 168 122 182 95 180 C60 178 48 150 54 124 C60 98 82 78 92 58 Z%22 fill=%22%23991b1b%22 stroke=%22%23451a03%22 stroke-width=%228%22/%3E%3Cpath d=%22M72 130 L108 114 L142 128 M82 154 L112 142 L138 156%22 fill=%22none%22 stroke=%22%23fef3c7%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3C/svg%3E'" alt="AgerPro">
     <h1 class="b-t">AGERPRO</h1>
   </div>
@@ -95,15 +89,6 @@ select,input,textarea{width:100%;background:var(--in);border:1.5px solid var(--b
 </header>
 
 <main>
-  <!-- Top Visible Live Counter & Feedback Bar -->
-  <div class="pulse-bar">
-    <div class="pulse-stat">📊 App Opens: <b id="topHitsTxt">...</b></div>
-    <div class="pulse-btns">
-      <button class="p-btn" onclick="openM('fbM')">💬 Feedback / Vote</button>
-      <button class="p-btn-cy" onclick="shareAppLink()">📤 Share</button>
-    </div>
-  </div>
-
   <!-- Top 4 Permanent Gold-Bordered Utility Buttons -->
   <div class="sq-grid">
     <button class="sq-btn" onclick="cycleUnit()">
@@ -124,7 +109,7 @@ select,input,textarea{width:100%;background:var(--in);border:1.5px solid var(--b
     <button class="sq-btn" onclick="openGuide()">
       <span class="sq-ic">📋</span>
       <span class="sq-lb">Guide</span>
-      <span class="sq-sub">Backup/Info</span>
+      <span class="sq-sub">Info & Vote</span>
     </button>
   </div>
 
@@ -197,42 +182,51 @@ select,input,textarea{width:100%;background:var(--in);border:1.5px solid var(--b
   </div>
 </div>
 
-<!-- DEMAND & FEEDBACK MODAL -->
+<!-- CLEAN FEEDBACK & VOTE MODAL (NO COUNTER, NO EMAIL/REDDIT BUTTONS) -->
 <div class="modal" id="fbM">
   <div class="m-c">
-    <h3 style="margin-top:0;color:var(--gold-glow)">💬 Tester Feedback & Store Vote</h3>
-    <div class="stage-bar" style="margin-bottom:10px">
-      📊 <b>Live Community Counter:</b> <span id="fbCounterTxt">Loading...</span><br>
-      <span style="font-size:.72rem;color:var(--mt)">Help us decide if we should publish AgerPro on the Google Play Store!</span>
-    </div>
+    <h3 style="margin-top:0;color:var(--gold-glow)">💬 Quick App Vote & Setup</h3>
     <div class="fg">
       <label>1. Would you download AgerPro on the Google Play / iOS App Store?</label>
       <select id="fbVote">
-        <option value="YES - Paid ($4.99-$6.99)">🔥 Yes! I'd happily pay $5–$7 for a Pro store app</option>
-        <option value="YES - Free/Pro Unlock">👍 Yes, if free to try with a Pro unlock</option>
-        <option value="Web App is Enough">📱 I'm happy using this free Web/Home Screen version</option>
+        <option value="vote-paid">🔥 Yes! I'd happily pay $5–$7 for a Pro store app</option>
+        <option value="vote-free">👍 Yes, if free to try with a Pro unlock</option>
+        <option value="vote-web">📱 I'm happy using this Web/Home Screen version</option>
       </select>
     </div>
     <div class="fg">
       <label>2. What Dry Aging Setup Do You Use?</label>
-      <select id="fbGear">
-        <option value="Thermaster / Commercial Cabinet">Thermaster / Commercial Glass Cabinet</option>
-        <option value="Dry Ager (DX500 / DX1000)">Dry Ager (DX500 / DX1000)</option>
-        <option value="Vintec / SteakAger / Home Cabinet">Vintec / SteakAger / Home Cabinet</option>
-        <option value="DIY Dedicated Fridge Conversion">DIY Dedicated Fridge Conversion</option>
-        <option value="Umai Dry Bags">Umai Dry Membrane Bags</option>
+      <select id="fbGear" onchange="chkFbOther()">
+        <option value="gear-thermaster">Thermaster / Commercial Glass Cabinet</option>
+        <option value="gear-dryager">Dry Ager (DX500 / DX1000)</option>
+        <option value="gear-vintec">Vintec / SteakAger / Home Cabinet</option>
+        <option value="gear-diy">DIY Dedicated Fridge Conversion</option>
+        <option value="gear-umai">Umai Dry Membrane Bags</option>
+        <option value="gear-other">➕ Other (Type Custom Setup)...</option>
       </select>
     </div>
+    <div class="fg" id="fbOtherGrp" style="display:none">
+      <label>Type Your Dry Aging Setup</label>
+      <input id="fbOtherIn" placeholder="e.g. Coolroom / Custom Wine Fridge">
+    </div>
     <div class="fg">
-      <label>3. Feature Requests or Feedback</label>
-      <textarea id="fbNotes" rows="3" placeholder="What cuts do you age? Any features you'd love added?"></textarea>
+      <label>3. Any Notes or Feature Ideas? (Optional)</label>
+      <textarea id="fbNotes" rows="2" placeholder="What cuts do you age? Any features you'd love added?"></textarea>
     </div>
-    <div class="grid2" style="margin-bottom:8px">
-      <button class="btn btn-green" onclick="sendFeedbackEmail()">📧 Email Feedback</button>
-      <button class="btn btn-cy" onclick="copyFeedbackText()">📋 Copy for Reddit/FB</button>
+    <div class="grid2">
+      <button class="btn btn-red" onclick="closeM('fbM')">Cancel</button>
+      <button class="btn btn-green" onclick="submitSilentVote()">✅ Submit Vote</button>
     </div>
-    <button class="btn btn-gold" style="margin-bottom:8px" onclick="shareAppLink()">📤 Share AgerPro Link with Friends</button>
-    <button class="btn btn-red" onclick="closeM('fbM')">Close</button>
+  </div>
+</div>
+
+<!-- SECRET OWNER STATS MODAL (ONLY OPENS ON 5 TAPS OF AGERPRO LOGO OR TYPING 'admin' IN SEARCH) -->
+<div class="modal" id="ownM">
+  <div class="m-c">
+    <h3 style="margin-top:0;color:var(--gold-glow)">🔒 Private Owner Demand Dashboard</h3>
+    <div style="font-size:.76rem;color:var(--mt);margin-bottom:8px">Invisible to regular users. Triggered by tapping AGERPRO 5x.</div>
+    <div class="stage-bar" id="ownStatsBox" style="line-height:1.6;font-size:.84rem">Loading live cloud numbers...</div>
+    <button class="btn btn-red" style="margin-top:10px" onclick="closeM('ownM')">Close Private Dashboard</button>
   </div>
 </div>
 
@@ -271,24 +265,19 @@ select,input,textarea{width:100%;background:var(--in);border:1.5px solid var(--b
 <!-- GUIDE & BACKUP MODAL -->
 <div class="modal" id="gM">
   <div class="m-c">
-    <h3 style="margin-top:0;color:var(--gold-glow)">📋 AgerPro Guide, Demand & Backup</h3>
-    <div class="stage-bar" style="margin-bottom:10px">
-      📊 <b>Demand & Usage Pulse:</b><br>
-      • Global App Opens: <b id="gGlobalHits">Counting...</b><br>
-      • Your Device Opens: <b id="gLocalHits">0</b> | Total Batches Logged: <b id="gTotalBatches">0</b>
-    </div>
+    <h3 style="margin-top:0;color:var(--gold-glow)">📋 AgerPro Guide & Backup</h3>
     <div class="grid2" style="margin-bottom:10px">
-      <button class="btn btn-gold" onclick="closeM('gM');openM('fbM')">💬 Feedback / Vote</button>
+      <button class="btn btn-gold" onclick="closeM('gM');openM('fbM')">💬 App Vote / Setup</button>
       <button class="btn btn-cy" onclick="shareAppLink()">📤 Share App Link</button>
     </div>
     <div style="font-size:.82rem;background:var(--in);padding:10px;border-radius:9px;margin-bottom:10px">
       • <b>Prep:</b> Never wash meat with water. Blot bone-dry. Fat cap UP, Bones DOWN.<br>
       • <b>Install App:</b> Tap Chrome's <b>⋮</b> menu $\rightarrow$ <b>Install app / Add to Home screen</b>.<br>
-      • <b>Backup:</b> Export your JSON backup before switching phones.
+      • <b>Backup:</b> Save a backup file before switching phones.
     </div>
     <div class="grid2" style="margin-bottom:10px">
-      <button class="btn btn-green" onclick="exportData()">💾 Backup Data</button>
-      <button class="btn btn-cy" onclick="document.getElementById('impFile').click()">📂 Restore Backup</button>
+      <button class="btn btn-green" onclick="exportData()">💾 Save Backup File</button>
+      <button class="btn btn-cy" onclick="document.getElementById('impFile').click()">📂 Load Backup File</button>
       <input type="file" id="impFile" style="display:none" accept=".json" onchange="importData(event)">
     </div>
     <button class="btn btn-red" onclick="closeM('gM')">Close Guide</button>
@@ -523,6 +512,7 @@ var it=ld('dryAgeItemsV6',null);
 if(!it){it=ld('dryAgeItemsV5',ld('dryAgeItemsV4',[]));}
 var cu=ld('dryAgeCustomItemsV5',{meat:[],fish:[],salami:[],cheese:[]});
 var maintData=ld('agerProMaint',{});
+var customGears=ld('agerProCustomGears',[]);
 var cM='meat',curMarb=2,curProg='basic',srchQ='',tempPhotoData='';
 
 function sv(){
@@ -533,36 +523,94 @@ function sv(){
   localStorage.setItem('dryAgeItemsV5',JSON.stringify(it));
   localStorage.setItem('dryAgeCustomItemsV5',JSON.stringify(cu));
   localStorage.setItem('agerProMaint',JSON.stringify(maintData));
+  localStorage.setItem('agerProCustomGears',JSON.stringify(customGears));
 }
 
-/* Demand & Visitor Counter */
+/* Silent Background Counter & Secret 5-Tap Owner Dashboard */
 var localHits=parseInt(localStorage.getItem('agerProLocalHits')||'0',10)+1;
 localStorage.setItem('agerProLocalHits',localHits);
 var globalHits=localHits;
-function initDemandCounter(){
-  updCounterLabels();
+function initSilentCounter(){
   fetch('https://api.counterapi.dev/v1/snbracing71-eng/agerpro-opens/up')
     .then(function(r){return r.json()})
-    .then(function(d){
-      if(d&&d.count){
-        globalHits=d.count;
-        updCounterLabels();
-      }
-    }).catch(function(){
-      updCounterLabels();
-    });
+    .then(function(d){if(d&&d.count)globalHits=d.count;})
+    .catch(function(){});
 }
-function updCounterLabels(){
-  var tEl=document.getElementById('topHitsTxt');
-  var gEl=document.getElementById('gGlobalHits');
-  var lEl=document.getElementById('gLocalHits');
-  var bEl=document.getElementById('gTotalBatches');
-  var fbEl=document.getElementById('fbCounterTxt');
-  if(tEl)tEl.innerText=globalHits+' ('+it.length+' batches)';
-  if(gEl)gEl.innerText=globalHits;
-  if(lEl)lEl.innerText=localHits;
-  if(bEl)bEl.innerText=it.length;
-  if(fbEl)fbEl.innerText=globalHits+' total app opens ('+localHits+' on your phone)';
+var tapCnt=0,tapTimer=null;
+function secretOwnerTap(){
+  tapCnt++;
+  clearTimeout(tapTimer);
+  if(tapCnt>=5){
+    tapCnt=0;
+    openOwnerDashboard();
+  }else{
+    tapTimer=setTimeout(function(){tapCnt=0;},1800);
+  }
+}
+function getStatCount(key){
+  return fetch('https://api.counterapi.dev/v1/snbracing71-eng/'+key+'/')
+    .then(function(r){return r.json()})
+    .then(function(d){return(d&&d.count)?d.count:0})
+    .catch(function(){return 0});
+}
+function openOwnerDashboard(){
+  openM('ownM');
+  var box=document.getElementById('ownStatsBox');
+  box.innerHTML='⏳ Fetching live numbers...';
+  Promise.all([
+    getStatCount('agerpro-opens'),
+    getStatCount('vote-paid'),
+    getStatCount('vote-free'),
+    getStatCount('vote-web'),
+    getStatCount('gear-thermaster'),
+    getStatCount('gear-dryager'),
+    getStatCount('gear-vintec'),
+    getStatCount('gear-diy'),
+    getStatCount('gear-umai'),
+    getStatCount('gear-other')
+  ]).then(function(r){
+    var myNotes=ld('agerProLocalVotes',[]);
+    var notesHtml=myNotes.length?('<br><b>Recent Local Notes/Setups:</b><br>• '+myNotes.slice(0,5).join('<br>• ')):'';
+    box.innerHTML=
+      '🌍 <b>Total Global App Opens:</b> '+(r[0]||globalHits)+'<br>'+
+      '📱 <b>Opens on Your Phone:</b> '+localHits+'<br><hr style="border-color:var(--bd)">'+
+      '<b>📊 Store Demand Votes:</b><br>'+
+      '• 🔥 Yes ($5–$7 Paid App): <b>'+r[1]+'</b><br>'+
+      '• 👍 Yes (Free + Pro Unlock): <b>'+r[2]+'</b><br>'+
+      '• 📱 Web Version is Enough: <b>'+r[3]+'</b><br><hr style="border-color:var(--bd)">'+
+      '<b>🥩 Dry Aging Setups Voted:</b><br>'+
+      '• Thermaster / Commercial: <b>'+r[4]+'</b><br>'+
+      '• Dry Ager (DX): <b>'+r[5]+'</b><br>'+
+      '• Vintec / SteakAger: <b>'+r[6]+'</b><br>'+
+      '• DIY Fridge Conversion: <b>'+r[7]+'</b><br>'+
+      '• Umai Dry Bags: <b>'+r[8]+'</b><br>'+
+      '• Other Custom Setups: <b>'+r[9]+'</b>'+notesHtml;
+  });
+}
+
+function chkFbOther(){
+  var v=document.getElementById('fbGear').value;
+  document.getElementById('fbOtherGrp').style.display=(v==='gear-other')?'block':'none';
+}
+function submitSilentVote(){
+  var vote=document.getElementById('fbVote').value;
+  var gear=document.getElementById('fbGear').value;
+  var otherTxt=document.getElementById('fbOtherIn').value.trim();
+  var notes=document.getElementById('fbNotes').value.trim();
+  if(gear==='gear-other'&&!otherTxt)return msg('Please type your custom dry aging setup.');
+  if(gear==='gear-other'&&otherTxt&&customGears.indexOf(otherTxt)<0){
+    customGears.push(otherTxt);
+    sv();
+  }
+  fetch('https://api.counterapi.dev/v1/snbracing71-eng/'+vote+'/up').catch(function(){});
+  fetch('https://api.counterapi.dev/v1/snbracing71-eng/'+gear+'/up').catch(function(){});
+  var logArr=ld('agerProLocalVotes',[]);
+  if(otherTxt||notes){
+    logArr.unshift((otherTxt?('['+otherTxt+'] '):'')+(notes||'Voted'));
+    localStorage.setItem('agerProLocalVotes',JSON.stringify(logArr));
+  }
+  closeM('fbM');
+  msg('✅ Thank you! Your vote and setup have been recorded.');
 }
 
 function msg(t){document.getElementById('msgTxt').innerText=t;openM('msgM')}
@@ -599,12 +647,19 @@ function fW(g){
 
 function onSearch(v){
   srchQ=v.trim().toLowerCase();
+  if(srchQ==='admin'){
+    clrSearch();
+    openOwnerDashboard();
+    return;
+  }
   document.getElementById('srchClr').style.display=srchQ?'block':'none';
   rf();
 }
 function clrSearch(){
   document.getElementById('srchIn').value='';
-  onSearch('');
+  srchQ='';
+  document.getElementById('srchClr').style.display='none';
+  rf();
 }
 
 function acC(){
@@ -651,7 +706,6 @@ function markMaint(k){
 }
 
 function openGuide(){
-  updCounterLabels();
   openM('gM');
 }
 
@@ -779,7 +833,7 @@ function saveB(){
     notes:note,
     history:[{date:d,weight:w,note:note,photo:tempPhotoData}]
   });
-  sv();closeM('aM');rf();updCounterLabels();
+  sv();closeM('aM');rf();
 }
 
 function openW(id){
@@ -912,7 +966,7 @@ function saveH(){
 function delB(id){
   askCnf('Delete this batch permanently?',function(){
     it=it.filter(function(x){return String(x.id)!==String(id)});
-    sv();rf();updCounterLabels();
+    sv();rf();
   });
 }
 
@@ -941,29 +995,13 @@ function openAlerts(){
   openM('alM');
 }
 
-function getFeedbackSummary(){
-  var vote=document.getElementById('fbVote').value;
-  var gear=document.getElementById('fbGear').value;
-  var notes=document.getElementById('fbNotes').value.trim();
-  return "AgerPro Tester Feedback:\n• Store Vote: "+vote+"\n• Cabinet/Setup: "+gear+"\n• Batches Logged: "+it.length+"\n• Notes: "+(notes||"None");
-}
-function copyFeedbackText(){
-  var t=getFeedbackSummary();
-  if(navigator.clipboard)navigator.clipboard.writeText(t);
-  msg('📋 Feedback copied! You can paste it into a message, Reddit, or email.');
-}
-function sendFeedbackEmail(){
-  var subj=encodeURIComponent("AgerPro App Feedback & Store Vote");
-  var body=encodeURIComponent(getFeedbackSummary());
-  window.location.href="mailto:?subject="+subj+"&body="+body;
-}
 function shareAppLink(){
   var url="https://snbracing71-eng.github.io/dry-aging-tracker/";
   if(navigator.share){
-    navigator.share({title:"AgerPro Dry Aging Tracker",text:"Free Dry Aging Calculator & Cabinet Tracker (AgerPro):",url:url});
+    navigator.share({title:"AgerPro Dry Aging Tracker",text:"Check out AgerPro Dry Aging Tracker:",url:url});
   }else if(navigator.clipboard){
     navigator.clipboard.writeText(url);
-    msg('🔗 Live AgerPro link copied to clipboard! Ready to paste into Reddit or Facebook.');
+    msg('🔗 AgerPro link copied to clipboard!');
   }
 }
 
@@ -1061,7 +1099,7 @@ function rf(){
         '<div class="m-b"><div class="lbl">Start</div><div class="val">'+fW(b.startW)+'</div></div>'+
         '<div class="m-b"><div class="lbl">Current</div><div class="val">'+fW(lw)+'</div></div>'+
         '<div class="m-b"><div class="lbl">Water Lost</div><div class="val" style="color:var(--gold-glow)">-'+fW(Math.max(0,b.startW-lw))+'</div></div>'+
-      '</div>'+
+      </div>'+
       costBadge+
       '<div style="font-size:.8rem;margin:6px 0;color:var(--gold-glow)">📍 '+(b.status||'Active in Agers')+' ('+(b.statusDate||b.startD)+')</div>'+
       (b.notes?'<div style="font-size:.8rem;background:var(--in);padding:6px;border-left:3px solid var(--gold);margin-bottom:6px">📝 '+b.notes+'</div>':'')+
@@ -1073,6 +1111,6 @@ function rf(){
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
 rf();
-initDemandCounter();
+initSilentCounter();
 </script>
 <!-- END_OF_FILE_OK --></html>
