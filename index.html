@@ -80,6 +80,10 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
 .gal-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
 .gal-item{position:relative;display:inline-block}
 .gal-item span{position:absolute;bottom:3px;left:3px;right:3px;background:rgba(0,0,0,.75);color:#fef08a;font-size:.65rem;font-weight:800;text-align:center;border-radius:4px;padding:1px 2px;pointer-events:none}
+.scan-box{background:linear-gradient(145deg,#1e2430,#12151b);border:2px dashed var(--bd);border-radius:12px;padding:11px;margin-bottom:10px}
+.scan-res{background:#162319;border:1.5px solid var(--grn);border-radius:9px;padding:9px;margin-top:8px;font-size:.86rem;color:#dcfce7;display:none}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.q-chip{background:#262b36;border:1px solid var(--bd);color:#fef08a;border-radius:99px;padding:4px 9px;font-size:.76rem;font-weight:800;cursor:pointer}
 </style>
 </head>
 <body>
@@ -141,7 +145,24 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
   <div class="m-box">
     <h2 id="addMTitle">+ Start New Aging Batch</h2>
     <input type="hidden" id="editBId" value="">
-    <label>1. Select Primal Cut or Specialty:</label>
+
+    <!-- STEP 1: PHOTO AUTO-DETECT -->
+    <div class="scan-box">
+      <div class="row-sb">
+        <strong style="color:var(--bd);font-size:.95rem">📸 Step 1: Snap Photo to Auto-Select Cut & Marbling</strong>
+      </div>
+      <div style="font-size:.8rem;color:var(--mt);margin:3px 0 8px">Take or pick a photo of your cut—AGERPRO will pre-select the cut, marbling grade & target days (you can freely adjust below).</div>
+      <div style="display:flex;gap:8px">
+        <label class="btn btn-green" style="margin:0;flex:1;cursor:pointer;padding:9px">📸 Snap Cut Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'addPic',true)"></label>
+        <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer;padding:9px">🖼️ From Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'addPic',true)"></label>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <img id="addPic" class="thumb" style="display:none" onclick="openZoom(this.src,'Batch Photo')">
+        <div id="scanBoxRes" class="scan-res" style="flex:1"></div>
+      </div>
+    </div>
+
+    <label>2. Primal Cut or Specialty (Edit anytime):</label>
     <select id="cutSel" onchange="onCutChg(false)"></select>
     <div id="cuBox" style="display:none;margin-top:6px">
       <input id="cuName" placeholder="Enter custom item name...">
@@ -149,7 +170,7 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
     </div>
 
     <div id="mbWrap">
-      <label>2. Meat Fat / Marbling (White Fat Inside Meat):</label>
+      <label>3. Meat Fat / Marbling (White Fat Inside Meat):</label>
       <div class="opt-grid">
         <div class="opt-b" id="mb-1" onclick="setMb(1)">Lean<br><span style="font-size:.73rem;color:var(--mt)">MB 0–1 • Low Fat</span></div>
         <div class="opt-b active" id="mb-2" onclick="setMb(2)">Angus<br><span style="font-size:.73rem;color:var(--mt)">MB 2–4 • Moderate</span></div>
@@ -158,7 +179,7 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
       <div class="info-bx" id="mbDesc"></div>
     </div>
 
-    <label>3. Aging Intensity & Target Days:</label>
+    <label>4. Aging Intensity & Target Days:</label>
     <div class="opt-grid" id="intGrid"></div>
     <div class="info-bx" id="intDesc"></div>
 
@@ -191,13 +212,6 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
     <label>Batch Notes (Source Butcher, Breed, Prep):</label>
     <textarea id="inNotes" rows="2" placeholder="e.g. Cape Grim Rib, fat cap up..."></textarea>
 
-    <label>Batch Photo (Camera or Gallery):</label>
-    <div style="display:flex;gap:8px;margin-top:4px">
-      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">📸 Take Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'addPic')"></label>
-      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">🖼️ Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'addPic')"></label>
-    </div>
-    <img id="addPic" class="thumb" style="display:none" onclick="openZoom(this.src,'Batch Photo')">
-
     <div style="display:flex;gap:8px;margin-top:14px">
       <button class="btn btn-green" id="saveBatchBtn" onclick="saveBatch()">Start Aging</button>
       <button class="btn btn-red" onclick="closeM('addM')">Cancel</button>
@@ -218,8 +232,8 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
     <textarea id="wNote" rows="2" placeholder="e.g. Deep mahogany crust set, nutty aroma..."></textarea>
     <label>Progress Photo:</label>
     <div style="display:flex;gap:8px;margin-top:4px">
-      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">📸 Take Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'wPic')"></label>
-      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">🖼️ Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'wPic')"></label>
+      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">📸 Take Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'wPic',false)"></label>
+      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">🖼️ Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'wPic',false)"></label>
     </div>
     <img id="wPic" class="thumb" style="display:none" onclick="openZoom(this.src,'Weigh-In Photo')">
     <div style="display:flex;gap:8px;margin-top:14px">
@@ -239,8 +253,8 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
     <textarea id="nTxt" rows="3"></textarea>
     <label>Add New Progress Photo (Camera or Gallery):</label>
     <div style="display:flex;gap:8px;margin-top:4px">
-      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">📸 Take Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'nPic')"></label>
-      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">🖼️ Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'nPic')"></label>
+      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">📸 Take Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'nPic',false)"></label>
+      <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">🖼️ Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'nPic',false)"></label>
     </div>
     <img id="nPic" class="thumb" style="display:none" onclick="openZoom(this.src,'Batch Photo')">
     <div style="display:flex;gap:8px;margin-top:14px">
@@ -393,7 +407,6 @@ function fixW(val){
   return n;
 }
 
-// READ ORIGINAL V6/V5 KEYS FIRST SO ALL PHOTOS & TRUE WEIGHTS ARE RESTORED
 function recoverAllBatches(){
   var keys=['dryAgeItemsV6','dryAgeItemsV5','agerpro_v6_batches','agerpro_v5_batches','ap_batches','ap_items','agerpro_batches','agerlog_batches'];
   for(var k=0;k<localStorage.length;k++){
@@ -443,7 +456,7 @@ function recoverAllBatches(){
             id:x.id||Date.now()+Math.floor(Math.random()*999),
             fridge:x.fridge||x.chamber||'Thermaster MA400 #1',
             cat:c,
-            name:x.name||x.cut||'Prime Rib',
+            name:x.name||x.cut||'Prime Rib (OP Rib / Ribeye Rack)',
             code:x.code||x.batchCode||'PRO-1001',
             days:parseInt(x.days||x.targetDays||28,10),
             startW:sW,
@@ -465,7 +478,6 @@ function recoverAllBatches(){
             history:hist
           };
         }else{
-          // Enrich missing photos from older keys if present
           var ex=byId[uid];
           if(!ex.pic&&firstPic)ex.pic=firstPic;
           hist.forEach(function(h,idx){
@@ -533,20 +545,20 @@ var MB_TEXT={
 
 var LIB={
   meat:[
+    {g:'🐂 BEEF — BONE-IN',n:'Prime Rib (OP Rib / Ribeye Rack)',alt:'Prime Rib',m:{1:[21,28,0],2:[21,42,42],3:[28,42,56]},tip:'Standing rib roast on the bone (short-bone OP Rib / Côte de Boeuf). Keep fat cap intact with zero incisions; wipe bone dust clean before loading.'},
+    {g:'🐂 BEEF — BONE-IN',n:'Sirloin (T-Bone / Short Loin Rack)',alt:'Sirloin',m:{1:[21,28,0],2:[21,42,42],3:[28,42,56]},tip:'Bone-in short loin / T-Bone & Porterhouse rack. Tip: Harvest around 21–28 days if you want to keep the leaner eye fillet (tenderloin) side extra juicy!'},
+    {g:'🐂 BEEF — BONE-IN',n:'Rib (Tomahawk Long-Bone)',alt:'Rib',m:{1:[21,28,0],2:[21,42,42],3:[28,42,56]},tip:'Long-bone ribeye rack for Tomahawk steaks. Age hanging from the spine bone or resting bone-down on the shelf.'},
     {g:'🐂 BEEF — BONE-IN',n:'Whole Back',m:{1:[28,35,0],2:[28,42,42],3:[28,42,56]},tip:'Whole bone-in saddle/back. Minimum drying loss thanks to bone and fat armor. Drill vertebral spine bone to hang.'},
-    {g:'🐂 BEEF — BONE-IN',n:'Prime Rib',m:{1:[21,28,0],2:[21,42,42],3:[28,42,56]},tip:'Standing rib roast on the bone. Keep fat cap intact with zero incisions; wipe bone dust clean before loading.'},
-    {g:'🐂 BEEF — BONE-IN',n:'Rib',m:{1:[21,28,0],2:[21,42,42],3:[28,42,56]},tip:'Bone-in rib section. Age hanging from the rib/spine bone or resting bone-down on the shelf.'},
-    {g:'🐂 BEEF — BONE-IN',n:'Sirloin',m:{1:[21,28,0],2:[21,42,42],3:[28,42,56]},tip:'Bone-in short loin / sirloin. Yields T-Bone, Porterhouse, and bone-in strip steaks after trimming.'},
     {g:'🐂 BEEF — BONE-IN',n:'Chuck Eye Roll',m:{1:[21,28,0],2:[21,28,28],3:[21,28,42]},tip:'Bone-in neck/chuck roll. Enzymatic aging softens neck connective tissue; carve into Chuck Eye, Sierra, and Denver steaks after aging.'},
     {g:'🐂 BEEF — BONE-IN',n:'Leg',m:{1:[21,28,0],2:[21,28,28],3:[21,28,42]},tip:'Whole bone-in beef hind leg/round. Age whole with outer fat layer intact.'},
     {g:'🐂 BEEF — BONE-IN',n:'Shank',m:{1:[14,21,0],2:[7,21,21],3:[7,21,21]},tip:'Bone-in beef shin/shank. Develops rich nutty marrow and gelatinous tenderness for osso buco or braising.'},
     {g:'🐂 BEEF — BONE-IN',n:'Short Rib',m:{1:[7,14,0],2:[7,21,21],3:[7,21,21]},tip:'Whole bone-in short rib plate. Do not score into the muscle before aging.'},
-    {g:'🐂 BEEF — DEBONED',n:'Tenderloin',m:{1:[7,14,0],2:[14,21,21],3:[14,21,28]},tip:'Deboned beef fillet. Lean and delicate—keep aging short to preserve moisture.'},
-    {g:'🐂 BEEF — DEBONED',n:'Rib Deboned',m:{1:[14,21,0],2:[21,28,28],3:[21,35,42]},tip:'Boneless ribeye roll (Scotch fillet). Leave full fat cap untouched to shield the eye muscle.'},
-    {g:'🐂 BEEF — DEBONED',n:'Sirloin Deboned',m:{1:[14,21,0],2:[21,28,28],3:[21,35,42]},tip:'Boneless striploin / porterhouse primal. Rest fat-side up on the rack.'},
-    {g:'🐂 BEEF — DEBONED',n:'Rump Cap',m:{1:[14,21,0],2:[21,28,28],3:[21,28,35]},tip:'Whole Picanha / top butt cap. Leave silver skin and thick fat cap 100% intact during aging.'},
+    {g:'🐂 BEEF — DEBONED',n:'Rib Deboned (Scotch Fillet Roll)',alt:'Rib Deboned',m:{1:[14,21,0],2:[21,28,28],3:[21,35,42]},tip:'Boneless ribeye / Scotch fillet roll. Leave full fat cap untouched to shield the eye muscle.'},
+    {g:'🐂 BEEF — DEBONED',n:'Sirloin Deboned (Striploin / Porterhouse)',alt:'Sirloin Deboned',m:{1:[14,21,0],2:[21,28,28],3:[21,35,42]},tip:'Boneless striploin / New York strip primal. Rest fat-side up on the rack.'},
+    {g:'🐂 BEEF — DEBONED',n:'Tenderloin (Eye Fillet)',alt:'Tenderloin',m:{1:[7,14,0],2:[14,21,21],3:[14,21,28]},tip:'Deboned beef eye fillet. Lean and delicate—keep aging short to preserve moisture.'},
+    {g:'🐂 BEEF — DEBONED',n:'Rump Cap (Picanha)',alt:'Rump Cap',m:{1:[14,21,0],2:[21,28,28],3:[21,28,35]},tip:'Whole Picanha / top butt cap. Leave silver skin and thick fat cap 100% intact during aging.'},
     {g:'🐂 BEEF — DEBONED',n:'Topside',m:{1:[14,21,0],2:[21,28,28],3:[28,42,42]},tip:'Whole topside primal. After aging, trim and slice upper gracilis muscle into Santa Fe & Tucson steaks.'},
-    {g:'🐂 BEEF — DEBONED',n:'Flat Iron',m:{1:[14,21,0],2:[21,28,28],3:[21,28,35]},tip:'Whole top blade / oyster blade roast. Leave silver skin on during aging; seam out internal sinew after harvesting.'},
+    {g:'🐂 BEEF — DEBONED',n:'Flat Iron (Oyster Blade)',alt:'Flat Iron',m:{1:[14,21,0],2:[21,28,28],3:[21,28,35]},tip:'Whole top blade / oyster blade roast. Leave silver skin on during aging; seam out internal sinew after harvesting.'},
     {g:'🐂 BEEF — DEBONED',n:'Shoulder Clod',m:{1:[21,28,0],2:[28,28,42],3:[28,35,42]},tip:'Whole beef chuck clod. Yields pan-seared teres major and rich chuck roasts.'},
     {g:'🐂 BEEF — DEBONED',n:'Tri Tip',m:{1:[21,28,0],2:[28,42,42],3:[28,42,42]},tip:'Bottom sirloin triangle roast. Hang whole in the fridge without pre-trimming.'},
     {g:'🐂 BEEF — DEBONED',n:'Tongue',m:{1:[14,21,0],2:[14,21,21],3:[14,21,21]},tip:'Striated skeletal muscle offal that dry-ages into a firm, ham-like delicacy.'},
@@ -693,7 +705,9 @@ function selCat(c){
 
 function getCutObj(cat,name){
   var arr=LIB[cat]||[];
-  for(var i=0;i<arr.length;i++)if(arr[i].n===name)return arr[i];
+  for(var i=0;i<arr.length;i++){
+    if(arr[i].n===name||arr[i].alt===name)return arr[i];
+  }
   return null;
 }
 
@@ -701,11 +715,11 @@ function popCutDropdown(selVal){
   var sel=document.getElementById('cutSel');
   var arr=LIB[curCat]||[];
   var groups={};
-  arr.forEach(function(x){if(!groups[x.g])groups[x.g]=[];groups[x.g].push(x.n);});
+  arr.forEach(function(x){if(!groups[x.g])groups[x.g]=[];groups[x.g].push(x);});
   var html='';
   Object.keys(groups).forEach(function(g){
     html+='<optgroup label="'+g+'">';
-    groups[g].forEach(function(n){html+='<option value="'+n+'">'+n+'</option>';});
+    groups[g].forEach(function(x){html+='<option value="'+x.n+'">'+x.n+'</option>';});
     html+='</optgroup>';
   });
   var cList=cu[curCat]||[];
@@ -717,9 +731,11 @@ function popCutDropdown(selVal){
   html+='<option value="__OTHER__">+ Add Custom Item...</option>';
   sel.innerHTML=html;
   if(selVal){
+    var matchObj=getCutObj(curCat,selVal);
+    var targetVal=matchObj?matchObj.n:selVal;
     var found=false;
     for(var i=0;i<sel.options.length;i++){
-      if(sel.options[i].value===selVal||sel.options[i].text===selVal){sel.selectedIndex=i;found=true;break;}
+      if(sel.options[i].value===targetVal||sel.options[i].text===targetVal){sel.selectedIndex=i;found=true;break;}
     }
     if(!found){
       var opt=document.createElement('option');
@@ -777,6 +793,86 @@ function pickInt(idx,d){
   renderIntBtns(obj,false);
 }
 
+function quickPickCut(cutName,daysOverride){
+  var sel=document.getElementById('cutSel');
+  for(var i=0;i<sel.options.length;i++){
+    if(sel.options[i].value===cutName){sel.selectedIndex=i;break;}
+  }
+  onCutChg(false);
+  if(daysOverride)document.getElementById('inDays').value=daysOverride;
+}
+
+// SMART PHOTO SCANNER: ANALYZES MARBLING FLECKS, BONE/FAT CAP & SHAPE TO PRE-SELECT CUT & MARBLING
+function analyzeCutPhoto(imgEl){
+  try{
+    var sc=document.createElement('canvas');
+    sc.width=120;sc.height=120;
+    var ctx=sc.getContext('2d');
+    ctx.drawImage(imgEl,0,0,120,120);
+    var data=ctx.getImageData(20,20,80,80).data;
+    var redPx=0,fatPx=0,boneCapPx=0;
+    for(var i=0;i<data.length;i+=4){
+      var r=data[i],g=data[i+1],b=data[i+2];
+      // Deep red/crimson lean muscle pixels
+      if(r>95&&r>g*1.35&&r>b*1.35&&g<130){
+        redPx++;
+      }
+      // Bright cream/white intramuscular marbling & bone/fat pixels
+      else if(r>175&&g>155&&b>140&&Math.abs(r-g)<35){
+        if(r>210&&g>200)boneCapPx++;
+        else fatPx++;
+      }
+    }
+    var totalMeat=redPx+fatPx+boneCapPx||1;
+    var fleckRatio=(fatPx+boneCapPx*0.5)/totalMeat;
+    var detMb=2;
+    var mbName='Angus (MB 2–4)';
+    if(fleckRatio<0.16){detMb=1;mbName='Lean (MB 0–1)';}
+    else if(fleckRatio>0.36){detMb=3;mbName='Wagyu (MB 5+)';}
+
+    // Guess cut based on category & aspect/bone profile
+    var detCut='Prime Rib (OP Rib / Ribeye Rack)';
+    if(curCat==='meat'){
+      var ratio=imgEl.width/(imgEl.height||1);
+      if(ratio<0.88||(boneCapPx/totalMeat>0.22&&redPx/totalMeat>0.42)){
+        detCut='Sirloin (T-Bone / Short Loin Rack)';
+      }else if(boneCapPx/totalMeat<0.07){
+        detCut='Rib Deboned (Scotch Fillet Roll)';
+      }else{
+        detCut='Prime Rib (OP Rib / Ribeye Rack)';
+      }
+      curMb=detMb;
+      [1,2,3].forEach(function(k){document.getElementById('mb-'+k).classList.toggle('active',k===detMb);});
+      curInt=detMb===1?0:1;
+    }else if(curCat==='fish'){
+      detCut='Atlantic Salmon';
+    }else if(curCat==='salami'){
+      detCut='Beef Salami';
+    }else if(curCat==='cheese'){
+      detCut='Cheddar';
+    }
+
+    popCutDropdown(detCut);
+    onCutChg(false);
+
+    var resBx=document.getElementById('scanBoxRes');
+    resBx.style.display='block';
+    var daysVal=document.getElementById('inDays').value;
+    var chipsHtml='';
+    if(curCat==='meat'){
+      chipsHtml='<div style="margin-top:6px;font-size:.76rem;color:#fef08a">Not right? 1-Tap Switch Cut:</div>'+
+      '<div class="q-chips">'+
+        '<span class="q-chip" onclick="quickPickCut(\'Prime Rib (OP Rib / Ribeye Rack)\')">🥩 Prime Rib / OP Rib</span>'+
+        '<span class="q-chip" onclick="quickPickCut(\'Sirloin (T-Bone / Short Loin Rack)\',28)">🥩 Sirloin / T-Bone (28d)</span>'+
+        '<span class="q-chip" onclick="quickPickCut(\'Rib (Tomahawk Long-Bone)\')">🥩 Tomahawk Rib</span>'+
+        '<span class="q-chip" onclick="quickPickCut(\'Rib Deboned (Scotch Fillet Roll)\')">🥩 Rib Deboned</span>'+
+        '<span class="q-chip" onclick="quickPickCut(\'Rump Cap (Picanha)\')">🥩 Rump Cap</span>'+
+      '</div>';
+    }
+    resBx.innerHTML='<b>🤖 Photo Pre-Selected:</b><br>• Cut: <b style="color:#fef08a">'+detCut+'</b><br>• Marbling: <b style="color:#fef08a">'+mbName+'</b> • Target: <b>'+daysVal+' Days</b>'+chipsHtml;
+  }catch(e){}
+}
+
 function updStartCost(){
   var wG=toG(document.getElementById('inWeight').value);
   var c=parseFloat(document.getElementById('inCost').value)||0;
@@ -806,6 +902,7 @@ function openAdd(){
   document.getElementById('inDate').value=new Date().toISOString().split('T')[0];
   document.getElementById('inNotes').value='';
   document.getElementById('addPic').style.display='none';
+  document.getElementById('scanBoxRes').style.display='none';
   onCutChg(false);
   openM('addM');
 }
@@ -821,6 +918,7 @@ function openEdit(id){
   document.getElementById('addMTitle').textContent='✏️ Edit Existing Batch';
   document.getElementById('saveBatchBtn').textContent='Save Changes';
   document.getElementById('editBId').value=String(b.id);
+  document.getElementById('scanBoxRes').style.display='none';
   [1,2,3].forEach(function(k){document.getElementById('mb-'+k).classList.toggle('active',k===curMb);});
   popCutDropdown(b.name);
   onCutChg(true);
@@ -920,7 +1018,7 @@ function saveBatch(){
   sv();closeM('addM');rf();
 }
 
-function rdPic(ev,imgId){
+function rdPic(ev,imgId,runAutoScan){
   var f=ev.target.files&&ev.target.files[0];
   if(!f)return;
   var r=new FileReader();
@@ -934,6 +1032,7 @@ function rdPic(ev,imgId){
       tempPic=c.toDataURL('image/jpeg',0.78);
       var el=document.getElementById(imgId);
       el.src=tempPic;el.style.display='block';
+      if(runAutoScan)analyzeCutPhoto(im);
     };
     im.src=e.target.result;
   };
@@ -1276,7 +1375,6 @@ function rf(){
       if(fEl>=8)ban='<div class="al-ban"><span>🍽️ READY-TO-EAT DAY '+fEl+' OF 10 — COOK OR FREEZE SOON!</span></div>';
     }
 
-    // Collect all photos across card and weigh-in history
     var galHtml='';
     var seenPics={};
     if(b.pic){
