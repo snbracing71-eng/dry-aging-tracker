@@ -62,7 +62,7 @@ main{padding:12px;max-width:640px;margin:0 auto}
 .btn-red{background:var(--red)}
 .btn-gold{background:#262b36;border:1.5px solid var(--bd);color:#fff}
 .btm-bar{position:fixed;bottom:0;left:0;right:0;background:#161920;border-top:2px solid var(--bd);padding:10px 12px;display:flex;gap:8px;z-index:40}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.84);z-index:100;display:none;align-items:center;justify-content:center;padding:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:100;display:none;align-items:center;justify-content:center;padding:12px}
 .modal.open{display:flex}
 .m-box{background:#1a1d24;border:2px solid var(--bd);border-radius:14px;padding:15px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
 .m-box h2{font-size:1.2rem;margin-bottom:10px;color:var(--bd)}
@@ -76,7 +76,10 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
 .log-det{margin-top:8px;background:#12151b;border-radius:8px;padding:7px 9px;font-size:.86rem}
 .log-det summary{font-weight:900;color:var(--bd);cursor:pointer}
 .tag-pre{background:#fff;color:#000;border:3px solid #000;border-radius:8px;padding:10px;margin:10px 0;font-family:monospace;font-size:.88rem;line-height:1.35}
-.thumb{width:68px;height:68px;object-fit:cover;border-radius:8px;border:1.5px solid var(--bd);margin-top:6px}
+.thumb{width:72px;height:72px;object-fit:cover;border-radius:8px;border:2px solid var(--bd);margin-top:6px;cursor:pointer}
+.gal-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.gal-item{position:relative;display:inline-block}
+.gal-item span{position:absolute;bottom:3px;left:3px;right:3px;background:rgba(0,0,0,.75);color:#fef08a;font-size:.65rem;font-weight:800;text-align:center;border-radius:4px;padding:1px 2px;pointer-events:none}
 </style>
 </head>
 <body>
@@ -124,6 +127,15 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
   <button class="btn btn-gold" style="flex:1" onclick="openVault()">🗄️ Vault</button>
 </div>
 
+<!-- FULL-SCREEN PHOTO LIGHTBOX MODAL -->
+<div class="modal" id="zoomM" onclick="closeM('zoomM')">
+  <div class="m-box" style="text-align:center;max-width:560px" onclick="event.stopPropagation()">
+    <h2 id="zoomCap">📷 Batch Photo</h2>
+    <img id="zoomImg" style="width:100%;max-height:70vh;object-fit:contain;border-radius:10px;border:2px solid var(--bd);margin:8px 0">
+    <button class="btn btn-red" onclick="closeM('zoomM')">✕ Close Photo</button>
+  </div>
+</div>
+
 <!-- ADD / EDIT BATCH MODAL -->
 <div class="modal" id="addM">
   <div class="m-box">
@@ -164,11 +176,11 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div>
         <label id="wInLbl">Start Weight (g):</label>
-        <input type="number" step="0.01" id="inWeight" placeholder="e.g. 4500" oninput="updStartCost()">
+        <input type="number" step="0.01" id="inWeight" placeholder="e.g. 6000" oninput="updStartCost()">
       </div>
       <div>
         <label>Total Purchase Cost ($):</label>
-        <input type="number" step="0.01" id="inCost" placeholder="e.g. 180.00" oninput="updStartCost()">
+        <input type="number" step="0.01" id="inCost" placeholder="e.g. 200.00" oninput="updStartCost()">
       </div>
     </div>
     <div id="startCostPreview" class="info-bx" style="display:none;color:#fef08a"></div>
@@ -184,7 +196,7 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
       <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">📸 Take Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'addPic')"></label>
       <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">🖼️ Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'addPic')"></label>
     </div>
-    <img id="addPic" class="thumb" style="display:none">
+    <img id="addPic" class="thumb" style="display:none" onclick="openZoom(this.src,'Batch Photo')">
 
     <div style="display:flex;gap:8px;margin-top:14px">
       <button class="btn btn-green" id="saveBatchBtn" onclick="saveBatch()">Start Aging</button>
@@ -209,7 +221,7 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
       <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">📸 Take Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'wPic')"></label>
       <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">🖼️ Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'wPic')"></label>
     </div>
-    <img id="wPic" class="thumb" style="display:none">
+    <img id="wPic" class="thumb" style="display:none" onclick="openZoom(this.src,'Weigh-In Photo')">
     <div style="display:flex;gap:8px;margin-top:14px">
       <button class="btn btn-green" onclick="saveWeigh()">Save Weight</button>
       <button class="btn btn-red" onclick="closeM('weighM')">Cancel</button>
@@ -222,14 +234,15 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
   <div class="m-box">
     <h2>📷 Batch Notes & Photos</h2>
     <input type="hidden" id="nBId">
+    <div id="existingPhotosBox" style="margin-bottom:8px"></div>
     <label>Update Batch Notes / Sensory Log:</label>
     <textarea id="nTxt" rows="3"></textarea>
-    <label>Add / Update Batch Photo:</label>
+    <label>Add New Progress Photo (Camera or Gallery):</label>
     <div style="display:flex;gap:8px;margin-top:4px">
       <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">📸 Take Photo<input type="file" accept="image/*" capture="environment" style="display:none" onchange="rdPic(event,'nPic')"></label>
       <label class="btn btn-gold" style="margin:0;flex:1;cursor:pointer">🖼️ Gallery<input type="file" accept="image/*" style="display:none" onchange="rdPic(event,'nPic')"></label>
     </div>
-    <img id="nPic" class="thumb" style="display:none">
+    <img id="nPic" class="thumb" style="display:none" onclick="openZoom(this.src,'Batch Photo')">
     <div style="display:flex;gap:8px;margin-top:14px">
       <button class="btn btn-green" onclick="saveNoteM()">Save Note & Photo</button>
       <button class="btn btn-red" onclick="closeM('noteM')">Close</button>
@@ -374,16 +387,22 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
 </div>
 
 <script>
-// AUTOMATIC RECOVERY OF ALL SAVED BATCHES & FRIDGES FROM PREVIOUS VERSIONS
+function fixW(val){
+  var n=parseFloat(val)||0;
+  while(n>=250000){n=n/1000;}
+  return n;
+}
+
+// READ ORIGINAL V6/V5 KEYS FIRST SO ALL PHOTOS & TRUE WEIGHTS ARE RESTORED
 function recoverAllBatches(){
-  var keys=['ap_items','ap_batches','agerpro_batches','agerpro_v6_batches','agerpro_v5_batches','agerlog_batches','batches','items'];
+  var keys=['dryAgeItemsV6','dryAgeItemsV5','agerpro_v6_batches','agerpro_v5_batches','ap_batches','ap_items','agerpro_batches','agerlog_batches'];
   for(var k=0;k<localStorage.length;k++){
     var kn=localStorage.key(k);
-    if(kn&&keys.indexOf(kn)===-1&&(kn.toLowerCase().indexOf('batch')!==-1||kn.toLowerCase().indexOf('item')!==-1||kn.toLowerCase().indexOf('ager')!==-1)){
+    if(kn&&keys.indexOf(kn)===-1&&(kn.toLowerCase().indexOf('item')!==-1||kn.toLowerCase().indexOf('batch')!==-1||kn.toLowerCase().indexOf('ager')!==-1)){
       keys.push(kn);
     }
   }
-  var merged=[],seen={};
+  var byId={};
   keys.forEach(function(k){
     try{
       var raw=localStorage.getItem(k);
@@ -395,51 +414,75 @@ function recoverAllBatches(){
         if(!x||typeof x!=='object')return;
         if(!x.name&&!x.cut)return;
         var uid=String(x.id||((x.code||'')+'_'+(x.startD||x.startDate||'')));
-        if(seen[uid])return;
-        seen[uid]=true;
         var c=(x.cat||x.category||x.mode||'meat').toLowerCase();
         if(c==='red'||c==='beef'||c==='pork'||c==='lamb')c='meat';
         if(c==='seafood')c='fish';
         if(c==='charcuterie')c='salami';
-        var sW=parseFloat(x.startW||x.startWeight||x.weight||0);
-        var cW=parseFloat(x.curW||x.currentWeight||sW);
-        var hist=x.history||x.logs||[{d:x.startD||x.startDate||new Date().toISOString().split('T')[0],w:sW,n:'Initial placement'}];
-        hist=hist.map(function(h){return {d:h.d||h.date||'',w:parseFloat(h.w||h.weight||sW),n:h.n||h.note||''};});
+        var sW=fixW(x.startW||x.startWeight||x.weight||0);
+        var rawHist=x.history||x.logs||[];
+        var firstPic=x.pic||x.photo||x.img||x.image||'';
+        var hist=rawHist.map(function(h){
+          var hp=h.p||h.pic||h.photo||h.img||h.image||'';
+          if(hp&&!firstPic)firstPic=hp;
+          return {
+            d:h.d||h.date||x.startD||x.startDate||'',
+            w:fixW(h.w||h.weight||sW),
+            n:h.n||h.note||h.notes||'',
+            p:hp
+          };
+        });
+        if(!hist.length){
+          hist=[{d:x.startD||x.startDate||new Date().toISOString().split('T')[0],w:sW,n:'Initial placement',p:firstPic}];
+        }
+        var cW=fixW(x.curW||x.currentWeight||(hist.length?hist[hist.length-1].w:sW));
         var st=x.status||'Active in Fridge';
         if(st==='Active in Agers'||st==='Active in Chamber'||st==='active')st='Active in Fridge';
-        merged.push({
-          id:x.id||Date.now()+Math.floor(Math.random()*999),
-          fridge:x.fridge||x.chamber||'Thermaster MA400 #1',
-          cat:c,
-          name:x.name||x.cut||'Prime Rib',
-          code:x.code||x.batchCode||'PRO-1001',
-          days:parseInt(x.days||x.targetDays||28,10),
-          startW:sW,
-          curW:cW,
-          cost:parseFloat(x.cost||x.price||0),
-          trimW:parseFloat(x.trimW||x.trimmedWeight||0),
-          steaks:parseInt(x.steaks||0,10),
-          startD:x.startD||x.startDate||new Date().toISOString().split('T')[0],
-          statusDate:x.statusDate||x.harvestDate||'',
-          notes:x.notes||x.note||'',
-          mb:parseInt(x.mb||x.marbling||2,10),
-          intIdx:typeof x.intIdx==='number'?x.intIdx:1,
-          intName:x.intName||x.program||x.style||'Intense',
-          cli:x.cli||x.climate||'2.0°C • 76% RH',
-          pic:x.pic||x.photo||x.img||'',
-          status:st,
-          clrTmrw:!!x.clrTmrw,
-          clrHarv:!!x.clrHarv,
-          history:hist
-        });
+
+        if(!byId[uid]){
+          byId[uid]={
+            id:x.id||Date.now()+Math.floor(Math.random()*999),
+            fridge:x.fridge||x.chamber||'Thermaster MA400 #1',
+            cat:c,
+            name:x.name||x.cut||'Prime Rib',
+            code:x.code||x.batchCode||'PRO-1001',
+            days:parseInt(x.days||x.targetDays||28,10),
+            startW:sW,
+            curW:cW,
+            cost:parseFloat(x.cost||x.price||0),
+            trimW:fixW(x.trimW||x.trimmedWeight||0),
+            steaks:parseInt(x.steaks||0,10),
+            startD:x.startD||x.startDate||new Date().toISOString().split('T')[0],
+            statusDate:x.statusDate||x.harvestDate||'',
+            notes:x.notes||x.note||'',
+            mb:parseInt(x.mb||x.marbling||2,10),
+            intIdx:typeof x.intIdx==='number'?x.intIdx:1,
+            intName:x.intName||x.program||x.style||'Intense',
+            cli:x.cli||x.climate||'2.0°C • 76% RH',
+            pic:firstPic,
+            status:st,
+            clrTmrw:!!x.clrTmrw,
+            clrHarv:!!x.clrHarv,
+            history:hist
+          };
+        }else{
+          // Enrich missing photos from older keys if present
+          var ex=byId[uid];
+          if(!ex.pic&&firstPic)ex.pic=firstPic;
+          hist.forEach(function(h,idx){
+            if(h.p&&ex.history[idx]&&!ex.history[idx].p)ex.history[idx].p=h.p;
+            else if(h.p&&!ex.history.some(function(eh){return eh.p===h.p;})){
+              ex.history.push(h);
+            }
+          });
+        }
       });
     }catch(e){}
   });
-  return merged;
+  return Object.keys(byId).map(function(k){return byId[k];});
 }
 
 function recoverAllFridges(batches){
-  var fKeys=['ap_fridges','agerpro_fridges','agerpro_chambers','ap_chambers','fridges','chambers'];
+  var fKeys=['dryAgeFridges','ap_fridges','agerpro_fridges','agerpro_chambers','ap_chambers','fridges'];
   var list=[];
   fKeys.forEach(function(k){
     try{
@@ -463,9 +506,9 @@ var UNITS=['g','kg','oz','lb'],uIdx=parseInt(localStorage.getItem('ap_unit')||'0
 if(isNaN(uIdx)||uIdx<0||uIdx>3)uIdx=0;
 var it=recoverAllBatches();
 var fr=recoverAllFridges(it);
-var curFr=localStorage.getItem('ap_curFr')||fr[0];
+var curFr=localStorage.getItem('ap_curFr')||localStorage.getItem('dryAgeCurrentFridge')||fr[0];
 var curCat=localStorage.getItem('ap_curCat')||'meat';
-var cu=JSON.parse(localStorage.getItem('ap_custom')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}');
+var cu=JSON.parse(localStorage.getItem('ap_custom')||localStorage.getItem('dryAgeCustomItemsV5')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}');
 var mtD=JSON.parse(localStorage.getItem('ap_maint')||'{}');
 var curMb=2,curInt=1,tempPic='';
 
@@ -566,10 +609,13 @@ var LIB={
 function sv(){
   localStorage.setItem('ap_unit',uIdx);
   localStorage.setItem('ap_fridges',JSON.stringify(fr));
+  localStorage.setItem('dryAgeFridges',JSON.stringify(fr));
   localStorage.setItem('ap_curFr',curFr);
+  localStorage.setItem('dryAgeCurrentFridge',curFr);
   localStorage.setItem('ap_curCat',curCat);
   localStorage.setItem('ap_items',JSON.stringify(it));
   localStorage.setItem('ap_batches',JSON.stringify(it));
+  localStorage.setItem('dryAgeItemsV6',JSON.stringify(it));
   localStorage.setItem('agerpro_v6_batches',JSON.stringify(it));
   localStorage.setItem('ap_custom',JSON.stringify(cu));
   localStorage.setItem('ap_maint',JSON.stringify(mtD));
@@ -583,6 +629,26 @@ function fromG(g){var n=parseFloat(g)||0;if(uIdx===1)return+(n/1000).toFixed(2);
 function togUnit(){uIdx=(uIdx+1)%4;sv();rf();}
 function openM(id){document.getElementById(id).classList.add('open');}
 function closeM(id){document.getElementById(id).classList.remove('open');}
+
+function openZoom(src,cap){
+  if(!src)return;
+  document.getElementById('zoomImg').src=src;
+  document.getElementById('zoomCap').textContent=cap||'📷 Batch Photo';
+  openM('zoomM');
+}
+
+function openZoomByLog(bId,logIdx){
+  var b=it.find(function(x){return String(x.id)===String(bId);});
+  if(!b)return;
+  if(logIdx===-1&&b.pic){
+    openZoom(b.pic,b.name+' ('+b.code+') — Day 0');
+    return;
+  }
+  var h=b.history&&b.history[logIdx];
+  if(h&&h.p){
+    openZoom(h.p,b.name+' — '+h.d+(h.n?' ('+h.n+')':''));
+  }
+}
 
 function msg(txt,title){
   document.getElementById('msgTitle').textContent=title||'🥩 AGERPRO Says';
@@ -818,10 +884,11 @@ function saveBatch(){
         if(tempPic)b.pic=tempPic;
         if(!b.history||!b.history.length){
           b.curW=wG;
-          b.history=[{d:dt,w:wG,n:'Initial placement'}];
+          b.history=[{d:dt,w:wG,n:'Initial placement',p:tempPic||''}];
         }else{
           b.history[0].d=dt;
           b.history[0].w=wG;
+          if(tempPic&&!b.history[0].p)b.history[0].p=tempPic;
           if(b.history.length===1||b.curW===oldStartW)b.curW=wG;
         }
         b.clrTmrw=false;
@@ -847,7 +914,7 @@ function saveBatch(){
       cli:inf.cli,
       pic:tempPic,
       status:'Active in Fridge',
-      history:[{d:dt,w:wG,n:'Placed in fridge'}]
+      history:[{d:dt,w:wG,n:'Placed in fridge',p:tempPic}]
     });
   }
   sv();closeM('addM');rf();
@@ -860,11 +927,11 @@ function rdPic(ev,imgId){
   r.onload=function(e){
     var im=new Image();
     im.onload=function(){
-      var c=document.createElement('canvas'),max=480,w=im.width,h=im.height;
+      var c=document.createElement('canvas'),max=850,w=im.width,h=im.height;
       if(w>h&&w>max){h*=max/w;w=max;}else if(h>max){w*=max/h;h=max;}
       c.width=w;c.height=h;
       c.getContext('2d').drawImage(im,0,0,w,h);
-      tempPic=c.toDataURL('image/jpeg',0.72);
+      tempPic=c.toDataURL('image/jpeg',0.78);
       var el=document.getElementById(imgId);
       el.src=tempPic;el.style.display='block';
     };
@@ -896,7 +963,7 @@ function saveWeigh(){
     if(String(b.id)===String(id)){
       b.curW=wG;
       if(!b.history)b.history=[];
-      b.history.push({d:dt,w:wG,n:nt});
+      b.history.push({d:dt,w:wG,n:nt,p:tempPic});
       if(nt)b.notes=(b.notes?b.notes+' | ':'')+dt+': '+nt;
       if(tempPic)b.pic=tempPic;
     }
@@ -907,20 +974,34 @@ function saveWeigh(){
 function openNoteM(id){
   var b=it.find(function(x){return String(x.id)===String(id);});
   if(!b)return;
-  tempPic=b.pic||'';
+  tempPic='';
   document.getElementById('nBId').value=b.id;
   document.getElementById('nTxt').value=b.notes||'';
-  var el=document.getElementById('nPic');
-  if(tempPic){el.src=tempPic;el.style.display='block';}else el.style.display='none';
+  document.getElementById('nPic').style.display='none';
+  var pHtml='';
+  if(b.pic){
+    pHtml+='<div class="gal-item"><img src="'+b.pic+'" class="thumb" onclick="openZoomByLog(\''+b.id+'\',-1)"><span>Main</span></div>';
+  }
+  (b.history||[]).forEach(function(h,idx){
+    if(h.p&&h.p!==b.pic){
+      pHtml+='<div class="gal-item"><img src="'+h.p+'" class="thumb" onclick="openZoomByLog(\''+b.id+'\','+idx+')"><span>'+h.d+'</span></div>';
+    }
+  });
+  document.getElementById('existingPhotosBox').innerHTML=pHtml?'<label>Saved Batch Photos (Tap to Enlarge):</label><div class="gal-row">'+pHtml+'</div>':'';
   openM('noteM');
 }
 
 function saveNoteM(){
   var id=document.getElementById('nBId').value;
+  var dt=new Date().toISOString().split('T')[0];
   it.forEach(function(b){
     if(String(b.id)===String(id)){
       b.notes=document.getElementById('nTxt').value.trim();
-      if(tempPic)b.pic=tempPic;
+      if(tempPic){
+        b.pic=tempPic;
+        if(!b.history)b.history=[];
+        b.history.push({d:dt,w:b.curW||b.startW,n:'Photo update',p:tempPic});
+      }
     }
   });
   sv();closeM('noteM');rf();
@@ -1172,8 +1253,9 @@ function rf(){
   }
 
   box.innerHTML=list.map(function(b){
-    var sW=b.startW||1;
-    var cW=b.curW||sW;
+    var sW=fixW(b.startW||1);
+    var cW=fixW(b.curW||sW);
+    b.startW=sW;b.curW=cW;
     var loss=Math.max(0,((sW-cW)/sW)*100).toFixed(1);
     var dTarget=b.days||28;
     var sDate=b.startD||new Date().toISOString().split('T')[0];
@@ -1194,9 +1276,22 @@ function rf(){
       if(fEl>=8)ban='<div class="al-ban"><span>🍽️ READY-TO-EAT DAY '+fEl+' OF 10 — COOK OR FREEZE SOON!</span></div>';
     }
 
-    var logs=(b.history||[]).map(function(lg){
-      var lPct=sW>0?(((sW-lg.w)/sW)*100).toFixed(1):'0.0';
-      return '<div style="padding:4px 0;border-bottom:1px solid #2e3440"><b>'+lg.d+':</b> '+fmW(lg.w)+' (-'+lPct+'%)'+(lg.n?' — <i>'+lg.n+'</i>':'')+'</div>';
+    // Collect all photos across card and weigh-in history
+    var galHtml='';
+    var seenPics={};
+    if(b.pic){
+      seenPics[b.pic]=true;
+      galHtml+='<div class="gal-item"><img src="'+b.pic+'" class="thumb" onclick="openZoomByLog(\''+b.id+'\',-1)"><span>Tap to Zoom</span></div>';
+    }
+    var logs=(b.history||[]).map(function(lg,idx){
+      var lw=fixW(lg.w||sW);
+      var lPct=sW>0?(((sW-lw)/sW)*100).toFixed(1):'0.0';
+      if(lg.p&&!seenPics[lg.p]){
+        seenPics[lg.p]=true;
+        galHtml+='<div class="gal-item"><img src="'+lg.p+'" class="thumb" onclick="openZoomByLog(\''+b.id+'\','+idx+')"><span>'+lg.d+'</span></div>';
+      }
+      var logThumb=lg.p?'<img src="'+lg.p+'" class="thumb" style="width:46px;height:46px;margin-top:0" onclick="openZoomByLog(\''+b.id+'\','+idx+')">':'';
+      return '<div style="padding:6px 0;border-bottom:1px solid #2e3440;display:flex;justify-content:space-between;align-items:center;gap:8px"><div><b>'+lg.d+':</b> '+fmW(lw)+' (-'+lPct+'%)'+(lg.n?' — <i>'+lg.n+'</i>':'')+'</div>'+logThumb+'</div>';
     }).join('');
 
     var mbMap={1:'Lean MB 0–1',2:'Angus MB 2–4',3:'Wagyu MB 5+'};
@@ -1204,7 +1299,7 @@ function rf(){
 
     var costLine='';
     if(b.cost>0){
-      var edW=b.trimW||cW;
+      var edW=fixW(b.trimW||cW);
       var cKg=(b.cost/(edW/1000)).toFixed(2);
       costLine='<div style="font-size:.84rem;color:#fef08a;margin-top:4px;font-weight:800">💰 Paid: $'+Number(b.cost).toFixed(2)+' • Current Value: $'+cKg+'/kg'+(b.steaks?' ('+b.steaks+' steaks @ $'+(b.cost/b.steaks).toFixed(2)+'/ea)':'')+'</div>';
     }
@@ -1223,7 +1318,7 @@ function rf(){
           '<button class="icon-btn btn-del" onclick="delBatch(\''+b.id+'\')">✕</button>'+
         '</div>'+
       '</div>'+
-      (b.pic?'<img src="'+b.pic+'" class="thumb" style="margin-bottom:6px">':'')+
+      (galHtml?'<div class="gal-row">'+galHtml+'</div>':'')+
       '<div class="stat-grid">'+
         '<div class="stat-bx"><b>Day '+el+' / '+dTarget+'</b><span>Progress ('+pct+'%)</span></div>'+
         '<div class="stat-bx"><b>'+fmW(cW)+'</b><span>Start: '+fmW(sW)+'</span></div>'+
