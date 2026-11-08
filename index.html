@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>AGERPRO — Dry Aging Hub</title>
 <link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='40' fill='%23eab308' stroke='%2378350f' stroke-width='12'/%3E%3Cpath d='M95 25 C85 10 115 10 105 28 C98 42 82 48 98 64' fill='none' stroke='%23451a03' stroke-width='10' stroke-linecap='round'/%3E%3Cpath d='M92 58 C125 56 156 96 156 135 C156 168 122 182 95 180 C60 178 48 150 54 124 C60 98 82 78 92 58 Z' fill='%23991b1b' stroke='%23451a03' stroke-width='8'/%3E%3Cpath d='M72 130 L108 114 L142 128 M82 154 L112 142 L138 156' fill='none' stroke='%23fef3c7' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='40' fill='%23eab308' stroke='%2378350f' stroke-width='12'/%3E%3Cpath d='M95 25 C85 10 115 10 105 28 C98 42 82 48 98 64' fill='none' stroke='%23451a03' stroke-width='10' stroke-linecap='round'/%3E%3Cpath d='M92 58 C125 56 156 96 156 135 C156 168 122 182 95 180 C60 178 48 150 54 124 C60 98 82 78 92 58 Z' fill='%23991b1b' stroke='%23451a03' stroke-width='8'/%3E%3Cpath d='M72 130 L108 114 L142 128 M82 154 L112 142 L138 156' fill='none' stroke='%23fef3c7' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#121316">
 <style>
 :root{--bg:#121316;--card:#1a1d24;--bd:#d4af37;--txt:#f8fafc;--mt:#cbd5e1;--grn:#16a34a;--red:#dc2626;--gold:#d4af37}
@@ -12,7 +14,7 @@
 body{background:var(--bg);color:var(--txt);padding-bottom:100px;font-size:18px;line-height:1.5}
 header{position:sticky;top:0;z-index:50;background:#161920;border-bottom:2px solid var(--bd);padding:11px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .brand{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.brand svg{width:40px;height:40px;border-radius:9px;border:2px solid var(--bd);flex-shrink:0}
+.brand svg,.brand img{width:40px;height:40px;border-radius:9px;border:2px solid var(--bd);flex-shrink:0;object-fit:cover}
 .logo-txt{font-size:1.45rem;font-weight:900;letter-spacing:.5px;color:#fff;white-space:nowrap}
 .logo-txt span{color:var(--bd)}
 .srch-w{position:relative;flex:1;max-width:185px}
@@ -89,7 +91,7 @@ input,select,textarea{width:100%;background:#0f1115;border:1.5px solid var(--bd)
 <body>
 <header>
   <div class="brand">
-    <svg viewBox="0 0 200 200"><rect width="200" height="200" rx="36" fill="#161920" stroke="#d4af37" stroke-width="10"/><rect x="24" y="24" width="152" height="118" rx="16" fill="#0d1117" stroke="#a855f7" stroke-width="4"/><line x1="40" y1="42" x2="160" y2="42" stroke="#cbd5e1" stroke-width="6"/><path d="M95 42 C90 58 110 58 102 72" stroke="#d4af37" stroke-width="6" fill="none"/><path d="M88 70 C118 68 142 102 136 126 C130 140 82 140 74 122 C68 102 78 82 88 70 Z" fill="#dc2626" stroke="#fef08a" stroke-width="5"/><rect x="28" y="152" width="144" height="28" rx="6" fill="#090b0e"/><text x="100" y="171" font-family="monospace" font-size="16" font-weight="bold" fill="#fef08a" text-anchor="middle">1.5°C 78%RH</text></svg>
+    <svg viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#eab308" stroke="#78350f" stroke-width="12"/><path d="M95 25 C85 10 115 10 105 28 C98 42 82 48 98 64" fill="none" stroke="#451a03" stroke-width="10" stroke-linecap="round"/><path d="M92 58 C125 56 156 96 156 135 C156 168 122 182 95 180 C60 178 48 150 54 124 C60 98 82 78 92 58 Z" fill="#991b1b" stroke="#451a03" stroke-width="8"/><path d="M72 130 L108 114 L142 128 M82 154 L112 142 L138 156" fill="none" stroke="#fef3c7" stroke-width="6" stroke-linecap="round"/></svg>
     <div class="logo-txt">AGER<span>PRO</span></div>
   </div>
   <div class="srch-w">
