@@ -413,107 +413,138 @@ function fixW(val){
 }
 
 function recoverAllBatches(){
-  var keys=['dryAgeItemsV6','dryAgeItemsV5','agerpro_v6_batches','agerpro_v5_batches','ap_batches','ap_items','agerpro_batches','agerlog_batches'];
+  var keys=['dryAgeItemsV6','dryAgeItemsV5','ap_items','ap_batches','agerpro_v6_batches','agerpro_v5_batches','agerProBatchesV6','agerBatchesPro','agerVaultPro','agerpro_batches','agerlog_batches','agerlog_v6','agerlog_v5','dryAgeItemsV4','batches','items'];
   for(var k=0;k<localStorage.length;k++){
     var kn=localStorage.key(k);
-    if(kn&&keys.indexOf(kn)===-1&&(kn.toLowerCase().indexOf('item')!==-1||kn.toLowerCase().indexOf('batch')!==-1||kn.toLowerCase().indexOf('ager')!==-1)){
+    if(kn&&keys.indexOf(kn)===-1){
       keys.push(kn);
     }
   }
-  var byId={};
+  var byKey={},order=[];
   keys.forEach(function(k){
     try{
       var raw=localStorage.getItem(k);
-      if(!raw)return;
+      if(!raw||raw[0]!=='['&&raw[0]!=='{')return;
       var parsed=JSON.parse(raw);
       var arr=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.items)?parsed.items:(parsed&&Array.isArray(parsed.batches)?parsed.batches:null));
       if(!arr)return;
       arr.forEach(function(x){
         if(!x||typeof x!=='object')return;
-        if(!x.name&&!x.cut)return;
-        var uid=String(x.id||((x.code||'')+'_'+(x.startD||x.startDate||'')));
+        var nm=x.name||x.cut||x.cutName||x.item||'';
+        if(!nm)return;
+        var stD=x.startD||x.startDate||x.date||'';
+        var cd=x.code||x.batchCode||'';
         var c=(x.cat||x.category||x.mode||'meat').toLowerCase();
-        if(c==='red'||c==='beef'||c==='pork'||c==='lamb')c='meat';
+        if(c==='red'||c==='beef'||c==='pork'||c==='lamb'||c==='game'||c==='poultry')c='meat';
         if(c==='seafood')c='fish';
         if(c==='charcuterie')c='salami';
         var sW=fixW(x.startW||x.startWeight||x.weight||0);
-        var rawHist=x.history||x.logs||[];
-        var firstPic=x.pic||x.photo||x.img||x.image||'';
+        var rawHist=Array.isArray(x.history)?x.history:(Array.isArray(x.logs)?x.logs:[]);
+        var extraPics=Array.isArray(x.photos)?x.photos.filter(Boolean):[];
+        var firstPic=x.pic||x.photo||x.img||x.image||(extraPics.length?extraPics[0]:'');
         var hist=rawHist.map(function(h){
           var hp=h.p||h.pic||h.photo||h.img||h.image||'';
           if(hp&&!firstPic)firstPic=hp;
           return {
-            d:h.d||h.date||x.startD||x.startDate||'',
+            d:h.d||h.date||stD||new Date().toISOString().split('T')[0],
             w:fixW(h.w||h.weight||sW),
             n:h.n||h.note||h.notes||'',
             p:hp
           };
         });
         if(!hist.length){
-          hist=[{d:x.startD||x.startDate||new Date().toISOString().split('T')[0],w:sW,n:'Initial placement',p:firstPic}];
+          hist=[{d:stD||new Date().toISOString().split('T')[0],w:sW,n:'Initial placement',p:firstPic}];
         }
+        extraPics.forEach(function(ep){
+          if(ep&&!hist.some(function(h){return h.p===ep;})){
+            hist.push({d:stD||new Date().toISOString().split('T')[0],w:sW,n:'Batch photo',p:ep});
+          }
+        });
         var cW=fixW(x.curW||x.currentWeight||(hist.length?hist[hist.length-1].w:sW));
-        var st=x.status||'Active in Fridge';
+        var st=x.status||(k==='agerVaultPro'?'Consumed / Archived':'Active in Fridge');
         if(st==='Active in Agers'||st==='Active in Chamber'||st==='active')st='Active in Fridge';
+        var mbVal=parseInt(x.mb||x.marb||x.marbling,10);
+        if(isNaN(mbVal)){
+          var ms=String(x.marbling||'').toLowerCase();
+          mbVal=ms.indexOf('lean')!==-1||ms.indexOf('0')!==-1?1:(ms.indexOf('wagyu')!==-1||ms.indexOf('5')!==-1?3:2);
+        }
+        var uid=x.id?String(x.id):(cd+'|'+nm+'|'+stD+'|'+sW);
+        var sig=(cd+'|'+nm+'|'+stD).toLowerCase();
+        var matchKey=byKey[uid]?uid:(byKey[sig]?sig:null);
 
-        if(!byId[uid]){
-          byId[uid]={
-            id:x.id||Date.now()+Math.floor(Math.random()*999),
-            fridge:x.fridge||x.chamber||'Thermaster MA400 #1',
+        if(!matchKey){
+          var newObj={
+            id:x.id||(Date.now()+Math.floor(Math.random()*99999)),
+            fridge:(x.fridge||x.chamber||'Thermaster MA400 #1').trim(),
             cat:c,
-            name:x.name||x.cut||'Prime Rib (OP Rib / Ribeye Rack)',
-            code:x.code||x.batchCode||'PRO-1001',
+            name:nm,
+            code:cd||'PRO-1001',
             days:parseInt(x.days||x.targetDays||28,10),
             startW:sW,
             curW:cW,
             cost:parseFloat(x.cost||x.price||0),
             trimW:fixW(x.trimW||x.trimmedWeight||0),
             steaks:parseInt(x.steaks||0,10),
-            startD:x.startD||x.startDate||new Date().toISOString().split('T')[0],
+            startD:stD||new Date().toISOString().split('T')[0],
             statusDate:x.statusDate||x.harvestDate||'',
             notes:x.notes||x.note||'',
-            mb:parseInt(x.mb||x.marbling||2,10),
+            mb:mbVal||2,
             intIdx:typeof x.intIdx==='number'?x.intIdx:1,
-            intName:x.intName||x.program||x.style||'Intense',
-            cli:x.cli||x.climate||'2.0°C • 76% RH',
+            intName:x.intName||x.intensity||x.program||x.prog||x.style||'Intense',
+            cli:x.cli||x.climate||(x.temp&&x.rh?(x.temp+' • '+x.rh):'2.0°C • 76% RH'),
             pic:firstPic,
             status:st,
             clrTmrw:!!x.clrTmrw,
             clrHarv:!!x.clrHarv,
             history:hist
           };
+          byKey[uid]=newObj;
+          if(cd&&stD)byKey[sig]=newObj;
+          order.push(newObj);
         }else{
-          var ex=byId[uid];
+          var ex=byKey[matchKey];
           if(!ex.pic&&firstPic)ex.pic=firstPic;
+          if(!ex.notes&&(x.notes||x.note))ex.notes=x.notes||x.note;
+          if(!ex.cost&&(x.cost||x.price))ex.cost=parseFloat(x.cost||x.price||0);
+          if(!ex.trimW&&(x.trimW||x.trimmedWeight))ex.trimW=fixW(x.trimW||x.trimmedWeight||0);
+          if(!ex.steaks&&x.steaks)ex.steaks=parseInt(x.steaks,10);
           hist.forEach(function(h,idx){
             if(h.p&&ex.history[idx]&&!ex.history[idx].p)ex.history[idx].p=h.p;
-            else if(h.p&&!ex.history.some(function(eh){return eh.p===h.p;})){
+            else if((h.p&&!ex.history.some(function(eh){return eh.p===h.p;}))||(!ex.history.some(function(eh){return eh.d===h.d&&Math.abs(eh.w-h.w)<0.1;}))){
               ex.history.push(h);
             }
           });
+          if(ex.history.length){
+            var lastW=fixW(ex.history[ex.history.length-1].w);
+            if(lastW>0&&lastW<ex.curW)ex.curW=lastW;
+          }
         }
       });
     }catch(e){}
   });
-  return Object.keys(byId).map(function(k){return byId[k];});
+  return order;
 }
 
 function recoverAllFridges(batches){
-  var fKeys=['dryAgeFridges','ap_fridges','agerpro_fridges','agerpro_chambers','ap_chambers','fridges'];
+  var fKeys=['dryAgeFridges','ap_fridges','agerFridgesPro','agerpro_fridges','agerpro_chambers','ap_chambers','fridges','chambers'];
   var list=[];
   fKeys.forEach(function(k){
     try{
       var r=JSON.parse(localStorage.getItem(k)||'null');
       if(Array.isArray(r)){
         r.forEach(function(n){
-          var fn=typeof n==='string'?n:(n&&n.name?n.name:'');
+          var fn=(typeof n==='string'?n:(n&&n.name?n.name:'')).trim();
           if(fn&&list.indexOf(fn)===-1)list.push(fn);
         });
       }
     }catch(e){}
   });
   batches.forEach(function(b){
-    if(b.fridge&&list.indexOf(b.fridge)===-1)list.push(b.fridge);
+    var bf=(b.fridge||'').trim();
+    if(bf){
+      b.fridge=bf;
+      if(list.indexOf(bf)===-1)list.push(bf);
+    }
   });
   if(!list.length)list.push('Thermaster MA400 #1');
   return list;
@@ -523,10 +554,16 @@ var UNITS=['g','kg','oz','lb'],uIdx=parseInt(localStorage.getItem('ap_unit')||'0
 if(isNaN(uIdx)||uIdx<0||uIdx>3)uIdx=0;
 var it=recoverAllBatches();
 var fr=recoverAllFridges(it);
-var curFr=localStorage.getItem('ap_curFr')||localStorage.getItem('dryAgeCurrentFridge')||fr[0];
-var curCat=localStorage.getItem('ap_curCat')||'meat';
-var cu=JSON.parse(localStorage.getItem('ap_custom')||localStorage.getItem('dryAgeCustomItemsV5')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}');
-var mtD=JSON.parse(localStorage.getItem('ap_maint')||'{}');
+var curFr=localStorage.getItem('ap_curFr')||localStorage.getItem('dryAgeCurrentFridge')||localStorage.getItem('ap_cur_fridge')||localStorage.getItem('agerCurrentFridge')||fr[0];
+if(fr.indexOf(curFr)===-1)curFr=fr[0];
+var hasActiveInCurFr=it.some(function(b){var st=b.status||'Active in Fridge';return b.fridge===curFr&&st!=='Consumed / Archived'&&st!=='Archived in Vault';});
+if(!hasActiveInCurFr){
+  var batchWithFr=it.find(function(b){var st=b.status||'Active in Fridge';return b.fridge&&st!=='Consumed / Archived'&&st!=='Archived in Vault';});
+  if(batchWithFr)curFr=batchWithFr.fridge;
+}
+var curCat=localStorage.getItem('ap_curCat')||localStorage.getItem('agerCurrentCat')||'meat';
+var cu=JSON.parse(localStorage.getItem('ap_custom')||localStorage.getItem('dryAgeCustomItemsV5')||localStorage.getItem('agerProCustomV6')||'{"meat":[],"fish":[],"salami":[],"cheese":[]}');
+var mtD=JSON.parse(localStorage.getItem('ap_maint')||localStorage.getItem('agerProMaintV6')||localStorage.getItem('agerProMaint')||localStorage.getItem('dryAgeMaintV1')||'{}');
 var curMb=2,curInt=1,tempPic='';
 
 var MODES={
@@ -633,6 +670,7 @@ function sv(){
   localStorage.setItem('ap_items',JSON.stringify(it));
   localStorage.setItem('ap_batches',JSON.stringify(it));
   localStorage.setItem('dryAgeItemsV6',JSON.stringify(it));
+  localStorage.setItem('dryAgeItemsV5',JSON.stringify(it));
   localStorage.setItem('agerpro_v6_batches',JSON.stringify(it));
   localStorage.setItem('ap_custom',JSON.stringify(cu));
   localStorage.setItem('ap_maint',JSON.stringify(mtD));
@@ -1260,7 +1298,7 @@ function impData(ev){
   var f=ev.target.files&&ev.target.files[0];if(!f)return;
   var r=new FileReader();
   r.onload=function(e){
-    try{var d=JSON.parse(e.target.result);if(d.items||d.batches){it=d.items||d.batches;fr=d.fridges||fr;cu=d.custom||cu;mtD=d.maint||mtD;sv();rf();msg('✅ Backup restored!');}}catch(er){}
+    try{var d=JSON.parse(e.target.result);if(d.items||d.batches){it=d.items||d.batches;fr=d.fridges||fr;it.forEach(function(b){var bf=(b.fridge||'').trim();if(bf){b.fridge=bf;if(fr.indexOf(bf)===-1)fr.push(bf);}});cu=d.custom||cu;mtD=d.maint||mtD;sv();rf();msg('✅ Backup restored!');}}catch(er){}
   };
   r.readAsText(f);
 }
@@ -1287,6 +1325,15 @@ function stageText(el,days){
 
 function rf(){
   document.getElementById('uLbl').textContent='Unit: '+uName();
+  it.forEach(function(b){
+    var bf=(b.fridge||'').trim();
+    if(bf){
+      b.fridge=bf;
+      if(fr.indexOf(bf)===-1)fr.push(bf);
+    }else{
+      b.fridge=fr[0]||'Thermaster MA400 #1';
+    }
+  });
   var fSel=document.getElementById('frSel');
   if(fr.indexOf(curFr)===-1)curFr=fr[0];
   fSel.innerHTML=fr.map(function(f){return '<option value="'+f+'" '+(f===curFr?'selected':'')+'>'+f+'</option>';}).join('');
